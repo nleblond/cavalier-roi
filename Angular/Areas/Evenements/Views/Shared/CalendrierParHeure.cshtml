@@ -1,0 +1,77 @@
+﻿<div id="Div_CalendrierParHeure" class="modal_calendrier">
+    <img class="fermer" src="~/Content/Images/Boutons/Fermer.svg" />
+    <span class="titre">SELECTION DES HORAIRES</span>
+    <div class="texte">
+        <div class="dates"></div>
+        <div class="heures">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td>08H-09H</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>09H-10H</td>
+                    <td><input type="button" title="Sélectionner" value="Sélectionner" /></td>
+                </tr>
+                <tr>
+                    <td>10H-11H</td>
+                    <td><input type="button" title="Sélectionner" value="Sélectionner" /></td>
+                </tr>
+                <tr>
+                    <td>11H-12H</td>
+                    <td>COMPLET</td>
+                </tr>
+                <tr>
+                    <td>12H-13H</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>13H-14H</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>14H-15H</td>
+                    <td><input type="button" title="Sélectionner" value="Sélectionner" /></td>
+                </tr>
+                <tr>
+                    <td>15H-16H</td>
+                    <td><input type="button" title="Sélectionner" value="Sélectionner" /></td>
+                </tr>
+                <tr>
+                    <td>16H-17H</td>
+                    <td>COMPLET</td>
+                </tr>
+                <tr>
+                    <td>17H-18H</td>
+                    <td><input type="button" title="Sélectionner" value="Sélectionner" /></td>
+                </tr>
+                <tr>
+                    <td>18H-19H</td>
+                    <td><input type="button" title="Sélectionner" value="Sélectionner" /></td>
+                </tr>
+                <tr>
+                    <td>19H-20H</td>
+                    <td>X</td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="clear"></div>
+        <div class="selections">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="selection">LUNDI 15/11/2018 : 08H-09H</td>
+                    <td class="reserver"><input type="button" title="Supprimer" value="Supprimer" /></td>
+                </tr>
+                <tr class="last">
+                    <td class="selection">MARDI 16/11/2018 : 08H-09H</td>
+                    <td class="reserver"><input type="button" title="Supprimer" value="Supprimer" /></td>
+                </tr>
+            </table>
+        </div>
+        <input type="button" title="Valider" value="Valider" class="valider" />
+    </div>
+</div>
+
+
+<script language="javascript" src="@Url.Content("~/Areas/Evenements/Scripts/Views/Shared/CalendrierParHeure.js")" type="text/javascript"></script>

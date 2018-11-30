@@ -1,0 +1,76 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutFrontOffice.cshtml";
+}
+
+<div class="accueil">
+
+    <div class="zone">
+        <img class="photo" src="~/Content/Images/Ecole.jpg" />
+        <div class="titre">Bienvenue sur le site de l'ecole du cavalier roi</div>
+        <div class="texte">
+            Tout passionnés du Jeu d'échecs sait combien il est difficile de franchir certains caps... Les échecs
+            sont aussi simples à apprendre qu'ils sont difficile à maitriser ! Se retrouver submerger par toutes les
+            connaissances et techniques qu'il faut acquérir est comme rentrer dans un labyrinthe sans son fil
+            d'Ariane...
+            <br />
+            <br />
+            Ai-je la bonne approche du jeu ? Ai-je cerné avec précision ce qui me fait défaut et m'empêche de
+            gagner ? Ai-je la bonne méthode de travail ? Est-ce que ce livre va me faire progresser ? Comment
+            utiliser au mieux toutes les informations que l'on trouve aujourd'hui sur Internet...
+            <br />
+            <br />
+            Autant de questions auxquelles il n'est pas toujours si facile d'avoir les bonnes réponses !
+            <br />
+            <br />
+            En 30 ans de pratique du noble jeu, j'ai eu la chance de travailler avec certains des meilleurs joueurs
+            et entraineur de notre époque dont certains sont tout simplement devenu des amis au fil du temps...
+            <br />
+            Depuis mes 1ers Championnats de France Jeunes aux Compétitions Nationales et Internationales
+            auxquelles j'ai participé, j'ai acquis plusieurs titres de Champions et une expérience certaine de ce
+            qui fait la différence quant on veut devenir un compétiteur hors pair !
+            <br />
+            <br />
+            Je reste un compétiteur avant tout mais je suis également entraineur depuis plus de 20 ans. J'ai
+            obtenu mon Diplôme d'Entraineur de la Fédération Française des Echecs en 2000 et je suis
+            actuellement l'Entraineur du Club d'Echecs d'Ollioules depuis 2012.
+            <br />
+            <br />
+            Si aujourd'hui j'ouvre ma propre école d'échecs, c'est afin de promouvoir le beau jeu et partager mes
+            méthodes de travail.
+            <br />
+            <br />
+            Coaching en cours particulier, Suivi en compétitions, Stages de perfectionnement, Tournois
+            homologués, choix de matériel... l'Ecole du Cavalier Roi vous offrira les meilleurs conseils afin de faire
+            les bons choix et vous permettre d'atteindre votre plein potentiel !
+            <br />
+            <br />
+            Mon crédo est "Réussir grâce aux échecs" ! Je vous apprendrai à toujours sortir vainqueur, soit vous
+            gagnerez, soit vous apprendrez !
+            <br />
+            <br />
+            Je vous dis à très bientôt !
+            <br />
+            Sportivement, Eric Mory
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+
+    <div class="mea titre"><a href="/Stages/Stages">STAGES</a></div>
+    <div class="mea titre"><a href="/Cours/Cours">COURS</a></div>
+    <div class="mea titre last"><a href="/Tournois/Tournois">TOURNOIS</a></div>
+
+    <div class="clear"></div>
+
+    @Html.Partial("~/Areas/Contenus/Views/Shared/Actualites.cshtml")
+
+    <div class="clear"></div>
+
+    @Html.Partial("~/Views/Shared/Partenariats_Medium.cshtml")
+
+    <div class="clear"></div>
+
+</div>
+
+<script language="javascript" src="@Url.Content("~/Scripts/Views/Accueil.js")" type="text/javascript"></script>

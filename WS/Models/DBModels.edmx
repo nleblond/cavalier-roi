@@ -1,0 +1,1262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBModelsContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Commandes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="DtCreation" Type="datetime" Nullable="false" />
+          <Property Name="DtModification" Type="datetime" />
+          <Property Name="DtValidation" Type="datetime" />
+          <Property Name="StatutId" Type="int" Nullable="false" />
+          <Property Name="EleveId" Type="int" Nullable="false" />
+          <Property Name="Prix" Type="float" />
+          <Property Name="FraisId" Type="int" />
+          <Property Name="DeletedYN" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Contenus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Titre" Type="nvarchar" MaxLength="100" />
+          <Property Name="DtCreation" Type="datetime" />
+          <Property Name="DtModification" Type="datetime" />
+          <Property Name="DtFin" Type="datetime" />
+          <Property Name="Texte" Type="text" />
+          <Property Name="Lien" Type="nvarchar" MaxLength="255" />
+          <Property Name="Script" Type="text" />
+          <Property Name="Logo" Type="nvarchar" MaxLength="255" />
+          <Property Name="Horizontale" Type="nvarchar" MaxLength="255" />
+          <Property Name="Carree" Type="nvarchar" MaxLength="255" />
+          <Property Name="Verticale" Type="nvarchar" MaxLength="255" />
+          <Property Name="Full" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Eleves">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prenom" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="DtNaissance" Type="date" />
+          <Property Name="Sexe" Type="char" MaxLength="1" />
+          <Property Name="Club" Type="nvarchar" MaxLength="255" />
+          <Property Name="Photo" Type="nvarchar" MaxLength="255" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" />
+          <Property Name="Fixe" Type="nchar" MaxLength="10" />
+          <Property Name="Portable" Type="nchar" MaxLength="10" />
+          <Property Name="Commentaire" Type="text" />
+          <Property Name="License" Type="nchar" MaxLength="20" />
+          <Property Name="Classement" Type="nchar" MaxLength="6" />
+          <Property Name="DeletedYN" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Emplacements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Visuel" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Evenements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="DtDebut" Type="datetime" />
+          <Property Name="DtFin" Type="datetime" />
+          <Property Name="DtLimiteInscription" Type="datetime" />
+          <Property Name="Descriptif" Type="text" />
+          <Property Name="Maximum" Type="int" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="255" />
+          <Property Name="Photo" Type="nvarchar" MaxLength="255" />
+          <Property Name="Prix" Type="float" />
+          <Property Name="TypologieId" Type="int" />
+          <Property Name="Duree" Type="nchar" MaxLength="10" />
+          <Property Name="EvenementParentId" Type="int" />
+          <Property Name="VisibledYN" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Frais">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Libelle" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Minimum" Type="float" />
+          <Property Name="Maximum" Type="float" />
+          <Property Name="Prix" Type="float" />
+        </EntityType>
+        <EntityType Name="Lignes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ProduitId" Type="int" Nullable="false" />
+          <Property Name="CommandeId" Type="int" Nullable="false" />
+          <Property Name="Quantite" Type="int" Nullable="false" />
+          <Property Name="StatutId" Type="int" Nullable="false" />
+          <Property Name="Prix" Type="float" Nullable="false" />
+          <Property Name="Reduction" Type="float" />
+        </EntityType>
+        <EntityType Name="Participations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="EvenementId" Type="int" Nullable="false" />
+          <Property Name="EleveId" Type="int" Nullable="false" />
+          <Property Name="Quantité" Type="nchar" MaxLength="10" />
+          <Property Name="DeletedYN" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Plannings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Compteur" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descriptif" Type="text" />
+          <Property Name="Prix" Type="float" />
+          <Property Name="Stock" Type="int" />
+          <Property Name="Poids" Type="float" />
+          <Property Name="Hauteur" Type="float" />
+          <Property Name="Largeur" Type="float" />
+          <Property Name="Longueur" Type="float" />
+          <Property Name="Depassement" Type="bit" Nullable="false" />
+          <Property Name="DtDebut" Type="datetime" />
+          <Property Name="DtFin" Type="datetime" />
+          <Property Name="Image" Type="nvarchar" MaxLength="255" />
+          <Property Name="Logo" Type="nvarchar" MaxLength="255" />
+          <Property Name="Visuel" Type="nvarchar" MaxLength="255" />
+          <Property Name="CategorieId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Publications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="DtDebut" Type="datetime" />
+          <Property Name="DtFin" Type="datetime" Nullable="false" />
+          <Property Name="Exclusif" Type="bit" Nullable="false" />
+          <Property Name="EmplacementId" Type="int" />
+          <Property Name="ContenuId" Type="int" />
+          <Property Name="EvenementId" Type="int" />
+        </EntityType>
+        <EntityType Name="Reservations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PlanningId" Type="int" />
+          <Property Name="EleveId" Type="int" />
+          <Property Name="EvenementId" Type="int" />
+          <Property Name="DeletedYN" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Statuts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Typologies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Commandes_Commandes">
+          <End Role="Commandes" Type="Self.Commandes" Multiplicity="1" />
+          <End Role="Commandes1" Type="Self.Commandes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Commandes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commandes1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Commandes_Eleves">
+          <End Role="Eleves" Type="Self.Eleves" Multiplicity="1" />
+          <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Eleves">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commandes">
+              <PropertyRef Name="EleveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Commandes_Frais">
+          <End Role="Frais" Type="Self.Frais" Multiplicity="0..1" />
+          <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Frais">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commandes">
+              <PropertyRef Name="FraisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Commandes_Statuts">
+          <End Role="Statuts" Type="Self.Statuts" Multiplicity="1" />
+          <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commandes">
+              <PropertyRef Name="StatutId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Evenements_Typologies">
+          <End Role="Typologies" Type="Self.Typologies" Multiplicity="0..1" />
+          <End Role="Evenements" Type="Self.Evenements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Typologies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Evenements">
+              <PropertyRef Name="TypologieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lignes_Commandes">
+          <End Role="Commandes" Type="Self.Commandes" Multiplicity="1" />
+          <End Role="Lignes" Type="Self.Lignes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commandes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lignes">
+              <PropertyRef Name="CommandeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lignes_Produits">
+          <End Role="Produits" Type="Self.Produits" Multiplicity="1" />
+          <End Role="Lignes" Type="Self.Lignes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lignes">
+              <PropertyRef Name="ProduitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lignes_Statuts">
+          <End Role="Statuts" Type="Self.Statuts" Multiplicity="1" />
+          <End Role="Lignes" Type="Self.Lignes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lignes">
+              <PropertyRef Name="StatutId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participations_Eleves">
+          <End Role="Eleves" Type="Self.Eleves" Multiplicity="1" />
+          <End Role="Participations" Type="Self.Participations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Eleves">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participations">
+              <PropertyRef Name="EleveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participations_Evenements">
+          <End Role="Evenements" Type="Self.Evenements" Multiplicity="1" />
+          <End Role="Participations" Type="Self.Participations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evenements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participations">
+              <PropertyRef Name="EvenementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produits_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Produits" Type="Self.Produits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produits">
+              <PropertyRef Name="CategorieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publications_Contenus">
+          <End Role="Contenus" Type="Self.Contenus" Multiplicity="0..1" />
+          <End Role="Publications" Type="Self.Publications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contenus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Publications">
+              <PropertyRef Name="EmplacementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publications_Emplacements1">
+          <End Role="Emplacements" Type="Self.Emplacements" Multiplicity="0..1" />
+          <End Role="Publications" Type="Self.Publications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emplacements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Publications">
+              <PropertyRef Name="EmplacementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publications_Evenements">
+          <End Role="Evenements" Type="Self.Evenements" Multiplicity="0..1" />
+          <End Role="Publications" Type="Self.Publications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evenements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Publications">
+              <PropertyRef Name="EvenementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservations_Eleves">
+          <End Role="Eleves" Type="Self.Eleves" Multiplicity="0..1" />
+          <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Eleves">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="EleveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservations_Evenements">
+          <End Role="Evenements" Type="Self.Evenements" Multiplicity="0..1" />
+          <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evenements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="EvenementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservations_Plannings">
+          <End Role="Plannings" Type="Self.Plannings" Multiplicity="0..1" />
+          <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plannings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="PlanningId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DelEleve" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Real" Type="char" Mode="In" />
+        </Function>
+        <Function Name="GetEleves" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Nom" Type="nvarchar" Mode="In" />
+          <Parameter Name="Prenom" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Club" Type="nvarchar" Mode="In" />
+          <Parameter Name="License" Type="nvarchar" Mode="In" />
+          <Parameter Name="EvenementId" Type="int" Mode="In" />
+          <Parameter Name="TypologieId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetEvenementsAndTypologies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DBModelsContextStoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commandes" EntityType="Self.Commandes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contenus" EntityType="Self.Contenus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Eleves" EntityType="Self.Eleves" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Emplacements" EntityType="Self.Emplacements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Evenements" EntityType="Self.Evenements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Frais" EntityType="Self.Frais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lignes" EntityType="Self.Lignes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Participations" EntityType="Self.Participations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Plannings" EntityType="Self.Plannings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produits" EntityType="Self.Produits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Publications" EntityType="Self.Publications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reservations" EntityType="Self.Reservations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Statuts" EntityType="Self.Statuts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Typologies" EntityType="Self.Typologies" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Commandes_Commandes" Association="Self.FK_Commandes_Commandes">
+            <End Role="Commandes" EntitySet="Commandes" />
+            <End Role="Commandes1" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commandes_Eleves" Association="Self.FK_Commandes_Eleves">
+            <End Role="Eleves" EntitySet="Eleves" />
+            <End Role="Commandes" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commandes_Frais" Association="Self.FK_Commandes_Frais">
+            <End Role="Frais" EntitySet="Frais" />
+            <End Role="Commandes" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commandes_Statuts" Association="Self.FK_Commandes_Statuts">
+            <End Role="Statuts" EntitySet="Statuts" />
+            <End Role="Commandes" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evenements_Typologies" Association="Self.FK_Evenements_Typologies">
+            <End Role="Typologies" EntitySet="Typologies" />
+            <End Role="Evenements" EntitySet="Evenements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lignes_Commandes" Association="Self.FK_Lignes_Commandes">
+            <End Role="Commandes" EntitySet="Commandes" />
+            <End Role="Lignes" EntitySet="Lignes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lignes_Produits" Association="Self.FK_Lignes_Produits">
+            <End Role="Produits" EntitySet="Produits" />
+            <End Role="Lignes" EntitySet="Lignes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lignes_Statuts" Association="Self.FK_Lignes_Statuts">
+            <End Role="Statuts" EntitySet="Statuts" />
+            <End Role="Lignes" EntitySet="Lignes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participations_Eleves" Association="Self.FK_Participations_Eleves">
+            <End Role="Eleves" EntitySet="Eleves" />
+            <End Role="Participations" EntitySet="Participations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participations_Evenements" Association="Self.FK_Participations_Evenements">
+            <End Role="Evenements" EntitySet="Evenements" />
+            <End Role="Participations" EntitySet="Participations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produits_Categories" Association="Self.FK_Produits_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Produits" EntitySet="Produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publications_Contenus" Association="Self.FK_Publications_Contenus">
+            <End Role="Contenus" EntitySet="Contenus" />
+            <End Role="Publications" EntitySet="Publications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publications_Emplacements1" Association="Self.FK_Publications_Emplacements1">
+            <End Role="Emplacements" EntitySet="Emplacements" />
+            <End Role="Publications" EntitySet="Publications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publications_Evenements" Association="Self.FK_Publications_Evenements">
+            <End Role="Evenements" EntitySet="Evenements" />
+            <End Role="Publications" EntitySet="Publications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservations_Eleves" Association="Self.FK_Reservations_Eleves">
+            <End Role="Eleves" EntitySet="Eleves" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservations_Evenements" Association="Self.FK_Reservations_Evenements">
+            <End Role="Evenements" EntitySet="Evenements" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservations_Plannings" Association="Self.FK_Reservations_Plannings">
+            <End Role="Plannings" EntitySet="Plannings" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModelsContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Libelle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Produits" Relationship="Self.FK_Produits_Categories" FromRole="Categories" ToRole="Produits" />
+        </EntityType>
+        <EntityType Name="Commandes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="DtCreation" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DtModification" Type="DateTime" Precision="3" />
+          <Property Name="DtValidation" Type="DateTime" Precision="3" />
+          <Property Name="StatutId" Type="Int32" Nullable="false" />
+          <Property Name="EleveId" Type="Int32" Nullable="false" />
+          <Property Name="Prix" Type="Double" />
+          <Property Name="FraisId" Type="Int32" />
+          <NavigationProperty Name="Frais" Relationship="Self.FK_Commandes_Frais" FromRole="Commandes" ToRole="Frais" />
+          <NavigationProperty Name="Statuts" Relationship="Self.FK_Commandes_Statuts" FromRole="Commandes" ToRole="Statuts" />
+          <NavigationProperty Name="Lignes" Relationship="Self.FK_Lignes_Commandes" FromRole="Commandes" ToRole="Lignes" />
+          <Property Name="DeletedYN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Commandes1" Relationship="DBModelsContext.FK_Commandes_Commandes" FromRole="Commandes" ToRole="Commandes1" />
+          <NavigationProperty Name="Commandes2" Relationship="DBModelsContext.FK_Commandes_Commandes" FromRole="Commandes1" ToRole="Commandes" />
+          <NavigationProperty Name="Eleves" Relationship="DBModelsContext.FK_Commandes_Eleves" FromRole="Commandes" ToRole="Eleves" />
+        </EntityType>
+        <EntityType Name="Contenus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Titre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DtCreation" Type="DateTime" Precision="3" />
+          <Property Name="DtModification" Type="DateTime" Precision="3" />
+          <Property Name="DtFin" Type="DateTime" Precision="3" />
+          <Property Name="Texte" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Lien" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Script" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Logo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Horizontale" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Carree" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Verticale" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Full" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Publications" Relationship="Self.FK_Publications_Contenus" FromRole="Contenus" ToRole="Publications" />
+        </EntityType>
+        <EntityType Name="Eleves">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DtNaissance" Type="DateTime" Precision="0" />
+          <Property Name="Sexe" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Club" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fixe" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Portable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Commentaire" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="License" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Classement" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Participations" Relationship="Self.FK_Participations_Eleves" FromRole="Eleves" ToRole="Participations" />
+          <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservations_Eleves" FromRole="Eleves" ToRole="Reservations" />
+          <Property Name="DeletedYN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Commandes" Relationship="DBModelsContext.FK_Commandes_Eleves" FromRole="Eleves" ToRole="Commandes" />
+        </EntityType>
+        <EntityType Name="Emplacements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Libelle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Visuel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Publications" Relationship="Self.FK_Publications_Emplacements1" FromRole="Emplacements" ToRole="Publications" />
+        </EntityType>
+        <EntityType Name="Evenements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="DtDebut" Type="DateTime" Precision="3" />
+          <Property Name="DtFin" Type="DateTime" Precision="3" />
+          <Property Name="DtLimiteInscription" Type="DateTime" Precision="3" />
+          <Property Name="Descriptif" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Maximum" Type="Int32" />
+          <Property Name="Libelle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Prix" Type="Double" />
+          <Property Name="TypologieId" Type="Int32" />
+          <Property Name="Duree" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="EvenementParentId" Type="Int32" />
+          <NavigationProperty Name="Typologies" Relationship="Self.FK_Evenements_Typologies" FromRole="Evenements" ToRole="Typologies" />
+          <NavigationProperty Name="Participations" Relationship="Self.FK_Participations_Evenements" FromRole="Evenements" ToRole="Participations" />
+          <NavigationProperty Name="Publications" Relationship="Self.FK_Publications_Evenements" FromRole="Evenements" ToRole="Publications" />
+          <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservations_Evenements" FromRole="Evenements" ToRole="Reservations" />
+          <Property Name="VisibledYN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Frais">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Libelle" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Minimum" Type="Double" />
+          <Property Name="Maximum" Type="Double" />
+          <Property Name="Prix" Type="Double" />
+          <NavigationProperty Name="Commandes" Relationship="Self.FK_Commandes_Frais" FromRole="Frais" ToRole="Commandes" />
+        </EntityType>
+        <EntityType Name="Lignes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ProduitId" Type="Int32" Nullable="false" />
+          <Property Name="CommandeId" Type="Int32" Nullable="false" />
+          <Property Name="Quantite" Type="Int32" Nullable="false" />
+          <Property Name="StatutId" Type="Int32" Nullable="false" />
+          <Property Name="Prix" Type="Double" Nullable="false" />
+          <Property Name="Reduction" Type="Double" />
+          <NavigationProperty Name="Commandes" Relationship="Self.FK_Lignes_Commandes" FromRole="Lignes" ToRole="Commandes" />
+          <NavigationProperty Name="Produits" Relationship="Self.FK_Lignes_Produits" FromRole="Lignes" ToRole="Produits" />
+          <NavigationProperty Name="Statuts" Relationship="Self.FK_Lignes_Statuts" FromRole="Lignes" ToRole="Statuts" />
+        </EntityType>
+        <EntityType Name="Participations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="EvenementId" Type="Int32" Nullable="false" />
+          <Property Name="EleveId" Type="Int32" Nullable="false" />
+          <Property Name="Quantité" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Eleves" Relationship="Self.FK_Participations_Eleves" FromRole="Participations" ToRole="Eleves" />
+          <NavigationProperty Name="Evenements" Relationship="Self.FK_Participations_Evenements" FromRole="Participations" ToRole="Evenements" />
+          <Property Name="DeletedYN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Plannings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Compteur" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservations_Plannings" FromRole="Plannings" ToRole="Reservations" />
+        </EntityType>
+        <EntityType Name="Produits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Libelle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descriptif" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Prix" Type="Double" />
+          <Property Name="Stock" Type="Int32" />
+          <Property Name="Poids" Type="Double" />
+          <Property Name="Hauteur" Type="Double" />
+          <Property Name="Largeur" Type="Double" />
+          <Property Name="Longueur" Type="Double" />
+          <Property Name="Depassement" Type="Boolean" Nullable="false" />
+          <Property Name="DtDebut" Type="DateTime" Precision="3" />
+          <Property Name="DtFin" Type="DateTime" Precision="3" />
+          <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Logo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Visuel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CategorieId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_Produits_Categories" FromRole="Produits" ToRole="Categories" />
+          <NavigationProperty Name="Lignes" Relationship="Self.FK_Lignes_Produits" FromRole="Produits" ToRole="Lignes" />
+        </EntityType>
+        <EntityType Name="Publications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="DtDebut" Type="DateTime" Precision="3" />
+          <Property Name="DtFin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Exclusif" Type="Boolean" Nullable="false" />
+          <Property Name="EmplacementId" Type="Int32" />
+          <Property Name="ContenuId" Type="Int32" />
+          <Property Name="EvenementId" Type="Int32" />
+          <NavigationProperty Name="Contenus" Relationship="Self.FK_Publications_Contenus" FromRole="Publications" ToRole="Contenus" />
+          <NavigationProperty Name="Emplacements" Relationship="Self.FK_Publications_Emplacements1" FromRole="Publications" ToRole="Emplacements" />
+          <NavigationProperty Name="Evenements" Relationship="Self.FK_Publications_Evenements" FromRole="Publications" ToRole="Evenements" />
+        </EntityType>
+        <EntityType Name="Reservations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PlanningId" Type="Int32" />
+          <Property Name="EleveId" Type="Int32" />
+          <Property Name="EvenementId" Type="Int32" />
+          <NavigationProperty Name="Eleves" Relationship="Self.FK_Reservations_Eleves" FromRole="Reservations" ToRole="Eleves" />
+          <NavigationProperty Name="Evenements" Relationship="Self.FK_Reservations_Evenements" FromRole="Reservations" ToRole="Evenements" />
+          <NavigationProperty Name="Plannings" Relationship="Self.FK_Reservations_Plannings" FromRole="Reservations" ToRole="Plannings" />
+          <Property Name="DeletedYN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Statuts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Libelle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Commandes" Relationship="Self.FK_Commandes_Statuts" FromRole="Statuts" ToRole="Commandes" />
+          <NavigationProperty Name="Lignes" Relationship="Self.FK_Lignes_Statuts" FromRole="Statuts" ToRole="Lignes" />
+        </EntityType>
+        <EntityType Name="Typologies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Libelle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Evenements" Relationship="Self.FK_Evenements_Typologies" FromRole="Typologies" ToRole="Evenements" />
+        </EntityType>
+        <Association Name="FK_Produits_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Produits" Type="Self.Produits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produits">
+              <PropertyRef Name="CategorieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Commandes_Frais">
+          <End Role="Frais" Type="Self.Frais" Multiplicity="0..1" />
+          <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Frais">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commandes">
+              <PropertyRef Name="FraisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Commandes_Statuts">
+          <End Role="Statuts" Type="Self.Statuts" Multiplicity="1" />
+          <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commandes">
+              <PropertyRef Name="StatutId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lignes_Commandes">
+          <End Role="Commandes" Type="Self.Commandes" Multiplicity="1" />
+          <End Role="Lignes" Type="Self.Lignes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commandes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lignes">
+              <PropertyRef Name="CommandeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publications_Contenus">
+          <End Role="Contenus" Type="Self.Contenus" Multiplicity="0..1" />
+          <End Role="Publications" Type="Self.Publications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contenus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Publications">
+              <PropertyRef Name="EmplacementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participations_Eleves">
+          <End Role="Eleves" Type="Self.Eleves" Multiplicity="1" />
+          <End Role="Participations" Type="Self.Participations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Eleves">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participations">
+              <PropertyRef Name="EleveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservations_Eleves">
+          <End Role="Eleves" Type="Self.Eleves" Multiplicity="0..1" />
+          <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Eleves">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="EleveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publications_Emplacements1">
+          <End Role="Emplacements" Type="Self.Emplacements" Multiplicity="0..1" />
+          <End Role="Publications" Type="Self.Publications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emplacements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Publications">
+              <PropertyRef Name="EmplacementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Evenements_Typologies">
+          <End Role="Typologies" Type="Self.Typologies" Multiplicity="0..1" />
+          <End Role="Evenements" Type="Self.Evenements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Typologies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Evenements">
+              <PropertyRef Name="TypologieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participations_Evenements">
+          <End Role="Evenements" Type="Self.Evenements" Multiplicity="1" />
+          <End Role="Participations" Type="Self.Participations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evenements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participations">
+              <PropertyRef Name="EvenementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publications_Evenements">
+          <End Role="Evenements" Type="Self.Evenements" Multiplicity="0..1" />
+          <End Role="Publications" Type="Self.Publications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evenements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Publications">
+              <PropertyRef Name="EvenementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservations_Evenements">
+          <End Role="Evenements" Type="Self.Evenements" Multiplicity="0..1" />
+          <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evenements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="EvenementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lignes_Produits">
+          <End Role="Produits" Type="Self.Produits" Multiplicity="1" />
+          <End Role="Lignes" Type="Self.Lignes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lignes">
+              <PropertyRef Name="ProduitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lignes_Statuts">
+          <End Role="Statuts" Type="Self.Statuts" Multiplicity="1" />
+          <End Role="Lignes" Type="Self.Lignes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lignes">
+              <PropertyRef Name="StatutId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservations_Plannings">
+          <End Role="Plannings" Type="Self.Plannings" Multiplicity="0..1" />
+          <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plannings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="PlanningId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBModelsParameters" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Categories" />
+          <EntitySet Name="Commandes" EntityType="Self.Commandes" />
+          <EntitySet Name="Contenus" EntityType="Self.Contenus" />
+          <EntitySet Name="Eleves" EntityType="Self.Eleves" />
+          <EntitySet Name="Emplacements" EntityType="Self.Emplacements" />
+          <EntitySet Name="Evenements" EntityType="Self.Evenements" />
+          <EntitySet Name="Frais" EntityType="Self.Frais" />
+          <EntitySet Name="Lignes" EntityType="Self.Lignes" />
+          <EntitySet Name="Participations" EntityType="Self.Participations" />
+          <EntitySet Name="Plannings" EntityType="Self.Plannings" />
+          <EntitySet Name="Produits" EntityType="Self.Produits" />
+          <EntitySet Name="Publications" EntityType="Self.Publications" />
+          <EntitySet Name="Reservations" EntityType="Self.Reservations" />
+          <EntitySet Name="Statuts" EntityType="Self.Statuts" />
+          <EntitySet Name="Typologies" EntityType="Self.Typologies" />
+          <AssociationSet Name="FK_Produits_Categories" Association="Self.FK_Produits_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Produits" EntitySet="Produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commandes_Frais" Association="Self.FK_Commandes_Frais">
+            <End Role="Frais" EntitySet="Frais" />
+            <End Role="Commandes" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commandes_Statuts" Association="Self.FK_Commandes_Statuts">
+            <End Role="Statuts" EntitySet="Statuts" />
+            <End Role="Commandes" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lignes_Commandes" Association="Self.FK_Lignes_Commandes">
+            <End Role="Commandes" EntitySet="Commandes" />
+            <End Role="Lignes" EntitySet="Lignes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publications_Contenus" Association="Self.FK_Publications_Contenus">
+            <End Role="Contenus" EntitySet="Contenus" />
+            <End Role="Publications" EntitySet="Publications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participations_Eleves" Association="Self.FK_Participations_Eleves">
+            <End Role="Eleves" EntitySet="Eleves" />
+            <End Role="Participations" EntitySet="Participations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservations_Eleves" Association="Self.FK_Reservations_Eleves">
+            <End Role="Eleves" EntitySet="Eleves" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publications_Emplacements1" Association="Self.FK_Publications_Emplacements1">
+            <End Role="Emplacements" EntitySet="Emplacements" />
+            <End Role="Publications" EntitySet="Publications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evenements_Typologies" Association="Self.FK_Evenements_Typologies">
+            <End Role="Typologies" EntitySet="Typologies" />
+            <End Role="Evenements" EntitySet="Evenements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participations_Evenements" Association="Self.FK_Participations_Evenements">
+            <End Role="Evenements" EntitySet="Evenements" />
+            <End Role="Participations" EntitySet="Participations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publications_Evenements" Association="Self.FK_Publications_Evenements">
+            <End Role="Evenements" EntitySet="Evenements" />
+            <End Role="Publications" EntitySet="Publications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservations_Evenements" Association="Self.FK_Reservations_Evenements">
+            <End Role="Evenements" EntitySet="Evenements" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lignes_Produits" Association="Self.FK_Lignes_Produits">
+            <End Role="Produits" EntitySet="Produits" />
+            <End Role="Lignes" EntitySet="Lignes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lignes_Statuts" Association="Self.FK_Lignes_Statuts">
+            <End Role="Statuts" EntitySet="Statuts" />
+            <End Role="Lignes" EntitySet="Lignes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservations_Plannings" Association="Self.FK_Reservations_Plannings">
+            <End Role="Plannings" EntitySet="Plannings" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+          <FunctionImport Name="GetEleves" EntitySet="Eleves" ReturnType="Collection(DBModelsContext.Eleves)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Nom" Mode="In" Type="String" />
+            <Parameter Name="Prenom" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Club" Mode="In" Type="String" />
+            <Parameter Name="License" Mode="In" Type="String" />
+            <Parameter Name="EvenementId" Mode="In" Type="Int32" />
+            <Parameter Name="TypologieId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <AssociationSet Name="FK_Commandes_Commandes" Association="DBModelsContext.FK_Commandes_Commandes">
+            <End Role="Commandes" EntitySet="Commandes" />
+            <End Role="Commandes1" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commandes_Eleves" Association="DBModelsContext.FK_Commandes_Eleves">
+            <End Role="Eleves" EntitySet="Eleves" />
+            <End Role="Commandes" EntitySet="Commandes" />
+          </AssociationSet>
+          <FunctionImport Name="DelEleve">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Real" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetEvenementsAndTypologies" ReturnType="Collection(DBModelsContext.EvenementsAndTypologies)" />
+        </EntityContainer>
+        <Association Name="FK_Commandes_Commandes">
+          <End Type="DBModelsContext.Commandes" Role="Commandes" Multiplicity="1" />
+          <End Type="DBModelsContext.Commandes" Role="Commandes1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Commandes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commandes1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Commandes_Eleves">
+          <End Type="DBModelsContext.Eleves" Role="Eleves" Multiplicity="1" />
+          <End Type="DBModelsContext.Commandes" Role="Commandes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Eleves">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commandes">
+              <PropertyRef Name="EleveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="EvenementsAndTypologies">
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="String" Name="Libelle" Nullable="true" MaxLength="260" />
+          <Property Type="Int32" Name="TypologieId" Nullable="true" />
+          <Property Type="Int32" Name="EvenementParentId" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelsContextStoreContainer" CdmEntityContainer="DBModelsParameters">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="DBModelsContext.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commandes">
+            <EntityTypeMapping TypeName="DBModelsContext.Commandes">
+              <MappingFragment StoreEntitySet="Commandes">
+                <ScalarProperty Name="DeletedYN" ColumnName="DeletedYN" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="DtModification" ColumnName="DtModification" />
+                <ScalarProperty Name="DtValidation" ColumnName="DtValidation" />
+                <ScalarProperty Name="StatutId" ColumnName="StatutId" />
+                <ScalarProperty Name="EleveId" ColumnName="EleveId" />
+                <ScalarProperty Name="Prix" ColumnName="Prix" />
+                <ScalarProperty Name="FraisId" ColumnName="FraisId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contenus">
+            <EntityTypeMapping TypeName="DBModelsContext.Contenus">
+              <MappingFragment StoreEntitySet="Contenus">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Titre" ColumnName="Titre" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="DtModification" ColumnName="DtModification" />
+                <ScalarProperty Name="DtFin" ColumnName="DtFin" />
+                <ScalarProperty Name="Texte" ColumnName="Texte" />
+                <ScalarProperty Name="Lien" ColumnName="Lien" />
+                <ScalarProperty Name="Script" ColumnName="Script" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Horizontale" ColumnName="Horizontale" />
+                <ScalarProperty Name="Carree" ColumnName="Carree" />
+                <ScalarProperty Name="Verticale" ColumnName="Verticale" />
+                <ScalarProperty Name="Full" ColumnName="Full" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Eleves">
+            <EntityTypeMapping TypeName="DBModelsContext.Eleves">
+              <MappingFragment StoreEntitySet="Eleves">
+                <ScalarProperty Name="DeletedYN" ColumnName="DeletedYN" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DtNaissance" ColumnName="DtNaissance" />
+                <ScalarProperty Name="Sexe" ColumnName="Sexe" />
+                <ScalarProperty Name="Club" ColumnName="Club" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Fixe" ColumnName="Fixe" />
+                <ScalarProperty Name="Portable" ColumnName="Portable" />
+                <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+                <ScalarProperty Name="License" ColumnName="License" />
+                <ScalarProperty Name="Classement" ColumnName="Classement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emplacements">
+            <EntityTypeMapping TypeName="DBModelsContext.Emplacements">
+              <MappingFragment StoreEntitySet="Emplacements">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="Visuel" ColumnName="Visuel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Evenements">
+            <EntityTypeMapping TypeName="DBModelsContext.Evenements">
+              <MappingFragment StoreEntitySet="Evenements">
+                <ScalarProperty Name="VisibledYN" ColumnName="VisibledYN" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DtDebut" ColumnName="DtDebut" />
+                <ScalarProperty Name="DtFin" ColumnName="DtFin" />
+                <ScalarProperty Name="DtLimiteInscription" ColumnName="DtLimiteInscription" />
+                <ScalarProperty Name="Descriptif" ColumnName="Descriptif" />
+                <ScalarProperty Name="Maximum" ColumnName="Maximum" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Prix" ColumnName="Prix" />
+                <ScalarProperty Name="TypologieId" ColumnName="TypologieId" />
+                <ScalarProperty Name="Duree" ColumnName="Duree" />
+                <ScalarProperty Name="EvenementParentId" ColumnName="EvenementParentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Frais">
+            <EntityTypeMapping TypeName="DBModelsContext.Frais">
+              <MappingFragment StoreEntitySet="Frais">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="Minimum" ColumnName="Minimum" />
+                <ScalarProperty Name="Maximum" ColumnName="Maximum" />
+                <ScalarProperty Name="Prix" ColumnName="Prix" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lignes">
+            <EntityTypeMapping TypeName="DBModelsContext.Lignes">
+              <MappingFragment StoreEntitySet="Lignes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProduitId" ColumnName="ProduitId" />
+                <ScalarProperty Name="CommandeId" ColumnName="CommandeId" />
+                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+                <ScalarProperty Name="StatutId" ColumnName="StatutId" />
+                <ScalarProperty Name="Prix" ColumnName="Prix" />
+                <ScalarProperty Name="Reduction" ColumnName="Reduction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Participations">
+            <EntityTypeMapping TypeName="DBModelsContext.Participations">
+              <MappingFragment StoreEntitySet="Participations">
+                <ScalarProperty Name="DeletedYN" ColumnName="DeletedYN" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EvenementId" ColumnName="EvenementId" />
+                <ScalarProperty Name="EleveId" ColumnName="EleveId" />
+                <ScalarProperty Name="Quantité" ColumnName="Quantité" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Plannings">
+            <EntityTypeMapping TypeName="DBModelsContext.Plannings">
+              <MappingFragment StoreEntitySet="Plannings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Compteur" ColumnName="Compteur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produits">
+            <EntityTypeMapping TypeName="DBModelsContext.Produits">
+              <MappingFragment StoreEntitySet="Produits">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="Descriptif" ColumnName="Descriptif" />
+                <ScalarProperty Name="Prix" ColumnName="Prix" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="Poids" ColumnName="Poids" />
+                <ScalarProperty Name="Hauteur" ColumnName="Hauteur" />
+                <ScalarProperty Name="Largeur" ColumnName="Largeur" />
+                <ScalarProperty Name="Longueur" ColumnName="Longueur" />
+                <ScalarProperty Name="Depassement" ColumnName="Depassement" />
+                <ScalarProperty Name="DtDebut" ColumnName="DtDebut" />
+                <ScalarProperty Name="DtFin" ColumnName="DtFin" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Visuel" ColumnName="Visuel" />
+                <ScalarProperty Name="CategorieId" ColumnName="CategorieId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publications">
+            <EntityTypeMapping TypeName="DBModelsContext.Publications">
+              <MappingFragment StoreEntitySet="Publications">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DtDebut" ColumnName="DtDebut" />
+                <ScalarProperty Name="DtFin" ColumnName="DtFin" />
+                <ScalarProperty Name="Exclusif" ColumnName="Exclusif" />
+                <ScalarProperty Name="EmplacementId" ColumnName="EmplacementId" />
+                <ScalarProperty Name="ContenuId" ColumnName="ContenuId" />
+                <ScalarProperty Name="EvenementId" ColumnName="EvenementId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservations">
+            <EntityTypeMapping TypeName="DBModelsContext.Reservations">
+              <MappingFragment StoreEntitySet="Reservations">
+                <ScalarProperty Name="DeletedYN" ColumnName="DeletedYN" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PlanningId" ColumnName="PlanningId" />
+                <ScalarProperty Name="EleveId" ColumnName="EleveId" />
+                <ScalarProperty Name="EvenementId" ColumnName="EvenementId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statuts">
+            <EntityTypeMapping TypeName="DBModelsContext.Statuts">
+              <MappingFragment StoreEntitySet="Statuts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Typologies">
+            <EntityTypeMapping TypeName="DBModelsContext.Typologies">
+              <MappingFragment StoreEntitySet="Typologies">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetEleves" FunctionName="DBModelsContext.Store.GetEleves" />
+          <FunctionImportMapping FunctionImportName="DelEleve" FunctionName="DBModelsContext.Store.DelEleve" />
+          <FunctionImportMapping FunctionImportName="GetEvenementsAndTypologies" FunctionName="DBModelsContext.Store.GetEvenementsAndTypologies">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBModelsContext.EvenementsAndTypologies">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="TypologieId" ColumnName="TypologieId" />
+                <ScalarProperty Name="EvenementParentId" ColumnName="EvenementParentId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,507 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{267DD1CB-6E8B-4ED8-AF23-8FE990C94212}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Angular</RootNamespace>
+    <AssemblyName>Angular</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.5.1\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.5.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.5.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.5.1\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.5.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.5.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Commandes\CommandesAreaRegistration.cs" />
+    <Compile Include="Areas\Commandes\Controllers\CommandesController.cs" />
+    <Compile Include="Areas\Contenus\ContenusAreaRegistration.cs" />
+    <Compile Include="Areas\Contenus\Controllers\ActualitesController.cs" />
+    <Compile Include="Areas\Contenus\Controllers\ContenusController.cs" />
+    <Compile Include="Areas\Contenus\Controllers\PartenariatsController.cs" />
+    <Compile Include="Areas\Evenements\Controllers\CoursController.cs" />
+    <Compile Include="Areas\Evenements\Controllers\EvenementsController.cs" />
+    <Compile Include="Areas\Evenements\Controllers\StagesController.cs" />
+    <Compile Include="Areas\Evenements\Controllers\TournoisController.cs" />
+    <Compile Include="Areas\Evenements\EvenementsAreaRegistration.cs" />
+    <Compile Include="Areas\Produits\Controllers\ProduitsController.cs" />
+    <Compile Include="Areas\Produits\ProduitsAreaRegistration.cs" />
+    <Compile Include="Areas\Eleves\Controllers\ElevesController.cs" />
+    <Compile Include="Areas\Eleves\ElevesAreaRegistration.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\app.component.html" />
+    <Content Include="Areas\Commandes\Scripts\Views\Commandes.js" />
+    <Content Include="Areas\Contenus\Scripts\Views\Actualites.js" />
+    <Content Include="Areas\Contenus\Scripts\Views\Contenus.js" />
+    <Content Include="Areas\Contenus\Scripts\Views\Partenariats.js" />
+    <Content Include="Areas\Contenus\Scripts\Views\Shared\Actualite.js" />
+    <Content Include="Areas\Contenus\Scripts\Views\Shared\Actualites.js" />
+    <Content Include="Areas\Evenements\Scripts\Views\Cours.js" />
+    <Content Include="Areas\Evenements\Scripts\Views\Evenements.js" />
+    <Content Include="Areas\Evenements\Scripts\Views\Shared\CalendrierParDemiJournee.js" />
+    <Content Include="Areas\Evenements\Scripts\Views\Shared\CalendrierParHeure.js" />
+    <Content Include="Areas\Evenements\Scripts\Views\Stages.js" />
+    <Content Include="Areas\Evenements\Scripts\Views\Tournois.js" />
+    <Content Include="Areas\Produits\Scripts\Views\Boutique.js" />
+    <Content Include="Areas\Produits\Scripts\Views\Produits.js" />
+    <Content Include="Areas\Produits\Scripts\Views\Shared\Panier.js" />
+    <Content Include="Areas\Eleves\Scripts\Views\Eleves.js" />
+    <Content Include="Areas\Eleves\Scripts\Views\MonCompte.js" />
+    <Content Include="Areas\Eleves\Scripts\Views\Shared\Connexion.js" />
+    <Content Include="Content\CSS\Site - Copier.css" />
+    <Content Include="Content\CSS\Site.css" />
+    <Content Include="Content\Fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Images\2.jfif" />
+    <Content Include="Content\Images\3.jpg" />
+    <Content Include="Content\Images\4.jpg" />
+    <Content Include="Content\Images\Actualites.jpg" />
+    <Content Include="Content\Images\Actualites2.jpg" />
+    <Content Include="Content\Images\Actu_bandeau.jpg" />
+    <Content Include="Content\Images\Actu_Kasparov_Bandeau.jpg" />
+    <Content Include="Content\Images\Actu_Logo.jpeg" />
+    <Content Include="Content\Images\Background1.jpg" />
+    <Content Include="Content\Images\Background2.jpg" />
+    <Content Include="Content\Images\Background3.jpg" />
+    <Content Include="Content\Images\Background4.jpg" />
+    <Content Include="Content\Images\Background5.jpg" />
+    <Content Include="Content\Images\Background6.jpg" />
+    <Content Include="Content\Images\Background7.jpg" />
+    <Content Include="Content\Images\Background8.jpg" />
+    <Content Include="Content\Images\Boutique.jpg" />
+    <Content Include="Content\Images\boutons\Account.svg" />
+    <Content Include="Content\Images\boutons\Actualites.svg" />
+    <Content Include="Content\Images\boutons\Boutique.svg" />
+    <Content Include="Content\Images\boutons\Chess.svg" />
+    <Content Include="Content\Images\boutons\Contact.svg" />
+    <Content Include="Content\Images\boutons\Cours.svg" />
+    <Content Include="Content\Images\boutons\Fermer-Noir.svg" />
+    <Content Include="Content\Images\boutons\Fermer.svg" />
+    <Content Include="Content\Images\boutons\Home.svg" />
+    <Content Include="Content\Images\boutons\Localisation.svg" />
+    <Content Include="Content\Images\boutons\Mail.svg" />
+    <Content Include="Content\Images\boutons\Menu.svg" />
+    <Content Include="Content\Images\boutons\Phone.svg" />
+    <Content Include="Content\Images\boutons\Skype.svg" />
+    <Content Include="Content\Images\boutons\Stages.svg" />
+    <Content Include="Content\Images\boutons\Tournois.svg" />
+    <Content Include="Content\Images\boutons\Web.svg" />
+    <Content Include="Content\Images\Contact.jpg" />
+    <Content Include="Content\Images\Cours.png" />
+    <Content Include="Content\Images\Ecole.jpg" />
+    <Content Include="Content\Images\Ecole2.jpg" />
+    <Content Include="Content\Images\Histoire.jpg" />
+    <Content Include="Content\Images\Jaune.png" />
+    <Content Include="Content\Images\Jeu.jpg" />
+    <Content Include="Content\Images\jquery-nl\collapsible\c.jpg" />
+    <Content Include="Content\Images\jquery-nl\collapsible\e.jpg" />
+    <Content Include="Content\Images\jquery-nl\loader\ajax-loader.gif" />
+    <Content Include="Content\Images\jquery-nl\loader\ajax-loader1.gif" />
+    <Content Include="Content\Images\jquery-nl\loader\ajax-loader2.gif" />
+    <Content Include="Content\Images\jquery-nl\loader\ajax-loader3.gif" />
+    <Content Include="Content\Images\jquery-nl\loader\ajax-loader4.gif" />
+    <Content Include="Content\Images\jquery-nl\loader\background-loader-black.png" />
+    <Content Include="Content\Images\jquery-nl\loader\background-loader-gray.png" />
+    <Content Include="Content\Images\jquery-nl\loader\background-loader-transparent.png" />
+    <Content Include="Content\Images\jquery-nl\loader\background-loader-white.png" />
+    <Content Include="Content\Images\jquery-nl\modal\alerte.gif" />
+    <Content Include="Content\Images\jquery-nl\modal\background-modal-black.png" />
+    <Content Include="Content\Images\jquery-nl\modal\background-modal-gray.png" />
+    <Content Include="Content\Images\jquery-nl\modal\background-modal-transparent.png" />
+    <Content Include="Content\Images\jquery-nl\modal\background-modal-white.png" />
+    <Content Include="Content\Images\jquery-nl\modal\information.gif" />
+    <Content Include="Content\Images\jquery-nl\modal\modal_bg.png" />
+    <Content Include="Content\Images\jquery-nl\modal\modal_close.gif" />
+    <Content Include="Content\Images\jquery-nl\modal\question.gif" />
+    <Content Include="Content\Images\jquery-nl\treeview\checked.jpg" />
+    <Content Include="Content\Images\jquery-nl\treeview\included.jpg" />
+    <Content Include="Content\Images\jquery-nl\treeview\moins.jpg" />
+    <Content Include="Content\Images\jquery-nl\treeview\plus.jpg" />
+    <Content Include="Content\Images\jquery-nl\treeview\unchecked.jpg" />
+    <Content Include="Content\Images\jquery-nl\treeview\vide.jpg" />
+    <Content Include="Content\Images\jquery-ui\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\Images\jquery-ui\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\Images\jquery-ui\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\Images\jquery-ui\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\Images\jquery-ui\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\Images\jquery-ui\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\Images\jquery-ui\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\Images\jquery-ui\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\Images\jquery-ui\ui-icons_222222_256x240.png" />
+    <Content Include="Content\Images\jquery-ui\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\Images\jquery-ui\ui-icons_454545_256x240.png" />
+    <Content Include="Content\Images\jquery-ui\ui-icons_888888_256x240.png" />
+    <Content Include="Content\Images\jquery-ui\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\Images\Logo Noir 250.png" />
+    <Content Include="Content\Images\Logo Noir 425.png" />
+    <Content Include="Content\Images\Logo.png" />
+    <Content Include="Content\Images\Map.jpg" />
+    <Content Include="Content\Images\mentions.jpg" />
+    <Content Include="Content\Images\MonCompte.jpg" />
+    <Content Include="Content\Images\Partenariats.jpg" />
+    <Content Include="Content\Images\Partenariats2.jpg" />
+    <Content Include="Content\Images\PayPal.svg" />
+    <Content Include="Content\Images\Plan.jpg" />
+    <Content Include="Content\Images\Stages.jpg" />
+    <Content Include="Content\Images\TournoiAffiche.jpg" />
+    <Content Include="Content\Images\Tournois.jpg" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="package.json" />
+    <Content Include="Content\Fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\Fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\Fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\Fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\Images\boutons\Account.ai" />
+    <Content Include="Content\Images\boutons\Actualites.ai" />
+    <Content Include="Content\Images\boutons\Boutique.ai" />
+    <Content Include="Content\Images\boutons\Chess.ai" />
+    <Content Include="Content\Images\boutons\Contact.ai" />
+    <Content Include="Content\Images\boutons\Cours.ai" />
+    <Content Include="Content\Images\boutons\Fermer-Noir.ai" />
+    <Content Include="Content\Images\boutons\Fermer.ai" />
+    <Content Include="Content\Images\boutons\Home.ai" />
+    <Content Include="Content\Images\boutons\Localisation.ai" />
+    <Content Include="Content\Images\boutons\Mail.ai" />
+    <Content Include="Content\Images\boutons\Phone.ai" />
+    <Content Include="Content\Images\boutons\Skype.ai" />
+    <Content Include="Content\Images\boutons\Stages.ai" />
+    <Content Include="Content\Images\boutons\Tournois.ai" />
+    <Content Include="Content\Images\boutons\Web.ai" />
+    <Content Include="Areas\Eleves\Views\Eleves.cshtml" />
+    <Content Include="Areas\Eleves\Views\MonCompte.cshtml" />
+    <Content Include="Areas\Eleves\Views\Shared\Connexion.cshtml" />
+    <Content Include="Areas\Eleves\Views\web.config" />
+    <Content Include="Scripts\jquery-nl\functions-2.6.2.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-accordeon-2.0.2.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-collapsible-2.3.4.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-cookies-1.0.1.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-dropdownlist-0.9.5.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-filter-1.0.4.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-hovermenu-2.2.2.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-loader-2.2.9.W.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-magic-0.1.1.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-mask-1.0.0.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-modalpopup-2.6.5.B.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-scroll-2.0.2.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-searchlist-1.0.0.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-touchslider-2.3.6.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-treeview-2.0.0.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-watermark-2.2.3.js" />
+    <Content Include="Scripts\jquery-nl\navigateurs-1.6.0.js" />
+    <Content Include="Scripts\jquery-ui\AUTHORS.txt" />
+    <Content Include="Scripts\jquery-ui\external\jquery\jquery.js" />
+    <Content Include="Scripts\jquery-ui\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-bg_gloss-wave_16_121212_500x100.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-bg_highlight-hard_15_888888_1x100.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-bg_highlight-hard_55_555555_1x100.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-bg_highlight-soft_35_adadad_1x100.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-bg_highlight-soft_60_dddddd_1x100.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-bg_inset-soft_15_121212_1x100.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-icons_666666_256x240.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-icons_777777_256x240.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-icons_aaaaaa_256x240.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-icons_c98000_256x240.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-icons_cccccc_256x240.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\jquery-ui\images\ui-icons_f29a00_256x240.png" />
+    <Content Include="Scripts\jquery-ui\index.html" />
+    <Content Include="Scripts\jquery-ui\jquery-ui-datepicker-fr-addon.js" />
+    <Content Include="Scripts\jquery-ui\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\jquery-ui\jquery-ui.css" />
+    <Content Include="Scripts\jquery-ui\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui\jquery-ui.min.css" />
+    <Content Include="Scripts\jquery-ui\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery-ui\jquery-ui.structure.css" />
+    <Content Include="Scripts\jquery-ui\jquery-ui.structure.min.css" />
+    <Content Include="Scripts\jquery-ui\jquery-ui.theme.css" />
+    <Content Include="Scripts\jquery-ui\jquery-ui.theme.min.css" />
+    <Content Include="Scripts\jquery-ui\jquery.switchButton.js" />
+    <Content Include="Scripts\jquery-ui\LICENSE.txt" />
+    <Content Include="Scripts\jquery\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-ui\package.json" />
+    <Content Include="Areas\Commandes\Views\Commandes.cshtml" />
+    <Content Include="Areas\Commandes\Views\web.config" />
+    <Content Include="Areas\Contenus\Views\Actualites.cshtml" />
+    <Content Include="Areas\Contenus\Views\Contenus.cshtml" />
+    <Content Include="Areas\Contenus\Views\Partenariats.cshtml" />
+    <Content Include="Areas\Contenus\Views\Shared\Actualite.cshtml" />
+    <Content Include="Areas\Contenus\Views\Shared\Actualites.cshtml" />
+    <Content Include="Areas\Contenus\Views\web.config" />
+    <Content Include="Areas\Evenements\Views\Cours.cshtml" />
+    <Content Include="Areas\Evenements\Views\Evenements.cshtml" />
+    <Content Include="Areas\Evenements\Views\Shared\CalendrierParDemiJournee.cshtml" />
+    <Content Include="Areas\Evenements\Views\Shared\CalendrierParHeure.cshtml" />
+    <Content Include="Areas\Evenements\Views\Stages.cshtml" />
+    <Content Include="Areas\Evenements\Views\Tournois.cshtml" />
+    <Content Include="Areas\Evenements\Views\web.config" />
+    <Content Include="Areas\Produits\Views\Boutique.cshtml" />
+    <Content Include="Areas\Produits\Views\Produits.cshtml" />
+    <Content Include="Areas\Produits\Views\Shared\Panier.cshtml" />
+    <Content Include="Areas\Produits\Views\web.config" />
+    <None Include="Scripts\jquery\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery\jquery.validate.js" />
+    <Content Include="Scripts\jquery\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Views\Accueil.js" />
+    <Content Include="Scripts\Views\Echecs.js" />
+    <Content Include="Scripts\Views\MentionsLegales.js" />
+    <Content Include="Scripts\Views\Plan.js" />
+    <Content Include="Scripts\Views\Shared\Contact.js" />
+    <Content Include="Scripts\Views\Shared\Footer.js" />
+    <Content Include="Scripts\Views\Shared\Menu.js" />
+    <Content Include="Scripts\Views\Shared\Message.js" />
+    <Content Include="Scripts\Views\Shared\Partenariats_Droite.js" />
+    <Content Include="Scripts\Views\Shared\Partenariats_Full.js" />
+    <Content Include="Scripts\Views\Shared\Partenariats_Medium.js" />
+    <Content Include="systemjs-angular-loader.js" />
+    <Content Include="systemjs.config.extras.js" />
+    <Content Include="systemjs.config.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="tsconfig.json" />
+    <Content Include="Scripts\jquery\jquery-3.3.1.min.map" />
+    <Content Include="Scripts\jquery\jquery-3.3.1.slim.min.map" />
+    <Content Include="Views\Accueil.cshtml" />
+    <Content Include="Views\Echecs.cshtml" />
+    <Content Include="Views\MentionsLegales.cshtml" />
+    <Content Include="Views\Plan.cshtml" />
+    <Content Include="Views\Shared\_LayoutBackOffice.cshtml" />
+    <Content Include="Views\Shared\_LayoutFrontOffice.cshtml" />
+    <Content Include="Views\Shared\Contact.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Shared\Menu.cshtml" />
+    <Content Include="Views\Shared\Message.cshtml" />
+    <Content Include="Views\Shared\Partenariats_Droite.cshtml" />
+    <Content Include="Views\Shared\Partenariats_Full.cshtml" />
+    <Content Include="Views\Shared\Partenariats_Medium.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Commandes\Models\" />
+    <Folder Include="Areas\Commandes\Scripts\Views\Shared\" />
+    <Folder Include="Areas\Commandes\Views\Shared\" />
+    <Folder Include="Areas\Contenus\Models\" />
+    <Folder Include="Areas\Contenus\Views\Contenus\" />
+    <Folder Include="Areas\Eleves\Models\" />
+    <Folder Include="Areas\Evenements\Models\" />
+    <Folder Include="Areas\Produits\Models\" />
+    <Folder Include="Content\Images\jquery-nl\loader\loader\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\Home\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="app\app.component.spec.ts" />
+    <TypeScriptCompile Include="app\app.component.ts" />
+    <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\main.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>63121</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:63122/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

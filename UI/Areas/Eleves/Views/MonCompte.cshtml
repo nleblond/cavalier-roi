@@ -1,0 +1,296 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutFrontOffice.cshtml";
+}
+
+<div class="moncompte">
+
+    <div class="zone">
+        <img class="photo" src="~/Content/Images/MonCompte.jpg" />
+        <div class="titre">MON COMPTE</div>
+        <div class="texte">
+            Bienvenue dans votre espace personnel sécurisé.
+            <br/>
+            <br />
+            Vous pouvez y retrouver :
+            <br />
+            - les informations vous concernant avec la possibilité de les modifier quand vous le souhaitez
+            <br />
+            - l'intégralité des commandes passées et leur avancée en temps réel
+            <br />
+            - le calendrier récapitulatif des cours effectués et de ceux à venir, tout en vous proposant d'en réserver de nouveaux
+            <br />
+            - la liste des stages dispensés par l'école du cavalier roi auquels vous participez
+            <br />
+            - la liste des tournois organisés par l'école du cavalier roi auquels vous êtes inscrits
+            <br />
+            <br />
+            Toute information transmise sera utilisée pour assurer le bon fonctionnement du site et le déroulement des services proposés et ne sera en aucun cas utilisée sans votre autorisation.
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="infos">
+        <h2>MES INFORMATIONS</h2>
+        <table cellpadding="0" cellspacing="0" border="0" class="texte">
+            <tr>
+                <td>Nom&nbsp;:&nbsp;</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>Prénom&nbsp;:&nbsp;</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>Date de naissance&nbsp;:&nbsp;</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>Sexe&nbsp;:&nbsp;</td>
+                <td>
+                    <select>
+                        <option value="0"></option>
+                        <option value="1">Mme</option>
+                        <option value="0">M.</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Photo&nbsp;:&nbsp;</td>
+                <td><input type="file" /></td>
+            </tr>
+            <tr>
+                <td>Téléphone fixe&nbsp;:&nbsp;</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>Téléphone mobile&nbsp;:&nbsp;</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>Numéro de license&nbsp;:&nbsp;</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>Classement&nbsp;:&nbsp;</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>Club&nbsp;:&nbsp;</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="last"><input type="button" title="Valider" value="Valider" /></td>
+            </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" border="0" class="texte">
+            <tr>
+                <td>Email/Identifiant&nbsp;:&nbsp;</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>Mot de passe&nbsp;:&nbsp;</td>
+                <td><input type="password" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="last"><input type="button" title="Valider" value="Valider" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><img class="photo" src="~/Content/Images/Contact.jpg" /></td>
+            </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" border="0" class="texte">
+            <tr class="rouge">
+                <td>Commentaire&nbsp;:&nbsp;</td>
+                <td><textarea rows="8" cols="38" disabled></textarea></td>
+            </tr>
+            <tr class="rouge">
+                <td>Suivi&nbsp;:&nbsp;</td>
+                <td><textarea rows="8" cols="38"></textarea></td>
+            </tr>
+            <tr class="rouge">
+                <td></td>
+                <td><span class="rouge" title="Valider">✔</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="commandes">
+        <h2>MES COMMANDES</h2>
+        <table cellpadding="0" cellspacing="0" border="0" class="texte">
+            <thead>
+                <tr>
+                    <th class="first">N°</th>
+                    <th>Date</th>
+                    <th>Produit</th>
+                    <th style="white-space:nowrap;">Qté</th>
+                    <th style="white-space:nowrap;">Prix</th>
+                    <th class="last">Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="first">12345</td>
+                    <td>20/12/1979 15:55</td>
+                    <td>ARMURE DU CHEVALIER DU ZODIAQUE / SAINT SEIYA&nbsp;:&nbsp;HADES V4 15TH</td>
+                    <td>1</td>
+                    <td>150,00€</td>
+                    <td class="last">Envoyé</td>
+                </tr>
+                <tr>
+                    <td class="first">12346</td>
+                    <td>20/12/1979 18:15</td>
+                    <td>ARMURE DU CHEVALIER DU ZODIAQUE / SAINT SEIYA&nbsp;:&nbsp;ATHENA V4 10TH</td>
+                    <td>1</td>
+                    <td>120,00€</td>
+                    <td class="last">En cours d'envoi</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="cours">
+        <h2>MES COURS</h2>
+        <table cellpadding="0" cellspacing="0" border="0" class="formules texte">
+            <thead>
+                <tr>
+                    <th colspan="2" class="first">Formule</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="formule">
+                    <td class="first">
+                        <div>FORMULE 2H</div>
+                        <table cellpadding="0" cellspacing="0" border="0" class="dates">
+                            <thead>
+                                <tr>
+                                    <th class="first">Date</th>
+                                    <th>Heure de début</th>
+                                    <th>Heure de fin</th>
+                                    <th class="last"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="first">MARDI 01/01/2018</td>
+                                    <td>10H</td>
+                                    <td>11H</td>
+                                    <td class="last"></td>
+                                </tr>
+                                <tr>
+                                    <td class="first">MERCREDI 01/01/2019</td>
+                                    <td>15H</td>
+                                    <td>16H</td>
+                                    <td class="last"><span class="rouge" title="Annuler">✖</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td class="actions">
+                        <div><input type="text" value="0" />H sur&nbsp;<span>2H</span></div>
+                        <div><span class="rouge" title="Créditer">✔</span></div>
+                        <div><input type="button" title="Réserver" value="Réserver" /></div>
+                    </td>
+                </tr>
+                <tr class="formule">
+                    <td class="first">
+                        <div>FORMULE A LA DEMANDE</div>
+                        <table cellpadding="0" cellspacing="0" border="0" class="dates">
+                            <thead>
+                                <tr>
+                                    <th class="first">Date</th>
+                                    <th>Heure de début</th>
+                                    <th>Heure de fin</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="first">-</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td class="actions">
+                        <div><input type="text" value="50" />H</div>
+                        <div><span class="rouge" title="Créditer">✔</span></div>
+                        <div><input type="button" title="Réserver" value="Réserver" /></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="stages">
+        <h2>MES STAGES</h2>
+        <table cellpadding="0" cellspacing="0" border="0" class="texte">
+            <thead>
+                <tr>
+                    <th class="first">Libellé</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th class="last"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="first">PERFECTIONNEMENT A LA [S]ODOMIE [S]URPRISE</td>
+                    <td>MARDI 01/01/2018 10H</td>
+                    <td>VENDREDI 04/01/2018 17H</td>
+                    <td class="last"></td>
+                </tr>
+                <tr>
+                    <td class="first">COMMENT OBTENIR UNE PIPE</td>
+                    <td>DIMANCHE 12/11/2018 12H</td>
+                    <td>DIMANCHE 12/11/2018 12H</td>
+                    <td class="last right"><span class="rouge" title="Annuler">✖</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="tournois">
+        <h2>MES TOURNOIS</h2>
+        <table cellpadding="0" cellspacing="0" border="0" class="texte">
+            <thead>
+                <tr>
+                    <th class="first">Libellé</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th class="last"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="first">LA PLUS GROSSE TEUB DU VAR</td>
+                    <td>MARDI 01/01/2018 10H</td>
+                    <td>VENDREDI 04/01/2018 17H</td>
+                    <td class="right last"><span class="rouge" title="Annuler">✖</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="clear"></div>
+
+    @Html.Partial("~/Views/Shared/Partenariats_Medium.cshtml")
+
+    <div class="clear"></div>
+
+</div>
+
+<script language="javascript" src="@Url.Content("~/Areas/Eleves/Scripts/Views/MonCompte.js")" type="text/javascript"></script>

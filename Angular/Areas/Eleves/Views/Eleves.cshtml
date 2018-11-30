@@ -1,0 +1,76 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutBackOffice.cshtml";
+}
+
+
+<h1>Gestion des eleves</h1>
+
+<div class="filtre">
+    <h2>Filtre</h2>
+
+    <div class="elements">
+        <my-app><img src="~/Content/Images/ajax-loader.gif" title="Merci de patienter" /></my-app>
+    </div>
+</div>
+
+<div class="resultats">
+    <h2>Resultats</h2>
+
+    <table cellpadding="2" cellspacing="0" border="0" class="first">
+        <thead>
+            <tr>
+                <th>ID Elève</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email/Identifiant</th>
+                <th>Evènements</th>
+                <th>Commandes</th>
+                <th>Numéro de licence</th>
+                <th>Club</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>LEBLOND</td>
+                <td>Nicolas</td>
+                <td>leniko@gmail.com</td>
+                <td></td>
+                <td><a href="/Commandes" title="Voir les commandes">2</a></td>
+                <td>12457872B</td>
+                <td>Paris</td>
+                <td>
+                    <input type="button" title="Modifier" value="Modifier" />
+                    <input type="button" title="Supprimer" value="Supprimer" />
+                </td>
+            </tr>
+            <tr class="last">
+                <td>2</td>
+                <td>MORY</td>
+                <td>Eric</td>
+                <td>mory.eric@gmail.com</td>
+                <td></td>
+                <td><a href="/Commandes" title="Voir les commandes">10</a></td>
+                <td>12458572B</td>
+                <td>La Seyne sur Mer</td>
+                <td>
+                    <input type="button" title="Modifier" value="Modifier" />
+                    <input type="button" title="Supprimer" value="Supprimer" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="clear"></div>
+
+    <div class="pagination">1 2 3 4</div>
+
+    <div class="clear"></div>
+
+</div>
+
+<div class="clear"></div>
+
+<script language="javascript" src="@Url.Content("~/Areas/Eleves/Scripts/Views/Eleves.js")" type="text/javascript"></script>

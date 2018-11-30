@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/CSS/Site.css")
+    <link href="~/Scripts/jquery-ui/jquery-ui.css" rel="stylesheet" />
+
+    @Scripts.Render("~/Scripts/jquery/jquery-3.3.1.js")
+    @Scripts.Render("~/Scripts/jquery-ui/jquery-ui.min.js")
+
+    @Scripts.Render("~/Scripts/jquery-nl/functions-2.6.2.js")
+    @Scripts.Render("~/Scripts/jquery-nl/navigateurs-1.6.0.js")
+
+    @Scripts.Render("~/Scripts/jquery-nl/jquery-nl-modalpopup-2.6.5.B.js")
+    @Scripts.Render("~/Scripts/jquery-nl/jquery-nl-touchslider-2.3.6.js")
+
+
+    <script src="/node_modules/core-js/client/shim.min.js"></script>
+    <script src="/node_modules/zone.js/dist/zone.js"></script>
+    <script src="/node_modules/systemjs/dist/system.src.js"></script>
+    <script src="/systemjs.config.js"></script>
+    <script>System.import('app/main.js').catch(function (err) { console.error(err); });</script>
+
+
+
+</head>
+<body>
+
+    <script type="text/javascript">
+        var imgRelativePath = '../Content/Images';
+    </script>
+
+
+    <div class="page_backoffice">
+        <div class="filter_backoffice">
+            @RenderBody()
+        </div>
+    </div>
+
+</body>
+</html>
