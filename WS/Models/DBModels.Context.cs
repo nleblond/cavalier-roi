@@ -28,22 +28,26 @@ namespace WS.Models
         }
     
         public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<Commandes> Commandes { get; set; }
+        public virtual DbSet<Commande> Commande { get; set; }
         public virtual DbSet<Contenus> Contenus { get; set; }
-        public virtual DbSet<Eleves> Eleves { get; set; }
+        public virtual DbSet<Eleve> Eleve { get; set; }
         public virtual DbSet<Emplacements> Emplacements { get; set; }
         public virtual DbSet<Evenements> Evenements { get; set; }
         public virtual DbSet<Frais> Frais { get; set; }
-        public virtual DbSet<Lignes> Lignes { get; set; }
+        public virtual DbSet<Ligne> Ligne { get; set; }
         public virtual DbSet<Participations> Participations { get; set; }
         public virtual DbSet<Plannings> Plannings { get; set; }
-        public virtual DbSet<Produits> Produits { get; set; }
+        public virtual DbSet<Produit> Produit { get; set; }
         public virtual DbSet<Publications> Publications { get; set; }
         public virtual DbSet<Reservations> Reservations { get; set; }
-        public virtual DbSet<Statuts> Statuts { get; set; }
-        public virtual DbSet<Typologies> Typologies { get; set; }
+        public virtual DbSet<Statut> Statut { get; set; }
+        public virtual DbSet<Typologie> Typologie { get; set; }
+        public virtual DbSet<Adresse> Adresse { get; set; }
+
+
+
     
-        public virtual ObjectResult<Eleves> GetEleves(Nullable<int> id, string nom, string prenom, string email, string club, string license, Nullable<int> evenementId, Nullable<int> typologieId)
+        public virtual ObjectResult<EleveResult> GetEleves(Nullable<int> id, string nom, string prenom, string email, string club, string license, Nullable<int> evenementId, Nullable<int> typologieId)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
@@ -77,44 +81,7 @@ namespace WS.Models
                 new ObjectParameter("TypologieId", typologieId) :
                 new ObjectParameter("TypologieId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Eleves>("GetEleves", idParameter, nomParameter, prenomParameter, emailParameter, clubParameter, licenseParameter, evenementIdParameter, typologieIdParameter);
-        }
-    
-        public virtual ObjectResult<Eleves> GetEleves(Nullable<int> id, string nom, string prenom, string email, string club, string license, Nullable<int> evenementId, Nullable<int> typologieId, MergeOption mergeOption)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("Id", id) :
-                new ObjectParameter("Id", typeof(int));
-    
-            var nomParameter = nom != null ?
-                new ObjectParameter("Nom", nom) :
-                new ObjectParameter("Nom", typeof(string));
-    
-            var prenomParameter = prenom != null ?
-                new ObjectParameter("Prenom", prenom) :
-                new ObjectParameter("Prenom", typeof(string));
-    
-            var emailParameter = email != null ?
-                new ObjectParameter("Email", email) :
-                new ObjectParameter("Email", typeof(string));
-    
-            var clubParameter = club != null ?
-                new ObjectParameter("Club", club) :
-                new ObjectParameter("Club", typeof(string));
-    
-            var licenseParameter = license != null ?
-                new ObjectParameter("License", license) :
-                new ObjectParameter("License", typeof(string));
-    
-            var evenementIdParameter = evenementId.HasValue ?
-                new ObjectParameter("EvenementId", evenementId) :
-                new ObjectParameter("EvenementId", typeof(int));
-    
-            var typologieIdParameter = typologieId.HasValue ?
-                new ObjectParameter("TypologieId", typologieId) :
-                new ObjectParameter("TypologieId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Eleves>("GetEleves", mergeOption, idParameter, nomParameter, prenomParameter, emailParameter, clubParameter, licenseParameter, evenementIdParameter, typologieIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EleveResult>("GetEleves", idParameter, nomParameter, prenomParameter, emailParameter, clubParameter, licenseParameter, evenementIdParameter, typologieIdParameter);
         }
     
         public virtual int DelEleve(Nullable<int> id, string real)
@@ -130,9 +97,85 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelEleve", idParameter, realParameter);
         }
     
-        public virtual ObjectResult<EvenementsAndTypologies> GetEvenementsAndTypologies()
+        public virtual ObjectResult<EvenementAndTypologie> GetEvenementsAndTypologies()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EvenementsAndTypologies>("GetEvenementsAndTypologies");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EvenementAndTypologie>("GetEvenementsAndTypologies");
+        }
+
+
+
+
+    
+        public virtual ObjectResult<Statut> GetStatuts()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Statut>("GetStatuts");
+        }
+   
+        public virtual ObjectResult<CommandeResult> GetCommandes(Nullable<int> id, string dtMin, string dtMax, Nullable<int> produitId, string produitReference, Nullable<int> eleveId, string referenceTransaction, string referenceExterne, Nullable<int> statutId)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var dtMinParameter = dtMin != null ?
+                new ObjectParameter("DtMin", dtMin) :
+                new ObjectParameter("DtMin", typeof(string));
+    
+            var dtMaxParameter = dtMax != null ?
+                new ObjectParameter("DtMax", dtMax) :
+                new ObjectParameter("DtMax", typeof(string));
+    
+            var produitIdParameter = produitId.HasValue ?
+                new ObjectParameter("ProduitId", produitId) :
+                new ObjectParameter("ProduitId", typeof(int));
+    
+            var produitReferenceParameter = produitReference != null ?
+                new ObjectParameter("ProduitReference", produitReference) :
+                new ObjectParameter("ProduitReference", typeof(string));
+    
+            var eleveIdParameter = eleveId.HasValue ?
+                new ObjectParameter("EleveId", eleveId) :
+                new ObjectParameter("EleveId", typeof(int));
+    
+            var referenceTransactionParameter = referenceTransaction != null ?
+                new ObjectParameter("ReferenceTransaction", referenceTransaction) :
+                new ObjectParameter("ReferenceTransaction", typeof(string));
+    
+            var referenceExterneParameter = referenceExterne != null ?
+                new ObjectParameter("ReferenceExterne", referenceExterne) :
+                new ObjectParameter("ReferenceExterne", typeof(string));
+    
+            var statutIdParameter = statutId.HasValue ?
+                new ObjectParameter("StatutId", statutId) :
+                new ObjectParameter("StatutId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CommandeResult>("GetCommandes", idParameter, dtMinParameter, dtMaxParameter, produitIdParameter, produitReferenceParameter, eleveIdParameter, referenceTransactionParameter, referenceExterneParameter, statutIdParameter);
+        }
+    
+        public virtual int DelCommande(Nullable<int> id, string real)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var realParameter = real != null ?
+                new ObjectParameter("Real", real) :
+                new ObjectParameter("Real", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelCommande", idParameter, realParameter);
+        }
+    
+        public virtual int UpdCommande(Nullable<int> id, Nullable<int> statutId)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var statutIdParameter = statutId.HasValue ?
+                new ObjectParameter("StatutId", statutId) :
+                new ObjectParameter("StatutId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdCommande", idParameter, statutIdParameter);
         }
     }
 }

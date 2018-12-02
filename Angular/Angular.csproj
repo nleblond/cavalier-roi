@@ -171,7 +171,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\app.component.html" />
+    <Content Include="app\Commandes\app.component.html" />
+    <Content Include="app\Eleves\app.component.html" />
     <Content Include="Areas\Commandes\Scripts\Views\Commandes.js" />
     <Content Include="Areas\Contenus\Scripts\Views\Actualites.js" />
     <Content Include="Areas\Contenus\Scripts\Views\Contenus.js" />
@@ -333,7 +334,7 @@
     <Content Include="Scripts\jquery-nl\jquery-nl-touchslider-2.3.6.js" />
     <Content Include="Scripts\jquery-nl\jquery-nl-treeview-2.0.0.js" />
     <Content Include="Scripts\jquery-nl\jquery-nl-watermark-2.2.3.js" />
-    <Content Include="Scripts\jquery-nl\navigateurs-1.6.0.js" />
+    <Content Include="Scripts\jquery-nl\navigateurs-1.6.1.js" />
     <Content Include="Scripts\jquery-ui\AUTHORS.txt" />
     <Content Include="Scripts\jquery-ui\external\jquery\jquery.js" />
     <Content Include="Scripts\jquery-ui\images\ui-bg_glass_95_fef1ec_1x400.png" />
@@ -455,10 +456,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\app.component.spec.ts" />
-    <TypeScriptCompile Include="app\app.component.ts" />
-    <TypeScriptCompile Include="app\app.module.ts" />
-    <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\Commandes\app.component.spec.ts" />
+    <TypeScriptCompile Include="app\Commandes\app.component.ts" />
+    <TypeScriptCompile Include="app\Commandes\app.module.ts" />
+    <TypeScriptCompile Include="app\Commandes\main.ts" />
+    <TypeScriptCompile Include="app\Commandes\Models\CommandeResult.ts" />
+    <TypeScriptCompile Include="app\Commandes\Models\Statut.ts" />
+    <TypeScriptCompile Include="app\Eleves\app.component.spec.ts" />
+    <TypeScriptCompile Include="app\Eleves\app.component.ts" />
+    <TypeScriptCompile Include="app\Eleves\app.module.ts" />
+    <TypeScriptCompile Include="app\Eleves\Models\ElevesSearchParameters.ts" />
+    <TypeScriptCompile Include="app\Eleves\Models\EleveResult.ts" />
+    <TypeScriptCompile Include="app\Eleves\Models\EvenementAndTypologie.ts" />
+    <TypeScriptCompile Include="app\Eleves\main.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

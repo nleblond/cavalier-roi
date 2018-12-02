@@ -56,17 +56,28 @@ a.tous:hover { color: #FECC16; text-decoration:underline; }
 
 .page_backoffice .filtre { float:left; padding:0rem 0rem 0rem 0rem; margin:1.0rem 0rem 0rem 0rem; width:225px; }
 .page_backoffice .filtre .elements { float:left; padding:10px 10px 10px 10px; border:solid 1pt #FECC16; width:205px; }
-.page_backoffice .filtre .elements input[type="text"] { color:#000000; border:solid 1pt #000000; width:200px; padding:2px 2px 2px 2px; }
+.page_backoffice .filtre .elements input[type="number"], .page_backoffice .filtre .elements input[type="text"], .page_backoffice .filtre .elements input[type="email"] { color:#000000; border:solid 1pt #000000; width:200px; padding:2px 2px 2px 2px; }
 .page_backoffice .filtre .elements select { color:#000000; border:solid 1pt #000000; width:205px; padding:2px 2px 2px 2px; }
 .page_backoffice .filtre .ajouter { float:left; margin:10px 0rem 0rem 0rem; }
 .page_backoffice .filtre .rechercher { float:right; }
 
-.page_backoffice .resultats { float:left; display:inline-block; padding:0rem 0rem 0rem 0rem; margin:1.0rem 0rem 0rem 10px; width:1610px; }
-.page_backoffice .resultats { float:left; display:inline-block; padding:0rem 0rem 0rem 0rem; margin:1.0rem 0rem 0rem 10px; width:1610px; }
+.page_backoffice .resultats { float:left; display:inline-block; padding:0rem 0rem 0rem 0rem; margin:1.0rem 0rem 0rem 10px; width:1610px; text-align:left; }
 .page_backoffice .resultats .pagination { float:left; padding:0rem 0rem 0rem 0rem; margin:10px 0rem 0rem 0rem; width:161.0rem; text-align:right; }
 
 .page_backoffice .small_resultats { float:left; display:inline-block; padding:0rem 0rem 0rem 0rem; margin:1.0rem 0rem 0rem 10px; width:1100px; }
 .page_backoffice .small_resultats .pagination { float:left; padding:0rem 0rem 0rem 0rem; margin:10px 0rem 0rem 0rem; width:1100px; text-align:right; }
+
+.page_backoffice table.first { width:100%; border:solid 1pt #FECC16; padding:0rem 0rem 0rem 0rem; margin:0rem 0rem 0rem 0rem; }
+.page_backoffice table.first thead th { text-align:left; color:#FECC16; padding:10px 10px 10px 10px; border-bottom:solid 1pt #FECC16; }
+.page_backoffice table.first tbody tr:hover { background-color:#161616; }
+.page_backoffice table.first tbody tr.last td { border-bottom:none; } 
+.page_backoffice table.first tbody td { text-align:left; padding:10px 10px 10px 10px; border-bottom:solid 1pt #FECC16; }
+.page_backoffice table.first tbody td:last-child { text-align:right; white-space:nowrap; }
+.page_backoffice table.first tbody td img { max-width:60px; max-height:60px; }
+
+.page_backoffice table.second { border:solid 1pt #FECC16; padding:0rem 0rem 10px 0rem; margin: 0rem 0rem 0rem 0rem; }
+.page_backoffice table.second tbody tr td { text-align:left; padding:10px 10px 0rem 10px; border-bottom:none; }
+.page_backoffice table.second tbody tr td:last-child { text-align:right; }
 
 .page_backoffice .details { float:left; padding:0rem 0rem 0rem 0rem; margin:1.0rem 0rem 0rem 10px; width:510px; }
 .page_backoffice .details .elements { float:left; padding:10px 10px 10px 10px; border:solid 1pt #FECC16; width:490px; }
@@ -84,19 +95,6 @@ a.tous:hover { color: #FECC16; text-decoration:underline; }
 .page_backoffice .details .elements .longueur { width:60px; }
 .page_backoffice .details .elements .largeur { width:60px; }
 .page_backoffice .details .elements .hauteur{ width:60px; }
-
-.page_backoffice table.first { width:100%; border:solid 1pt #FECC16; padding:0rem 0rem 0rem 0rem; margin:0rem 0rem 0rem 0rem; }
-.page_backoffice table.first thead th { text-align:left; color:#FECC16; padding:10px 10px 10px 10px; border-bottom:solid 1pt #FECC16; }
-.page_backoffice table.first tbody tr:hover { background-color:#161616; }
-.page_backoffice table.first tbody tr.last td { border-bottom:none; } 
-.page_backoffice table.first tbody td { text-align:left; padding:10px 10px 10px 10px; border-bottom:solid 1pt #FECC16; }
-.page_backoffice table.first tbody td:last-child { text-align:right; white-space:nowrap; }
-.page_backoffice table.first tbody td img { max-width:60px; max-height:60px; }
-
-.page_backoffice table.second { border:solid 1pt #FECC16; padding:0rem 0rem 10px 0rem; margin: 0rem 0rem 0rem 0rem; }
-.page_backoffice table.second tbody tr td { text-align:left; padding:10px 10px 0rem 10px; border-bottom:none; }
-.page_backoffice table.second tbody tr td:last-child { text-align:right; }
-
 
 
 

@@ -20,38 +20,26 @@ namespace WS.Controllers
 
         [HttpPost]
         [HttpGet]
-        public IHttpActionResult GetEleves(
-                                                [FromUri] int? Id = null,
-                                                [FromUri] string Nom = null,
-                                                [FromUri] string Prenom = null,
-                                                [FromUri] string Email = null,
-                                                [FromUri] string Club = null,
-                                                [FromUri] string License = null,
-                                                [FromUri] int? EvenementId = null,
-                                                [FromUri] int? TypologieId = null
-                                            )
+        public IHttpActionResult GetEleves(ElevesSearchParameters _Parameters)
         {
             return Ok(DB.GetEleves(
-                                    id: Id,
-                                    nom: Nom,
-                                    prenom: Prenom,
-                                    email: Email,
-                                    club: Club,
-                                    license: License,
-                                    evenementId: EvenementId,
-                                    typologieId: TypologieId
+                                    id: (_Parameters.Id == null ? -1 : _Parameters.Id),
+                                    nom: (String.IsNullOrEmpty(_Parameters.Nom) ? null : _Parameters.Nom),
+                                    prenom: (String.IsNullOrEmpty(_Parameters.Prenom) ? null : _Parameters.Prenom),
+                                    email: (String.IsNullOrEmpty(_Parameters.Email) ? null : _Parameters.Email),
+                                    club: (String.IsNullOrEmpty(_Parameters.Club) ? null : _Parameters.Club),
+                                    license: (String.IsNullOrEmpty(_Parameters.License) ? null : _Parameters.License),
+                                    evenementId: (_Parameters.EvenementId == null ? -1 : _Parameters.EvenementId),
+                                    typologieId: (_Parameters.TypologieId == null ? -1 : _Parameters.TypologieId)
                                ).ToList());
         }
 
 
         [HttpPost]
         [HttpGet]
-        public IHttpActionResult DelEleve(
-                                                [FromUri] int? Id = null,
-                                                [FromUri] string Real = "N"
-                                            )
+        public IHttpActionResult DelEleve(Int32? _Id = null, String _Real = "N")
         {
-            return Ok(DB.DelEleve(Id, Real));
+            return Ok(DB.DelEleve(_Id, _Real));
         }
 
 

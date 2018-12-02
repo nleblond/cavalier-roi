@@ -161,15 +161,22 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CommandesController.cs" />
     <Compile Include="Controllers\ElevesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="MessageHandlers\APIKeyMessageHandler.cs" />
+    <Compile Include="Models\Adresse.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Categories.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Commandes.cs">
+    <Compile Include="Models\Commande.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CommandeResult.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Contenus.cs">
@@ -190,22 +197,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBModels.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Eleves.cs">
+    <Compile Include="Models\CommandesSearchParameters.cs" />
+    <Compile Include="Models\Eleve.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EleveResult.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ElevesSearchParameters.cs" />
     <Compile Include="Models\Emplacements.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EvenementAndTypologie.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Evenements.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EvenementsAndTypologies.cs">
-      <DependentUpon>DBModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Frais.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Lignes.cs">
+    <Compile Include="Models\Ligne.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Participations.cs">
@@ -214,7 +226,7 @@
     <Compile Include="Models\Plannings.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Produits.cs">
+    <Compile Include="Models\Produit.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Publications.cs">
@@ -223,10 +235,10 @@
     <Compile Include="Models\Reservations.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Statuts.cs">
+    <Compile Include="Models\Statut.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Typologies.cs">
+    <Compile Include="Models\Typologie.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -274,15 +286,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Content\Site.css" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

@@ -32,8 +32,7 @@ namespace WS.MessageHandlers
                 return HttpRequestMessage.CreateResponse(HttpStatusCode.Forbidden, "APIKey invalide");
             }
 
-            //hack
-            Valid = true;
+
             var Response = await base.SendAsync(HttpRequestMessage, CancellationToken);
             return Response;
 

@@ -14,19 +14,10 @@ namespace WS.Models
     
     public partial class Frais
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Frais()
-        {
-            this.Commandes = new HashSet<Commandes>();
-        }
-    
         public int Id { get; set; }
         public string Libelle { get; set; }
         public Nullable<double> Minimum { get; set; }
         public Nullable<double> Maximum { get; set; }
         public Nullable<double> Prix { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Commandes> Commandes { get; set; }
     }
 }

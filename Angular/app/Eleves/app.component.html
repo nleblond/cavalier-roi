@@ -1,0 +1,81 @@
+﻿<div class="filtre">
+    <h2>Filtre</h2>
+
+    <div class="elements">
+        <input type="number" placeholder="ID Elève" #Id min="0" />
+        <div class="br10"></div>
+        <input type="text" placeholder="Nom" #Nom maxlength="50" />
+        <div class="br10"></div>
+        <input type="text" placeholder="Prénom" #Prenom maxlength="50" />
+        <div class="br10"></div>
+        <input type="email" placeholder="Email/Identifiant" #Email maxlength="255" />
+        <div class="br10"></div>
+        <input type="text" placeholder="Numéro de licence" #License maxlength="20" />
+        <div class="br10"></div>
+        <input type="text" placeholder="Club" #Club maxlength="255" />
+        <div class="br10"></div>
+        <select id="Select_EvenementTypologie" placeholder="Typologie/Evènement" #EvenementTypologie (change)="SelectEvenementTypologie($event)">
+            <option>Evènement/Typologie</option>
+            <option *ngFor="let c of _EvenementsAndTypologies" value="{{c.FormatedId}}">{{c.Libelle}}</option>
+        </select>
+        <input type="hidden" #EvenementId value="{{_EvenementId}}" />
+        <input type="hidden" #TypologieId value="{{_TypologieId}}" />
+        <div class="br10"></div>
+        <input type="button" title="Rechercher" value="Rechercher" class="rechercher" (click)="GetEleves(Id.value, Nom.value, Prenom.value, Email.value, License.value, Club.value, EvenementId.value, TypologieId.value)" />
+    </div>
+</div>
+
+<div class="resultats">
+    <h2>Resultats</h2>
+
+    <table cellpadding="2" cellspacing="0" border="0" class="first">
+        <thead>
+            <tr>
+                <th>ID Elève</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email/Identifiant</th>
+                <th>Evènements</th>
+                <th>Commandes</th>
+                <th>Numéro de licence</th>
+                <th>Club</th>
+                <th>Classement</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of _Eleves">
+                <td>{{e.Id}}</td>
+                <td>{{e.Nom}}</td>
+                <td>{{e.Prenom}}</td>
+                <td>{{e.Email}}</td>
+                <td>
+                    <div>Stages : <a href="/Evenements?TypologieId=0&EleveId={{e.Id}}" title="Voir les stages">{{e.NbStages}}</a></div>
+                    <div>Cours : <a href="/Evenements?TypologieId=1&EleveId={{e.Id}}" title="Voir les cours">{{e.NbCours}}</a></div>
+                    <div>Tournois : <a href="/Evenements?TypologieId=3&EleveId={{e.Id}}" title="Voir les tournois">{{e.NbTournois}}</a></div>
+                </td>
+                <td><a href="/Commandes?EleveId={{e.Id}}" title="Voir les commandes">{{e.NbCommandes}}</a></td>
+                <td>{{e.License}}</td>
+                <td>{{e.Club}}</td>
+                <td>{{e.Classement}}</td>
+                <td>
+                    <input type="button" title="Modifier" value="Modifier" (click)="GetEleve(e.Id)" />
+                    <input type="button" title="Supprimer" value="Supprimer" (click)="DelEleve(e.Id)" />
+                </td>
+            </tr>
+            <tr *ngIf="_NoResult">
+                <td>Aucun résultat</td>
+                <td colspan="9"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="clear"></div>
+
+    <div class="pagination">1 2 3 4</div>
+
+    <div class="clear"></div>
+
+</div>
+
+<div class="clear"></div>

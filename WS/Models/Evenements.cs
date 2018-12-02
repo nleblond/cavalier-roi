@@ -36,7 +36,7 @@ namespace WS.Models
         public Nullable<int> EvenementParentId { get; set; }
         public string VisibledYN { get; set; }
     
-        public virtual Typologies Typologies { get; set; }
+        public virtual Typologie Typologies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Participations> Participations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

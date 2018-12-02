@@ -20,7 +20,7 @@ namespace WS.Models
         public string Quantité { get; set; }
         public string DeletedYN { get; set; }
     
-        public virtual Eleves Eleves { get; set; }
+        public virtual Eleve Eleves { get; set; }
         public virtual Evenements Evenements { get; set; }
     }
 }

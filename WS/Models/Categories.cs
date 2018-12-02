@@ -14,16 +14,7 @@ namespace WS.Models
     
     public partial class Categories
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Categories()
-        {
-            this.Produits = new HashSet<Produits>();
-        }
-    
         public int Id { get; set; }
         public string Libelle { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Produits> Produits { get; set; }
     }
 }
