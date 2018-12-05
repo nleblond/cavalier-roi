@@ -51,6 +51,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -146,6 +147,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Data\Tools.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -172,7 +174,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\Commandes\app.component.html" />
+    <TypeScriptCompile Include="app\Commandes\Models\CommandeUpdateParameters.ts" />
     <Content Include="app\Eleves\app.component.html" />
+    <Content Include="app\Produits\app.component.html" />
     <Content Include="Areas\Commandes\Scripts\Views\Commandes.js" />
     <Content Include="Areas\Contenus\Scripts\Views\Actualites.js" />
     <Content Include="Areas\Contenus\Scripts\Views\Contenus.js" />
@@ -435,7 +439,6 @@
     <Content Include="Views\Shared\Partenariats_Medium.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\Commandes\Models\" />
     <Folder Include="Areas\Commandes\Scripts\Views\Shared\" />
     <Folder Include="Areas\Commandes\Views\Shared\" />
@@ -460,18 +463,35 @@
     <TypeScriptCompile Include="app\Commandes\app.component.ts" />
     <TypeScriptCompile Include="app\Commandes\app.module.ts" />
     <TypeScriptCompile Include="app\Commandes\main.ts" />
-    <TypeScriptCompile Include="app\Commandes\Models\CommandeResult.ts" />
+    <TypeScriptCompile Include="app\Commandes\Models\CommandesSearchParameters.ts" />
+    <TypeScriptCompile Include="app\Commandes\Models\Ligne.ts" />
+    <TypeScriptCompile Include="app\Commandes\Models\Commande.ts" />
+    <TypeScriptCompile Include="app\Commandes\Models\Adresse.ts" />
     <TypeScriptCompile Include="app\Commandes\Models\Statut.ts" />
     <TypeScriptCompile Include="app\Eleves\app.component.spec.ts" />
     <TypeScriptCompile Include="app\Eleves\app.component.ts" />
     <TypeScriptCompile Include="app\Eleves\app.module.ts" />
+    <TypeScriptCompile Include="app\Commandes\Models\Frai.ts" />
+    <TypeScriptCompile Include="app\Eleves\Models\Eleve.ts" />
     <TypeScriptCompile Include="app\Eleves\Models\ElevesSearchParameters.ts" />
-    <TypeScriptCompile Include="app\Eleves\Models\EleveResult.ts" />
-    <TypeScriptCompile Include="app\Eleves\Models\EvenementAndTypologie.ts" />
     <TypeScriptCompile Include="app\Eleves\main.ts" />
+    <TypeScriptCompile Include="app\Eleves\Models\EvenementAndTypologie.ts" />
+    <TypeScriptCompile Include="app\Produits\app.component.spec.ts" />
+    <TypeScriptCompile Include="app\Produits\app.component.ts" />
+    <TypeScriptCompile Include="app\Produits\app.module.ts" />
+    <TypeScriptCompile Include="app\Produits\main.ts" />
+    <TypeScriptCompile Include="app\Produits\Models\Categorie.ts" />
+    <TypeScriptCompile Include="app\Produits\Models\Produit.ts" />
+    <TypeScriptCompile Include="app\Produits\Models\ProduitsSearchParameters.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WS\WS.csproj">
+      <Project>{779cdb31-6360-4dfd-85fb-3415812d4ab6}</Project>
+      <Name>WS</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -500,6 +520,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties package_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

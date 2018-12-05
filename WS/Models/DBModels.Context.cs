@@ -28,24 +28,21 @@ namespace WS.Models
         }
     
         public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<Commande> Commande { get; set; }
+        public virtual DbSet<Commandes> Commandes { get; set; }
         public virtual DbSet<Contenus> Contenus { get; set; }
-        public virtual DbSet<Eleve> Eleve { get; set; }
+        public virtual DbSet<Eleves> Eleves { get; set; }
         public virtual DbSet<Emplacements> Emplacements { get; set; }
         public virtual DbSet<Evenements> Evenements { get; set; }
         public virtual DbSet<Frais> Frais { get; set; }
-        public virtual DbSet<Ligne> Ligne { get; set; }
+        public virtual DbSet<Lignes> Lignes { get; set; }
         public virtual DbSet<Participations> Participations { get; set; }
         public virtual DbSet<Plannings> Plannings { get; set; }
-        public virtual DbSet<Produit> Produit { get; set; }
+        public virtual DbSet<Produits> Produits { get; set; }
         public virtual DbSet<Publications> Publications { get; set; }
         public virtual DbSet<Reservations> Reservations { get; set; }
-        public virtual DbSet<Statut> Statut { get; set; }
-        public virtual DbSet<Typologie> Typologie { get; set; }
-        public virtual DbSet<Adresse> Adresse { get; set; }
-
-
-
+        public virtual DbSet<Statuts> Statuts { get; set; }
+        public virtual DbSet<Typologies> Typologies { get; set; }
+        public virtual DbSet<Adresses> Adresses { get; set; }
     
         public virtual ObjectResult<EleveResult> GetEleves(Nullable<int> id, string nom, string prenom, string email, string club, string license, Nullable<int> evenementId, Nullable<int> typologieId)
         {
@@ -97,20 +94,16 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelEleve", idParameter, realParameter);
         }
     
-        public virtual ObjectResult<EvenementAndTypologie> GetEvenementsAndTypologies()
+        public virtual ObjectResult<EvenementAndTypologieResult> GetEvenementsAndTypologies()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EvenementAndTypologie>("GetEvenementsAndTypologies");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EvenementAndTypologieResult>("GetEvenementsAndTypologies");
         }
-
-
-
-
     
-        public virtual ObjectResult<Statut> GetStatuts()
+        public virtual ObjectResult<StatutResult> GetStatuts()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Statut>("GetStatuts");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StatutResult>("GetStatuts");
         }
-   
+    
         public virtual ObjectResult<CommandeResult> GetCommandes(Nullable<int> id, string dtMin, string dtMax, Nullable<int> produitId, string produitReference, Nullable<int> eleveId, string referenceTransaction, string referenceExterne, Nullable<int> statutId)
         {
             var idParameter = id.HasValue ?
@@ -165,7 +158,7 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelCommande", idParameter, realParameter);
         }
     
-        public virtual int UpdCommande(Nullable<int> id, Nullable<int> statutId)
+        public virtual int UpdateCommande(Nullable<int> id, Nullable<int> statutId)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
@@ -175,7 +168,88 @@ namespace WS.Models
                 new ObjectParameter("StatutId", statutId) :
                 new ObjectParameter("StatutId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdCommande", idParameter, statutIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateCommande", idParameter, statutIdParameter);
+        }
+    
+        public virtual int UpdCommande(Nullable<int> id, Nullable<int> statutId, string referenceTransaction, string referenceExterne)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var statutIdParameter = statutId.HasValue ?
+                new ObjectParameter("StatutId", statutId) :
+                new ObjectParameter("StatutId", typeof(int));
+    
+            var referenceTransactionParameter = referenceTransaction != null ?
+                new ObjectParameter("ReferenceTransaction", referenceTransaction) :
+                new ObjectParameter("ReferenceTransaction", typeof(string));
+    
+            var referenceExterneParameter = referenceExterne != null ?
+                new ObjectParameter("ReferenceExterne", referenceExterne) :
+                new ObjectParameter("ReferenceExterne", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdCommande", idParameter, statutIdParameter, referenceTransactionParameter, referenceExterneParameter);
+        }
+    
+        public virtual ObjectResult<CategorieResult> GetCategories()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CategorieResult>("GetCategories");
+        }
+    
+        public virtual ObjectResult<ProduitResult> GetProduits(Nullable<int> id, string libelle, string reference, Nullable<int> stockMin, Nullable<int> stockMax, Nullable<int> categorieId, Nullable<int> commandeId)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var libelleParameter = libelle != null ?
+                new ObjectParameter("Libelle", libelle) :
+                new ObjectParameter("Libelle", typeof(string));
+    
+            var referenceParameter = reference != null ?
+                new ObjectParameter("Reference", reference) :
+                new ObjectParameter("Reference", typeof(string));
+    
+            var stockMinParameter = stockMin.HasValue ?
+                new ObjectParameter("StockMin", stockMin) :
+                new ObjectParameter("StockMin", typeof(int));
+    
+            var stockMaxParameter = stockMax.HasValue ?
+                new ObjectParameter("StockMax", stockMax) :
+                new ObjectParameter("StockMax", typeof(int));
+    
+            var categorieIdParameter = categorieId.HasValue ?
+                new ObjectParameter("CategorieId", categorieId) :
+                new ObjectParameter("CategorieId", typeof(int));
+    
+            var commandeIdParameter = commandeId.HasValue ?
+                new ObjectParameter("CommandeId", commandeId) :
+                new ObjectParameter("CommandeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProduitResult>("GetProduits", idParameter, libelleParameter, referenceParameter, stockMinParameter, stockMaxParameter, categorieIdParameter, commandeIdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetId(string table)
+        {
+            var tableParameter = table != null ?
+                new ObjectParameter("Table", table) :
+                new ObjectParameter("Table", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetId", tableParameter);
+        }
+    
+        public virtual int DelProduit(Nullable<int> id, string real)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var realParameter = real != null ?
+                new ObjectParameter("Real", real) :
+                new ObjectParameter("Real", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelProduit", idParameter, realParameter);
         }
     }
 }

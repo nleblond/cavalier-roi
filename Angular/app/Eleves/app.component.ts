@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular/http';
 
 
-
-import { EleveResult } from './Models/EleveResult';
 import { ElevesSearchParameters } from './Models/ElevesSearchParameters';
 import { EvenementAndTypologie } from './Models/EvenementAndTypologie';
+import { Eleve } from './Models/Eleve';
 
 
 
@@ -18,17 +17,15 @@ import { EvenementAndTypologie } from './Models/EvenementAndTypologie';
 
 export class AppComponent implements OnInit {
 
-    _EvenementsAndTypologies: EvenementAndTypologie[];
-    _Eleves: EleveResult[];
-    _DelReturn: Number;
-    _ElevesSearchParameters: ElevesSearchParameters;
 
     constructor(private _HttpService: Http) { }
 
+
+    public _EvenementsAndTypologies: EvenementAndTypologie[];
     ngOnInit() {
 
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
-        var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
+        var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
 
         this._HttpService.get('http://localhost:63122/API/Eleves/GetEvenementsAndTypologies', _RequestOptions)
             .subscribe(data => { this._EvenementsAndTypologies = data.json() as EvenementAndTypologie[]; }
@@ -38,7 +35,7 @@ export class AppComponent implements OnInit {
 
     public _EvenementId: String = '';
     public _TypologieId: String = '';
-    SelectEvenementTypologie(event: any) {
+    ChangeEvenementTypologie(event: any) {
         var _SelectedValue = event.target.value;
 
         if (_SelectedValue.indexOf('-') < 0) {
@@ -56,7 +53,9 @@ export class AppComponent implements OnInit {
     }
 
 
+    public _Eleves: Eleve[];
     public _NoResult: Boolean;
+    public _ElevesSearchParameters: ElevesSearchParameters;
     public GetEleves(_Id: Number, _Nom: String, _Prenom: String, _Email: String, _License: String, _Club: String, _EvenementId: Number, _TypologieId: Number) {
 
         var Valid = true;
@@ -80,8 +79,7 @@ export class AppComponent implements OnInit {
 
         this._HttpService.post('http://localhost:63122/API/Eleves/GetEleves', _Body, _RequestOptions)
             .subscribe((data: Response) => {
-                this._Eleves = data.json() as EleveResult[];
-                alert(data.status + ' ' + data.statusText + ' ' + data.json().length);
+                this._Eleves = data.json() as Eleve[];
                 if (this._Eleves.length == 0) { this._NoResult = true; }
                 else { this._NoResult = false; }
             }
@@ -92,23 +90,28 @@ export class AppComponent implements OnInit {
 
 
 
-    public DelEleve(_Id: Number) {
+    _DelReturn: Number;
+    public DelEleve(_Index: number) {
 
-        if (confirm('Voulez-vous vraiment supprimer l\'eleve ' + _Id + ' ?')) {
+        if (confirm('Voulez-vous vraiment supprimer l\'eleve ' + this._Eleves[_Index].Nom + ' ' + this._Eleves[_Index].Prenom + ' ?')) {
 
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
-            var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
+            var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
 
-
-            this._HttpService.get('http://localhost:63122/API/Eleves/DelEleve?Id=' + _Id, _RequestOptions)
-                .subscribe(data => { this._DelReturn = data.json() as Number; }
+            this._HttpService.get('http://localhost:63122/API/Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+                .subscribe(data => {
+                    this._DelReturn = data.json() as Number;
+                    this._Eleves.splice(_Index, 1);
+                }
             );
         }
 
     }
 
+
+
     public GetEleve(_Id: Number) {
-        document.location.href = '/MonCompte?Id=' + _Id;
+        window.open('/MonCompte?_Id=' + _Id,'_blank');
     }
 
 }

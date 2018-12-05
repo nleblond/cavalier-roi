@@ -14,31 +14,34 @@ namespace WS.Models
     public partial class CommandeResult
     {
         public Nullable<int> Id { get; set; }
-        public Nullable<System.DateTime> DtCreation { get; set; }
         public string ReferenceTransaction { get; set; }
         public string ReferenceExterne { get; set; }
+        public string DtCreation { get; set; }
         public Nullable<int> EleveId { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public Nullable<int> ProduitId { get; set; }
         public string ProduitLibelle { get; set; }
         public string ProduitReference { get; set; }
+        public Nullable<int> LigneId { get; set; }
+        public Nullable<int> Quantite { get; set; }
         public Nullable<double> Prix { get; set; }
+        public Nullable<double> Reduction { get; set; }
         public Nullable<double> Total { get; set; }
-        public Nullable<int> FraisId { get; set; }
-        public string FraisLibelle { get; set; }
+        public Nullable<int> StatutId { get; set; }
+        public string StatutLibelle { get; set; }
+        public Nullable<int> FraiId { get; set; }
+        public string FraiLibelle { get; set; }
+        public Nullable<double> FraiPrix { get; set; }
         public Nullable<int> AdresseId { get; set; }
-        public string Destinataire { get; set; }
         public string Ligne1 { get; set; }
         public string Ligne2 { get; set; }
         public string CodePostal { get; set; }
         public string Ville { get; set; }
         public string Telephone { get; set; }
         public string Email { get; set; }
-        public Nullable<int> StatutId { get; set; }
-        public string StatutLibelle { get; set; }
-        public Nullable<int> LigneId { get; set; }
-        public Nullable<double> Reduction { get; set; }
-        public Nullable<short> Quantite { get; set; }
+        public string Destinataire { get; set; }
+        public string DtModification { get; set; }
+        public string DtValidation { get; set; }
     }
 }

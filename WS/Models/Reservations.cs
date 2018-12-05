@@ -20,7 +20,7 @@ namespace WS.Models
         public Nullable<int> EvenementId { get; set; }
         public string DeletedYN { get; set; }
     
-        public virtual Eleve Eleves { get; set; }
+        public virtual Eleves Eleves { get; set; }
         public virtual Evenements Evenements { get; set; }
         public virtual Plannings Plannings { get; set; }
     }

@@ -11,10 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var CommandesSearchParameters_1 = require("./Models/CommandesSearchParameters");
+var CommandeUpdateParameters_1 = require("./Models/CommandeUpdateParameters");
 var AppComponent = /** @class */ (function () {
-    //_Eleves: EleveResult[];
-    //_DelReturn: Number;
-    //_ElevesSearchParameters: ElevesSearchParameters;
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
         this._StatutId = '';
@@ -22,12 +21,86 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
         var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
-        var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
+        var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get('http://localhost:63122/API/Commandes/GetStatuts', _RequestOptions)
-            .subscribe(function (data) { _this._Statuts = data.json(); });
+            .subscribe(function (data) {
+            _this._Statuts = data.json();
+        });
     };
-    AppComponent.prototype.SelectStatut = function (event) {
-        this._StatutId = event.target.value;
+    AppComponent.prototype.ChangeStatut = function (_Event, _Index) {
+        if ((_Index != null) && (_Index != undefined)) {
+            this._Commandes[_Index].Statut.Id = _Event.target.value;
+        }
+        else {
+            this._StatutId = _Event.target.value;
+        }
+    };
+    AppComponent.prototype.ChangeReferenceTransaction = function (_Event, _Index) {
+        this._Commandes[_Index].ReferenceTransaction = _Event.target.value;
+    };
+    AppComponent.prototype.ChangeReferenceExterne = function (_Event, _Index) {
+        this._Commandes[_Index].ReferenceExterne = _Event.target.value;
+    };
+    AppComponent.prototype.GetCommandes = function (_Id, _DtMin, _DtMax, _ProduitId, _EleveId, _ReferenceTransaction, _ReferenceExterne, _StatutId) {
+        var _this = this;
+        var Valid = true;
+        this._CommandesSearchParameters = new CommandesSearchParameters_1.CommandesSearchParameters();
+        this._CommandesSearchParameters.Id = _Id;
+        this._CommandesSearchParameters.DtMin = _DtMin;
+        this._CommandesSearchParameters.DtMax = _DtMax;
+        this._CommandesSearchParameters.ProduitId = _ProduitId;
+        this._CommandesSearchParameters.EleveId = _EleveId;
+        this._CommandesSearchParameters.ReferenceTransaction = _ReferenceTransaction;
+        this._CommandesSearchParameters.ReferenceExterne = _ReferenceExterne;
+        this._CommandesSearchParameters.StatutId = _StatutId;
+        var _Body = JSON.stringify(this._CommandesSearchParameters);
+        var _HeaderOptions = new http_1.Headers({
+            'Content-Type': 'application/json',
+            'APIKey': 'AEZRETRYTUYIUOIP'
+        });
+        var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
+        this._HttpService.post('http://localhost:63122/API/Commandes/GetCommandes', _Body, _RequestOptions)
+            .subscribe(function (data) {
+            _this._Commandes = data.json();
+            if (_this._Commandes.length == 0) {
+                _this._NoResult = true;
+            }
+            else {
+                _this._NoResult = false;
+            }
+        });
+    };
+    AppComponent.prototype.DelCommande = function (_Index) {
+        var _this = this;
+        if (confirm('Voulez-vous vraiment supprimer la commande ' + this._Commandes[_Index].Id + ' ?')) {
+            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
+            this._HttpService.get('http://localhost:63122/API/Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+                .subscribe(function (data) {
+                _this._DelReturn = data.json();
+                _this._Commandes.splice(_Index);
+            });
+        }
+    };
+    AppComponent.prototype.UpdCommande = function (_Index) {
+        var _this = this;
+        if (confirm('Voulez-vous vraiment modifier la commande ' + this._Commandes[_Index].Id + ' ?')) {
+            this._CommandeUpdateParameters = new CommandeUpdateParameters_1.CommandeUpdateParameters();
+            this._CommandeUpdateParameters.Id = this._Commandes[_Index].Id;
+            this._CommandeUpdateParameters.StatutId = this._Commandes[_Index].Statut.Id;
+            this._CommandeUpdateParameters.ReferenceTransaction = this._Commandes[_Index].ReferenceTransaction;
+            this._CommandeUpdateParameters.ReferenceExterne = this._Commandes[_Index].ReferenceExterne;
+            var _Body = JSON.stringify(this._CommandeUpdateParameters);
+            var _HeaderOptions = new http_1.Headers({
+                'Content-Type': 'application/json',
+                'APIKey': 'AEZRETRYTUYIUOIP'
+            });
+            var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
+            this._HttpService.post('http://localhost:63122/API/Commandes/UpdCommande', _Body, _RequestOptions)
+                .subscribe(function (data) {
+                _this._UpdReturn = data.json();
+            });
+        }
     };
     AppComponent = __decorate([
         core_1.Component({

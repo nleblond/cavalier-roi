@@ -39,7 +39,7 @@
       },
       rxjs: {
         defaultExtension: 'js'
-      }
+        }
     }
   });
 })(this);

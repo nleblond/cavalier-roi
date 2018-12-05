@@ -1,0 +1,130 @@
+﻿<div class="filtre">
+    <h2>Filtre</h2>
+
+    <div class="elements">
+        <input type="number" placeholder="ID Produit" title="ID Produit" min="0" #Id />
+        <div class="br10"></div>
+        <input type="text" placeholder="Référence" title="Référence" maxlength="50" #Reference/>
+        <div class="br10"></div>
+        <input type="text" placeholder="Libellé" title="Libellé" maxlength="100" #Libelle/>
+        <div class="br10"></div>
+        <select placeholder="Catégorie" title="Catégorie" (change)="ChangeCategorie($event, 0)">
+            <option value="">Catégorie</option>
+            <option *ngFor="let c of _Categories" [value]="c.Id">{{c.Libelle}}</option>
+        </select>
+        <input type="hidden" [value]="_CategorieId" #CategorieId />
+        <div class="br10"></div>
+        <input type="number" placeholder="Stock minimum" title="Stock minimum" #StockMin />
+        <div class="br10"></div>
+        <input type="number" placeholder="Stock maximum" title="Stock maximum" #StockMax />
+        <div class="br10"></div>
+        <input type="text" placeholder="ID Commande" title="ID Produit" min="0" #CommandeId />
+        <div class="br10"></div>
+        <input type="button" title="Rechercher" value="Rechercher" class="rechercher" (click)="GetProduits(Id.value, Reference.value, Libelle.value, CategorieId.value, StockMin.value, StockMax.value, CommandeId.value)" />
+    </div>
+
+    <input type="button" title="Ajouter" value="Ajouter" class="ajouter" (click)="InitProduit(0)" />
+
+</div>
+
+
+<div class="small_resultats" *ngIf="_Produits != undefined && _Produits != null">
+    <h2>Resultats</h2>
+
+    <table cellpadding="2" cellspacing="0" border="0" class="first">
+        <thead>
+            <tr>
+                <th>Visuel</th>
+                <th>ID Produit/Référence</th>
+                <th>Libellé</th>
+                <th>Catégorie</th>
+                <th>Stock</th>
+                <th>Prix</th>
+                <th>Commandes</th>
+                <th>Logo</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of _Produits; let i = index">
+                <td><a href="http://localhost:63122/Content/Images/Produits/{{p.Id}}/{{p.Image}}" target="_blank"><img src="http://localhost:63122/Content/Images/Produits/{{p.Id}}/{{p.Visuel}}" /></a></td>
+                <td>
+                    <div>{{p.Id}}</div>
+                    <div>{{p.Reference}}</div>
+                </td>
+                <td>{{p.Libelle}}</td>
+                <td>{{p.Categorie.Libelle}}</td>
+                <td>{{p.Stock}}</td>
+                <td>{{p.Prix | number : '1.2-2'}}€</td>
+                <td><a href="/Commandes?_ProduitId={{p.Id}}" title="Voir les commandes">{{p.NbCommandes}}</a></td>
+                <td><img src="http://localhost:63122/Content/Images/Produits/{{p.Id}}/{{p.Logo}}" /></td>
+                <td>
+                    <input type="button" title="Gérer" value="Gérer" (click)="GetProduit(i)" />
+                    <div class="clear-right"></div>
+                    <div class="br10"></div>
+                    <input type="button" title="Supprimer" value="Supprimer" (click)="DelProduit(i)" *ngIf="p.NbCommandes == undefined || p.NbCommandes == null || p.NbCommandes == 0" />
+                </td>
+            </tr>
+            <tr *ngIf="_NoResult">
+                <td>Aucun résultat</td>
+                <td colspan="8"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="clear"></div>
+    <div class="pagination">1 2 3 4</div>
+    <div class="clear"></div>
+</div>
+
+
+<div class="details" *ngIf="_Produit != undefined && _Produit != null && _Produit.Id != undefined && _Produit.Id != null">
+    <h2>Details</h2>
+    <div class="elements">
+        <img class="fermer" src="/Content/Images/Boutons/Fermer.svg" (click)="InitProduit(1)" />
+        <span>{{_Produit.Id}}</span>
+        <div class="br10"></div>
+        <input type="text" placeholder="Référence" title="Référence" [value]="_Produit.Reference != undefined ? _Produit.Reference : ''" #CurrentReference />
+        <div class="br10"></div>
+        <input type="text" placeholder="Libellé" class="libelle" [value]="_Produit.Libelle!= undefined ? _Produit.Libelle : ''" #CurrentLibelle />
+        <div class="br10"></div>
+        <select placeholder="Catégorie" title="Catégorie" (change)="ChangeCategorie($event, 1)">
+            <option value="">Catégorie</option>
+            <option *ngFor="let c of _Categories" [value]="c.Id" [selected]="_Produit.Categorie.Id != undefined && _Produit.Categorie.Id != null && _Produit.Categorie.Id == c.Id">{{c.Libelle}}</option>
+        </select>
+        <input type="hidden" [value]="_Produit.Categorie.Id != undefined ? _Produit.Categorie.Id : ''" #CurrentCategorieId />
+        <div class="br10"></div>
+        <textarea placeholder="Descriptif" title="Descriptif" cols="33" rows="15" class="descriptif" [value]="_Produit.Descriptif != undefined ? _Produit.Descriptif : ''" #CurrentDescriptif></textarea>
+        <div class="br10"></div>
+        <input type="text" placeholder="Date de début" title="Date de début" [value]="(_Produit.DtDebut != undefined ? _Produit.DtDebut : '' ) | date:'dd/MM/yyyy HH:mm:ss'" #DtDebut />
+        <div class="br10"></div>
+        <input type="text" placeholder="Date de fin" title="Date de fin" [value]="(_Produit.DtFin != undefined ? _Produit.DtFin : '' ) | date:'dd/MM/yyyy HH:mm:ss'" #DtFin />
+        <div class="br10"></div>
+        <input type="text" placeholder="Stock" title="Stock" class="stock" [value]="_Produit.Stock != undefined ? _Produit.Stock : ''" #CurrentStock />
+        <div class="br10"></div>
+        <input type="text" placeholder="Prix" title="Prix" class="prix" [value]="_Produit.Prix != undefined ? _Produit.Prix : ''" #CurrentPrix />€
+        <div class="br10"></div>
+        <input type="text" placeholder="Poids" title="Poids" class="poids" [value]="_Produit.Poids != undefined ? _Produit.Poids : ''" #CurrentPoids />g
+        <div class="br10"></div>
+        <input type="text" placeholder="Longueur" title="Longueur" class="longueur" [value]="_Produit.Longueur != undefined ? _Produit.Longueur : ''" #CurrentLongueur />cm
+        <div class="br10"></div>
+        <input type="text" placeholder="Largeur" title="Largeur" class="largeur" [value]="_Produit.Largeur != undefined ? _Produit.Largeur: ''" #CurrentLargeur />cm
+        <div class="br10"></div>
+        <input type="text" placeholder="Hauteur" title="Hauteur" class="hauteur" [value]="_Produit.Hauteur != undefined ? _Produit.Hauteur : ''" #CurrentHauteur />cm
+        <div class="br10"></div>
+        <input type="checkbox" placeholder="Dépassement" title="Dépassement" class="depassement" [checked]="_Produit.Depassement != undefined ? _Produit.Depassement : false" /><label for="CheckBox_Depassement">Dépassement de forfait livraison</label>
+        <div class="br10"></div>
+        Produits/{{_Produit.Id}}/<input type="text" placeholder="Logo" title="Logo" class="logo" [value]="_Produit.Logo != undefined ? _Produit.Logo : ''" #CurrentLogo />
+        <div class="br10"></div>
+        Produits/{{_Produit.Id}}/<input type="text" placeholder="Visuel" title="Visuel" class="visuel" [value]="_Produit.Visuel != undefined ? _Produit.Visuel : ''" #CurrentVisuel />
+        <div class="clear"></div>
+        Produits/{{_Produit.Id}}/<input type="text" placeholder="Image" title="Image" class="image" [value]="_Produit.Image != undefined ? _Produit.Image : ''" #CurrentImage />
+
+
+        <div class="br10"></div>
+        <input type="button" title="Valider" value="Valider" />
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="clear"></div>
