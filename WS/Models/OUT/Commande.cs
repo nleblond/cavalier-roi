@@ -1,8 +1,10 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
+
+
 namespace WS.Models.OUT
 {
-    using System;
-    using System.Collections.Generic;
 
     public partial class Commande
     {
@@ -13,9 +15,9 @@ namespace WS.Models.OUT
 
         public Int32? Id { get; set; }
 
-        public DateTime? DtCreation { get; set; }
-        public DateTime? DtModification { get; set; }
-        public DateTime? DtValidation { get; set; }
+        public String DtCreation { get; set; }
+        public String DtModification { get; set; }
+        public String DtValidation { get; set; }
 
 
         public String DeletedYN { get; set; }

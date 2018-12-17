@@ -50,9 +50,8 @@ namespace WS.Controllers
                 _NewProduit.Hauteur = _Current.Hauteur;
                 _NewProduit.Depassement = _Current.Depassement;
 
-
-                if (String.IsNullOrEmpty(_Current.DtDebut) == false) { _NewProduit.DtDebut = DateTime.Parse(_Current.DtDebut); }
-                if (String.IsNullOrEmpty(_Current.DtFin) == false) { _NewProduit.DtFin = DateTime.Parse(_Current.DtFin); }
+                _NewProduit.DtDebut = _Current.DtDebut;
+                _NewProduit.DtFin = _Current.DtFin;
 
                 _NewProduit.Image = _Current.Image;
                 _NewProduit.Logo = _Current.Logo;
@@ -76,6 +75,7 @@ namespace WS.Controllers
         }
 
 
+        [HttpPost]
         [HttpGet]
         public IHttpActionResult DelProduit(Int32 _Id, String _Real = "N")
         {
@@ -83,26 +83,69 @@ namespace WS.Controllers
         }
 
 
-        //[HttpPost]
-        //public IHttpActionResult UpdProduit(ProduitUpdateParameters _Parameters)
-        //{
-        //    return Ok(DB.UpdProduit();
-        //}
+        [HttpPost]
+        public IHttpActionResult UpdProduit(Produit _Produit)
+        {
 
+            DateTime? _DtDebut = null;
+            DateTime? _DtFin = null;
+            if (!String.IsNullOrEmpty(_Produit.DtDebut)) { _DtDebut = DateTime.Parse(_Produit.DtDebut); }
+            if (!String.IsNullOrEmpty(_Produit.DtFin)) { _DtFin = DateTime.Parse(_Produit.DtFin); }
 
-        //[HttpPost]
-        //public IHttpActionResult AddProduit(ProduitAddParameters _Parameters)
-        //{
-        //    return Ok(DB.AddProduit();
-        //}
+            return Ok(DB.UpdProduit(
+                id: _Produit.Id,
+                reference: _Produit.Reference,
+                libelle: _Produit.Libelle,
+                descriptif: _Produit.Descriptif,
+                poids: _Produit.Poids,
+                hauteur: _Produit.Hauteur,
+                largeur: _Produit.Largeur,
+                longueur: _Produit.Longueur,
+                depassement: _Produit.Depassement,
+                dtDebut: _DtDebut, 
+                dtFin: _DtFin,
+                image: _Produit.Image,
+                logo: _Produit.Logo,
+                visuel: _Produit.Visuel,
+                categorieId: _Produit.Categorie.Id,
+                prix: _Produit.Prix,
+                stock: _Produit.Stock
+                ));
+        }
 
 
         [HttpPost]
-        [HttpGet]
-        public IHttpActionResult GetCategories()
+        public IHttpActionResult AddProduit(Produit _Produit)
         {
-           return Ok(DB.GetCategories().ToList());
+
+            DateTime? _DtDebut = null;
+            DateTime? _DtFin = null;
+            if (!String.IsNullOrEmpty(_Produit.DtDebut)) { _DtDebut = DateTime.Parse(_Produit.DtDebut); }
+            if (!String.IsNullOrEmpty(_Produit.DtFin)) { _DtFin = DateTime.Parse(_Produit.DtFin); }
+
+            return Ok(DB.AddProduit(
+                id: _Produit.Id,
+                reference: _Produit.Reference,
+                libelle: _Produit.Libelle,
+                descriptif: _Produit.Descriptif,
+                poids: _Produit.Poids,
+                hauteur: _Produit.Hauteur,
+                largeur: _Produit.Largeur,
+                longueur: _Produit.Longueur,
+                depassement: _Produit.Depassement,
+                dtDebut: _DtDebut,
+                dtFin: _DtFin,
+                image: _Produit.Image,
+                logo: _Produit.Logo,
+                visuel: _Produit.Visuel,
+                categorieId: _Produit.Categorie.Id,
+                prix: _Produit.Prix,
+                stock: _Produit.Stock
+                ));
         }
+
+
+        
 
 
     }

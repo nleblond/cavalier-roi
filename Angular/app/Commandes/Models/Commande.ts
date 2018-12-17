@@ -6,22 +6,44 @@ import { Ligne } from './Ligne';
 
 export class Commande {
 
-    public Id: Number;
+    constructor() {
 
-    public DtCreation: Date;
-    public DtModification: Date;
-    public DtValidation: Date;
+        this.Id = null;
 
-    public ReferenceTransaction: String;
-    public ReferenceExterne: String;
+        this.DtCreation = null;
+        this.DtModification = null;
+        this.DtValidation = null;
 
-    public Prix: Number;
+        this.ReferenceTransaction = null;
+        this.ReferenceExterne = null;
 
-    public Statut: Statut;
-    public Eleve: Eleve;
-    public Adresse: Adresse;
-    public Frai: Frai;
+        this.Prix = null;
+
+        this.Statut = null;
+        this.Eleve = null;
+        this.Adresse = null;
+        this.Frai = null;
+
+        this.Lignes = null;
+
+    }
+
+    public Id: number | null;
+
+    public DtCreation: string | null;
+    public DtModification: string | null;
+    public DtValidation: string | null;
+
+    public ReferenceTransaction: string | null;
+    public ReferenceExterne: string | null;
+
+    public Prix: number | null;
+
+    public Statut: Statut | null;
+    public Eleve: Eleve | null;
+    public Adresse: Adresse | null;
+    public Frai: Frai | null;
     
-    public Lignes: Ligne[];
+    public Lignes: Ligne[] | null;
 
 }

@@ -11,29 +11,97 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var Categorie_1 = require("./../Divers/Models/Categorie");
 var ProduitsSearchParameters_1 = require("./Models/ProduitsSearchParameters");
 var Produit_1 = require("./Models/Produit");
 var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
-        this._CategorieId = '';
-        this._Produit = new Produit_1.Produit();
+        //public _Url: String = 'http://192.168.1.34:63121/';
+        this._Url = '/';
+        this._Id = null;
+        this._CommandeId = null;
+        this._CategorieId = null;
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //gestion des param�tres dans l'url
+        var _UrlParams = window.location.search.replace('?', '').split('&');
+        for (var i = 0; i < _UrlParams.length; i++) {
+            if (_UrlParams[i].indexOf('_Id=') > -1) {
+                this._Id = parseInt(_UrlParams[i].replace('_Id=', ''));
+            }
+            if (_UrlParams[i].indexOf('_CommandeId=') > -1) {
+                this._CommandeId = parseInt(_UrlParams[i].replace('_CommandeId=', ''));
+            }
+            if (_UrlParams[i].indexOf('_CategorieId=') > -1) {
+                this._CategorieId = parseInt(_UrlParams[i].replace('_CategorieId=', ''));
+            }
+        }
+        if ((this._Id != null) || (this._CategorieId != null) || (this._CommandeId != null)) {
+            this.GetProduits(this._Id, null, null, this._CategorieId, null, null, this._CommandeId);
+        }
+        //r�cup�ration des cat�gories
         var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get('http://localhost:63122/API/Produits/GetCategories', _RequestOptions)
+        this._HttpService.get(this._Url + 'API/Divers/GetCategories', _RequestOptions)
             .subscribe(function (data) {
             _this._Categories = data.json();
         });
     };
     AppComponent.prototype.ChangeCategorie = function (_Event, _Option) {
-        if (_Option == 0) {
-            this._CategorieId = _Event.target.value;
+        var _SelectedId = _Event.target.value;
+        var _SelectedIndex = _Event.target.options.selectedIndex;
+        var _SelectedLibelle = _Event.target.options[_SelectedIndex].innerText;
+        if (_Option == 0) { //filtre
+            this._CategorieId = _SelectedId;
         }
-        else {
-            this._Produit.Categorie.Id = _Event.target.value;
+        else { //d�tails
+            this._Produit.Categorie.Id = (_SelectedId == '-1' ? null : parseInt(_SelectedId));
+            this._Produit.Categorie.Libelle = _SelectedLibelle.trim();
+        }
+    };
+    AppComponent.prototype.InitProduit = function (_Option, _Index) {
+        var _this = this;
+        try {
+            this._Produit.Id = null;
+            this._Produit.Reference = null;
+            this._Produit.Libelle = null;
+            this._Produit.Categorie = new Categorie_1.Categorie();
+            this._Produit.Categorie.Id = null;
+            this._Produit.Categorie.Libelle = null;
+            this._Produit.Descriptif = null;
+            this._Produit.DtDebut = null;
+            this._Produit.DtFin = null;
+            this._Produit.Stock = null;
+            this._Produit.Prix = null;
+            this._Produit.Poids = null;
+            this._Produit.Longueur = null;
+            this._Produit.Largeur = null;
+            this._Produit.Hauteur = null;
+            this._Produit.Depassement = false;
+            this._Produit.Logo = null;
+            this._Produit.Visuel = null;
+            this._Produit.Image = null;
+            this._Produit.NbCommandes = null;
+            this._Produit.Etat = null;
+        }
+        catch (_a) { }
+        ;
+        if (_Option == 0) {
+            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
+            this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Produits', _RequestOptions)
+                .subscribe(function (data) {
+                _this._InitReturn = (data.json())[0];
+                _this._Produit = new Produit_1.Produit();
+                _this._Produit.Id = _this._InitReturn;
+                _this._Produit.Etat = 0; //creation
+            });
+        }
+        else if (_Option == 1) {
+            this._Produit = JSON.parse(JSON.stringify(this._Produits[_Index]));
+            this._Produit.Etat = 1; //modification
         }
     };
     AppComponent.prototype.GetProduits = function (_Id, _Reference, _Libelle, _CategorieId, _StockMin, _StockMax, _CommandeId) {
@@ -53,59 +121,77 @@ var AppComponent = /** @class */ (function () {
             'APIKey': 'AEZRETRYTUYIUOIP'
         });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post('http://localhost:63122/API/Produits/GetProduits', _Body, _RequestOptions)
+        this._HttpService.post(this._Url + 'API/Produits/GetProduits', _Body, _RequestOptions)
             .subscribe(function (data) {
             var _JsonResponse = data.json();
             _this._Produits = _JsonResponse;
+            if (_this._Produits.length == 0) {
+                _this._NoResult = true;
+            }
+            else {
+                _this._NoResult = false;
+            }
         });
-    };
-    AppComponent.prototype.GetProduit = function (_Index) {
-        this._Produit = JSON.parse(JSON.stringify(this._Produits[_Index]));
-    };
-    AppComponent.prototype.InitProduit = function (_Option) {
-        var _this = this;
-        try {
-            this._Produit.Id = null;
-            this._Produit.Reference = null;
-            this._Produit.Libelle = null;
-            this._Produit.Categorie.Id = null;
-            this._Produit.Categorie.Libelle = null;
-            this._Produit.Descriptif = null;
-            this._Produit.DtDebut = null;
-            this._Produit.DtFin = null;
-            this._Produit.Stock = null;
-            this._Produit.Prix = null;
-            this._Produit.Poids = null;
-            this._Produit.Longueur = null;
-            this._Produit.Largeur = null;
-            this._Produit.Hauteur = null;
-            this._Produit.Depassement = false;
-            this._Produit.Logo = null;
-            this._Produit.Visuel = null;
-            this._Produit.Image = null;
-            this._Produit.NbCommandes = null;
-        }
-        catch (_a) { }
-        ;
-        if (_Option == 0) {
-            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
-            var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-            this._HttpService.get('http://localhost:63122/API/Divers/GetId?_Table=Produits', _RequestOptions)
-                .subscribe(function (data) {
-                _this._InitReturn = data.json();
-                _this._Produit.Id = _this._InitReturn;
-            });
-        }
     };
     AppComponent.prototype.DelProduit = function (_Index) {
         var _this = this;
         if (confirm('Voulez-vous vraiment supprimer le produit ' + this._Produits[_Index].Id + ' ?')) {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-            this._HttpService.get('http://localhost:63122/API/Produits/DelProduit?_Id=' + this._Produits[_Index].Id.toString() + '&_Real=Y', _RequestOptions)
+            var _Confirmation = 'Le produit ' + this._Produits[_Index].Id + ' a bien ete supprime !';
+            this._HttpService.get(this._Url + 'API/Produits/DelProduit?_Id=' + this._Produits[_Index].Id.toString() + '&_Real=Y', _RequestOptions)
                 .subscribe(function (data) {
                 _this._DelReturn = data.json();
-                _this._Produits.splice(_Index, 1);
+                if (data.ok) {
+                    _this._Produits.splice(_Index, 1);
+                    alert(_Confirmation);
+                }
+                else {
+                    alert('Une erreur est survenue !');
+                }
+            });
+        }
+    };
+    AppComponent.prototype.AddUpdProduit = function () {
+        var _this = this;
+        var _Question = '';
+        var _Confirmation = '';
+        var _Method = '';
+        if (this._Produit.Etat == 0) {
+            _Method = 'API/Produits/AddProduit';
+            _Question = 'Voulez-vous vraiment ajouter le produit ' + this._Produit.Id + ' ? ';
+            _Confirmation = 'Le produit ' + this._Produit.Id + ' a bien ete ajoute !';
+        }
+        else {
+            _Method = 'API/Produits/UpdProduit';
+            _Question = 'Voulez-vous vraiment modifier le produit ' + this._Produit.Id + ' ? ';
+            _Confirmation = 'Le produit ' + this._Produit.Id + ' a bien ete modifie !';
+        }
+        if (confirm(_Question)) {
+            var _Body = JSON.stringify(this._Produit);
+            var _HeaderOptions = new http_1.Headers({
+                'Content-Type': 'application/json',
+                'APIKey': 'AEZRETRYTUYIUOIP'
+            });
+            var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
+            this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
+                .subscribe(function (data) {
+                _this._AddUpdReturn = data.json();
+                if (data.ok) {
+                    if (_this._Produit.Etat == 0) {
+                        _this._Produits.push(_this._Produit);
+                    }
+                    else {
+                        if ((_this._Produits.find(function (t) { return t.Id === _this._Produit.Id; }) != undefined) && (_this._Produits.find(function (t) { return t.Id === _this._Produit.Id; }) != null)) {
+                            var _Index = _this._Produits.findIndex(function (t) { return t.Id === _this._Produit.Id; });
+                            _this._Produits[_Index] = JSON.parse(JSON.stringify(_this._Produit));
+                        }
+                    }
+                    _this.InitProduit(null, null);
+                }
+                else {
+                    alert('Une erreur est survenue !');
+                }
             });
         }
     };

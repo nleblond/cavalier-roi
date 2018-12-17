@@ -15,15 +15,10 @@ namespace WS.Models
     public partial class Publications
     {
         public int Id { get; set; }
-        public Nullable<System.DateTime> DtDebut { get; set; }
-        public System.DateTime DtFin { get; set; }
-        public bool Exclusif { get; set; }
         public Nullable<int> EmplacementId { get; set; }
         public Nullable<int> ContenuId { get; set; }
-        public Nullable<int> EvenementId { get; set; }
     
-        public virtual Contenus Contenus { get; set; }
-        public virtual Emplacements Emplacements { get; set; }
-        public virtual Evenements Evenements { get; set; }
+        public virtual Emplacements Emplacement { get; set; }
+        public virtual Contenus Contenu { get; set; }
     }
 }

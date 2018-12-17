@@ -1,8 +1,9 @@
-﻿namespace WS.Models.OUT
-{
-    using System;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+
+namespace WS.Models.OUT
+{
     public partial class Adresse
     {
         public Int32? Id { get; set; }

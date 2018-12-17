@@ -16,13 +16,38 @@ var CommandeUpdateParameters_1 = require("./Models/CommandeUpdateParameters");
 var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
-        this._StatutId = '';
+        //public _Url: String = 'http://192.168.1.34:63121/';
+        this._Url = '/';
+        this._Id = null;
+        this._ProduitId = null;
+        this._EleveId = null;
+        this._StatutId = null;
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //gestion des param�tres dans l'url
+        var _UrlParams = window.location.search.replace('?', '').split('&');
+        for (var i = 0; i < _UrlParams.length; i++) {
+            if (_UrlParams[i].indexOf('_Id=') > -1) {
+                this._Id = parseInt(_UrlParams[i].replace('_Id=', ''));
+            }
+            if (_UrlParams[i].indexOf('_ProduitId=') > -1) {
+                this._ProduitId = parseInt(_UrlParams[i].replace('_ProduitId=', ''));
+            }
+            if (_UrlParams[i].indexOf('_EleveId=') > -1) {
+                this._EleveId = parseInt(_UrlParams[i].replace('_EleveId=', ''));
+            }
+            if (_UrlParams[i].indexOf('_StatutId=') > -1) {
+                this._StatutId = parseInt(_UrlParams[i].replace('_StatutId=', ''));
+            }
+        }
+        if ((this._Id != null) || (this._ProduitId != null) || (this._EleveId != null)) {
+            this.GetCommandes(this._Id, null, null, this._ProduitId, this._EleveId, null, null, this._StatutId);
+        }
+        //r�cup�ration des statuts
         var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get('http://localhost:63122/API/Commandes/GetStatuts', _RequestOptions)
+        this._HttpService.get(this._Url + 'API/Divers/GetStatuts', _RequestOptions)
             .subscribe(function (data) {
             _this._Statuts = data.json();
         });
@@ -35,6 +60,8 @@ var AppComponent = /** @class */ (function () {
             this._StatutId = _Event.target.value;
         }
     };
+    //j'aurai pu utiliser un "ngModel"
+    //----------------------------------------------
     AppComponent.prototype.ChangeReferenceTransaction = function (_Event, _Index) {
         this._Commandes[_Index].ReferenceTransaction = _Event.target.value;
     };
@@ -59,7 +86,7 @@ var AppComponent = /** @class */ (function () {
             'APIKey': 'AEZRETRYTUYIUOIP'
         });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post('http://localhost:63122/API/Commandes/GetCommandes', _Body, _RequestOptions)
+        this._HttpService.post(this._Url + 'API/Commandes/GetCommandes', _Body, _RequestOptions)
             .subscribe(function (data) {
             _this._Commandes = data.json();
             if (_this._Commandes.length == 0) {
@@ -75,7 +102,7 @@ var AppComponent = /** @class */ (function () {
         if (confirm('Voulez-vous vraiment supprimer la commande ' + this._Commandes[_Index].Id + ' ?')) {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-            this._HttpService.get('http://localhost:63122/API/Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+            this._HttpService.get(this._Url + 'API/Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe(function (data) {
                 _this._DelReturn = data.json();
                 _this._Commandes.splice(_Index);
@@ -96,7 +123,7 @@ var AppComponent = /** @class */ (function () {
                 'APIKey': 'AEZRETRYTUYIUOIP'
             });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-            this._HttpService.post('http://localhost:63122/API/Commandes/UpdCommande', _Body, _RequestOptions)
+            this._HttpService.post(this._Url + 'API/Commandes/UpdCommande', _Body, _RequestOptions)
                 .subscribe(function (data) {
                 _this._UpdReturn = data.json();
             });

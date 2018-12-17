@@ -32,17 +32,18 @@ namespace WS.Models
         public virtual DbSet<Contenus> Contenus { get; set; }
         public virtual DbSet<Eleves> Eleves { get; set; }
         public virtual DbSet<Emplacements> Emplacements { get; set; }
-        public virtual DbSet<Evenements> Evenements { get; set; }
         public virtual DbSet<Frais> Frais { get; set; }
         public virtual DbSet<Lignes> Lignes { get; set; }
-        public virtual DbSet<Participations> Participations { get; set; }
-        public virtual DbSet<Plannings> Plannings { get; set; }
         public virtual DbSet<Produits> Produits { get; set; }
         public virtual DbSet<Publications> Publications { get; set; }
         public virtual DbSet<Reservations> Reservations { get; set; }
         public virtual DbSet<Statuts> Statuts { get; set; }
         public virtual DbSet<Typologies> Typologies { get; set; }
         public virtual DbSet<Adresses> Adresses { get; set; }
+        public virtual DbSet<Modes> Modes { get; set; }
+        public virtual DbSet<Plannings> Plannings { get; set; }
+        public virtual DbSet<Participations> Participations { get; set; }
+        public virtual DbSet<Evenements> Evenements { get; set; }
     
         public virtual ObjectResult<EleveResult> GetEleves(Nullable<int> id, string nom, string prenom, string email, string club, string license, Nullable<int> evenementId, Nullable<int> typologieId)
         {
@@ -94,14 +95,14 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelEleve", idParameter, realParameter);
         }
     
-        public virtual ObjectResult<EvenementAndTypologieResult> GetEvenementsAndTypologies()
+        public virtual ObjectResult<Statuts> GetStatuts()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EvenementAndTypologieResult>("GetEvenementsAndTypologies");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Statuts>("GetStatuts");
         }
     
-        public virtual ObjectResult<StatutResult> GetStatuts()
+        public virtual ObjectResult<Statuts> GetStatuts(MergeOption mergeOption)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StatutResult>("GetStatuts");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Statuts>("GetStatuts", mergeOption);
         }
     
         public virtual ObjectResult<CommandeResult> GetCommandes(Nullable<int> id, string dtMin, string dtMax, Nullable<int> produitId, string produitReference, Nullable<int> eleveId, string referenceTransaction, string referenceExterne, Nullable<int> statutId)
@@ -158,19 +159,6 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelCommande", idParameter, realParameter);
         }
     
-        public virtual int UpdateCommande(Nullable<int> id, Nullable<int> statutId)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("Id", id) :
-                new ObjectParameter("Id", typeof(int));
-    
-            var statutIdParameter = statutId.HasValue ?
-                new ObjectParameter("StatutId", statutId) :
-                new ObjectParameter("StatutId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateCommande", idParameter, statutIdParameter);
-        }
-    
         public virtual int UpdCommande(Nullable<int> id, Nullable<int> statutId, string referenceTransaction, string referenceExterne)
         {
             var idParameter = id.HasValue ?
@@ -192,9 +180,14 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdCommande", idParameter, statutIdParameter, referenceTransactionParameter, referenceExterneParameter);
         }
     
-        public virtual ObjectResult<CategorieResult> GetCategories()
+        public virtual ObjectResult<Categories> GetCategories()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CategorieResult>("GetCategories");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Categories>("GetCategories");
+        }
+    
+        public virtual ObjectResult<Categories> GetCategories(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Categories>("GetCategories", mergeOption);
         }
     
         public virtual ObjectResult<ProduitResult> GetProduits(Nullable<int> id, string libelle, string reference, Nullable<int> stockMin, Nullable<int> stockMax, Nullable<int> categorieId, Nullable<int> commandeId)
@@ -250,6 +243,678 @@ namespace WS.Models
                 new ObjectParameter("Real", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelProduit", idParameter, realParameter);
+        }
+    
+        public virtual int AddProduit(Nullable<int> id, string reference, string libelle, string descriptif, Nullable<double> poids, Nullable<double> hauteur, Nullable<double> largeur, Nullable<double> longueur, Nullable<bool> depassement, Nullable<System.DateTime> dtDebut, Nullable<System.DateTime> dtFin, string image, string logo, string visuel, Nullable<int> categorieId, Nullable<double> prix, Nullable<int> stock)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var referenceParameter = reference != null ?
+                new ObjectParameter("Reference", reference) :
+                new ObjectParameter("Reference", typeof(string));
+    
+            var libelleParameter = libelle != null ?
+                new ObjectParameter("Libelle", libelle) :
+                new ObjectParameter("Libelle", typeof(string));
+    
+            var descriptifParameter = descriptif != null ?
+                new ObjectParameter("Descriptif", descriptif) :
+                new ObjectParameter("Descriptif", typeof(string));
+    
+            var poidsParameter = poids.HasValue ?
+                new ObjectParameter("Poids", poids) :
+                new ObjectParameter("Poids", typeof(double));
+    
+            var hauteurParameter = hauteur.HasValue ?
+                new ObjectParameter("Hauteur", hauteur) :
+                new ObjectParameter("Hauteur", typeof(double));
+    
+            var largeurParameter = largeur.HasValue ?
+                new ObjectParameter("Largeur", largeur) :
+                new ObjectParameter("Largeur", typeof(double));
+    
+            var longueurParameter = longueur.HasValue ?
+                new ObjectParameter("Longueur", longueur) :
+                new ObjectParameter("Longueur", typeof(double));
+    
+            var depassementParameter = depassement.HasValue ?
+                new ObjectParameter("Depassement", depassement) :
+                new ObjectParameter("Depassement", typeof(bool));
+    
+            var dtDebutParameter = dtDebut.HasValue ?
+                new ObjectParameter("DtDebut", dtDebut) :
+                new ObjectParameter("DtDebut", typeof(System.DateTime));
+    
+            var dtFinParameter = dtFin.HasValue ?
+                new ObjectParameter("DtFin", dtFin) :
+                new ObjectParameter("DtFin", typeof(System.DateTime));
+    
+            var imageParameter = image != null ?
+                new ObjectParameter("Image", image) :
+                new ObjectParameter("Image", typeof(string));
+    
+            var logoParameter = logo != null ?
+                new ObjectParameter("Logo", logo) :
+                new ObjectParameter("Logo", typeof(string));
+    
+            var visuelParameter = visuel != null ?
+                new ObjectParameter("Visuel", visuel) :
+                new ObjectParameter("Visuel", typeof(string));
+    
+            var categorieIdParameter = categorieId.HasValue ?
+                new ObjectParameter("CategorieId", categorieId) :
+                new ObjectParameter("CategorieId", typeof(int));
+    
+            var prixParameter = prix.HasValue ?
+                new ObjectParameter("Prix", prix) :
+                new ObjectParameter("Prix", typeof(double));
+    
+            var stockParameter = stock.HasValue ?
+                new ObjectParameter("Stock", stock) :
+                new ObjectParameter("Stock", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddProduit", idParameter, referenceParameter, libelleParameter, descriptifParameter, poidsParameter, hauteurParameter, largeurParameter, longueurParameter, depassementParameter, dtDebutParameter, dtFinParameter, imageParameter, logoParameter, visuelParameter, categorieIdParameter, prixParameter, stockParameter);
+        }
+    
+        public virtual int UpdProduit(Nullable<int> id, string reference, string libelle, string descriptif, Nullable<double> poids, Nullable<double> hauteur, Nullable<double> largeur, Nullable<double> longueur, Nullable<bool> depassement, Nullable<System.DateTime> dtDebut, Nullable<System.DateTime> dtFin, string image, string logo, string visuel, Nullable<int> categorieId, Nullable<double> prix, Nullable<int> stock)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var referenceParameter = reference != null ?
+                new ObjectParameter("Reference", reference) :
+                new ObjectParameter("Reference", typeof(string));
+    
+            var libelleParameter = libelle != null ?
+                new ObjectParameter("Libelle", libelle) :
+                new ObjectParameter("Libelle", typeof(string));
+    
+            var descriptifParameter = descriptif != null ?
+                new ObjectParameter("Descriptif", descriptif) :
+                new ObjectParameter("Descriptif", typeof(string));
+    
+            var poidsParameter = poids.HasValue ?
+                new ObjectParameter("Poids", poids) :
+                new ObjectParameter("Poids", typeof(double));
+    
+            var hauteurParameter = hauteur.HasValue ?
+                new ObjectParameter("Hauteur", hauteur) :
+                new ObjectParameter("Hauteur", typeof(double));
+    
+            var largeurParameter = largeur.HasValue ?
+                new ObjectParameter("Largeur", largeur) :
+                new ObjectParameter("Largeur", typeof(double));
+    
+            var longueurParameter = longueur.HasValue ?
+                new ObjectParameter("Longueur", longueur) :
+                new ObjectParameter("Longueur", typeof(double));
+    
+            var depassementParameter = depassement.HasValue ?
+                new ObjectParameter("Depassement", depassement) :
+                new ObjectParameter("Depassement", typeof(bool));
+    
+            var dtDebutParameter = dtDebut.HasValue ?
+                new ObjectParameter("DtDebut", dtDebut) :
+                new ObjectParameter("DtDebut", typeof(System.DateTime));
+    
+            var dtFinParameter = dtFin.HasValue ?
+                new ObjectParameter("DtFin", dtFin) :
+                new ObjectParameter("DtFin", typeof(System.DateTime));
+    
+            var imageParameter = image != null ?
+                new ObjectParameter("Image", image) :
+                new ObjectParameter("Image", typeof(string));
+    
+            var logoParameter = logo != null ?
+                new ObjectParameter("Logo", logo) :
+                new ObjectParameter("Logo", typeof(string));
+    
+            var visuelParameter = visuel != null ?
+                new ObjectParameter("Visuel", visuel) :
+                new ObjectParameter("Visuel", typeof(string));
+    
+            var categorieIdParameter = categorieId.HasValue ?
+                new ObjectParameter("CategorieId", categorieId) :
+                new ObjectParameter("CategorieId", typeof(int));
+    
+            var prixParameter = prix.HasValue ?
+                new ObjectParameter("Prix", prix) :
+                new ObjectParameter("Prix", typeof(double));
+    
+            var stockParameter = stock.HasValue ?
+                new ObjectParameter("Stock", stock) :
+                new ObjectParameter("Stock", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdProduit", idParameter, referenceParameter, libelleParameter, descriptifParameter, poidsParameter, hauteurParameter, largeurParameter, longueurParameter, depassementParameter, dtDebutParameter, dtFinParameter, imageParameter, logoParameter, visuelParameter, categorieIdParameter, prixParameter, stockParameter);
+        }
+    
+        public virtual ObjectResult<ModeEmplacementResult> GetEmplacements(Nullable<int> modeId)
+        {
+            var modeIdParameter = modeId.HasValue ?
+                new ObjectParameter("ModeId", modeId) :
+                new ObjectParameter("ModeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ModeEmplacementResult>("GetEmplacements", modeIdParameter);
+        }
+    
+        public virtual ObjectResult<ContenuResult> GetContenus(Nullable<int> id, string titre, string dtMin, string dtMax, Nullable<int> emplacementId, Nullable<int> modeId, Nullable<int> evenementId, Nullable<int> typologieId)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var titreParameter = titre != null ?
+                new ObjectParameter("Titre", titre) :
+                new ObjectParameter("Titre", typeof(string));
+    
+            var dtMinParameter = dtMin != null ?
+                new ObjectParameter("DtMin", dtMin) :
+                new ObjectParameter("DtMin", typeof(string));
+    
+            var dtMaxParameter = dtMax != null ?
+                new ObjectParameter("DtMax", dtMax) :
+                new ObjectParameter("DtMax", typeof(string));
+    
+            var emplacementIdParameter = emplacementId.HasValue ?
+                new ObjectParameter("EmplacementId", emplacementId) :
+                new ObjectParameter("EmplacementId", typeof(int));
+    
+            var modeIdParameter = modeId.HasValue ?
+                new ObjectParameter("ModeId", modeId) :
+                new ObjectParameter("ModeId", typeof(int));
+    
+            var evenementIdParameter = evenementId.HasValue ?
+                new ObjectParameter("EvenementId", evenementId) :
+                new ObjectParameter("EvenementId", typeof(int));
+    
+            var typologieIdParameter = typologieId.HasValue ?
+                new ObjectParameter("TypologieId", typologieId) :
+                new ObjectParameter("TypologieId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ContenuResult>("GetContenus", idParameter, titreParameter, dtMinParameter, dtMaxParameter, emplacementIdParameter, modeIdParameter, evenementIdParameter, typologieIdParameter);
+        }
+    
+        public virtual ObjectResult<Modes> GetModes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Modes>("GetModes");
+        }
+    
+        public virtual ObjectResult<Modes> GetModes(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Modes>("GetModes", mergeOption);
+        }
+    
+        public virtual ObjectResult<ModeEmplacementResult> GetModesEmplacements(Nullable<int> modeId)
+        {
+            var modeIdParameter = modeId.HasValue ?
+                new ObjectParameter("ModeId", modeId) :
+                new ObjectParameter("ModeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ModeEmplacementResult>("GetModesEmplacements", modeIdParameter);
+        }
+    
+        public virtual ObjectResult<TypologieEvenementResult> GetTypologiesEvenements(string onlyParentsYN)
+        {
+            var onlyParentsYNParameter = onlyParentsYN != null ?
+                new ObjectParameter("OnlyParentsYN", onlyParentsYN) :
+                new ObjectParameter("OnlyParentsYN", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TypologieEvenementResult>("GetTypologiesEvenements", onlyParentsYNParameter);
+        }
+    
+        public virtual ObjectResult<PublicationResult> GetPublications(Nullable<int> contenuId)
+        {
+            var contenuIdParameter = contenuId.HasValue ?
+                new ObjectParameter("ContenuId", contenuId) :
+                new ObjectParameter("ContenuId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PublicationResult>("GetPublications", contenuIdParameter);
+        }
+    
+        public virtual int AddContenu(Nullable<int> id, string titre, string texte, Nullable<System.DateTime> dtDebut, Nullable<System.DateTime> dtFin, string lien, string script, string logo, string horizontale, string carree, string verticale, string full, Nullable<bool> exclusif, Nullable<int> modeId, Nullable<int> evenementId)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var titreParameter = titre != null ?
+                new ObjectParameter("Titre", titre) :
+                new ObjectParameter("Titre", typeof(string));
+    
+            var texteParameter = texte != null ?
+                new ObjectParameter("Texte", texte) :
+                new ObjectParameter("Texte", typeof(string));
+    
+            var dtDebutParameter = dtDebut.HasValue ?
+                new ObjectParameter("DtDebut", dtDebut) :
+                new ObjectParameter("DtDebut", typeof(System.DateTime));
+    
+            var dtFinParameter = dtFin.HasValue ?
+                new ObjectParameter("DtFin", dtFin) :
+                new ObjectParameter("DtFin", typeof(System.DateTime));
+    
+            var lienParameter = lien != null ?
+                new ObjectParameter("Lien", lien) :
+                new ObjectParameter("Lien", typeof(string));
+    
+            var scriptParameter = script != null ?
+                new ObjectParameter("Script", script) :
+                new ObjectParameter("Script", typeof(string));
+    
+            var logoParameter = logo != null ?
+                new ObjectParameter("Logo", logo) :
+                new ObjectParameter("Logo", typeof(string));
+    
+            var horizontaleParameter = horizontale != null ?
+                new ObjectParameter("Horizontale", horizontale) :
+                new ObjectParameter("Horizontale", typeof(string));
+    
+            var carreeParameter = carree != null ?
+                new ObjectParameter("Carree", carree) :
+                new ObjectParameter("Carree", typeof(string));
+    
+            var verticaleParameter = verticale != null ?
+                new ObjectParameter("Verticale", verticale) :
+                new ObjectParameter("Verticale", typeof(string));
+    
+            var fullParameter = full != null ?
+                new ObjectParameter("Full", full) :
+                new ObjectParameter("Full", typeof(string));
+    
+            var exclusifParameter = exclusif.HasValue ?
+                new ObjectParameter("Exclusif", exclusif) :
+                new ObjectParameter("Exclusif", typeof(bool));
+    
+            var modeIdParameter = modeId.HasValue ?
+                new ObjectParameter("ModeId", modeId) :
+                new ObjectParameter("ModeId", typeof(int));
+    
+            var evenementIdParameter = evenementId.HasValue ?
+                new ObjectParameter("EvenementId", evenementId) :
+                new ObjectParameter("EvenementId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddContenu", idParameter, titreParameter, texteParameter, dtDebutParameter, dtFinParameter, lienParameter, scriptParameter, logoParameter, horizontaleParameter, carreeParameter, verticaleParameter, fullParameter, exclusifParameter, modeIdParameter, evenementIdParameter);
+        }
+    
+        public virtual int AddPublication(Nullable<int> contenuId, Nullable<int> emplacementId)
+        {
+            var contenuIdParameter = contenuId.HasValue ?
+                new ObjectParameter("ContenuId", contenuId) :
+                new ObjectParameter("ContenuId", typeof(int));
+    
+            var emplacementIdParameter = emplacementId.HasValue ?
+                new ObjectParameter("EmplacementId", emplacementId) :
+                new ObjectParameter("EmplacementId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddPublication", contenuIdParameter, emplacementIdParameter);
+        }
+    
+        public virtual int DelPublication(Nullable<int> contenuId, Nullable<int> id)
+        {
+            var contenuIdParameter = contenuId.HasValue ?
+                new ObjectParameter("ContenuId", contenuId) :
+                new ObjectParameter("ContenuId", typeof(int));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelPublication", contenuIdParameter, idParameter);
+        }
+    
+        public virtual int UpdContenu(Nullable<int> id, string titre, string texte, Nullable<System.DateTime> dtDebut, Nullable<System.DateTime> dtFin, string lien, string script, string logo, string horizontale, string carree, string verticale, string full, Nullable<bool> exclusif, Nullable<int> modeId, Nullable<int> evenementId)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var titreParameter = titre != null ?
+                new ObjectParameter("Titre", titre) :
+                new ObjectParameter("Titre", typeof(string));
+    
+            var texteParameter = texte != null ?
+                new ObjectParameter("Texte", texte) :
+                new ObjectParameter("Texte", typeof(string));
+    
+            var dtDebutParameter = dtDebut.HasValue ?
+                new ObjectParameter("DtDebut", dtDebut) :
+                new ObjectParameter("DtDebut", typeof(System.DateTime));
+    
+            var dtFinParameter = dtFin.HasValue ?
+                new ObjectParameter("DtFin", dtFin) :
+                new ObjectParameter("DtFin", typeof(System.DateTime));
+    
+            var lienParameter = lien != null ?
+                new ObjectParameter("Lien", lien) :
+                new ObjectParameter("Lien", typeof(string));
+    
+            var scriptParameter = script != null ?
+                new ObjectParameter("Script", script) :
+                new ObjectParameter("Script", typeof(string));
+    
+            var logoParameter = logo != null ?
+                new ObjectParameter("Logo", logo) :
+                new ObjectParameter("Logo", typeof(string));
+    
+            var horizontaleParameter = horizontale != null ?
+                new ObjectParameter("Horizontale", horizontale) :
+                new ObjectParameter("Horizontale", typeof(string));
+    
+            var carreeParameter = carree != null ?
+                new ObjectParameter("Carree", carree) :
+                new ObjectParameter("Carree", typeof(string));
+    
+            var verticaleParameter = verticale != null ?
+                new ObjectParameter("Verticale", verticale) :
+                new ObjectParameter("Verticale", typeof(string));
+    
+            var fullParameter = full != null ?
+                new ObjectParameter("Full", full) :
+                new ObjectParameter("Full", typeof(string));
+    
+            var exclusifParameter = exclusif.HasValue ?
+                new ObjectParameter("Exclusif", exclusif) :
+                new ObjectParameter("Exclusif", typeof(bool));
+    
+            var modeIdParameter = modeId.HasValue ?
+                new ObjectParameter("ModeId", modeId) :
+                new ObjectParameter("ModeId", typeof(int));
+    
+            var evenementIdParameter = evenementId.HasValue ?
+                new ObjectParameter("EvenementId", evenementId) :
+                new ObjectParameter("EvenementId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdContenu", idParameter, titreParameter, texteParameter, dtDebutParameter, dtFinParameter, lienParameter, scriptParameter, logoParameter, horizontaleParameter, carreeParameter, verticaleParameter, fullParameter, exclusifParameter, modeIdParameter, evenementIdParameter);
+        }
+    
+        public virtual int DelContenu(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelContenu", idParameter);
+        }
+    
+        public virtual ObjectResult<Typologies> GetTypologies()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Typologies>("GetTypologies");
+        }
+    
+        public virtual ObjectResult<Typologies> GetTypologies(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Typologies>("GetTypologies", mergeOption);
+        }
+    
+        public virtual ObjectResult<EvenementResult> GetEvenements(Nullable<int> id, string libelle, string dtMin, string dtMax, Nullable<int> typologieId, Nullable<int> evenementParentId, Nullable<int> eleveId, string onlyParentsYN)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var libelleParameter = libelle != null ?
+                new ObjectParameter("Libelle", libelle) :
+                new ObjectParameter("Libelle", typeof(string));
+    
+            var dtMinParameter = dtMin != null ?
+                new ObjectParameter("DtMin", dtMin) :
+                new ObjectParameter("DtMin", typeof(string));
+    
+            var dtMaxParameter = dtMax != null ?
+                new ObjectParameter("DtMax", dtMax) :
+                new ObjectParameter("DtMax", typeof(string));
+    
+            var typologieIdParameter = typologieId.HasValue ?
+                new ObjectParameter("TypologieId", typologieId) :
+                new ObjectParameter("TypologieId", typeof(int));
+    
+            var evenementParentIdParameter = evenementParentId.HasValue ?
+                new ObjectParameter("EvenementParentId", evenementParentId) :
+                new ObjectParameter("EvenementParentId", typeof(int));
+    
+            var eleveIdParameter = eleveId.HasValue ?
+                new ObjectParameter("EleveId", eleveId) :
+                new ObjectParameter("EleveId", typeof(int));
+    
+            var onlyParentsYNParameter = onlyParentsYN != null ?
+                new ObjectParameter("OnlyParentsYN", onlyParentsYN) :
+                new ObjectParameter("OnlyParentsYN", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EvenementResult>("GetEvenements", idParameter, libelleParameter, dtMinParameter, dtMaxParameter, typologieIdParameter, evenementParentIdParameter, eleveIdParameter, onlyParentsYNParameter);
+        }
+    
+        public virtual ObjectResult<PlanningResult> GetPlanningsBack(Nullable<int> mois, Nullable<int> annee, Nullable<int> plus)
+        {
+            var moisParameter = mois.HasValue ?
+                new ObjectParameter("Mois", mois) :
+                new ObjectParameter("Mois", typeof(int));
+    
+            var anneeParameter = annee.HasValue ?
+                new ObjectParameter("Annee", annee) :
+                new ObjectParameter("Annee", typeof(int));
+    
+            var plusParameter = plus.HasValue ?
+                new ObjectParameter("Plus", plus) :
+                new ObjectParameter("Plus", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PlanningResult>("GetPlanningsBack", moisParameter, anneeParameter, plusParameter);
+        }
+    
+        public virtual ObjectResult<PlanningResult> GetPlanningsFront(Nullable<int> evenementId)
+        {
+            var evenementIdParameter = evenementId.HasValue ?
+                new ObjectParameter("EvenementId", evenementId) :
+                new ObjectParameter("EvenementId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PlanningResult>("GetPlanningsFront", evenementIdParameter);
+        }
+    
+        public virtual ObjectResult<ReservationResult> GetReservations(Nullable<int> eleveId, Nullable<int> evenementId)
+        {
+            var eleveIdParameter = eleveId.HasValue ?
+                new ObjectParameter("EleveId", eleveId) :
+                new ObjectParameter("EleveId", typeof(int));
+    
+            var evenementIdParameter = evenementId.HasValue ?
+                new ObjectParameter("EvenementId", evenementId) :
+                new ObjectParameter("EvenementId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReservationResult>("GetReservations", eleveIdParameter, evenementIdParameter);
+        }
+    
+        public virtual int AddEvenement(Nullable<int> id, string libelle, string descriptif, Nullable<System.DateTime> dtDebut, Nullable<System.DateTime> dtFin, Nullable<System.DateTime> dtLimiteInscription, Nullable<int> maximum, Nullable<double> prix, Nullable<double> duree, string logo, string photo, string bandeau, string lien, Nullable<int> typologieId, Nullable<int> evenementParentId)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var libelleParameter = libelle != null ?
+                new ObjectParameter("Libelle", libelle) :
+                new ObjectParameter("Libelle", typeof(string));
+    
+            var descriptifParameter = descriptif != null ?
+                new ObjectParameter("Descriptif", descriptif) :
+                new ObjectParameter("Descriptif", typeof(string));
+    
+            var dtDebutParameter = dtDebut.HasValue ?
+                new ObjectParameter("DtDebut", dtDebut) :
+                new ObjectParameter("DtDebut", typeof(System.DateTime));
+    
+            var dtFinParameter = dtFin.HasValue ?
+                new ObjectParameter("DtFin", dtFin) :
+                new ObjectParameter("DtFin", typeof(System.DateTime));
+    
+            var dtLimiteInscriptionParameter = dtLimiteInscription.HasValue ?
+                new ObjectParameter("DtLimiteInscription", dtLimiteInscription) :
+                new ObjectParameter("DtLimiteInscription", typeof(System.DateTime));
+    
+            var maximumParameter = maximum.HasValue ?
+                new ObjectParameter("Maximum", maximum) :
+                new ObjectParameter("Maximum", typeof(int));
+    
+            var prixParameter = prix.HasValue ?
+                new ObjectParameter("Prix", prix) :
+                new ObjectParameter("Prix", typeof(double));
+    
+            var dureeParameter = duree.HasValue ?
+                new ObjectParameter("Duree", duree) :
+                new ObjectParameter("Duree", typeof(double));
+    
+            var logoParameter = logo != null ?
+                new ObjectParameter("Logo", logo) :
+                new ObjectParameter("Logo", typeof(string));
+    
+            var photoParameter = photo != null ?
+                new ObjectParameter("Photo", photo) :
+                new ObjectParameter("Photo", typeof(string));
+    
+            var bandeauParameter = bandeau != null ?
+                new ObjectParameter("Bandeau", bandeau) :
+                new ObjectParameter("Bandeau", typeof(string));
+    
+            var lienParameter = lien != null ?
+                new ObjectParameter("Lien", lien) :
+                new ObjectParameter("Lien", typeof(string));
+    
+            var typologieIdParameter = typologieId.HasValue ?
+                new ObjectParameter("TypologieId", typologieId) :
+                new ObjectParameter("TypologieId", typeof(int));
+    
+            var evenementParentIdParameter = evenementParentId.HasValue ?
+                new ObjectParameter("EvenementParentId", evenementParentId) :
+                new ObjectParameter("EvenementParentId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddEvenement", idParameter, libelleParameter, descriptifParameter, dtDebutParameter, dtFinParameter, dtLimiteInscriptionParameter, maximumParameter, prixParameter, dureeParameter, logoParameter, photoParameter, bandeauParameter, lienParameter, typologieIdParameter, evenementParentIdParameter);
+        }
+    
+        public virtual int UpdEvenement(Nullable<int> id, string libelle, string descriptif, Nullable<System.DateTime> dtDebut, Nullable<System.DateTime> dtFin, Nullable<System.DateTime> dtLimiteInscription, Nullable<int> maximum, Nullable<double> prix, Nullable<double> duree, string logo, string photo, string bandeau, string lien, Nullable<int> typologieId, Nullable<int> evenementParentId)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var libelleParameter = libelle != null ?
+                new ObjectParameter("Libelle", libelle) :
+                new ObjectParameter("Libelle", typeof(string));
+    
+            var descriptifParameter = descriptif != null ?
+                new ObjectParameter("Descriptif", descriptif) :
+                new ObjectParameter("Descriptif", typeof(string));
+    
+            var dtDebutParameter = dtDebut.HasValue ?
+                new ObjectParameter("DtDebut", dtDebut) :
+                new ObjectParameter("DtDebut", typeof(System.DateTime));
+    
+            var dtFinParameter = dtFin.HasValue ?
+                new ObjectParameter("DtFin", dtFin) :
+                new ObjectParameter("DtFin", typeof(System.DateTime));
+    
+            var dtLimiteInscriptionParameter = dtLimiteInscription.HasValue ?
+                new ObjectParameter("DtLimiteInscription", dtLimiteInscription) :
+                new ObjectParameter("DtLimiteInscription", typeof(System.DateTime));
+    
+            var maximumParameter = maximum.HasValue ?
+                new ObjectParameter("Maximum", maximum) :
+                new ObjectParameter("Maximum", typeof(int));
+    
+            var prixParameter = prix.HasValue ?
+                new ObjectParameter("Prix", prix) :
+                new ObjectParameter("Prix", typeof(double));
+    
+            var dureeParameter = duree.HasValue ?
+                new ObjectParameter("Duree", duree) :
+                new ObjectParameter("Duree", typeof(double));
+    
+            var logoParameter = logo != null ?
+                new ObjectParameter("Logo", logo) :
+                new ObjectParameter("Logo", typeof(string));
+    
+            var photoParameter = photo != null ?
+                new ObjectParameter("Photo", photo) :
+                new ObjectParameter("Photo", typeof(string));
+    
+            var bandeauParameter = bandeau != null ?
+                new ObjectParameter("Bandeau", bandeau) :
+                new ObjectParameter("Bandeau", typeof(string));
+    
+            var lienParameter = lien != null ?
+                new ObjectParameter("Lien", lien) :
+                new ObjectParameter("Lien", typeof(string));
+    
+            var typologieIdParameter = typologieId.HasValue ?
+                new ObjectParameter("TypologieId", typologieId) :
+                new ObjectParameter("TypologieId", typeof(int));
+    
+            var evenementParentIdParameter = evenementParentId.HasValue ?
+                new ObjectParameter("EvenementParentId", evenementParentId) :
+                new ObjectParameter("EvenementParentId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdEvenement", idParameter, libelleParameter, descriptifParameter, dtDebutParameter, dtFinParameter, dtLimiteInscriptionParameter, maximumParameter, prixParameter, dureeParameter, logoParameter, photoParameter, bandeauParameter, lienParameter, typologieIdParameter, evenementParentIdParameter);
+        }
+    
+        public virtual int UpdPlanning(Nullable<int> id, string creneau0809, string creneau0910, string creneau1011, string creneau1112, string creneau1213, string creneau1314, string creneau1415, string creneau1516, string creneau1617, string creneau1718, Nullable<System.DateTime> jour)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var creneau0809Parameter = creneau0809 != null ?
+                new ObjectParameter("Creneau0809", creneau0809) :
+                new ObjectParameter("Creneau0809", typeof(string));
+    
+            var creneau0910Parameter = creneau0910 != null ?
+                new ObjectParameter("Creneau0910", creneau0910) :
+                new ObjectParameter("Creneau0910", typeof(string));
+    
+            var creneau1011Parameter = creneau1011 != null ?
+                new ObjectParameter("Creneau1011", creneau1011) :
+                new ObjectParameter("Creneau1011", typeof(string));
+    
+            var creneau1112Parameter = creneau1112 != null ?
+                new ObjectParameter("Creneau1112", creneau1112) :
+                new ObjectParameter("Creneau1112", typeof(string));
+    
+            var creneau1213Parameter = creneau1213 != null ?
+                new ObjectParameter("Creneau1213", creneau1213) :
+                new ObjectParameter("Creneau1213", typeof(string));
+    
+            var creneau1314Parameter = creneau1314 != null ?
+                new ObjectParameter("Creneau1314", creneau1314) :
+                new ObjectParameter("Creneau1314", typeof(string));
+    
+            var creneau1415Parameter = creneau1415 != null ?
+                new ObjectParameter("Creneau1415", creneau1415) :
+                new ObjectParameter("Creneau1415", typeof(string));
+    
+            var creneau1516Parameter = creneau1516 != null ?
+                new ObjectParameter("Creneau1516", creneau1516) :
+                new ObjectParameter("Creneau1516", typeof(string));
+    
+            var creneau1617Parameter = creneau1617 != null ?
+                new ObjectParameter("Creneau1617", creneau1617) :
+                new ObjectParameter("Creneau1617", typeof(string));
+    
+            var creneau1718Parameter = creneau1718 != null ?
+                new ObjectParameter("Creneau1718", creneau1718) :
+                new ObjectParameter("Creneau1718", typeof(string));
+    
+            var jourParameter = jour.HasValue ?
+                new ObjectParameter("Jour", jour) :
+                new ObjectParameter("Jour", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdPlanning", idParameter, creneau0809Parameter, creneau0910Parameter, creneau1011Parameter, creneau1112Parameter, creneau1213Parameter, creneau1314Parameter, creneau1415Parameter, creneau1516Parameter, creneau1617Parameter, creneau1718Parameter, jourParameter);
+        }
+    
+        public virtual int DelEvenement(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelEvenement", idParameter);
         }
     }
 }

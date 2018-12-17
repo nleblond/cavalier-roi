@@ -1,7 +1,9 @@
-﻿namespace WS.Models.OUT
+﻿using System;
+using System.Collections.Generic;
+
+
+namespace WS.Models.OUT
 {
-    using System;
-    using System.Collections.Generic;
 
     public partial class Produit
     {
@@ -22,8 +24,8 @@
 
         public Boolean? Depassement { get; set; }
 
-        public DateTime? DtDebut { get; set; }
-        public DateTime? DtFin { get; set; }
+        public String DtDebut { get; set; }
+        public String DtFin { get; set; }
 
 
         public String Image { get; set; }

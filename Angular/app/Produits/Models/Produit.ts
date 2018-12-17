@@ -1,36 +1,64 @@
-﻿import { Categorie } from './Categorie';
+﻿import { Categorie } from './../../Divers/Models/Categorie';
 
 export class Produit {
 
-    constructor() { }
+    constructor() {
 
-    public Id: Number;
-    public Reference: String;
+        this.Id = null;
+        this.Reference = null;
+        this.Libelle = null;
+        this.Descriptif = null;
+        this.Poids = null;
+        this.Hauteur = null;
+        this.Largeur = null;
+        this.Longueur = null;
+        this.Depassement = false;
+        this.DtDebut = null;
+        this.DtFin = null;
+        this.Image = null;
+        this.Logo = null;
+        this.Visuel = null;
+        this.Prix = null;
+        this.Stock = null;
 
-    public Libelle: String;
-    public Descriptif: String;
+        this.NbCommandes = null;
+
+        this.Categorie = new Categorie();
+
+        this.Etat = null;
+    }
+
+    public Id: number |  null;
+    public Reference: string | null;
+
+    public Libelle: string | null;
+    public Descriptif: string | null;
 
 
-    public Poids: Number;
-    public Hauteur: Number;
-    public Largeur: Number;
-    public Longueur: Number;
+    public Poids: number | null;
+    public Hauteur: number | null;
+    public Largeur: number | null;
+    public Longueur: number | null;
 
-    public Depassement: Boolean;
+    public Depassement: boolean | null;
 
-    public DtDebut: String;
-    public DtFin: String;
+    public DtDebut: string | null;
+    public DtFin: string | null;
 
-    public Image: String;
-    public Logo: String;
-    public Visuel: String;
+    public Image: string | null;
+    public Logo: string | null;
+    public Visuel: string | null;
 
 
-    public Categorie: Categorie;
+    public Prix: number | null;
+    public Stock: number | null;
 
-    public Prix: Number;
-    public Stock: Number;
+    public NbCommandes?: number | null;
 
-    public NbCommandes: Number;
+
+    public Categorie: Categorie | null;
+
+
+    public Etat: number | null; //0 = création, 1 = modification
 
 }

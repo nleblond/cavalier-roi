@@ -59,6 +59,7 @@ namespace WS.Controllers
         }
 
 
+        [HttpPost]
         [HttpGet]
         public IHttpActionResult DelEleve(Int32? _Id = null, String _Real = "N")
         {
@@ -66,12 +67,6 @@ namespace WS.Controllers
         }
 
 
-        [HttpPost]
-        [HttpGet]
-        public IHttpActionResult GetEvenementsAndTypologies()
-        {
-            return Ok(DB.GetEvenementsAndTypologies().ToList());
-        }
 
 
     }

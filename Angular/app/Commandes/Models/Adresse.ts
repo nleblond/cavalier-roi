@@ -1,15 +1,32 @@
 ﻿export class Adresse {
 
-    public Id: Number;
-    public Destinataire: String;
+    constructor() {
 
-    public Ligne1: String;
-    public Ligne2: String;
+        this.Id = null;
+        this.Destinataire = null;
 
-    public CodePostal: Number;
-    public Ville: String;
-    public Pays: String;
+        this.Ligne1 = null;
+        this.Ligne2 = null;
 
-    public Email: String;
-    public Telephone: String;
+        this.CodePostal= null;
+        this.Ville = null;
+        this.Pays = null;
+
+        this.Email = null;
+        this.Telephone = null;
+        
+    }
+
+    public Id: number | null;
+    public Destinataire: string | null;
+
+    public Ligne1: string | null;
+    public Ligne2: string | null;
+
+    public CodePostal: number | null;
+    public Ville: string | null;
+    public Pays: string | null;
+
+    public Email: string | null;
+    public Telephone: string | null;
 }

@@ -14,17 +14,17 @@ namespace WS.Models
     
     public partial class Plannings
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Plannings()
-        {
-            this.Reservations = new HashSet<Reservations>();
-        }
-    
         public int Id { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public int Compteur { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservations> Reservations { get; set; }
+        public string Creneau0809 { get; set; }
+        public string Creneau0910 { get; set; }
+        public string Creneau1011 { get; set; }
+        public string Creneau1112 { get; set; }
+        public string Creneau1213 { get; set; }
+        public string Creneau1314 { get; set; }
+        public string Creneau1415 { get; set; }
+        public string Creneau1516 { get; set; }
+        public string Creneau1617 { get; set; }
+        public string Creneau1718 { get; set; }
+        public Nullable<System.DateTime> Jour { get; set; }
     }
 }

@@ -13,19 +13,35 @@ import { Frai } from './Models/Frai';
     templateUrl: './app.component.html'
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
 
     constructor(private _HttpService: Http) { }
+    //public _Url: String = 'http://192.168.1.34:63121/';
+    public _Url: string = '/';
        
 
     public _Statuts: Statut[];
+    public _Id: number = null;
+    public _ProduitId: number = null;
+    public _EleveId: number = null;
+    public _StatutId: number = null;
     ngOnInit() {
 
+        //gestion des paramètres dans l'url
+        var _UrlParams = window.location.search.replace('?', '').split('&');
+        for (var i = 0; i < _UrlParams.length; i++) {
+            if (_UrlParams[i].indexOf('_Id=') > -1) { this._Id = parseInt(_UrlParams[i].replace('_Id=', '')); }
+            if (_UrlParams[i].indexOf('_ProduitId=') > -1) { this._ProduitId = parseInt(_UrlParams[i].replace('_ProduitId=', '')); }
+            if (_UrlParams[i].indexOf('_EleveId=') > -1) { this._EleveId = parseInt(_UrlParams[i].replace('_EleveId=', '')); }
+            if (_UrlParams[i].indexOf('_StatutId=') > -1) { this._StatutId = parseInt(_UrlParams[i].replace('_StatutId=', '')); }
+        }
+        if ((this._Id != null) || (this._ProduitId != null) || (this._EleveId != null)) { this.GetCommandes(this._Id, null, null, this._ProduitId, this._EleveId, null, null, this._StatutId); }
+
+        //récupération des statuts
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-
-        this._HttpService.get('http://localhost:63122/API/Commandes/GetStatuts', _RequestOptions)
+        this._HttpService.get(this._Url + 'API/Divers/GetStatuts', _RequestOptions)
             .subscribe(data => {
                 this._Statuts = data.json() as Statut[];
             });
@@ -33,9 +49,7 @@ export class AppComponent {
     }
 
 
-
-    public _StatutId: String = '';
-    ChangeStatut(_Event: any, _Index: number) {
+    public ChangeStatut(_Event: any, _Index: number) {
         if ((_Index != null) && (_Index != undefined)) {
             this._Commandes[_Index].Statut.Id = _Event.target.value;
         }
@@ -44,20 +58,23 @@ export class AppComponent {
         }
     }
 
-    ChangeReferenceTransaction(_Event: any, _Index: number) {
+
+    //j'aurai pu utiliser un "ngModel"
+    //----------------------------------------------
+    public ChangeReferenceTransaction(_Event: any, _Index: number) {
         this._Commandes[_Index].ReferenceTransaction = _Event.target.value;
     }
 
-    ChangeReferenceExterne(_Event: any, _Index: number) {
+    public ChangeReferenceExterne(_Event: any, _Index: number) {
         this._Commandes[_Index].ReferenceExterne = _Event.target.value;
     }
+    //----------------------------------------------
 
 
-
-    public _NoResult: Boolean;
+    public _NoResult: boolean;
     public _CommandesSearchParameters: CommandesSearchParameters;
     public _Commandes: Commande[];
-    public GetCommandes(_Id: Number, _DtMin: String, _DtMax: String, _ProduitId: Number, _EleveId: Number, _ReferenceTransaction: String, _ReferenceExterne: String, _StatutId: Number) {
+    public GetCommandes(_Id: number, _DtMin: string, _DtMax: string, _ProduitId: number, _EleveId: number, _ReferenceTransaction: string, _ReferenceExterne: string, _StatutId: number) {
 
         var Valid = true;
 
@@ -79,7 +96,7 @@ export class AppComponent {
         });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
 
-        this._HttpService.post('http://localhost:63122/API/Commandes/GetCommandes', _Body, _RequestOptions)
+        this._HttpService.post(this._Url + 'API/Commandes/GetCommandes', _Body, _RequestOptions)
             .subscribe((data: Response) => {
                 this._Commandes = data.json() as Commande[];
                 if (this._Commandes.length == 0) { this._NoResult = true; }
@@ -92,7 +109,7 @@ export class AppComponent {
 
 
 
-    public _DelReturn: Number;
+    public _DelReturn: number;
     public DelCommande(_Index: number) {
 
         if (confirm('Voulez-vous vraiment supprimer la commande ' + this._Commandes[_Index].Id + ' ?')) {
@@ -100,9 +117,9 @@ export class AppComponent {
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
 
-            this._HttpService.get('http://localhost:63122/API/Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+            this._HttpService.get(this._Url + 'API/Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe(data => {
-                    this._DelReturn = data.json() as Number;
+                    this._DelReturn = data.json() as number;
                     this._Commandes.splice(_Index);
                 });
         }
@@ -111,7 +128,7 @@ export class AppComponent {
 
 
 
-    public _UpdReturn: Number;
+    public _UpdReturn: number;
     public _CommandeUpdateParameters: CommandeUpdateParameters;
     public UpdCommande(_Index: number) {
         if (confirm('Voulez-vous vraiment modifier la commande ' + this._Commandes[_Index].Id + ' ?')) {
@@ -130,9 +147,9 @@ export class AppComponent {
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
 
 
-            this._HttpService.post('http://localhost:63122/API/Commandes/UpdCommande', _Body, _RequestOptions)
+            this._HttpService.post(this._Url + 'API/Commandes/UpdCommande', _Body, _RequestOptions)
                 .subscribe(data => {
-                    this._UpdReturn = data.json() as Number;
+                    this._UpdReturn = data.json() as number;
                 });
         }
     }

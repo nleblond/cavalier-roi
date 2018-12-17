@@ -11,9 +11,12 @@ namespace WS.Models
 {
     using System;
     
-    public partial class CategorieResult
+    public partial class TypologieEvenementResult
     {
         public Nullable<int> Id { get; set; }
         public string Libelle { get; set; }
+        public Nullable<int> TypologieId { get; set; }
+        public Nullable<int> EvenementParentId { get; set; }
+        public string FormatedId { get; set; }
     }
 }

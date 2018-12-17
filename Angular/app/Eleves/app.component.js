@@ -15,18 +15,40 @@ var ElevesSearchParameters_1 = require("./Models/ElevesSearchParameters");
 var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
-        this._EvenementId = '';
-        this._TypologieId = '';
+        //public _Url: String = 'http://192.168.1.34:63121/';
+        this._Url = '/';
+        this._Id = null;
+        this._EvenementId = null;
+        this._TypologieId = null;
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //gestion des param�tres dans l'url
+        var _UrlParams = window.location.search.replace('?', '').split('&');
+        for (var i = 0; i < _UrlParams.length; i++) {
+            if (_UrlParams[i].indexOf('_Id=') > -1) {
+                this._Id = parseInt(_UrlParams[i].replace('_Id=', ''));
+            }
+            if (_UrlParams[i].indexOf('_TypologieId=') > -1) {
+                this._TypologieId = parseInt(_UrlParams[i].replace('_TypologieId=', ''));
+            }
+            if (_UrlParams[i].indexOf('_EvenementId=') > -1) {
+                this._EvenementId = parseInt(_UrlParams[i].replace('_EvenementId=', ''));
+            }
+        }
+        if ((this._Id != null) || (this._TypologieId != null) || (this._EvenementId != null)) {
+            this.GetEleves(this._Id, null, null, null, null, null, this._EvenementId, this._TypologieId);
+        }
+        //r�cup�ration des typologies/evenements
         var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get('http://localhost:63122/API/Eleves/GetEvenementsAndTypologies', _RequestOptions)
-            .subscribe(function (data) { _this._EvenementsAndTypologies = data.json(); });
+        this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
+            .subscribe(function (data) {
+            _this._TypologiesEvenements = data.json();
+        });
     };
-    AppComponent.prototype.ChangeEvenementTypologie = function (event) {
-        var _SelectedValue = event.target.value;
+    AppComponent.prototype.ChangeTypologieEvenement = function (_Event) {
+        var _SelectedValue = _Event.target.value;
         if (_SelectedValue.indexOf('-') < 0) {
             this._TypologieId = _SelectedValue;
             this._EvenementId = null;
@@ -58,7 +80,7 @@ var AppComponent = /** @class */ (function () {
             'APIKey': 'AEZRETRYTUYIUOIP'
         });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post('http://localhost:63122/API/Eleves/GetEleves', _Body, _RequestOptions)
+        this._HttpService.post(this._Url + 'API/Eleves/GetEleves', _Body, _RequestOptions)
             .subscribe(function (data) {
             _this._Eleves = data.json();
             if (_this._Eleves.length == 0) {
@@ -69,20 +91,20 @@ var AppComponent = /** @class */ (function () {
             }
         });
     };
+    AppComponent.prototype.InitEleve = function (_Id) {
+        window.open('/MonCompte?_Id=' + _Id, '_blank');
+    };
     AppComponent.prototype.DelEleve = function (_Index) {
         var _this = this;
         if (confirm('Voulez-vous vraiment supprimer l\'eleve ' + this._Eleves[_Index].Nom + ' ' + this._Eleves[_Index].Prenom + ' ?')) {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-            this._HttpService.get('http://localhost:63122/API/Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+            this._HttpService.get(this._Url + 'API/Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe(function (data) {
                 _this._DelReturn = data.json();
                 _this._Eleves.splice(_Index, 1);
             });
         }
-    };
-    AppComponent.prototype.GetEleve = function (_Id) {
-        window.open('/MonCompte?_Id=' + _Id, '_blank');
     };
     AppComponent = __decorate([
         core_1.Component({

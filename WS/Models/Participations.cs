@@ -17,10 +17,10 @@ namespace WS.Models
         public int Id { get; set; }
         public int EvenementId { get; set; }
         public int EleveId { get; set; }
-        public string Quantité { get; set; }
+        public string Quantite { get; set; }
         public string DeletedYN { get; set; }
     
-        public virtual Eleves Eleves { get; set; }
+        public virtual Eleves Eleve { get; set; }
         public virtual Evenements Evenements { get; set; }
     }
 }

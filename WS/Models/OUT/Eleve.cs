@@ -1,9 +1,11 @@
-﻿namespace WS.Models.OUT
-{
-    using System;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-    public partial class Eleve
+
+
+namespace WS.Models.OUT
+{
+   public partial class Eleve
     {
         public Eleve()
         {

@@ -2,7 +2,7 @@
     <h2>Filtre</h2>
 
     <div class="elements">
-        <input type="number" placeholder="ID Elève" title="ID Elève" min="0" #Id />
+        <input type="number" placeholder="ID Elève" title="ID Elève" min="0" [value]="_Id" #Id />
         <div class="br10"></div>
         <input type="text" placeholder="Nom" title="Nom" maxlength="50" #Nom />
         <div class="br10"></div>
@@ -14,9 +14,9 @@
         <div class="br10"></div>
         <input type="text" placeholder="Club" title="Club" maxlength="255" #Club />
         <div class="br10"></div>
-        <select placeholder="Typologie/Evènement" title="Typologie/Evènement" (change)="ChangeEvenementTypologie($event)">
-            <option value="">Evènement/Typologie</option>
-            <option *ngFor="let c of _EvenementsAndTypologies" [value]="c.FormatedId">{{c.Libelle}}</option>
+        <select placeholder="Typologie/Evènement" title="Typologie/Evènement" (change)="ChangeTypologieEvenement($event)">
+            <option value="">Typologie/Evènement</option>
+            <option *ngFor="let c of _TypologiesEvenements" [value]="c.FormatedId" [selected]="((_EvenementId != null) && (c.Id == _EvenementId)) || c.FormatedId == _TypologieId">{{c.Libelle}}</option>
         </select>
         <input type="hidden" [value]="_EvenementId" #EvenementId />
         <input type="hidden" [value]="_TypologieId" #TypologieId />
@@ -59,7 +59,7 @@
                 <td>{{e.Club}}</td>
                 <td>{{e.Classement}}</td>
                 <td>
-                    <input type="button" title="Modifier" value="Modifier" (click)="GetEleve(e.Id)" />
+                    <input type="button" title="Modifier" value="Modifier" (click)="InitEleve(e.Id)" />
                     <div class="clear-right"></div>
                     <div class="br10"></div>
                     <input type="button" title="Supprimer" value="Supprimer" (click)="DelEleve(i)" />

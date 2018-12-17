@@ -1,20 +1,36 @@
 ﻿import { Statut } from './Statut';
-import { Produit} from '../../Produits/Models/Produit';
+import { Produit } from '../../Produits/Models/Produit';
+import { Commande } from '../../Commandes/Models/Commande';
 
 export class Ligne {
 
-    public Id: Number;
+    constructor() {
 
-    public Prix: Number;
-    public Reduction: Number;
-    public Quantite: Number;
+        this.Id = null;
+
+        this.Prix = null;
+        this.Reduction = null;
+        this.Quantite = null;
+
+        this.Commande = null;
+
+        this.Statut = null;
+
+        this.Produit = null;
+
+    }
+
+    public Id: number | null;
+
+    public Prix: number | null;
+    public Reduction: number | null;
+    public Quantite: number | null;
 
     
-    public CommandeId: Number;
+    public Commande: Commande | null;
 
-    public StatutId: Number;
-    public Statut: Statut;
+    public Statut: Statut | null;
 
-    public Produit: Produit;
+    public Produit: Produit | null;
 
 }

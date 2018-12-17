@@ -1,0 +1,182 @@
+﻿<div class="filtre">
+    <h2>Filtre</h2>
+
+    <div class="elements">
+        <input type="number" placeholder="ID Contenu" title="ID Contenu" min="0" [value]="_Id" #Id />
+        <div class="br10"></div>
+        <input type="text" placeholder="Titre" title="Titre" maxlength="100" #Titre />
+        <div class="br10"></div>
+        <select placeholder="Mode/Emplacement" title="Mode/Emplacement" (change)="ChangeModeEmplacement($event, 0)">
+            <option value="">Mode/Emplacement</option>
+            <option *ngFor="let m of _ModesEmplacements" [value]="m.FormatedId" [selected]="((_EmplacementId != null) & (m.Id == _EmplacementId)) || m.FormatedId == ModeId">{{m.Libelle}} {{m.Key != null ? '(' + m.Key + ')' : ''}}</option>
+        </select>
+        <input type="hidden" [value]="_EmplacementId" #EmplacementId />
+        <input type="hidden" [value]="_ModeId" #ModeId />
+        <div class="br10"></div>
+        <input type="datetime" placeholder="Date de publication minimale" title="Date de publication minimale" #DtMin />
+        <div class="br10"></div>
+        <input type="datetime" placeholder="Date de publication maximale" title="Date de publication maximale" #DtMax />
+        <div class="br10"></div>
+        <select placeholder="Typologie/Evènement" title="Typologie/Evènement" (change)="ChangeTypologieEvenement($event, 0)">
+            <option value="">Typologie/Evènement</option>
+            <option *ngFor="let t of _TypologiesEvenements" [value]="t.FormatedId" [selected]="((_EvenementId != null) && (t.Id == _EvenementId)) || t.FormatedId == _TypologieId">{{t.Libelle}}</option>
+        </select>
+        <input type="hidden" [value]="_EvenementId" #EvenementId />
+        <input type="hidden" [value]="_TypologieId" #TypologieId />
+        <div class="br10"></div>
+        <input type="button" title="Rechercher" value="Rechercher" class="rechercher" (click)="GetContenus(Id.value, Titre.value, EmplacementId.value, ModeId.value, DtMin.value, DtMax.value, EvenementId.value, TypologieId.value)" />
+    </div>
+
+    <input type="button" title="Ajouter" value="Ajouter" class="ajouter" (click)="InitContenu(0, null)" />
+
+</div>
+
+<div class="small_resultats" *ngIf="_Contenus != undefined && _Contenus != null">
+    <h2>Resultats</h2>
+
+    <table cellpadding="2" cellspacing="0" border="0" class="first">
+        <thead>
+            <tr>
+                <th>ID Contenu</th>
+                <th>Titre</th>
+                <th>Mode</th>
+                <th>Dates</th>
+                <th>Image "full"</th>
+                <th>Image "horizontale"</th>
+                <th>Image "carrée"</th>
+                <th>Image "verticale"</th>
+                <th>Logo</th>
+                <th>Evènement</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of _Contenus; let i = index">
+                <td>{{c.Id}}</td>
+                <td>{{c.Titre}}</td>
+                <td>{{c.Mode.Libelle}}</td>
+                <td>
+                    <div><u>Début</u>&nbsp;:&nbsp;{{c.DtDebut}}</div>
+                    <div><u>Fin</u>&nbsp;:&nbsp;{{c.DtFin}}</div>
+                </td>
+                <td><div *ngIf="c.Full != undefined && c.Full != null"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Full}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Full}}" /></a></div></td>
+                <td><div *ngIf="c.Horizontale != undefined && c.Horizontale != null"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Horizontale}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Horizontale}}" /></a></div></td>
+                <td><div *ngIf="c.Carree != undefined && c.Carree != null"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Carree}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Carree}}" /></a></div></td>
+                <td><div *ngIf="c.Verticale != undefined && c.Verticale != null"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Verticale}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Verticale}}" /></a></div></td>
+                <td><div *ngIf="c.Logo != undefined && c.Logo != null"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Logo}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Logo}}" /></a></div></td>
+                <td>{{c.Evenement.Libelle}}</td>
+                <td>
+                    <input type="button" title="Gérer" value="Gérer" (click)="InitContenu(1, i)" />
+                    <div class="clear-right"></div>
+                    <div class="br10"></div>
+                    <input type="button" title="Supprimer" value="Supprimer" (click)="DelContenu(i)" />
+                </td>
+            </tr>
+            <tr *ngIf="_NoResult">
+                <td>Aucun résultat</td>
+                <td colspan="8"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="clear"></div>
+
+    <div class="pagination">1 2 3 4</div>
+
+    <div class="clear"></div>
+
+</div>
+
+<div class="details" *ngIf="_Contenu != undefined && _Contenu != null && _Contenu.Id != undefined && _Contenu.Id != null">
+    <h2>Details</h2>
+
+    <div class="elements">
+        <img class="fermer" src="/Content/Images/Boutons/Fermer.svg" (click)="InitContenu(null, null)" />
+        <span>{{_Contenu.Id}}</span>
+        <div class="br10"></div>
+        <input type="text" placeholder="Titre" title="Titre" class="libelle" [(ngModel)]="_Contenu.Titre" maxlength="100" #CurrentTitre />
+        <div class="br10"></div>
+        <select placeholder="Mode" title="Mode" (change)="ChangeModeEmplacement($event, 1)">
+            <option value="-1">Mode</option>
+            <option *ngFor="let m of _Modes" [value]="m.Id" [selected]="_Contenu.Mode.Id != undefined && _Contenu.Mode.Id != null && _Contenu.Mode.Id == m.Id">{{m.Libelle}}</option>
+        </select>
+        <div class="br10"></div>
+        <div *ngIf="GetShow('mode')">
+
+            <div class="emplacements">
+                <div *ngFor="let e of _ModesEmplacements; let i = index">
+                    <div *ngIf="GetShow('emplacement', e.Mode.Id, e.Key)"><label>{{e.Libelle.replace('____', '')}} {{e.Key != null ? '(' + e.Key + ')' : ''}}</label> <input type="checkbox" [checked]="GetCheck(e.Id)" (change)="ChangeCheck($event, e.Id)" /></div>
+                </div>
+            </div>
+            <div class="br10"></div>
+            <input type="date" placeholder="Date de début de publication" title="Date de début de publication" class="publication" [(ngModel)]="_Contenu.DtDebut" #CurrentDtDebut />
+            <div class="br10"></div>
+            <input type="text" placeholder="Date de fin de publication" title="Date de fin de publication" class="publication" [(ngModel)]="_Contenu.DtFin" #CurrentDtFin />
+            <div class="br10"></div>
+
+            <div *ngIf="GetShow('partenariat')">
+                <input type="checkbox" id="CheckBox_Exclusif" placeholder="Exclusif" title="Exclusif" class="exclusif" [(ngModel)]="_Contenu.Exclusif" #CurrentExclusif /><label for="CheckBox_Exclusif">Exclusif</label>
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('actualite|zone')">
+                <textarea placeholder="Texte" title="Texte" cols="33" rows="15" class="descriptif" [(ngModel)]="_Contenu.Texte" #CurrentTexte></textarea>
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('actualite|partenariat')">
+                <input type="text" placeholder="Lien" title="Lien" class="lien" [(ngModel)]="_Contenu.Lien" maxlength="255" #CurrentLien />
+                <div class="br10"></div>
+                <textarea placeholder="Script" cols="33" rows="15" class="script" [(ngModel)]="_Contenu.Script" maxlength="255" #CurrentScript></textarea>
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('actualite|zone')">
+                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Full" title="Full" class="image" [(ngModel)]="_Contenu.Full" maxlength="255" #CurrentFull />
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('actualite|partenariat')">
+                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Horizontale" title="Horizontale" class="image" [(ngModel)]="_Contenu.Horizontale" maxlength="255" #CurrentHorizontale />
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('partenariat')">
+                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Carrée" title="Carrée" class="image" [(ngModel)]="_Contenu.Carree" maxlength="255" #CurrentCarree />
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('partenariat')">
+                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Verticale" title="Verticale" class="image" [(ngModel)]="_Contenu.Verticale" maxlength="255" #CurrentVerticale />
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('actualite')">
+                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Logo" title="Logo" class="logo" [(ngModel)]="_Contenu.Logo" maxlength="255" #CurrentLogo />
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('partenariat|actualite')">
+                <select placeholder="Evènement" title="Evènement" (change)="ChangeTypologieEvenement($event, 1)">
+                    <option value="-1">Evènement</option>
+                    <option *ngFor="let e of _TypologiesEvenements"
+                            [value]="e.Id"
+                            [selected]="_Contenu.Evenement.Id != undefined && _Contenu.Evenement.Id != null && _Contenu.Evenement.Id == e.Id"
+                            [disabled]="e.Id == null">
+                        {{e.Libelle}}
+                    </option>
+                </select>
+            </div>
+
+            <input *ngIf="GetShow('valider')" type="button" title="Valider" value="Valider" (click)="AddUpdContenu()" />
+
+        </div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+</div>
+
+
+<div class="clear"></div>

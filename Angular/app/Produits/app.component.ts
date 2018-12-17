@@ -1,8 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular/http';
 
+import { Categorie } from './../Divers/Models/Categorie';
+
 import { ProduitsSearchParameters } from './Models/ProduitsSearchParameters';
-import { Categorie } from './Models/Categorie';
 import { Produit } from './Models/Produit';
 
 
@@ -12,36 +13,108 @@ import { Produit } from './Models/Produit';
     templateUrl: './app.component.html'
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
 
     constructor(private _HttpService: Http) { }
-       
+    //public _Url: String = 'http://192.168.1.34:63121/';
+    public _Url: string = '/';
 
     public _Categories: Categorie[];
+    public _Id: number = null;
+    public _CommandeId: number = null;
+    public _CategorieId: number = null;
     ngOnInit() {
 
+        //gestion des paramètres dans l'url
+        var _UrlParams = window.location.search.replace('?', '').split('&');
+        for (var i = 0; i < _UrlParams.length; i++) {
+            if (_UrlParams[i].indexOf('_Id=') > -1) { this._Id = parseInt(_UrlParams[i].replace('_Id=', '')); }
+            if (_UrlParams[i].indexOf('_CommandeId=') > -1) { this._CommandeId = parseInt(_UrlParams[i].replace('_CommandeId=', '')); }
+            if (_UrlParams[i].indexOf('_CategorieId=') > -1) { this._CategorieId = parseInt(_UrlParams[i].replace('_CategorieId=', '')); }
+        }
+        if ((this._Id != null) || (this._CategorieId != null) || (this._CommandeId != null)) { this.GetProduits(this._Id, null, null, this._CategorieId, null, null, this._CommandeId); }
+
+        //récupération des catégories
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
 
-        this._HttpService.get('http://localhost:63122/API/Produits/GetCategories', _RequestOptions)
+        this._HttpService.get(this._Url + 'API/Divers/GetCategories', _RequestOptions)
             .subscribe(data => {
                 this._Categories = data.json() as Categorie[];
             });
 
     }
 
-    _CategorieId: String = '';
-    ChangeCategorie(_Event: any, _Option: Number) {
-        if (_Option == 0) { this._CategorieId = _Event.target.value; }
-        else { this._Produit.Categorie.Id = _Event.target.value; }
+    public ChangeCategorie(_Event: any, _Option: number) {
+        var _SelectedId = _Event.target.value;
+        var _SelectedIndex = _Event.target.options.selectedIndex;
+        var _SelectedLibelle = _Event.target.options[_SelectedIndex].innerText;
+        if (_Option == 0) { //filtre
+            this._CategorieId = _SelectedId;
+        }
+        else { //détails
+            this._Produit.Categorie.Id = (_SelectedId == '-1' ? null : parseInt(_SelectedId));
+            this._Produit.Categorie.Libelle = _SelectedLibelle.trim();
+        }
     }
 
 
-    public _NoResult: Boolean;
+
+
+    public _InitReturn: number;
+    public _Produit: Produit;
+    public InitProduit(_Option: number, _Index: number) {
+        try {
+            this._Produit.Id = null;
+            this._Produit.Reference = null;
+            this._Produit.Libelle = null;
+
+            this._Produit.Categorie = new Categorie();
+            this._Produit.Categorie.Id = null;
+            this._Produit.Categorie.Libelle = null;
+
+            this._Produit.Descriptif = null;
+            this._Produit.DtDebut = null;
+            this._Produit.DtFin = null;
+            this._Produit.Stock = null;
+            this._Produit.Prix = null;
+            this._Produit.Poids = null;
+            this._Produit.Longueur = null;
+            this._Produit.Largeur = null;
+            this._Produit.Hauteur = null;
+            this._Produit.Depassement = false;
+            this._Produit.Logo = null;
+            this._Produit.Visuel = null;
+            this._Produit.Image = null;
+            this._Produit.NbCommandes = null;
+            this._Produit.Etat = null;
+        } catch { };
+        if (_Option == 0) {
+            var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
+
+            this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Produits', _RequestOptions)
+                .subscribe(data => {
+                    this._InitReturn = (data.json())[0] as number;
+                    this._Produit = new Produit();
+                    this._Produit.Id = this._InitReturn;
+                    this._Produit.Etat = 0; //creation
+                });
+        }
+        else if (_Option == 1) {
+            this._Produit = JSON.parse(JSON.stringify(this._Produits[_Index]));
+            this._Produit.Etat = 1; //modification
+        }
+    }
+
+
+
+
+    public _NoResult: boolean;
     public _ProduitsSearchParameters: ProduitsSearchParameters;
-    public _Produits : Produit[];
-    public GetProduits(_Id: Number, _Reference: String, _Libelle: String, _CategorieId: Number, _StockMin: Number, _StockMax: Number, _CommandeId: Number) {
+    public _Produits: Produit[];
+    public GetProduits(_Id: number, _Reference: string, _Libelle: string, _CategorieId: number, _StockMin: number, _StockMax: number, _CommandeId: number) {
 
         var Valid = true;
 
@@ -62,72 +135,36 @@ export class AppComponent {
         });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
 
-        this._HttpService.post('http://localhost:63122/API/Produits/GetProduits', _Body, _RequestOptions)
+        this._HttpService.post(this._Url + 'API/Produits/GetProduits', _Body, _RequestOptions)
             .subscribe((data: Response) => {
                 var _JsonResponse = data.json() as Produit[];
                 this._Produits = _JsonResponse;
+                if (this._Produits.length == 0) { this._NoResult = true; }
+                else { this._NoResult = false; }
             });
     }
 
 
 
-    public _Produit: Produit = new Produit();
-    public GetProduit(_Index: number) {
-        this._Produit = JSON.parse(JSON.stringify(this._Produits[_Index]));
-    }
 
 
-
-
-    public _InitReturn: Number;
-    public InitProduit(_Option: Number) {
-        try {
-            this._Produit.Id = null;
-            this._Produit.Reference = null;
-            this._Produit.Libelle = null;
-            this._Produit.Categorie.Id = null;
-            this._Produit.Categorie.Libelle = null;
-            this._Produit.Descriptif = null;
-            this._Produit.DtDebut = null;
-            this._Produit.DtFin = null;
-            this._Produit.Stock = null;
-            this._Produit.Prix = null;
-            this._Produit.Poids = null;
-            this._Produit.Longueur = null;
-            this._Produit.Largeur = null;
-            this._Produit.Hauteur = null;
-            this._Produit.Depassement = false;
-            this._Produit.Logo = null;
-            this._Produit.Visuel = null;
-            this._Produit.Image = null;
-            this._Produit.NbCommandes = null;
-
-        } catch { };
-        if (_Option == 0) {
-            var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
-            var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-
-            this._HttpService.get('http://localhost:63122/API/Divers/GetId?_Table=Produits', _RequestOptions)
-                .subscribe(data => {
-                    this._InitReturn = data.json() as Number;
-                    this._Produit.Id = this._InitReturn;
-                });
-        }
-    }
-
-
-    public _DelReturn: Number;
+    public _DelReturn: number;
     public DelProduit(_Index: number) {
 
         if (confirm('Voulez-vous vraiment supprimer le produit ' + this._Produits[_Index].Id + ' ?')) {
 
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
+            var _Confirmation = 'Le produit ' + this._Produits[_Index].Id + ' a bien ete supprime !';
 
-            this._HttpService.get('http://localhost:63122/API/Produits/DelProduit?_Id=' + this._Produits[_Index].Id.toString() + '&_Real=Y', _RequestOptions)
+            this._HttpService.get(this._Url + 'API/Produits/DelProduit?_Id=' + this._Produits[_Index].Id.toString() + '&_Real=Y', _RequestOptions)
                 .subscribe(data => {
-                    this._DelReturn = data.json() as Number;
-                    this._Produits.splice(_Index, 1);
+                    this._DelReturn = data.json() as number;
+                    if (data.ok) {
+                        this._Produits.splice(_Index, 1);
+                        alert(_Confirmation);
+                    }
+                    else { alert('Une erreur est survenue !'); }
                 });
         }
 
@@ -135,31 +172,51 @@ export class AppComponent {
 
 
 
-    //public _UpdReturn: Number;
-    //public _CommandeUpdateParameters: CommandeUpdateParameters;
-    //public UpdCommande(_Index: number) {
-    //    if (confirm('Voulez-vous vraiment modifier la commande ' + this._Commandes[_Index].Id + ' ?')) {
+    public _AddUpdReturn: number;
+    public AddUpdProduit() {
 
-    //        this._CommandeUpdateParameters = new CommandeUpdateParameters();
-    //        this._CommandeUpdateParameters.Id = this._Commandes[_Index].Id;
-    //        this._CommandeUpdateParameters.StatutId = this._Commandes[_Index].StatutId;
-    //        this._CommandeUpdateParameters.ReferenceTransaction = this._Commandes[_Index].ReferenceTransaction;
-    //        this._CommandeUpdateParameters.ReferenceExterne = this._Commandes[_Index].ReferenceExterne;
+        var _Question = '';
+        var _Confirmation = '';
+        var _Method = '';
+        if (this._Produit.Etat == 0) {
+            _Method = 'API/Produits/AddProduit';
+            _Question = 'Voulez-vous vraiment ajouter le produit ' + this._Produit.Id + ' ? '
+            _Confirmation = 'Le produit ' + this._Produit.Id + ' a bien ete ajoute !';
+        }
+        else {
+            _Method = 'API/Produits/UpdProduit';
+            _Question = 'Voulez-vous vraiment modifier le produit ' + this._Produit.Id + ' ? '
+            _Confirmation = 'Le produit ' + this._Produit.Id + ' a bien ete modifie !';
+        }
 
-    //        var _Body = JSON.stringify(this._CommandeUpdateParameters);
-    //        var _HeaderOptions = new Headers({
-    //            'Content-Type': 'application/json',
-    //            'APIKey': 'AEZRETRYTUYIUOIP'
-    //        });
-    //        var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
+        if (confirm(_Question)) {
 
+            var _Body = JSON.stringify(this._Produit);
+            var _HeaderOptions = new Headers({
+                'Content-Type': 'application/json',
+                'APIKey': 'AEZRETRYTUYIUOIP'
+            });
+            var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
 
-    //        this._HttpService.post('http://localhost:63122/API/Commandes/UpdCommande', _Body, _RequestOptions)
-    //            .subscribe(data => {
-    //                this._UpdReturn = data.json() as Number;
-    //            });
-    //    }
-    //}
+            this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
+                .subscribe(data => {
+                    this._AddUpdReturn = data.json() as number;
+                    if (data.ok) {
+                        if (this._Produit.Etat == 0) {
+                            this._Produits.push(this._Produit);
+                        }
+                        else {
+                            if ((this._Produits.find(t => t.Id === this._Produit.Id) != undefined) && (this._Produits.find(t => t.Id === this._Produit.Id) != null)) {
+                                var _Index = this._Produits.findIndex(t => t.Id === this._Produit.Id);
+                                this._Produits[_Index] = JSON.parse(JSON.stringify(this._Produit));
+                            }
+                        }
+                        this.InitProduit(null, null);
+                    }
+                    else { alert('Une erreur est survenue !'); }
+                });
+        }
+    }
 
 
 

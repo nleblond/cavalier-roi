@@ -1,7 +1,16 @@
 ﻿export class Statut {
 
-    public Id: Number;
-    public Libelle: String;
-    public Position: Number;
+    constructor() {
+
+        this.Id = null;
+
+        this.Libelle = null;
+        this.Position = null;
+        
+    }
+
+    public Id: number | number;
+    public Libelle: string | number;
+    public Position: number | number;
 
 }

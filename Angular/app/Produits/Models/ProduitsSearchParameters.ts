@@ -1,18 +1,35 @@
 ﻿export class ProduitsSearchParameters {
 
-    public Id: Number;
+    constructor() {
+        this.Id = null;
 
-    public Libelle: String;
-    public Reference: String;
+        this.Libelle = null;
+        this.Reference = null;
 
-    public CategorieId: Number;
+        this.CategorieId = null;
 
-    public StockMin: Number;
-    public StockMax: Number;
+        this.StockMin = null;
+        this.StockMax = null;
 
-    public CommandeId: Number;
+        this.CommandeId = null;
 
-    public NbCommandes: Number;
+        this.NbCommandes = null;
+
+    }
+
+    public Id: number | null;
+
+    public Libelle: string | null;
+    public Reference: string | null;
+
+    public CategorieId: number | null;
+
+    public StockMin: number | null;
+    public StockMax: number | null;
+
+    public CommandeId: number | null;
+
+    public NbCommandes: number | null;
 
 
 }

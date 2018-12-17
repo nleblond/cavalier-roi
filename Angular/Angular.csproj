@@ -175,7 +175,10 @@
   <ItemGroup>
     <Content Include="app\Commandes\app.component.html" />
     <TypeScriptCompile Include="app\Commandes\Models\CommandeUpdateParameters.ts" />
+    <Content Include="app\Contenus\app.component.html" />
     <Content Include="app\Eleves\app.component.html" />
+    <Content Include="app\Evenements\app.component.html" />
+    <TypeScriptCompile Include="app\Evenements\Models\PlanningsSearchParameters.ts" />
     <Content Include="app\Produits\app.component.html" />
     <Content Include="Areas\Commandes\Scripts\Views\Commandes.js" />
     <Content Include="Areas\Contenus\Scripts\Views\Actualites.js" />
@@ -468,6 +471,15 @@
     <TypeScriptCompile Include="app\Commandes\Models\Commande.ts" />
     <TypeScriptCompile Include="app\Commandes\Models\Adresse.ts" />
     <TypeScriptCompile Include="app\Commandes\Models\Statut.ts" />
+    <TypeScriptCompile Include="app\Contenus\app.component.spec.ts" />
+    <TypeScriptCompile Include="app\Contenus\app.component.ts" />
+    <TypeScriptCompile Include="app\Contenus\app.module.ts" />
+    <TypeScriptCompile Include="app\Contenus\main.ts" />
+    <TypeScriptCompile Include="app\Contenus\Models\ContenusSearchParameters.ts" />
+    <TypeScriptCompile Include="app\Contenus\Models\Publication.ts" />
+    <TypeScriptCompile Include="app\Contenus\Models\Contenu.ts" />
+    <TypeScriptCompile Include="app\Divers\Models\Mode.ts" />
+    <TypeScriptCompile Include="app\Divers\Models\Emplacement.ts" />
     <TypeScriptCompile Include="app\Eleves\app.component.spec.ts" />
     <TypeScriptCompile Include="app\Eleves\app.component.ts" />
     <TypeScriptCompile Include="app\Eleves\app.module.ts" />
@@ -475,12 +487,20 @@
     <TypeScriptCompile Include="app\Eleves\Models\Eleve.ts" />
     <TypeScriptCompile Include="app\Eleves\Models\ElevesSearchParameters.ts" />
     <TypeScriptCompile Include="app\Eleves\main.ts" />
-    <TypeScriptCompile Include="app\Eleves\Models\EvenementAndTypologie.ts" />
+    <TypeScriptCompile Include="app\Evenements\app.component.spec.ts" />
+    <TypeScriptCompile Include="app\Evenements\app.component.ts" />
+    <TypeScriptCompile Include="app\Evenements\app.module.ts" />
+    <TypeScriptCompile Include="app\Evenements\main.ts" />
+    <TypeScriptCompile Include="app\Evenements\Models\EvenementsSearchParameters.ts" />
+    <TypeScriptCompile Include="app\Evenements\Models\Evenement.ts" />
+    <TypeScriptCompile Include="app\Divers\Models\Typologie.ts" />
+    <TypeScriptCompile Include="app\Evenements\Models\Reservation.ts" />
+    <TypeScriptCompile Include="app\Evenements\Models\Planning.ts" />
     <TypeScriptCompile Include="app\Produits\app.component.spec.ts" />
     <TypeScriptCompile Include="app\Produits\app.component.ts" />
     <TypeScriptCompile Include="app\Produits\app.module.ts" />
     <TypeScriptCompile Include="app\Produits\main.ts" />
-    <TypeScriptCompile Include="app\Produits\Models\Categorie.ts" />
+    <TypeScriptCompile Include="app\Divers\Models\Categorie.ts" />
     <TypeScriptCompile Include="app\Produits\Models\Produit.ts" />
     <TypeScriptCompile Include="app\Produits\Models\ProduitsSearchParameters.ts" />
   </ItemGroup>
@@ -512,7 +532,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63121</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63122/</IISUrl>
+          <IISUrl>http://localhost:63121/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

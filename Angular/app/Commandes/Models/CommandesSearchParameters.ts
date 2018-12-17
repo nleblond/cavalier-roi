@@ -1,19 +1,39 @@
 ﻿export class CommandesSearchParameters {
 
-    public Id: Number;
 
-    public DtMin: String;
-    public DtMax: String;
+    constructor() {
 
-    public ProduitId: Number;
-    public ProduitReference: String;
+        this.Id = null;
 
-    public EleveId: Number;
+        this.DtMin = null;
+        this.DtMax = null;
 
-    public ReferenceTransaction: String;
-    public ReferenceExterne: String;
+        this.ProduitId = null;
+        this.ProduitReference = null;
 
-    public StatutId: Number;
+        this.EleveId = null;
+
+        this.ReferenceTransaction = null;
+        this.ReferenceExterne = null;
+
+        this.StatutId = null;
+
+    }
+
+    public Id: number | null;
+
+    public DtMin: string | null;
+    public DtMax: string | null;
+
+    public ProduitId: number | null;
+    public ProduitReference: string | null;
+
+    public EleveId: number | null;
+
+    public ReferenceTransaction: string | null;
+    public ReferenceExterne: string | null;
+
+    public StatutId: number | null;
 
 
 }

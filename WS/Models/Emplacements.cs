@@ -23,8 +23,11 @@ namespace WS.Models
         public int Id { get; set; }
         public string Libelle { get; set; }
         public string Visuel { get; set; }
+        public string Key { get; set; }
+        public Nullable<int> ModeId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Publications> Publications { get; set; }
+        public virtual Modes Mode { get; set; }
     }
 }

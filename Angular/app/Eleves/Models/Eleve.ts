@@ -1,15 +1,32 @@
 ﻿export class Eleve {
 
-    public Id: Number;
-    public Nom: String;
-    public Prenom: String;
-    public Email: String;
-    public License: String;
-    public Club: String;
+    constructor() {
 
-    public NbCommandes: Number;
-    public NbStages: Number;
-    public NbTournois: Number;
-    public NbCours: Number;
+        this.Id = null;
+        this.Nom = null;
+        this.Prenom = null;
+
+        this.Email = null;
+        this.License = null;
+        this.Club = null;
+
+        this.NbCommandes = null;
+        this.NbStages = null;
+        this.NbTournois = null;
+        this.NbCours = null;
+
+    }
+
+    public Id: number | null;
+    public Nom: string | null;
+    public Prenom: string | null;
+    public Email: string | null;
+    public License: string | null;
+    public Club: string | null;
+
+    public NbCommandes: number | null;
+    public NbStages: number | null;
+    public NbTournois: number | null;
+    public NbCours: number | null;
 
 }

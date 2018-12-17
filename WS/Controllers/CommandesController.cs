@@ -42,10 +42,10 @@ namespace WS.Controllers
                 {
                     Commande _NewCommande = new Commande();
                     _NewCommande.Id = Int32.Parse(_Current.Id.ToString());
-                    _NewCommande.DtCreation = DateTime.Parse(_Current.DtCreation.ToString());
+                    _NewCommande.DtCreation = _Current.DtCreation;
 
-                    if (String.IsNullOrEmpty(_Current.DtModification) == false) { _NewCommande.DtModification = DateTime.Parse(_Current.DtModification); }
-                    if (String.IsNullOrEmpty(_Current.DtValidation) == false) { _NewCommande.DtValidation = DateTime.Parse(_Current.DtValidation); }
+                    _NewCommande.DtModification = _Current.DtModification;
+                    _NewCommande.DtValidation = _Current.DtValidation;
 
                     _NewCommande.Prix = _Current.Total;
                     _NewCommande.ReferenceTransaction = _Current.ReferenceTransaction;
@@ -118,6 +118,7 @@ namespace WS.Controllers
         }
 
 
+        [HttpPost]
         [HttpGet]
         public IHttpActionResult DelCommande(Int32 _Id, String _Real = "N")
         {
@@ -131,12 +132,7 @@ namespace WS.Controllers
             return Ok(DB.UpdCommande(_Parameters.Id, _Parameters.StatutId, _Parameters.ReferenceTransaction, _Parameters.ReferenceExterne));
         }
 
-        [HttpPost]
-        [HttpGet]
-        public IHttpActionResult GetStatuts()
-        {
-           return Ok(DB.GetStatuts().ToList());
-        }
+        
 
 
     }

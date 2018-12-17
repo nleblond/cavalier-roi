@@ -17,8 +17,8 @@ namespace WS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Evenements()
         {
+            this.Contenus = new HashSet<Contenus>();
             this.Participations = new HashSet<Participations>();
-            this.Publications = new HashSet<Publications>();
             this.Reservations = new HashSet<Reservations>();
         }
     
@@ -32,15 +32,19 @@ namespace WS.Models
         public string Photo { get; set; }
         public Nullable<double> Prix { get; set; }
         public Nullable<int> TypologieId { get; set; }
-        public string Duree { get; set; }
         public Nullable<int> EvenementParentId { get; set; }
         public string VisibledYN { get; set; }
+        public string Logo { get; set; }
+        public string Bandeau { get; set; }
+        public string Lien { get; set; }
+        public Nullable<int> Minimum { get; set; }
+        public Nullable<int> Duree { get; set; }
     
-        public virtual Typologies Typologies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Contenus> Contenus { get; set; }
+        public virtual Typologies Typologie { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Participations> Participations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Publications> Publications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservations> Reservations { get; set; }
     }

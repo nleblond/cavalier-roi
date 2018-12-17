@@ -161,6 +161,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\EvenementsController.cs" />
+    <Compile Include="Controllers\ContenusController.cs" />
     <Compile Include="Controllers\DiversController.cs" />
     <Compile Include="Controllers\ProduitsController.cs" />
     <Compile Include="Controllers\CommandesController.cs" />
@@ -172,9 +174,6 @@
     <Compile Include="Models\Adresses.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CategorieResult.cs">
-      <DependentUpon>DBModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Categories.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
@@ -182,6 +181,9 @@
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Commandes.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ContenuResult.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Contenus.cs">
@@ -196,7 +198,7 @@
     <Compile Include="Models\Emplacements.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EvenementAndTypologieResult.cs">
+    <Compile Include="Models\EvenementResult.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Evenements.cs">
@@ -205,16 +207,32 @@
     <Compile Include="Models\Frais.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IN\PlanningsSearchParameters.cs" />
+    <Compile Include="Models\IN\EvenementsSearchParameters.cs" />
+    <Compile Include="Models\IN\ContenusSearchParameters.cs" />
     <Compile Include="Models\Lignes.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModeEmplacementResult.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Modes.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OUT\Adresse.cs" />
     <Compile Include="Models\OUT\Categorie.cs" />
     <Compile Include="Models\OUT\Commande.cs" />
+    <Compile Include="Models\OUT\Contenu.cs" />
     <Compile Include="Models\OUT\Eleve.cs" />
+    <Compile Include="Models\OUT\Emplacement.cs" />
+    <Compile Include="Models\OUT\Evenement.cs" />
     <Compile Include="Models\OUT\Frai.cs" />
     <Compile Include="Models\OUT\Ligne.cs" />
+    <Compile Include="Models\OUT\Planning.cs" />
     <Compile Include="Models\OUT\Produit.cs" />
+    <Compile Include="Models\OUT\Mode.cs" />
+    <Compile Include="Models\OUT\Publication.cs" />
+    <Compile Include="Models\OUT\Reservation.cs" />
     <Compile Include="Models\OUT\Statut.cs" />
     <Compile Include="Models\IN\ProduitsSearchParameters.cs" />
     <Compile Include="Models\IN\CommandeUpdateParameters.cs" />
@@ -235,7 +253,11 @@
     </Compile>
     <Compile Include="Models\IN\CommandesSearchParameters.cs" />
     <Compile Include="Models\IN\ElevesSearchParameters.cs" />
+    <Compile Include="Models\OUT\Typologie.cs" />
     <Compile Include="Models\Participations.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlanningResult.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Plannings.cs">
@@ -247,16 +269,22 @@
     <Compile Include="Models\Produits.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PublicationResult.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Publications.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReservationResult.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Reservations.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StatutResult.cs">
+    <Compile Include="Models\Statuts.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Statuts.cs">
+    <Compile Include="Models\TypologieEvenementResult.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Typologies.cs">
@@ -333,7 +361,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58391</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63122/API/</IISUrl>
+          <IISUrl>http://localhost:63121/API</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -14,6 +14,12 @@ namespace WS.Models
     
     public partial class Produits
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Produits()
+        {
+            this.Lignes = new HashSet<Lignes>();
+        }
+    
         public int Id { get; set; }
         public string Libelle { get; set; }
         public string Descriptif { get; set; }
@@ -33,5 +39,7 @@ namespace WS.Models
         public string Reference { get; set; }
     
         public virtual Categories Categorie { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lignes> Lignes { get; set; }
     }
 }

@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Categorie = /** @class */ (function () {
     function Categorie() {
+        this.Id = null;
+        this.Libelle = null;
     }
     return Categorie;
 }());

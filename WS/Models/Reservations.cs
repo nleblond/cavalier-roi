@@ -15,13 +15,13 @@ namespace WS.Models
     public partial class Reservations
     {
         public int Id { get; set; }
-        public Nullable<int> PlanningId { get; set; }
         public Nullable<int> EleveId { get; set; }
         public Nullable<int> EvenementId { get; set; }
         public string DeletedYN { get; set; }
+        public Nullable<System.DateTime> Jour { get; set; }
+        public string Creneau { get; set; }
     
-        public virtual Eleves Eleves { get; set; }
+        public virtual Eleves Eleve { get; set; }
         public virtual Evenements Evenements { get; set; }
-        public virtual Plannings Plannings { get; set; }
     }
 }

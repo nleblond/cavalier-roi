@@ -11,12 +11,10 @@ namespace WS.Models
 {
     using System;
     
-    public partial class EvenementAndTypologieResult
+    public partial class PublicationResult
     {
         public Nullable<int> Id { get; set; }
-        public string Libelle { get; set; }
-        public Nullable<int> TypologieId { get; set; }
-        public Nullable<int> EvenementParentId { get; set; }
-        public string FormatedId { get; set; }
+        public Nullable<int> ContenuId { get; set; }
+        public Nullable<int> EmplacementId { get; set; }
     }
 }

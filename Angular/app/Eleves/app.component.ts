@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular/http';
 
 
+import { Evenement } from './../Evenements/Models/Evenement';
+
 import { ElevesSearchParameters } from './Models/ElevesSearchParameters';
-import { EvenementAndTypologie } from './Models/EvenementAndTypologie';
 import { Eleve } from './Models/Eleve';
 
 
@@ -18,25 +19,40 @@ import { Eleve } from './Models/Eleve';
 export class AppComponent implements OnInit {
 
 
+
     constructor(private _HttpService: Http) { }
+    //public _Url: String = 'http://192.168.1.34:63121/';
+    public _Url: string = '/';
 
-
-    public _EvenementsAndTypologies: EvenementAndTypologie[];
+    public _TypologiesEvenements: Evenement[];
+    public _Id: number = null;
+    public _EvenementId: number = null;
+    public _TypologieId: number = null;
     ngOnInit() {
 
+        //gestion des paramètres dans l'url
+        var _UrlParams = window.location.search.replace('?', '').split('&');
+        for (var i = 0; i < _UrlParams.length; i++) {
+            if (_UrlParams[i].indexOf('_Id=') > -1) { this._Id = parseInt(_UrlParams[i].replace('_Id=', '')); }
+            if (_UrlParams[i].indexOf('_TypologieId=') > -1) { this._TypologieId = parseInt(_UrlParams[i].replace('_TypologieId=', '')); }
+            if (_UrlParams[i].indexOf('_EvenementId=') > -1) { this._EvenementId = parseInt(_UrlParams[i].replace('_EvenementId=', '')); }
+        }
+        if ((this._Id != null) || (this._TypologieId != null) || (this._EvenementId != null)) { this.GetEleves(this._Id, null, null, null, null, null, this._EvenementId, this._TypologieId); }
+
+        //récupération des typologies/evenements
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
 
-        this._HttpService.get('http://localhost:63122/API/Eleves/GetEvenementsAndTypologies', _RequestOptions)
-            .subscribe(data => { this._EvenementsAndTypologies = data.json() as EvenementAndTypologie[]; }
+        this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
+            .subscribe(data => {
+                this._TypologiesEvenements = data.json() as Evenement[];
+            }
         );
 
     }
 
-    public _EvenementId: String = '';
-    public _TypologieId: String = '';
-    ChangeEvenementTypologie(event: any) {
-        var _SelectedValue = event.target.value;
+    public ChangeTypologieEvenement(_Event: any) {
+        var _SelectedValue = _Event.target.value;
 
         if (_SelectedValue.indexOf('-') < 0) {
             this._TypologieId = _SelectedValue;
@@ -54,9 +70,9 @@ export class AppComponent implements OnInit {
 
 
     public _Eleves: Eleve[];
-    public _NoResult: Boolean;
+    public _NoResult: boolean;
     public _ElevesSearchParameters: ElevesSearchParameters;
-    public GetEleves(_Id: Number, _Nom: String, _Prenom: String, _Email: String, _License: String, _Club: String, _EvenementId: Number, _TypologieId: Number) {
+    public GetEleves(_Id: number, _Nom: string, _Prenom: string, _Email: string, _License: string, _Club: string, _EvenementId: number, _TypologieId: number) {
 
         var Valid = true;
 
@@ -77,7 +93,7 @@ export class AppComponent implements OnInit {
         });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
 
-        this._HttpService.post('http://localhost:63122/API/Eleves/GetEleves', _Body, _RequestOptions)
+        this._HttpService.post(this._Url + 'API/Eleves/GetEleves', _Body, _RequestOptions)
             .subscribe((data: Response) => {
                 this._Eleves = data.json() as Eleve[];
                 if (this._Eleves.length == 0) { this._NoResult = true; }
@@ -90,7 +106,14 @@ export class AppComponent implements OnInit {
 
 
 
-    _DelReturn: Number;
+
+    public InitEleve(_Id: number) {
+        window.open('/MonCompte?_Id=' + _Id, '_blank');
+    }
+
+
+
+    _DelReturn: number;
     public DelEleve(_Index: number) {
 
         if (confirm('Voulez-vous vraiment supprimer l\'eleve ' + this._Eleves[_Index].Nom + ' ' + this._Eleves[_Index].Prenom + ' ?')) {
@@ -98,9 +121,9 @@ export class AppComponent implements OnInit {
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
 
-            this._HttpService.get('http://localhost:63122/API/Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+            this._HttpService.get(this._Url + 'API/Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe(data => {
-                    this._DelReturn = data.json() as Number;
+                    this._DelReturn = data.json() as number;
                     this._Eleves.splice(_Index, 1);
                 }
             );
@@ -109,10 +132,6 @@ export class AppComponent implements OnInit {
     }
 
 
-
-    public GetEleve(_Id: Number) {
-        window.open('/MonCompte?_Id=' + _Id,'_blank');
-    }
 
 }
 

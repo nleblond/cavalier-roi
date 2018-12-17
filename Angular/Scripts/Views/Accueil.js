@@ -12,7 +12,7 @@ function GetCommandes() {
 
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:63122/API/Commandes/GetCommandes',
+        url: 'http://localhost:63123//Commandes/GetCommandes',
         headers: {
             'APIKey': 'AEZRETRYTUYIUOIP',
             'Content-Type': 'application/json'

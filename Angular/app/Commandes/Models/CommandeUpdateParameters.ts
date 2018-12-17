@@ -1,11 +1,24 @@
 ﻿export class CommandeUpdateParameters {
 
-    public Id: Number;
 
-    public StatutId: Number;
+    constructor() {
 
-    public ReferenceTransaction: String;
-    public ReferenceExterne: String;
+        this.Id = null;
+
+        this.StatutId = null;
+
+        this.ReferenceTransaction = null;
+        this.ReferenceExterne = null;
+
+    }
+
+
+    public Id: number | null;
+
+    public StatutId: number | null;
+
+    public ReferenceTransaction: string | null;
+    public ReferenceExterne: string | null;
 
 
 

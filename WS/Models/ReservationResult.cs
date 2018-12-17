@@ -11,9 +11,15 @@ namespace WS.Models
 {
     using System;
     
-    public partial class StatutResult
+    public partial class ReservationResult
     {
         public Nullable<int> Id { get; set; }
-        public string Libelle { get; set; }
+        public string Jour { get; set; }
+        public string Creneau { get; set; }
+        public Nullable<int> EleveId { get; set; }
+        public string Nom { get; set; }
+        public string Prenom { get; set; }
+        public Nullable<int> EvenementId { get; set; }
+        public string EvenementLibelle { get; set; }
     }
 }
