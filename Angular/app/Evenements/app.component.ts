@@ -52,22 +52,22 @@ export class AppComponent implements OnInit {
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements?_OnlyParentsYN=Y', _RequestOptions)
-            .subscribe(data => {
+            .subscribe((data: Response) => {
                 if (data.ok) {
                     this._TypologiesEvenementsParents = data.json() as Evenement[];
                 }
-                else { alert('Une erreur est survenue !'); }
+                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
             });
 
         //récupération des typologies + évènements
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
-            .subscribe(data => {
+            .subscribe((data: Response) => {
                 if (data.ok) {
                     this._TypologiesEvenements = data.json() as Evenement[];
                 }
-                else { alert('Une erreur est survenue !'); }
+                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
             });
        
     }
@@ -561,14 +561,14 @@ export class AppComponent implements OnInit {
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Evenements/GetEvenements', _Body, _RequestOptions)
-            .subscribe(data => {
+            .subscribe((data: Response) => {
                 if (data.ok) {
                     var _JsonResponse = data.json() as Evenement[];
                     this._Evenements = _JsonResponse;
                     if (this._Evenements.length == 0) { this._NoResult = true; }
                     else { this._NoResult = false; }
                 }
-                else { alert('Une erreur est survenue !'); }
+                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
             });
 
 
@@ -586,12 +586,12 @@ export class AppComponent implements OnInit {
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Evenements/GetEvenements', _Body, _RequestOptions)
-            .subscribe(data => {
+            .subscribe((data: Response) => {
                 if (data.ok) {
                     var _EvenementLibelle = ((data.json())[0] as Evenement).Libelle;
                     alert('[' + _EvenementId + '] ' + _EvenementLibelle);
                 }
-                else { alert('Une erreur est survenue !'); }
+                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
             });
     }
 
@@ -609,11 +609,11 @@ export class AppComponent implements OnInit {
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Evenements/GetPlanningsBack', _Body, _RequestOptions)
-            .subscribe(data => {
+            .subscribe((data: Response) => {
                 if (data.ok) {
                     this._Evenement.Plannings = data.json() as Planning[];
                 }
-                else { alert('Une erreur est survenue !'); }
+                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
             });
 
     }
@@ -659,7 +659,7 @@ export class AppComponent implements OnInit {
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Evenements', _RequestOptions)
-                .subscribe(data => {
+                .subscribe((data: Response) => {
                     if (data.ok) {
                         this._InitReturn = (data.json())[0] as number;
                         this._Evenement = new Evenement();
@@ -667,7 +667,7 @@ export class AppComponent implements OnInit {
                         this._Evenement.Id = this._InitReturn;
                         this._Evenement.Etat = 0;
                     }
-                    else { alert('Une erreur est survenue !'); }
+                    else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
                 });
         }
         else if (_Option == 1) { //modification
@@ -704,7 +704,7 @@ export class AppComponent implements OnInit {
             var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
             this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
-                .subscribe(data => {
+                .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);
                         this._AddUpdReturn = data.json() as number;
@@ -730,15 +730,15 @@ export class AppComponent implements OnInit {
                         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
                         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
                         this._HttpService.post(this._Url + 'API/Evenements/UpdPlannings', _Body, _RequestOptions)
-                            .subscribe(data => {
+                            .subscribe((data: Response) => {
                                 if (data.ok) {
                                     alert('Le planning a bien ete modifie !');
                                     this.InitEvenement(null, null);
                                 }
-                                else { alert('Une erreur est survenue !'); }
+                                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
                             });
                     }
-                    else { alert('Une erreur est survenue !'); }
+                    else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
                 });
 
             
@@ -756,7 +756,7 @@ export class AppComponent implements OnInit {
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'L\'evenement ' + this._Evenements[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._Url + 'API/Contenus/DelEvenement?_Id=' + this._Evenements[_Index].Id.toString(), _RequestOptions)
-                .subscribe(data => {
+                .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);
                         this._DelReturn = data.json() as number;
@@ -764,7 +764,7 @@ export class AppComponent implements OnInit {
                         if (this._Evenements.length == 0) { this._NoResult = true; }
                         else { this._NoResult = false; }
                     }
-                    else { alert('Une erreur est survenue !'); }
+                    else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
                 });
         }
 

@@ -52,11 +52,11 @@ export class AppComponent implements OnInit {
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
-            .subscribe(data => {
+            .subscribe((data: Response) => {
                 if (data.ok) {
                     this._TypologiesEvenements = data.json() as Evenement[];
                 }
-                else { alert('Une erreur est survenue !'); }
+                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
             }
         );
 
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetModesEmplacements', _RequestOptions)
-            .subscribe(data => {
+            .subscribe((data: Response) => {
                 if (data.ok) {
                     this._ModesEmplacements = data.json() as Emplacement[];
                     var _Temp1 = this._ModesEmplacements.filter(e => e.Key == null);
@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
                     }
                     this._Modes = _Temp2;
                 }
-                else { alert('Une erreur est survenue !'); }
+                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
             }
         );
 
@@ -245,14 +245,14 @@ export class AppComponent implements OnInit {
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Contenus', _RequestOptions)
-                .subscribe(data => {
+                .subscribe((data: Response) => {
                     if (data.ok) {
                         this._InitReturn = (data.json())[0] as number;
                         this._Contenu = new Contenu();
                         this._Contenu.Id = this._InitReturn;
                         this._Contenu.Etat = 0; //creation
                     }
-                    else { alert('Une erreur est survenue !'); }
+                    else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
                 });
         }
         else if (_Option == 1) {
@@ -283,13 +283,13 @@ export class AppComponent implements OnInit {
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Contenus/GetContenus', _Body, _RequestOptions)
-            .subscribe(data => {
+            .subscribe((data: Response) => {
                 if (data.ok) {
                     this._Contenus = data.json() as Contenu[];
                     if (this._Contenus.length == 0) { this._NoResult = true; }
                     else { this._NoResult = false; }
                 }
-                else { alert('Une erreur est survenue !'); }
+                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
             });
     }
 
@@ -319,7 +319,7 @@ export class AppComponent implements OnInit {
             var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
             this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
-                .subscribe(data => {
+                .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);
                         this._AddUpdReturn = data.json() as number;
@@ -340,7 +340,7 @@ export class AppComponent implements OnInit {
                         }
                         this.InitContenu(null, null);
                     }
-                    else { alert('Une erreur est survenue !'); }
+                    else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
                 });
         }
     }
@@ -356,7 +356,7 @@ export class AppComponent implements OnInit {
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'Le contenu ' + this._Contenus[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._Url + 'API/Contenus/DelContenu?_Id=' + this._Contenus[_Index].Id.toString() + '&_Real=N', _RequestOptions)
-                .subscribe(data => {
+                .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);
                         this._DelReturn = data.json() as number;
@@ -364,7 +364,7 @@ export class AppComponent implements OnInit {
                         if (this._Contenus.length == 0) { this._NoResult = true; }
                         else { this._NoResult = false; }
                     }
-                    else { alert('Une erreur est survenue !'); }
+                    else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
                 });
         }
 

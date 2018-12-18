@@ -42,11 +42,11 @@ export class AppComponent implements OnInit {
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetStatuts', _RequestOptions)
-            .subscribe(data => {
+            .subscribe((data: Response) => {
                 if (data.ok) {
                     this._Statuts = data.json() as Statut[];
                 }
-                else { alert('Une erreur est survenue !'); }
+                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
             });
 
     }
@@ -93,13 +93,13 @@ export class AppComponent implements OnInit {
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Commandes/GetCommandes', _Body, _RequestOptions)
-            .subscribe(data => {
+            .subscribe((data: Response) => {
                 if (data.ok) {
                     this._Commandes = data.json() as Commande[];
                     if (this._Commandes.length == 0) { this._NoResult = true; }
                     else { this._NoResult = false; }
                 }
-                else { alert('Une erreur est survenue !'); }
+                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
             });
 
     }
@@ -124,12 +124,12 @@ export class AppComponent implements OnInit {
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
             var _Confirmation = 'La commande ' + this._Commandes[_Index].Id + ' a bien ete modifiee !';
             this._HttpService.post(this._Url + 'API/Commandes/UpdCommande', _Body, _RequestOptions)
-                .subscribe(data => {
+                .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);
                         this._UpdReturn = data.json() as number;
                     }
-                    else { alert('Une erreur est survenue !'); }
+                    else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
                 });
         }
     }
@@ -146,7 +146,7 @@ export class AppComponent implements OnInit {
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
             var _Confirmation = 'La commande ' + this._Commandes[_Index].Id + ' a bien ete supprimee !';
             this._HttpService.get(this._Url + 'API/Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
-                .subscribe(data => {
+                .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);
                         this._DelReturn = data.json() as number;
@@ -154,7 +154,7 @@ export class AppComponent implements OnInit {
                         if (this._Commandes.length == 0) { this._NoResult = true; }
                         else { this._NoResult = false; }
                     }
-                    else { alert('Une erreur est survenue !'); }
+                    else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
                 });
         }
 

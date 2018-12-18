@@ -43,11 +43,11 @@ export class AppComponent implements OnInit {
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
-            .subscribe(data => {
+            .subscribe((data: Response) => {
                 if (data.ok) {
                     this._TypologiesEvenements = data.json() as Evenement[];
                 }
-                else { alert('Une erreur est survenue !'); }
+                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
             }
         );
 
@@ -90,13 +90,13 @@ export class AppComponent implements OnInit {
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Eleves/GetEleves', _Body, _RequestOptions)
-            .subscribe(data => {
+            .subscribe((data: Response) => {
                 if (data.ok) {
                     this._Eleves = data.json() as Eleve[];
                     if (this._Eleves.length == 0) { this._NoResult = true; }
                     else { this._NoResult = false; }
                 }
-                else { alert('Une erreur est survenue !'); }
+                else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
             }
         );
 
@@ -121,7 +121,7 @@ export class AppComponent implements OnInit {
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'L\'eleve ' + this._Eleves[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._Url + 'API/Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)
-                .subscribe(data => {
+                .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);
                         this._DelReturn = data.json() as number;
@@ -129,7 +129,7 @@ export class AppComponent implements OnInit {
                         if (this._Eleves.length == 0) { this._NoResult = true; }
                         else { this._NoResult = false; }
                     }
-                    else { alert('Une erreur est survenue !'); }
+                    else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
                 }
             );
         }
