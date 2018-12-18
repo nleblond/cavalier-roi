@@ -13,9 +13,9 @@
         <input type="hidden" [value]="_EvenementParentId" #EvenementParentId />
         <input type="hidden" [value]="_TypologieId" #TypologieId />
         <div class="br10"></div>
-        <input type="text" placeholder="Date de début minimale" title="Date de début minimale" #DtMin />
+        <input type="datetime" placeholder="Date de début minimale" title="Date de début minimale" readonly="readonly" #DtMin />
         <div class="br10"></div>
-        <input type="text" placeholder="Date de début maximale" title="Date de début maximale" #DtMax />
+        <input type="datetime" placeholder="Date de début maximale" title="Date de début maximale" readonly="readonly" #DtMax />
         <div class="br10"></div>
         <input type="number" placeholder="ID Elève" title="ID Elève" min="0" [value]="_EleveId" #EleveId />
         <div class="br10"></div>
@@ -95,14 +95,14 @@
         <div class="br10"></div>
 
         <div *ngIf="GetShow('stage|tournoi', _Evenement) && !GetShow('parent', _Evenement)">
-            <input type="text" placeholder="Date de début" title="Date de début" class="publication" [(ngModel)]="_Evenement.DtDebut" #CurrentDtDebut />
+            <input type="datetime" placeholder="Date de début" title="Date de début" class="publication" readonly="readonly" [(ngModel)]="_Evenement.DtDebut" #CurrentDtDebut />
             <div class="br10"></div>
-            <input type="text" placeholder="Date de fin" title="Date de fin" class="publication" [(ngModel)]="_Evenement.DtFin" #CurrentDtFin />
+            <input type="datetime" placeholder="Date de fin" title="Date de fin" class="publication" readonly="readonly" [(ngModel)]="_Evenement.DtFin" #CurrentDtFin />
             <div class="br10"></div>
         </div>
 
         <div *ngIf="GetShow('stage|tournoi', _Evenement) && !GetShow('parent', _Evenement)">
-            <input type="text" placeholder="Date limite d'inscription" title="Date limite d'inscription" class="publication" [(ngModel)]="_Evenement.DtLimiteInscription" #CurrentDtLimiteInscription />
+            <input type="datetime" placeholder="Date limite d'inscription" title="Date limite d'inscription" class="publication" readonly="readonly" [(ngModel)]="_Evenement.DtLimiteInscription" #CurrentDtLimiteInscription />
             <div class="br10"></div>
         </div>
 

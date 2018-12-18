@@ -7,7 +7,7 @@ import { Evenement } from './../Evenements/Models/Evenement';
 import { ElevesSearchParameters } from './Models/ElevesSearchParameters';
 import { Eleve } from './Models/Eleve';
 
-
+declare var jQuery: any;
 
 @Component({
     selector: 'my-app',
@@ -18,17 +18,20 @@ import { Eleve } from './Models/Eleve';
 
 export class AppComponent implements OnInit {
 
+    public _Url: string = '/';
 
 
     constructor(private _HttpService: Http) { }
-    //public _Url: String = 'http://192.168.1.34:63121/';
-    public _Url: string = '/';
 
     public _TypologiesEvenements: Evenement[];
     public _Id: number = null;
     public _EvenementId: number = null;
     public _TypologieId: number = null;
     ngOnInit() {
+
+        //initialisation des datetimepickers du filtre
+        jQuery('.filtre input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+
 
         //gestion des paramètres dans l'url
         var _UrlParams = window.location.search.replace('?', '').split('&');

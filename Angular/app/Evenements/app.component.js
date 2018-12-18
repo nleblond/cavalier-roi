@@ -18,7 +18,6 @@ var PlanningsSearchParameters_1 = require("./Models/PlanningsSearchParameters");
 var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
-        //public _Url: String = 'http://192.168.1.34:63121/';
         this._Url = '/';
         this._Id = null;
         this._EleveId = null;
@@ -27,6 +26,8 @@ var AppComponent = /** @class */ (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //initialisation des datetimepickers du filtre
+        jQuery('.filtre input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
         //gestion des param�tres dans l'url
         var _UrlParams = window.location.search.replace('?', '').split('&');
         for (var i = 0; i < _UrlParams.length; i++) {
@@ -55,7 +56,7 @@ var AppComponent = /** @class */ (function () {
                 _this._TypologiesEvenementsParents = data.json();
             }
             else {
-                alert('Une erreur est survenue !');
+                alert('Une erreur est survenue : ' + data.statusText + ' !');
             }
         });
         //r�cup�ration des typologies + �v�nements
@@ -67,7 +68,7 @@ var AppComponent = /** @class */ (function () {
                 _this._TypologiesEvenements = data.json();
             }
             else {
-                alert('Une erreur est survenue !');
+                alert('Une erreur est survenue : ' + data.statusText + ' !');
             }
         });
     };
@@ -603,7 +604,7 @@ var AppComponent = /** @class */ (function () {
                 }
             }
             else {
-                alert('Une erreur est survenue !');
+                alert('Une erreur est survenue : ' + data.statusText + ' !');
             }
         });
     };
@@ -620,7 +621,7 @@ var AppComponent = /** @class */ (function () {
                 alert('[' + _EvenementId + '] ' + _EvenementLibelle);
             }
             else {
-                alert('Une erreur est survenue !');
+                alert('Une erreur est survenue : ' + data.statusText + ' !');
             }
         });
     };
@@ -640,7 +641,7 @@ var AppComponent = /** @class */ (function () {
                 _this._Evenement.Plannings = data.json();
             }
             else {
-                alert('Une erreur est survenue !');
+                alert('Une erreur est survenue : ' + data.statusText + ' !');
             }
         });
     };
@@ -685,7 +686,7 @@ var AppComponent = /** @class */ (function () {
                     _this._Evenement.Etat = 0;
                 }
                 else {
-                    alert('Une erreur est survenue !');
+                    alert('Une erreur est survenue : ' + data.statusText + ' !');
                 }
             });
         }
@@ -697,6 +698,10 @@ var AppComponent = /** @class */ (function () {
             this._Evenement.Etat = 1; //modification
         }
         this.GetPlannings(); //r�cup�ration des derniers enregistrements "planning" en date
+        //initialisation des datetimepickers des d�tails
+        setTimeout(function () {
+            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        }, 1000);
     };
     AppComponent.prototype.AddUpdEvenement = function () {
         var _this = this;
@@ -754,12 +759,12 @@ var AppComponent = /** @class */ (function () {
                             _this.InitEvenement(null, null);
                         }
                         else {
-                            alert('Une erreur est survenue !');
+                            alert('Une erreur est survenue : ' + data.statusText + ' !');
                         }
                     });
                 }
                 else {
-                    alert('Une erreur est survenue !');
+                    alert('Une erreur est survenue : ' + data.statusText + ' !');
                 }
             });
         }
@@ -784,7 +789,7 @@ var AppComponent = /** @class */ (function () {
                     }
                 }
                 else {
-                    alert('Une erreur est survenue !');
+                    alert('Une erreur est survenue : ' + data.statusText + ' !');
                 }
             });
         }

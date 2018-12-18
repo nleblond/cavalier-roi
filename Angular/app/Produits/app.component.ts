@@ -6,7 +6,7 @@ import { Categorie } from './../Divers/Models/Categorie';
 import { ProduitsSearchParameters } from './Models/ProduitsSearchParameters';
 import { Produit } from './Models/Produit';
 
-
+declare var jQuery: any;
 
 @Component({
     selector: 'my-app',
@@ -15,16 +15,20 @@ import { Produit } from './Models/Produit';
 
 export class AppComponent implements OnInit {
 
+    public _Url: string = '/';
+
+
 
     constructor(private _HttpService: Http) { }
-    //public _Url: String = 'http://192.168.1.34:63121/';
-    public _Url: string = '/';
 
     public _Categories: Categorie[];
     public _Id: number = null;
     public _CommandeId: number = null;
     public _CategorieId: number = null;
     ngOnInit() {
+
+        //initialisation des datetimepickers du filtre
+        jQuery('.filtre input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
 
         //gestion des paramètres dans l'url
         var _UrlParams = window.location.search.replace('?', '').split('&');
@@ -111,6 +115,11 @@ export class AppComponent implements OnInit {
             this._Produit = JSON.parse(JSON.stringify(this._Produits[_Index]));
             this._Produit.Etat = 1; //modification
         }
+
+        //initialisation des datetimepickers des détails
+        setTimeout(function () {
+            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        }, 1000);
     }
 
 

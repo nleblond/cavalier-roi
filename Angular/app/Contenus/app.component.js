@@ -19,7 +19,6 @@ var Publication_1 = require("./Models/Publication");
 var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
-        //public _Url: String = 'http://192.168.1.34:63121/';
         this._Url = '/';
         this._Id = null;
         this._TypologieId = null;
@@ -29,6 +28,8 @@ var AppComponent = /** @class */ (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //initialisation des datetimepickers du filtre
+        jQuery('.filtre input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
         //gestion des param�tres dans l'url
         var _UrlParams = window.location.search.replace('?', '').split('&');
         for (var i = 0; i < _UrlParams.length; i++) {
@@ -60,7 +61,7 @@ var AppComponent = /** @class */ (function () {
                 _this._TypologiesEvenements = data.json();
             }
             else {
-                alert('Une erreur est survenue !');
+                alert('Une erreur est survenue : ' + data.statusText + ' !');
             }
         });
         //r�cup�ration des modes/emplacements
@@ -83,7 +84,7 @@ var AppComponent = /** @class */ (function () {
                 _this._Modes = _Temp2;
             }
             else {
-                alert('Une erreur est survenue !');
+                alert('Une erreur est survenue : ' + data.statusText + ' !');
             }
         });
     };
@@ -237,7 +238,7 @@ var AppComponent = /** @class */ (function () {
                     _this._Contenu.Etat = 0; //creation
                 }
                 else {
-                    alert('Une erreur est survenue !');
+                    alert('Une erreur est survenue : ' + data.statusText + ' !');
                 }
             });
         }
@@ -245,6 +246,10 @@ var AppComponent = /** @class */ (function () {
             this._Contenu = JSON.parse(JSON.stringify(this._Contenus[_Index]));
             this._Contenu.Etat = 1; //modification
         }
+        //initialisation des datetimepickers des d�tails
+        setTimeout(function () {
+            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        }, 1000);
     };
     AppComponent.prototype.GetContenus = function (_Id, _Titre, _EmplacementId, _ModeId, _DtMin, _DtMax, _EvenementId, _TypologieId) {
         var _this = this;
@@ -272,7 +277,7 @@ var AppComponent = /** @class */ (function () {
                 }
             }
             else {
-                alert('Une erreur est survenue !');
+                alert('Une erreur est survenue : ' + data.statusText + ' !');
             }
         });
     };
@@ -322,7 +327,7 @@ var AppComponent = /** @class */ (function () {
                     _this.InitContenu(null, null);
                 }
                 else {
-                    alert('Une erreur est survenue !');
+                    alert('Une erreur est survenue : ' + data.statusText + ' !');
                 }
             });
         }
@@ -347,7 +352,7 @@ var AppComponent = /** @class */ (function () {
                     }
                 }
                 else {
-                    alert('Une erreur est survenue !');
+                    alert('Une erreur est survenue : ' + data.statusText + ' !');
                 }
             });
         }

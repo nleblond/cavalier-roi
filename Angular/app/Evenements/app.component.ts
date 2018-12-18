@@ -9,7 +9,7 @@ import { Planning } from './Models/Planning';
 import { Reservation } from './Models/Reservation';
 import { PlanningsSearchParameters } from './Models/PlanningsSearchParameters';
 
-
+declare var jQuery: any;
 
 @Component({
     selector: 'my-app',
@@ -20,13 +20,11 @@ import { PlanningsSearchParameters } from './Models/PlanningsSearchParameters';
 
 export class AppComponent implements OnInit {
 
-
-    constructor(private _HttpService: Http) { }
-    //public _Url: String = 'http://192.168.1.34:63121/';
     public _Url: string = '/';
 
 
 
+    constructor(private _HttpService: Http) { }
 
     public _TypologiesEvenementsParents: Evenement[];
     public _TypologiesEvenements: Evenement[];
@@ -35,6 +33,9 @@ export class AppComponent implements OnInit {
     public _TypologieId: number = null;
     public _EvenementParentId: number = null;
     ngOnInit() {
+
+        //initialisation des datetimepickers du filtre
+        jQuery('.filtre input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
 
 
         //gestion des paramètres dans l'url
@@ -676,6 +677,11 @@ export class AppComponent implements OnInit {
             this._Evenement.Etat = 1; //modification
         }
         this.GetPlannings(); //récupération des derniers enregistrements "planning" en date
+
+        //initialisation des datetimepickers des détails
+        setTimeout(function () {
+            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        }, 1000);
     }
             
 

@@ -9,7 +9,7 @@ import { Contenu } from './Models/Contenu';
 import { ContenusSearchParameters } from './Models/ContenusSearchParameters';
 import { Publication } from './Models/Publication';
 
-
+declare var jQuery: any;
 
 @Component({
     selector: 'my-app',
@@ -20,10 +20,9 @@ import { Publication } from './Models/Publication';
 
 export class AppComponent implements OnInit {
 
+    public _Url: string = '/';
 
     constructor(private _HttpService: Http) { }
-    //public _Url: String = 'http://192.168.1.34:63121/';
-    public _Url: string = '/';
 
 
     public _Modes: Mode[];
@@ -35,6 +34,9 @@ export class AppComponent implements OnInit {
     public _ModeId: number = null;
     public _EmplacementId: number = null;
     ngOnInit() {
+
+        //initialisation des datetimepickers du filtre
+        jQuery('.filtre input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
 
         //gestion des paramètres dans l'url
         var _UrlParams = window.location.search.replace('?', '').split('&');
@@ -207,6 +209,7 @@ export class AppComponent implements OnInit {
     public _InitReturn: number;
     public _Contenu: Contenu;
     public InitContenu(_Option: number, _Index: number) {
+
         try {
             this._Contenu.Id = null;
             this._Contenu.Titre = null;
@@ -259,9 +262,13 @@ export class AppComponent implements OnInit {
             this._Contenu = JSON.parse(JSON.stringify(this._Contenus[_Index]));
             this._Contenu.Etat = 1; //modification
         }
+
+        //initialisation des datetimepickers des détails
+        setTimeout(function () {
+            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        }, 1000);
+
     }
-
-
 
 
     public _Contenus: Contenu[];

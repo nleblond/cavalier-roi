@@ -17,7 +17,6 @@ var Produit_1 = require("./Models/Produit");
 var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
-        //public _Url: String = 'http://192.168.1.34:63121/';
         this._Url = '/';
         this._Id = null;
         this._CommandeId = null;
@@ -25,6 +24,8 @@ var AppComponent = /** @class */ (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //initialisation des datetimepickers du filtre
+        jQuery('.filtre input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
         //gestion des param�tres dans l'url
         var _UrlParams = window.location.search.replace('?', '').split('&');
         for (var i = 0; i < _UrlParams.length; i++) {
@@ -50,7 +51,7 @@ var AppComponent = /** @class */ (function () {
                 _this._Categories = data.json();
             }
             else {
-                alert('Une erreur est survenue !');
+                alert('Une erreur est survenue : ' + data.statusText + ' !');
             }
         });
     };
@@ -105,7 +106,7 @@ var AppComponent = /** @class */ (function () {
                     _this._Produit.Etat = 0; //creation
                 }
                 else {
-                    alert('Une erreur est survenue !');
+                    alert('Une erreur est survenue : ' + data.statusText + ' !');
                 }
             });
         }
@@ -113,6 +114,10 @@ var AppComponent = /** @class */ (function () {
             this._Produit = JSON.parse(JSON.stringify(this._Produits[_Index]));
             this._Produit.Etat = 1; //modification
         }
+        //initialisation des datetimepickers des d�tails
+        setTimeout(function () {
+            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        }, 1000);
     };
     AppComponent.prototype.GetProduits = function (_Id, _Reference, _Libelle, _CategorieId, _StockMin, _StockMax, _CommandeId) {
         var _this = this;
@@ -139,7 +144,7 @@ var AppComponent = /** @class */ (function () {
                 }
             }
             else {
-                alert('Une erreur est survenue !');
+                alert('Une erreur est survenue : ' + data.statusText + ' !');
             }
         });
     };
@@ -189,7 +194,7 @@ var AppComponent = /** @class */ (function () {
                     _this.InitProduit(null, null);
                 }
                 else {
-                    alert('Une erreur est survenue !');
+                    alert('Une erreur est survenue : ' + data.statusText + ' !');
                 }
             });
         }
@@ -214,7 +219,7 @@ var AppComponent = /** @class */ (function () {
                     }
                 }
                 else {
-                    alert('Une erreur est survenue !');
+                    alert('Une erreur est survenue : ' + data.statusText + ' !');
                 }
             });
         }
