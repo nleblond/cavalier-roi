@@ -546,6 +546,7 @@
           <Parameter Name="ModeId" Type="int" Mode="In" />
           <Parameter Name="EvenementId" Type="int" Mode="In" />
           <Parameter Name="TypologieId" Type="int" Mode="In" />
+          <Parameter Name="Top" Type="int" Mode="In" />
         </Function>
         <Function Name="GetEleves" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
@@ -1188,6 +1189,7 @@
             <Parameter Name="ModeId" Mode="In" Type="Int32" />
             <Parameter Name="EvenementId" Mode="In" Type="Int32" />
             <Parameter Name="TypologieId" Mode="In" Type="Int32" />
+            <Parameter Name="Top" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetModes" EntitySet="Modes" ReturnType="Collection(DBModelsContext.Modes)" />
           <EntitySet Name="Modes" EntityType="DBModelsContext.Modes" />
@@ -1352,7 +1354,7 @@
             <End Role="Reservations" EntitySet="Reservations" />
           </AssociationSet>
           <FunctionImport Name="DelEvenement">
-            <Parameter Name="Id" Mode="In" Type="Int32" />
+          <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <Association Name="FK_Commandes_Eleves">

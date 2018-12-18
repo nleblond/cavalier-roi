@@ -64,9 +64,11 @@ $(window).on('load', function () {
 
     $('.menu .accueil').addClass('select');
 
-    //this.setTimeout(function () {
-    //    $('#Div_Message').ModalPopUp('open');
-    //}, 800);
+    this.setTimeout(function () {
+        if ($('#Div_Message').html() != '') {
+            $('#Div_Message').ModalPopUp('open');
+        }
+    }, 800);
 
     //GetCommandes();
 });

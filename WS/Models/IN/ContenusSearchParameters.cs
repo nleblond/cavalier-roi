@@ -22,6 +22,7 @@ namespace WS.Models.IN
         public Int32? EvenementId { set; get; }
         public Int32? TypologieId { set; get; }
 
+        public Int32? Top { set; get; }
     }
 
 }

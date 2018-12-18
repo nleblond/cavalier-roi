@@ -49,7 +49,12 @@ var AppComponent = /** @class */ (function () {
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetStatuts', _RequestOptions)
             .subscribe(function (data) {
-            _this._Statuts = data.json();
+            if (data.ok) {
+                _this._Statuts = data.json();
+            }
+            else {
+                alert('Une erreur est survenue !');
+            }
         });
     };
     AppComponent.prototype.ChangeStatut = function (_Event, _Index) {
@@ -70,7 +75,6 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.GetCommandes = function (_Id, _DtMin, _DtMax, _ProduitId, _EleveId, _ReferenceTransaction, _ReferenceExterne, _StatutId) {
         var _this = this;
-        var Valid = true;
         this._CommandesSearchParameters = new CommandesSearchParameters_1.CommandesSearchParameters();
         this._CommandesSearchParameters.Id = _Id;
         this._CommandesSearchParameters.DtMin = _DtMin;
@@ -81,33 +85,23 @@ var AppComponent = /** @class */ (function () {
         this._CommandesSearchParameters.ReferenceExterne = _ReferenceExterne;
         this._CommandesSearchParameters.StatutId = _StatutId;
         var _Body = JSON.stringify(this._CommandesSearchParameters);
-        var _HeaderOptions = new http_1.Headers({
-            'Content-Type': 'application/json',
-            'APIKey': 'AEZRETRYTUYIUOIP'
-        });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Commandes/GetCommandes', _Body, _RequestOptions)
             .subscribe(function (data) {
-            _this._Commandes = data.json();
-            if (_this._Commandes.length == 0) {
-                _this._NoResult = true;
+            if (data.ok) {
+                _this._Commandes = data.json();
+                if (_this._Commandes.length == 0) {
+                    _this._NoResult = true;
+                }
+                else {
+                    _this._NoResult = false;
+                }
             }
             else {
-                _this._NoResult = false;
+                alert('Une erreur est survenue !');
             }
         });
-    };
-    AppComponent.prototype.DelCommande = function (_Index) {
-        var _this = this;
-        if (confirm('Voulez-vous vraiment supprimer la commande ' + this._Commandes[_Index].Id + ' ?')) {
-            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
-            var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-            this._HttpService.get(this._Url + 'API/Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
-                .subscribe(function (data) {
-                _this._DelReturn = data.json();
-                _this._Commandes.splice(_Index);
-            });
-        }
     };
     AppComponent.prototype.UpdCommande = function (_Index) {
         var _this = this;
@@ -118,14 +112,43 @@ var AppComponent = /** @class */ (function () {
             this._CommandeUpdateParameters.ReferenceTransaction = this._Commandes[_Index].ReferenceTransaction;
             this._CommandeUpdateParameters.ReferenceExterne = this._Commandes[_Index].ReferenceExterne;
             var _Body = JSON.stringify(this._CommandeUpdateParameters);
-            var _HeaderOptions = new http_1.Headers({
-                'Content-Type': 'application/json',
-                'APIKey': 'AEZRETRYTUYIUOIP'
-            });
+            var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
+            var _Confirmation = 'La commande ' + this._Commandes[_Index].Id + ' a bien ete modifiee !';
             this._HttpService.post(this._Url + 'API/Commandes/UpdCommande', _Body, _RequestOptions)
                 .subscribe(function (data) {
-                _this._UpdReturn = data.json();
+                if (data.ok) {
+                    alert(_Confirmation);
+                    _this._UpdReturn = data.json();
+                }
+                else {
+                    alert('Une erreur est survenue !');
+                }
+            });
+        }
+    };
+    AppComponent.prototype.DelCommande = function (_Index) {
+        var _this = this;
+        if (confirm('Voulez-vous vraiment supprimer la commande ' + this._Commandes[_Index].Id + ' ?')) {
+            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
+            var _Confirmation = 'La commande ' + this._Commandes[_Index].Id + ' a bien ete supprimee !';
+            this._HttpService.get(this._Url + 'API/Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+                .subscribe(function (data) {
+                if (data.ok) {
+                    alert(_Confirmation);
+                    _this._DelReturn = data.json();
+                    _this._Commandes.splice(_Index);
+                    if (_this._Commandes.length == 0) {
+                        _this._NoResult = true;
+                    }
+                    else {
+                        _this._NoResult = false;
+                    }
+                }
+                else {
+                    alert('Une erreur est survenue !');
+                }
             });
         }
     };

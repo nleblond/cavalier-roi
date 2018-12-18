@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model dynamic 
+    
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,7 +21,7 @@
     @Scripts.Render("~/Scripts/jquery-nl/jquery-nl-modalpopup-2.6.5.B.js")
     @Scripts.Render("~/Scripts/jquery-nl/jquery-nl-touchslider-2.3.6.js")
 
-          
+
 </head>
 <body>
 
@@ -37,9 +39,9 @@
 
                 <img class="logo_site" src="~/Content/Images/Logo Noir 425.png" />
 
-                @Html.Partial("~/Areas/Produits/Views/Shared/Panier.cshtml")
+                @Html.Partial("~/Views/Shared/Panier.cshtml")
 
-                @Html.Partial("~/Views/Shared/Partenariats_Droite.cshtml")
+                @Html.Partial("~/Views/Shared/PartenariatsPromos.cshtml", @Model.ContenusPartenariatsPromos as List<WS.Models.OUT.Contenu>)
             </div>
 
 
@@ -51,7 +53,7 @@
 
             <div class="clear"></div>
 
-            @Html.Partial("~/Views/Shared/Partenariats_Full.cshtml")
+            @Html.Partial("~/Views/Shared/PartenariatsBandeaux.cshtml", @Model.ContenusPartenariatsBandeaux as List<WS.Models.OUT.Contenu>)
 
             <div class="clear"></div>
 
@@ -65,11 +67,13 @@
 
     @Html.Partial("~/Views/Shared/Contact.cshtml")
 
-    @Html.Partial("~/Views/Shared/Message.cshtml")
+
+    @Html.Partial("~/Views/Shared/Messages.cshtml", @Model.ContenusModals as List<WS.Models.OUT.Contenu>)
+
+    @Html.Partial("~/Views/Shared/Actualite.cshtml")
+
 
     @Html.Partial("~/Areas/Eleves/Views/Shared/Connexion.cshtml")
-
-    @Html.Partial("~/Areas/Contenus/Views/Shared/Actualite.cshtml")
 
     @Html.Partial("~/Areas/Evenements/Views/Shared/CalendrierParHeure.cshtml")
 

@@ -1,0 +1,49 @@
+﻿@model List<WS.Models.OUT.Contenu>
+
+<div class="actus">
+
+    @for (Int32 _Index = 0; _Index < 4; _Index++)
+    {
+        <div class="actu @(_Index == 3 ? "last" : "")" title="Cliquer pour consulter">
+            @{
+                if (!String.IsNullOrEmpty(Model[_Index].Full))
+                {
+                    <img class="full" src="/Content/Images/Contenus/@Model[_Index].Id/@Model[_Index].Full" />
+                }
+            }
+            @{
+                if (!String.IsNullOrEmpty(Model[_Index].Script))
+                {
+                    <div class="script">@Html.Raw(Model[_Index].Script)</div>
+                }
+            }
+            <span class="titre">@Model[_Index].Titre</span>
+            <div class="clear-left"></div>
+            <span class="texte">@Html.Raw(Model[_Index].Texte.ToBR().Troncate(200))</span>
+            <div class="clear-left"></div>
+            <span class="date">@Model[_Index].DtDebut</span>
+            <div class="clear-left"></div>
+
+            <div style="display:none;">
+                <span class="info_id">@Model[_Index].Id</span>
+                <span class="info_titre">@Model[_Index].Titre</span>
+                <div class="info_texte">@Html.Raw((Model[_Index].Texte as String).ToBR())</div>
+                <div class="info_script">@Html.Raw(Model[_Index].Script as String)</div>
+                <span class="info_logo">@Model[_Index].Logo</span>
+                <span class="info_horizontale">@Model[_Index].Horizontale</span>
+                <span class="info_full">@Model[_Index].Full</span>
+                <span class="info_publication">@Model[_Index].DtDebut</span>
+                <span class="info_creation">@Model[_Index].DtCreation</span>
+                <span class="info_modification">@Model[_Index].DtModification</span>
+            </div>
+        </div>
+    }
+
+    <a href="/Actualites" class="tous">&#9812; Toutes les actualit&eacute;s</a>
+
+    <div class="clear"></div>
+
+</div>
+
+<script language="javascript" src="@Url.Content("~/Scripts/Views/Shared/Actualites.js")" type="text/javascript"></script>
+

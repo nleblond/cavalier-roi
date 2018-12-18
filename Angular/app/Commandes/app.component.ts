@@ -43,7 +43,10 @@ export class AppComponent implements OnInit {
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetStatuts', _RequestOptions)
             .subscribe(data => {
-                this._Statuts = data.json() as Statut[];
+                if (data.ok) {
+                    this._Statuts = data.json() as Statut[];
+                }
+                else { alert('Une erreur est survenue !'); }
             });
 
     }
@@ -76,8 +79,6 @@ export class AppComponent implements OnInit {
     public _Commandes: Commande[];
     public GetCommandes(_Id: number, _DtMin: string, _DtMax: string, _ProduitId: number, _EleveId: number, _ReferenceTransaction: string, _ReferenceExterne: string, _StatutId: number) {
 
-        var Valid = true;
-
         this._CommandesSearchParameters = new CommandesSearchParameters();
         this._CommandesSearchParameters.Id = _Id;
         this._CommandesSearchParameters.DtMin = _DtMin;
@@ -88,43 +89,22 @@ export class AppComponent implements OnInit {
         this._CommandesSearchParameters.ReferenceExterne = _ReferenceExterne;
         this._CommandesSearchParameters.StatutId = _StatutId;
 
-
         var _Body = JSON.stringify(this._CommandesSearchParameters);
-        var _HeaderOptions = new Headers({
-            'Content-Type': 'application/json',
-            'APIKey': 'AEZRETRYTUYIUOIP'
-        });
+        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-
         this._HttpService.post(this._Url + 'API/Commandes/GetCommandes', _Body, _RequestOptions)
-            .subscribe((data: Response) => {
-                this._Commandes = data.json() as Commande[];
-                if (this._Commandes.length == 0) { this._NoResult = true; }
-                else { this._NoResult = false; }
+            .subscribe(data => {
+                if (data.ok) {
+                    this._Commandes = data.json() as Commande[];
+                    if (this._Commandes.length == 0) { this._NoResult = true; }
+                    else { this._NoResult = false; }
+                }
+                else { alert('Une erreur est survenue !'); }
             });
 
-
     }
 
 
-
-
-    public _DelReturn: number;
-    public DelCommande(_Index: number) {
-
-        if (confirm('Voulez-vous vraiment supprimer la commande ' + this._Commandes[_Index].Id + ' ?')) {
-
-            var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
-            var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-
-            this._HttpService.get(this._Url + 'API/Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
-                .subscribe(data => {
-                    this._DelReturn = data.json() as number;
-                    this._Commandes.splice(_Index);
-                });
-        }
-
-    }
 
 
 
@@ -140,20 +120,45 @@ export class AppComponent implements OnInit {
             this._CommandeUpdateParameters.ReferenceExterne = this._Commandes[_Index].ReferenceExterne;
 
             var _Body = JSON.stringify(this._CommandeUpdateParameters);
-            var _HeaderOptions = new Headers({
-                'Content-Type': 'application/json',
-                'APIKey': 'AEZRETRYTUYIUOIP'
-            });
+            var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-
-
+            var _Confirmation = 'La commande ' + this._Commandes[_Index].Id + ' a bien ete modifiee !';
             this._HttpService.post(this._Url + 'API/Commandes/UpdCommande', _Body, _RequestOptions)
                 .subscribe(data => {
-                    this._UpdReturn = data.json() as number;
+                    if (data.ok) {
+                        alert(_Confirmation);
+                        this._UpdReturn = data.json() as number;
+                    }
+                    else { alert('Une erreur est survenue !'); }
                 });
         }
     }
 
+
+
+
+    public _DelReturn: number;
+    public DelCommande(_Index: number) {
+
+        if (confirm('Voulez-vous vraiment supprimer la commande ' + this._Commandes[_Index].Id + ' ?')) {
+
+            var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
+            var _Confirmation = 'La commande ' + this._Commandes[_Index].Id + ' a bien ete supprimee !';
+            this._HttpService.get(this._Url + 'API/Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+                .subscribe(data => {
+                    if (data.ok) {
+                        alert(_Confirmation);
+                        this._DelReturn = data.json() as number;
+                        this._Commandes.splice(_Index);
+                        if (this._Commandes.length == 0) { this._NoResult = true; }
+                        else { this._NoResult = false; }
+                    }
+                    else { alert('Une erreur est survenue !'); }
+                });
+        }
+
+    }
 
 
 }

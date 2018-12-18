@@ -56,23 +56,35 @@ var AppComponent = /** @class */ (function () {
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe(function (data) {
-            _this._TypologiesEvenements = data.json();
+            if (data.ok) {
+                _this._TypologiesEvenements = data.json();
+            }
+            else {
+                alert('Une erreur est survenue !');
+            }
         });
         //r�cup�ration des modes/emplacements
+        var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetModesEmplacements', _RequestOptions)
             .subscribe(function (data) {
-            _this._ModesEmplacements = data.json();
-            var _Temp1 = _this._ModesEmplacements.filter(function (e) { return e.Key == null; });
-            var _Temp2 = [];
-            for (var i = 0; i < _Temp1.length; i++) {
-                if (_Temp1[i].Id == null) {
-                    var _Current = new Mode_1.Mode();
-                    _Current.Id = parseInt(_Temp1[i].FormatedId.toString());
-                    _Current.Libelle = _Temp1[i].Libelle[0].toUpperCase() + _Temp1[i].Libelle.toLowerCase().slice(1);
-                    _Temp2.push(_Current);
+            if (data.ok) {
+                _this._ModesEmplacements = data.json();
+                var _Temp1 = _this._ModesEmplacements.filter(function (e) { return e.Key == null; });
+                var _Temp2 = [];
+                for (var i = 0; i < _Temp1.length; i++) {
+                    if (_Temp1[i].Id == null) {
+                        var _Current = new Mode_1.Mode();
+                        _Current.Id = parseInt(_Temp1[i].FormatedId.toString());
+                        _Current.Libelle = _Temp1[i].Libelle[0].toUpperCase() + _Temp1[i].Libelle.toLowerCase().slice(1);
+                        _Temp2.push(_Current);
+                    }
                 }
+                _this._Modes = _Temp2;
             }
-            _this._Modes = _Temp2;
+            else {
+                alert('Une erreur est survenue !');
+            }
         });
     };
     AppComponent.prototype.ChangeTypologieEvenement = function (_Event, _Option) {
@@ -144,45 +156,43 @@ var AppComponent = /** @class */ (function () {
         }
         return;
     };
-    AppComponent.prototype.GetShow = function (_Test, _Id, _Key) {
-        if ((_Test == 'emplacement') && ((_Key == '') || (_Key == null))) {
-            return false;
+    AppComponent.prototype.GetShow = function (_Option, _Index) {
+        if (_Option == 'emplacement') {
+            if ((this._ModesEmplacements[_Index].Key == '') || (this._ModesEmplacements[_Index].Key == null)) {
+                return false;
+            }
+            else if (this._ModesEmplacements[_Index].Mode.Id == this._Contenu.Mode.Id) {
+                return true;
+            }
         }
-        else if (_Test == 'emplacement') {
-            return (_Id == this._Contenu.Mode.Id);
-        }
-        else if (_Test == 'zone') {
+        else if (_Option == 'zone') {
             return (this._Contenu.Mode.Id == 0);
         }
-        else if (_Test == 'actualite') {
+        else if (_Option == 'actualite') {
             return (this._Contenu.Mode.Id == 1);
         }
-        else if (_Test == 'partenariat') {
+        else if (_Option == 'partenariat') {
             return (this._Contenu.Mode.Id == 2);
         }
-        else if ((_Test == 'zone|actualite') || (_Test == 'actualite|zone')) {
+        else if ((_Option == 'zone|actualite') || (_Option == 'actualite|zone')) {
             return ((this._Contenu.Mode.Id == 0) || (this._Contenu.Mode.Id == 1));
         }
-        else if ((_Test == 'actualite|partenariat') || (_Test == 'partenariat|actualite')) {
+        else if ((_Option == 'actualite|partenariat') || (_Option == 'partenariat|actualite')) {
             return ((this._Contenu.Mode.Id == 1) || (this._Contenu.Mode.Id == 2));
         }
-        else if ((_Test == 'zone|partenariat') || (_Test == 'partenariat|zone')) {
+        else if ((_Option == 'zone|partenariat') || (_Option == 'partenariat|zone')) {
             return ((this._Contenu.Mode.Id == 0) || (this._Contenu.Mode.Id == 2));
         }
-        else if (_Test == 'mode') {
+        else if (_Option == 'mode') {
             return ((this._Contenu.Mode.Id != null) && (this._Contenu.Mode.Id != -1));
         }
-        else if (_Test == 'valider') {
-            if ((this._Contenu.Titre == '') || (this._Contenu.Titre == null)) {
-                return false;
+        else if (_Option == 'supprimer') {
+            if ((this._Contenus[_Index].Publications == null) || ((this._Contenus[_Index].Publications != null) && (this._Contenus[_Index].Publications.length == 0))) {
+                return true;
             }
-            if (this._Contenu.Publications.length == 0) {
-                return false;
-            }
-            if ((this._Contenu.DtDebut == '') || (this._Contenu.DtDebut == null)) {
-                return false;
-            }
-            return true;
+        }
+        else if (_Option == 'valider') {
+            return ((this._Contenu.Titre != '') && (this._Contenu.Titre != null));
         }
         return false;
     };
@@ -220,10 +230,15 @@ var AppComponent = /** @class */ (function () {
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Contenus', _RequestOptions)
                 .subscribe(function (data) {
-                _this._InitReturn = (data.json())[0];
-                _this._Contenu = new Contenu_1.Contenu();
-                _this._Contenu.Id = _this._InitReturn;
-                _this._Contenu.Etat = 0; //creation
+                if (data.ok) {
+                    _this._InitReturn = (data.json())[0];
+                    _this._Contenu = new Contenu_1.Contenu();
+                    _this._Contenu.Id = _this._InitReturn;
+                    _this._Contenu.Etat = 0; //creation
+                }
+                else {
+                    alert('Une erreur est survenue !');
+                }
             });
         }
         else if (_Option == 1) {
@@ -233,7 +248,6 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.GetContenus = function (_Id, _Titre, _EmplacementId, _ModeId, _DtMin, _DtMax, _EvenementId, _TypologieId) {
         var _this = this;
-        var Valid = true;
         this._ContenusSearchParameters = new ContenusSearchParameters_1.ContenusSearchParameters();
         this._ContenusSearchParameters.Id = _Id;
         this._ContenusSearchParameters.Titre = _Titre;
@@ -244,20 +258,21 @@ var AppComponent = /** @class */ (function () {
         this._ContenusSearchParameters.EvenementId = _EvenementId;
         this._ContenusSearchParameters.TypologieId = _TypologieId;
         var _Body = JSON.stringify(this._ContenusSearchParameters);
-        var _HeaderOptions = new http_1.Headers({
-            'Content-Type': 'application/json',
-            'APIKey': 'AEZRETRYTUYIUOIP'
-        });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Contenus/GetContenus', _Body, _RequestOptions)
             .subscribe(function (data) {
-            var _JsonResponse = data.json();
-            _this._Contenus = _JsonResponse;
-            if (_this._Contenus.length == 0) {
-                _this._NoResult = true;
+            if (data.ok) {
+                _this._Contenus = data.json();
+                if (_this._Contenus.length == 0) {
+                    _this._NoResult = true;
+                }
+                else {
+                    _this._NoResult = false;
+                }
             }
             else {
-                _this._NoResult = false;
+                alert('Une erreur est survenue !');
             }
         });
     };
@@ -278,17 +293,25 @@ var AppComponent = /** @class */ (function () {
         }
         if (confirm(_Question)) {
             var _Body = JSON.stringify(this._Contenu);
-            var _HeaderOptions = new http_1.Headers({
-                'Content-Type': 'application/json',
-                'APIKey': 'AEZRETRYTUYIUOIP'
-            });
+            var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
             this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
                 .subscribe(function (data) {
-                _this._AddUpdReturn = data.json();
                 if (data.ok) {
+                    alert(_Confirmation);
+                    _this._AddUpdReturn = data.json();
                     if (_this._Contenu.Etat == 0) {
-                        _this._Contenus.push(_this._Contenu);
+                        if ((_this._Contenus == null) || (_this._Contenus == undefined) || (_this._Contenus.length == 0)) {
+                            _this._Contenus = [];
+                        }
+                        var _NouveauContenu = JSON.parse(JSON.stringify(_this._Contenu));
+                        _this._Contenus.push(_NouveauContenu);
+                        if (_this._Contenus.length == 0) {
+                            _this._NoResult = true;
+                        }
+                        else {
+                            _this._NoResult = false;
+                        }
                     }
                     else {
                         if ((_this._Contenus.find(function (t) { return t.Id === _this._Contenu.Id; }) != undefined) && (_this._Contenus.find(function (t) { return t.Id === _this._Contenu.Id; }) != null)) {
@@ -309,10 +332,23 @@ var AppComponent = /** @class */ (function () {
         if (confirm('Voulez-vous vraiment supprimer le contenu ' + this._Contenus[_Index].Id + ' ?')) {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
+            var _Confirmation = 'Le contenu ' + this._Contenus[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._Url + 'API/Contenus/DelContenu?_Id=' + this._Contenus[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe(function (data) {
-                _this._DelReturn = data.json();
-                _this._Contenus.splice(_Index, 1);
+                if (data.ok) {
+                    alert(_Confirmation);
+                    _this._DelReturn = data.json();
+                    _this._Contenus.splice(_Index, 1);
+                    if (_this._Contenus.length == 0) {
+                        _this._NoResult = true;
+                    }
+                    else {
+                        _this._NoResult = false;
+                    }
+                }
+                else {
+                    alert('Une erreur est survenue !');
+                }
             });
         }
     };

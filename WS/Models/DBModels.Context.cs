@@ -400,7 +400,7 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ModeEmplacementResult>("GetEmplacements", modeIdParameter);
         }
     
-        public virtual ObjectResult<ContenuResult> GetContenus(Nullable<int> id, string titre, string dtMin, string dtMax, Nullable<int> emplacementId, Nullable<int> modeId, Nullable<int> evenementId, Nullable<int> typologieId)
+        public virtual ObjectResult<ContenuResult> GetContenus(Nullable<int> id, string titre, string dtMin, string dtMax, Nullable<int> emplacementId, Nullable<int> modeId, Nullable<int> evenementId, Nullable<int> typologieId, Nullable<int> top)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
@@ -434,7 +434,11 @@ namespace WS.Models
                 new ObjectParameter("TypologieId", typologieId) :
                 new ObjectParameter("TypologieId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ContenuResult>("GetContenus", idParameter, titreParameter, dtMinParameter, dtMaxParameter, emplacementIdParameter, modeIdParameter, evenementIdParameter, typologieIdParameter);
+            var topParameter = top.HasValue ?
+                new ObjectParameter("Top", top) :
+                new ObjectParameter("Top", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ContenuResult>("GetContenus", idParameter, titreParameter, dtMinParameter, dtMaxParameter, emplacementIdParameter, modeIdParameter, evenementIdParameter, typologieIdParameter, topParameter);
         }
     
         public virtual ObjectResult<Modes> GetModes()

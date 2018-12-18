@@ -147,16 +147,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Data\Tools.cs" />
+    <Compile Include="App_Data\Constants.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Commandes\CommandesAreaRegistration.cs" />
     <Compile Include="Areas\Commandes\Controllers\CommandesController.cs" />
     <Compile Include="Areas\Contenus\ContenusAreaRegistration.cs" />
-    <Compile Include="Areas\Contenus\Controllers\ActualitesController.cs" />
     <Compile Include="Areas\Contenus\Controllers\ContenusController.cs" />
-    <Compile Include="Areas\Contenus\Controllers\PartenariatsController.cs" />
     <Compile Include="Areas\Evenements\Controllers\CoursController.cs" />
     <Compile Include="Areas\Evenements\Controllers\EvenementsController.cs" />
     <Compile Include="Areas\Evenements\Controllers\StagesController.cs" />
@@ -166,6 +164,8 @@
     <Compile Include="Areas\Produits\ProduitsAreaRegistration.cs" />
     <Compile Include="Areas\Eleves\Controllers\ElevesController.cs" />
     <Compile Include="Areas\Eleves\ElevesAreaRegistration.cs" />
+    <Compile Include="BLL\CommandesManager.cs" />
+    <Compile Include="BLL\ContenusManager.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -181,24 +181,24 @@
     <TypeScriptCompile Include="app\Evenements\Models\PlanningsSearchParameters.ts" />
     <Content Include="app\Produits\app.component.html" />
     <Content Include="Areas\Commandes\Scripts\Views\Commandes.js" />
-    <Content Include="Areas\Contenus\Scripts\Views\Actualites.js" />
+    <Content Include="Scripts\Views\Actualites.js" />
     <Content Include="Areas\Contenus\Scripts\Views\Contenus.js" />
-    <Content Include="Areas\Contenus\Scripts\Views\Partenariats.js" />
-    <Content Include="Areas\Contenus\Scripts\Views\Shared\Actualite.js" />
-    <Content Include="Areas\Contenus\Scripts\Views\Shared\Actualites.js" />
+    <Content Include="Scripts\Views\Partenariats.js" />
+    <Content Include="Scripts\Views\Shared\Zones.js" />
+    <Content Include="Scripts\Views\Shared\Actualite.js" />
+    <Content Include="Scripts\Views\Shared\Actualites.js" />
     <Content Include="Areas\Evenements\Scripts\Views\Cours.js" />
     <Content Include="Areas\Evenements\Scripts\Views\Evenements.js" />
     <Content Include="Areas\Evenements\Scripts\Views\Shared\CalendrierParDemiJournee.js" />
     <Content Include="Areas\Evenements\Scripts\Views\Shared\CalendrierParHeure.js" />
     <Content Include="Areas\Evenements\Scripts\Views\Stages.js" />
     <Content Include="Areas\Evenements\Scripts\Views\Tournois.js" />
-    <Content Include="Areas\Produits\Scripts\Views\Boutique.js" />
+    <Content Include="Scripts\Views\Boutique.js" />
     <Content Include="Areas\Produits\Scripts\Views\Produits.js" />
-    <Content Include="Areas\Produits\Scripts\Views\Shared\Panier.js" />
+    <Content Include="Scripts\Views\Shared\Panier.js" />
     <Content Include="Areas\Eleves\Scripts\Views\Eleves.js" />
     <Content Include="Areas\Eleves\Scripts\Views\MonCompte.js" />
     <Content Include="Areas\Eleves\Scripts\Views\Shared\Connexion.js" />
-    <Content Include="Content\CSS\Site - Copier.css" />
     <Content Include="Content\CSS\Site.css" />
     <Content Include="Content\Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Images\2.jfif" />
@@ -294,6 +294,7 @@
     <Content Include="Content\Images\Stages.jpg" />
     <Content Include="Content\Images\TournoiAffiche.jpg" />
     <Content Include="Content\Images\Tournois.jpg" />
+    <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -375,11 +376,11 @@
     <Content Include="Scripts\jquery-ui\package.json" />
     <Content Include="Areas\Commandes\Views\Commandes.cshtml" />
     <Content Include="Areas\Commandes\Views\web.config" />
-    <Content Include="Areas\Contenus\Views\Actualites.cshtml" />
+    <Content Include="Views\Actualites.cshtml" />
     <Content Include="Areas\Contenus\Views\Contenus.cshtml" />
-    <Content Include="Areas\Contenus\Views\Partenariats.cshtml" />
-    <Content Include="Areas\Contenus\Views\Shared\Actualite.cshtml" />
-    <Content Include="Areas\Contenus\Views\Shared\Actualites.cshtml" />
+    <Content Include="Views\Partenariats.cshtml" />
+    <Content Include="Views\Shared\Actualite.cshtml" />
+    <Content Include="Views\Shared\Actualites.cshtml" />
     <Content Include="Areas\Contenus\Views\web.config" />
     <Content Include="Areas\Evenements\Views\Cours.cshtml" />
     <Content Include="Areas\Evenements\Views\Evenements.cshtml" />
@@ -388,10 +389,11 @@
     <Content Include="Areas\Evenements\Views\Stages.cshtml" />
     <Content Include="Areas\Evenements\Views\Tournois.cshtml" />
     <Content Include="Areas\Evenements\Views\web.config" />
-    <Content Include="Areas\Produits\Views\Boutique.cshtml" />
+    <Content Include="Views\Boutique.cshtml" />
     <Content Include="Areas\Produits\Views\Produits.cshtml" />
-    <Content Include="Areas\Produits\Views\Shared\Panier.cshtml" />
+    <Content Include="Views\Shared\Panier.cshtml" />
     <Content Include="Areas\Produits\Views\web.config" />
+    <Content Include="Views\Shared\Zones.cshtml" />
     <None Include="Scripts\jquery\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery\jquery-3.3.1.min.js" />
@@ -409,10 +411,10 @@
     <Content Include="Scripts\Views\Shared\Contact.js" />
     <Content Include="Scripts\Views\Shared\Footer.js" />
     <Content Include="Scripts\Views\Shared\Menu.js" />
-    <Content Include="Scripts\Views\Shared\Message.js" />
-    <Content Include="Scripts\Views\Shared\Partenariats_Droite.js" />
-    <Content Include="Scripts\Views\Shared\Partenariats_Full.js" />
-    <Content Include="Scripts\Views\Shared\Partenariats_Medium.js" />
+    <Content Include="Scripts\Views\Shared\Messages.js" />
+    <Content Include="Scripts\Views\Shared\PartenariatsPromos.js" />
+    <Content Include="Scripts\Views\Shared\PartenariatsBandeaux.js" />
+    <Content Include="Scripts\Views\Shared\PartenariatsEncarts.js" />
     <Content Include="systemjs-angular-loader.js" />
     <Content Include="systemjs.config.extras.js" />
     <Content Include="systemjs.config.js" />
@@ -436,23 +438,25 @@
     <Content Include="Views\Shared\Contact.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\Menu.cshtml" />
-    <Content Include="Views\Shared\Message.cshtml" />
-    <Content Include="Views\Shared\Partenariats_Droite.cshtml" />
-    <Content Include="Views\Shared\Partenariats_Full.cshtml" />
-    <Content Include="Views\Shared\Partenariats_Medium.cshtml" />
+    <Content Include="Views\Shared\Messages.cshtml" />
+    <Content Include="Views\Shared\PartenariatsPromos.cshtml" />
+    <Content Include="Views\Shared\PartenariatsBandeaux.cshtml" />
+    <Content Include="Views\Shared\PartenariatsEncarts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Commandes\Models\" />
     <Folder Include="Areas\Commandes\Scripts\Views\Shared\" />
     <Folder Include="Areas\Commandes\Views\Shared\" />
     <Folder Include="Areas\Contenus\Models\" />
-    <Folder Include="Areas\Contenus\Views\Contenus\" />
+    <Folder Include="Areas\Contenus\Scripts\Views\Shared\" />
+    <Folder Include="Areas\Contenus\Views\Shared\" />
     <Folder Include="Areas\Eleves\Models\" />
     <Folder Include="Areas\Evenements\Models\" />
     <Folder Include="Areas\Produits\Models\" />
+    <Folder Include="Areas\Produits\Scripts\Views\Shared\" />
+    <Folder Include="Areas\Produits\Views\Shared\" />
     <Folder Include="Content\Images\jquery-nl\loader\loader\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

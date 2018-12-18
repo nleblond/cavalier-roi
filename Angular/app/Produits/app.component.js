@@ -46,7 +46,12 @@ var AppComponent = /** @class */ (function () {
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetCategories', _RequestOptions)
             .subscribe(function (data) {
-            _this._Categories = data.json();
+            if (data.ok) {
+                _this._Categories = data.json();
+            }
+            else {
+                alert('Une erreur est survenue !');
+            }
         });
     };
     AppComponent.prototype.ChangeCategorie = function (_Event, _Option) {
@@ -93,10 +98,15 @@ var AppComponent = /** @class */ (function () {
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Produits', _RequestOptions)
                 .subscribe(function (data) {
-                _this._InitReturn = (data.json())[0];
-                _this._Produit = new Produit_1.Produit();
-                _this._Produit.Id = _this._InitReturn;
-                _this._Produit.Etat = 0; //creation
+                if (data.ok) {
+                    _this._InitReturn = (data.json())[0];
+                    _this._Produit = new Produit_1.Produit();
+                    _this._Produit.Id = _this._InitReturn;
+                    _this._Produit.Etat = 0; //creation
+                }
+                else {
+                    alert('Une erreur est survenue !');
+                }
             });
         }
         else if (_Option == 1) {
@@ -106,7 +116,6 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.GetProduits = function (_Id, _Reference, _Libelle, _CategorieId, _StockMin, _StockMax, _CommandeId) {
         var _this = this;
-        var Valid = true;
         this._ProduitsSearchParameters = new ProduitsSearchParameters_1.ProduitsSearchParameters();
         this._ProduitsSearchParameters.Id = _Id;
         this._ProduitsSearchParameters.Reference = _Reference;
@@ -116,41 +125,23 @@ var AppComponent = /** @class */ (function () {
         this._ProduitsSearchParameters.StockMax = _StockMax;
         this._ProduitsSearchParameters.CommandeId = _CommandeId;
         var _Body = JSON.stringify(this._ProduitsSearchParameters);
-        var _HeaderOptions = new http_1.Headers({
-            'Content-Type': 'application/json',
-            'APIKey': 'AEZRETRYTUYIUOIP'
-        });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Produits/GetProduits', _Body, _RequestOptions)
             .subscribe(function (data) {
-            var _JsonResponse = data.json();
-            _this._Produits = _JsonResponse;
-            if (_this._Produits.length == 0) {
-                _this._NoResult = true;
-            }
-            else {
-                _this._NoResult = false;
-            }
-        });
-    };
-    AppComponent.prototype.DelProduit = function (_Index) {
-        var _this = this;
-        if (confirm('Voulez-vous vraiment supprimer le produit ' + this._Produits[_Index].Id + ' ?')) {
-            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
-            var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-            var _Confirmation = 'Le produit ' + this._Produits[_Index].Id + ' a bien ete supprime !';
-            this._HttpService.get(this._Url + 'API/Produits/DelProduit?_Id=' + this._Produits[_Index].Id.toString() + '&_Real=Y', _RequestOptions)
-                .subscribe(function (data) {
-                _this._DelReturn = data.json();
-                if (data.ok) {
-                    _this._Produits.splice(_Index, 1);
-                    alert(_Confirmation);
+            if (data.ok) {
+                _this._Produits = data.json();
+                if (_this._Produits.length == 0) {
+                    _this._NoResult = true;
                 }
                 else {
-                    alert('Une erreur est survenue !');
+                    _this._NoResult = false;
                 }
-            });
-        }
+            }
+            else {
+                alert('Une erreur est survenue !');
+            }
+        });
     };
     AppComponent.prototype.AddUpdProduit = function () {
         var _this = this;
@@ -169,17 +160,25 @@ var AppComponent = /** @class */ (function () {
         }
         if (confirm(_Question)) {
             var _Body = JSON.stringify(this._Produit);
-            var _HeaderOptions = new http_1.Headers({
-                'Content-Type': 'application/json',
-                'APIKey': 'AEZRETRYTUYIUOIP'
-            });
+            var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
             this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
                 .subscribe(function (data) {
-                _this._AddUpdReturn = data.json();
                 if (data.ok) {
+                    alert(_Confirmation);
+                    _this._AddUpdReturn = data.json();
                     if (_this._Produit.Etat == 0) {
-                        _this._Produits.push(_this._Produit);
+                        if ((_this._Produits == null) || (_this._Produits == undefined) || (_this._Produits.length == 0)) {
+                            _this._Produits = [];
+                        }
+                        var _NouveauProduit = JSON.parse(JSON.stringify(_this._Produit));
+                        _this._Produits.push(_NouveauProduit);
+                        if (_this._Produits.length == 0) {
+                            _this._NoResult = true;
+                        }
+                        else {
+                            _this._NoResult = false;
+                        }
                     }
                     else {
                         if ((_this._Produits.find(function (t) { return t.Id === _this._Produit.Id; }) != undefined) && (_this._Produits.find(function (t) { return t.Id === _this._Produit.Id; }) != null)) {
@@ -188,6 +187,31 @@ var AppComponent = /** @class */ (function () {
                         }
                     }
                     _this.InitProduit(null, null);
+                }
+                else {
+                    alert('Une erreur est survenue !');
+                }
+            });
+        }
+    };
+    AppComponent.prototype.DelProduit = function (_Index) {
+        var _this = this;
+        if (confirm('Voulez-vous vraiment supprimer le produit ' + this._Produits[_Index].Id + ' ?')) {
+            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
+            var _Confirmation = 'Le produit ' + this._Produits[_Index].Id + ' a bien ete supprime !';
+            this._HttpService.get(this._Url + 'API/Produits/DelProduit?_Id=' + this._Produits[_Index].Id.toString() + '&_Real=Y', _RequestOptions)
+                .subscribe(function (data) {
+                if (data.ok) {
+                    alert(_Confirmation);
+                    _this._DelReturn = data.json();
+                    _this._Produits.splice(_Index, 1);
+                    if (_this._Produits.length == 0) {
+                        _this._NoResult = true;
+                    }
+                    else {
+                        _this._NoResult = false;
+                    }
                 }
                 else {
                     alert('Une erreur est survenue !');

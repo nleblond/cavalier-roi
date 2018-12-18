@@ -44,7 +44,12 @@ var AppComponent = /** @class */ (function () {
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe(function (data) {
-            _this._TypologiesEvenements = data.json();
+            if (data.ok) {
+                _this._TypologiesEvenements = data.json();
+            }
+            else {
+                alert('Une erreur est survenue !');
+            }
         });
     };
     AppComponent.prototype.ChangeTypologieEvenement = function (_Event) {
@@ -64,7 +69,6 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.GetEleves = function (_Id, _Nom, _Prenom, _Email, _License, _Club, _EvenementId, _TypologieId) {
         var _this = this;
-        var Valid = true;
         this._ElevesSearchParameters = new ElevesSearchParameters_1.ElevesSearchParameters();
         this._ElevesSearchParameters.Id = _Id;
         this._ElevesSearchParameters.Nom = _Nom;
@@ -75,19 +79,21 @@ var AppComponent = /** @class */ (function () {
         this._ElevesSearchParameters.EvenementId = _EvenementId;
         this._ElevesSearchParameters.TypologieId = _TypologieId;
         var _Body = JSON.stringify(this._ElevesSearchParameters);
-        var _HeaderOptions = new http_1.Headers({
-            'Content-Type': 'application/json',
-            'APIKey': 'AEZRETRYTUYIUOIP'
-        });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Eleves/GetEleves', _Body, _RequestOptions)
             .subscribe(function (data) {
-            _this._Eleves = data.json();
-            if (_this._Eleves.length == 0) {
-                _this._NoResult = true;
+            if (data.ok) {
+                _this._Eleves = data.json();
+                if (_this._Eleves.length == 0) {
+                    _this._NoResult = true;
+                }
+                else {
+                    _this._NoResult = false;
+                }
             }
             else {
-                _this._NoResult = false;
+                alert('Une erreur est survenue !');
             }
         });
     };
@@ -99,10 +105,23 @@ var AppComponent = /** @class */ (function () {
         if (confirm('Voulez-vous vraiment supprimer l\'eleve ' + this._Eleves[_Index].Nom + ' ' + this._Eleves[_Index].Prenom + ' ?')) {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
+            var _Confirmation = 'L\'eleve ' + this._Eleves[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._Url + 'API/Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe(function (data) {
-                _this._DelReturn = data.json();
-                _this._Eleves.splice(_Index, 1);
+                if (data.ok) {
+                    alert(_Confirmation);
+                    _this._DelReturn = data.json();
+                    _this._Eleves.splice(_Index, 1);
+                    if (_this._Eleves.length == 0) {
+                        _this._NoResult = true;
+                    }
+                    else {
+                        _this._NoResult = false;
+                    }
+                }
+                else {
+                    alert('Une erreur est survenue !');
+                }
             });
         }
     };

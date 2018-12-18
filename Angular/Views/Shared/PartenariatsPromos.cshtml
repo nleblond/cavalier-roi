@@ -1,0 +1,30 @@
+﻿@model List<WS.Models.OUT.Contenu>
+
+
+@if ((Model != null) && (Model.Count > 0))
+{
+
+    List<WS.Models.OUT.Contenu> _PartenariatsPromos = new List<WS.Models.OUT.Contenu>();
+
+    if (Model.FindAll(c => c.Exclusif != null && c.Exclusif == true).Count > 0)
+    {
+        _PartenariatsPromos = Model.FindAll(c => c.Exclusif != null && c.Exclusif == true);
+    }
+    else
+    {
+        _PartenariatsPromos = Model;
+    }
+
+    foreach (WS.Models.OUT.Contenu _Current in _PartenariatsPromos)
+    {
+        <div class="partenariat_promo">
+            <a href="@_Current.Lien" target="_blank" title="Cliquer pour consulter"><img src="/Content/Images/Contenus/@_Current.Id/@(_Current.Exclusif != null &&  _Current.Exclusif == true ? _Current.Verticale : _Current.Carree)" /></a>
+        </div>
+        <div class="clear"></div>
+    }
+
+    <a class="tous nomobile" href="/Partenariats" title="Tous les partenariats">&#9812; Tous les partenariats</a>
+}
+
+
+<script language="javascript" src="@Url.Content("~/Scripts/Views/Shared/PartenariatsPromos.js")" type="text/javascript"></script>

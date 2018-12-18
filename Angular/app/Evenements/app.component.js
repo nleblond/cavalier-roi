@@ -46,18 +46,29 @@ var AppComponent = /** @class */ (function () {
         if ((this._Id != null) || (this._TypologieId != null) || (this._EleveId != null) || (this._EvenementParentId != null)) {
             this.GetEvenements(this._Id, null, this._EleveId, this._EvenementParentId, null, null, this._TypologieId);
         }
-        //r�cup�ration des typologies/evenements
+        //r�cup�ration des typologies/evenements parents uniquement
         var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-        //typologies + �v�nements parents uniquement
         this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements?_OnlyParentsYN=Y', _RequestOptions)
             .subscribe(function (data) {
-            _this._TypologiesEvenementsParents = data.json();
+            if (data.ok) {
+                _this._TypologiesEvenementsParents = data.json();
+            }
+            else {
+                alert('Une erreur est survenue !');
+            }
         });
-        //typologies + �v�nements
+        //r�cup�ration des typologies + �v�nements
+        var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe(function (data) {
-            _this._TypologiesEvenements = data.json();
+            if (data.ok) {
+                _this._TypologiesEvenements = data.json();
+            }
+            else {
+                alert('Une erreur est survenue !');
+            }
         });
     };
     AppComponent.prototype.ChangeTypologieEvenementParent = function (_Event, _Option) {
@@ -76,28 +87,28 @@ var AppComponent = /** @class */ (function () {
             }
         }
         else { //d�tails
-            //if (_SelectedId.indexOf('-') < 0) {
-            //    this._Evenement.Typologie = new Typologie();
-            //    this._Evenement.Typologie.Id = _SelectedId;
-            //    this._Evenement.Typologie.Libelle = _SelectedLibelle;
-            //    this._Evenement.EvenementParent = new Evenement();
-            //    this._Evenement.EvenementParent.Id = null;
-            //    this._Evenement.EvenementParent.Libelle = null;
-            //}
-            //else {
-            //    this._Evenement.Typologie = new Typologie();
-            //    this._Evenement.Typologie.Id = _SelectedId.substring(0, _SelectedId.indexOf('-'));
-            //    this._Evenement.Typologie.Libelle = null;
-            //    var _NewSelectedId = _SelectedId.substring(_SelectedId.indexOf('-') + 1);
-            //    this._Evenement.EvenementParent = new Evenement;
-            //    if (_NewSelectedId.indexOf('-') < 0) {
-            //        this._Evenement.EvenementParent.Id = _NewSelectedId;
-            //    }
-            //    else {
-            //        this._Evenement.EvenementParent.Id = _NewSelectedId.substring(0, _SelectedId.indexOf('-'));
-            //    }
-            //    this._Evenement.EvenementParent.Libelle = _SelectedLibelle.replace('____', '').replace('____', '').trim();
-            //}
+            if (_SelectedId.indexOf('-') < 0) {
+                this._Evenement.Typologie = new Typologie_1.Typologie();
+                this._Evenement.Typologie.Id = _SelectedId;
+                this._Evenement.Typologie.Libelle = _SelectedLibelle;
+                this._Evenement.EvenementParent = new Evenement_1.Evenement();
+                this._Evenement.EvenementParent.Id = null;
+                this._Evenement.EvenementParent.Libelle = null;
+            }
+            else {
+                this._Evenement.Typologie = new Typologie_1.Typologie();
+                this._Evenement.Typologie.Id = _SelectedId.substring(0, _SelectedId.indexOf('-'));
+                this._Evenement.Typologie.Libelle = null;
+                var _NewSelectedId = _SelectedId.substring(_SelectedId.indexOf('-') + 1);
+                this._Evenement.EvenementParent = new Evenement_1.Evenement;
+                if (_NewSelectedId.indexOf('-') < 0) {
+                    this._Evenement.EvenementParent.Id = _NewSelectedId;
+                }
+                else {
+                    this._Evenement.EvenementParent.Id = _NewSelectedId.substring(0, _SelectedId.indexOf('-'));
+                }
+                this._Evenement.EvenementParent.Libelle = _SelectedLibelle.replace('____', '').replace('____', '').trim();
+            }
         }
     };
     AppComponent.prototype.GetSelect = function (_Evenement) {
@@ -568,7 +579,6 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.GetEvenements = function (_Id, _Libelle, _EleveId, _EvenementParentId, _DtMin, _DtMax, _TypologieId) {
         var _this = this;
-        var Valid = true;
         this._EvenementsSearchParameters = new EvenementsSearchParameters_1.EvenementsSearchParameters();
         this._EvenementsSearchParameters.Id = _Id;
         this._EvenementsSearchParameters.Libelle = _Libelle;
@@ -578,37 +588,40 @@ var AppComponent = /** @class */ (function () {
         this._EvenementsSearchParameters.EleveId = _EleveId;
         this._EvenementsSearchParameters.TypologieId = _TypologieId;
         var _Body = JSON.stringify(this._EvenementsSearchParameters);
-        var _HeaderOptions = new http_1.Headers({
-            'Content-Type': 'application/json',
-            'APIKey': 'AEZRETRYTUYIUOIP'
-        });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Evenements/GetEvenements', _Body, _RequestOptions)
             .subscribe(function (data) {
-            var _JsonResponse = data.json();
-            _this._Evenements = _JsonResponse;
-            if (_this._Evenements.length == 0) {
-                _this._NoResult = true;
+            if (data.ok) {
+                var _JsonResponse = data.json();
+                _this._Evenements = _JsonResponse;
+                if (_this._Evenements.length == 0) {
+                    _this._NoResult = true;
+                }
+                else {
+                    _this._NoResult = false;
+                }
             }
             else {
-                _this._NoResult = false;
+                alert('Une erreur est survenue !');
             }
         });
     };
     AppComponent.prototype.GetEvenementReservation = function (_EvenementId) {
-        var Valid = true;
         this._EvenementsSearchParameters = new EvenementsSearchParameters_1.EvenementsSearchParameters();
         this._EvenementsSearchParameters.Id = _EvenementId;
         var _Body = JSON.stringify(this._EvenementsSearchParameters);
-        var _HeaderOptions = new http_1.Headers({
-            'Content-Type': 'application/json',
-            'APIKey': 'AEZRETRYTUYIUOIP'
-        });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Evenements/GetEvenements', _Body, _RequestOptions)
             .subscribe(function (data) {
-            var _EvenementLibelle = (data.json())[0].Libelle;
-            alert('[' + _EvenementId + '] ' + _EvenementLibelle);
+            if (data.ok) {
+                var _EvenementLibelle = (data.json())[0].Libelle;
+                alert('[' + _EvenementId + '] ' + _EvenementLibelle);
+            }
+            else {
+                alert('Une erreur est survenue !');
+            }
         });
     };
     AppComponent.prototype.GetPlannings = function () {
@@ -619,15 +632,16 @@ var AppComponent = /** @class */ (function () {
         this._PlanningsSearchParameters.Annee = (new Date()).getFullYear();
         this._PlanningsSearchParameters.Plus = 2;
         var _Body = JSON.stringify(this._PlanningsSearchParameters);
-        var _HeaderOptions = new http_1.Headers({
-            'Content-Type': 'application/json',
-            'APIKey': 'AEZRETRYTUYIUOIP'
-        });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._Url + 'API/Evenements/GetPlanningsBack', _Body, _RequestOptions)
             .subscribe(function (data) {
-            var _Temp = data.json();
-            _this._Evenement.Plannings = _Temp;
+            if (data.ok) {
+                _this._Evenement.Plannings = data.json();
+            }
+            else {
+                alert('Une erreur est survenue !');
+            }
         });
     };
     AppComponent.prototype.InitEvenement = function (_Option, _Index) {
@@ -663,11 +677,16 @@ var AppComponent = /** @class */ (function () {
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Evenements', _RequestOptions)
                 .subscribe(function (data) {
-                _this._InitReturn = (data.json())[0];
-                _this._Evenement = new Evenement_1.Evenement();
-                _this._Evenement.EvenementParent = new Evenement_1.Evenement();
-                _this._Evenement.Id = _this._InitReturn;
-                _this._Evenement.Etat = 0;
+                if (data.ok) {
+                    _this._InitReturn = (data.json())[0];
+                    _this._Evenement = new Evenement_1.Evenement();
+                    _this._Evenement.EvenementParent = new Evenement_1.Evenement();
+                    _this._Evenement.Id = _this._InitReturn;
+                    _this._Evenement.Etat = 0;
+                }
+                else {
+                    alert('Une erreur est survenue !');
+                }
             });
         }
         else if (_Option == 1) { //modification
@@ -701,11 +720,22 @@ var AppComponent = /** @class */ (function () {
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
             this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
                 .subscribe(function (data) {
-                _this._AddUpdReturn = data.json();
                 if (data.ok) {
+                    alert(_Confirmation);
+                    _this._AddUpdReturn = data.json();
                     //mise � jour du model
                     if (_this._Evenement.Etat == 0) {
-                        _this._Evenements.push(_this._Evenement);
+                        if ((_this._Evenements == null) || (_this._Evenements == undefined) || (_this._Evenements.length == 0)) {
+                            _this._Evenements = [];
+                        }
+                        var _NouveauEvenement = JSON.parse(JSON.stringify(_this._Evenement));
+                        _this._Evenements.push(_NouveauEvenement);
+                        if (_this._Evenements.length == 0) {
+                            _this._NoResult = true;
+                        }
+                        else {
+                            _this._NoResult = false;
+                        }
                     }
                     else {
                         if ((_this._Evenements.find(function (t) { return t.Id === _this._Evenement.Id; }) != undefined) && (_this._Evenements.find(function (t) { return t.Id === _this._Evenement.Id; }) != null)) {
@@ -720,6 +750,7 @@ var AppComponent = /** @class */ (function () {
                     _this._HttpService.post(_this._Url + 'API/Evenements/UpdPlannings', _Body, _RequestOptions)
                         .subscribe(function (data) {
                         if (data.ok) {
+                            alert('Le planning a bien ete modifie !');
                             _this.InitEvenement(null, null);
                         }
                         else {
@@ -738,10 +769,23 @@ var AppComponent = /** @class */ (function () {
         if (confirm('Voulez-vous vraiment supprimer l\'evenement ' + this._Evenements[_Index].Id + ' ?')) {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
+            var _Confirmation = 'L\'evenement ' + this._Evenements[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._Url + 'API/Contenus/DelEvenement?_Id=' + this._Evenements[_Index].Id.toString(), _RequestOptions)
                 .subscribe(function (data) {
-                _this._DelReturn = data.json();
-                _this._Evenements.splice(_Index, 1);
+                if (data.ok) {
+                    alert(_Confirmation);
+                    _this._DelReturn = data.json();
+                    _this._Evenements.splice(_Index, 1);
+                    if (_this._Evenements.length == 0) {
+                        _this._NoResult = true;
+                    }
+                    else {
+                        _this._NoResult = false;
+                    }
+                }
+                else {
+                    alert('Une erreur est survenue !');
+                }
             });
         }
     };

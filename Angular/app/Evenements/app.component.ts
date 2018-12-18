@@ -48,18 +48,26 @@ export class AppComponent implements OnInit {
         if ((this._Id != null) || (this._TypologieId != null) || (this._EleveId != null) || (this._EvenementParentId != null)) { this.GetEvenements(this._Id, null, this._EleveId, this._EvenementParentId, null, null, this._TypologieId); }
 
 
-        //récupération des typologies/evenements
+        //récupération des typologies/evenements parents uniquement
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-        //typologies + évènements parents uniquement
         this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements?_OnlyParentsYN=Y', _RequestOptions)
             .subscribe(data => {
-                this._TypologiesEvenementsParents = data.json() as Evenement[];
+                if (data.ok) {
+                    this._TypologiesEvenementsParents = data.json() as Evenement[];
+                }
+                else { alert('Une erreur est survenue !'); }
             });
-        //typologies + évènements
+
+        //récupération des typologies + évènements
+        var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe(data => {
-                this._TypologiesEvenements = data.json() as Evenement[];
+                if (data.ok) {
+                    this._TypologiesEvenements = data.json() as Evenement[];
+                }
+                else { alert('Une erreur est survenue !'); }
             });
        
     }
@@ -82,28 +90,28 @@ export class AppComponent implements OnInit {
             }
         }
         else { //détails
-            //if (_SelectedId.indexOf('-') < 0) {
-            //    this._Evenement.Typologie = new Typologie();
-            //    this._Evenement.Typologie.Id = _SelectedId;
-            //    this._Evenement.Typologie.Libelle = _SelectedLibelle;
-            //    this._Evenement.EvenementParent = new Evenement();
-            //    this._Evenement.EvenementParent.Id = null;
-            //    this._Evenement.EvenementParent.Libelle = null;
-            //}
-            //else {
-            //    this._Evenement.Typologie = new Typologie();
-            //    this._Evenement.Typologie.Id = _SelectedId.substring(0, _SelectedId.indexOf('-'));
-            //    this._Evenement.Typologie.Libelle = null;
-            //    var _NewSelectedId = _SelectedId.substring(_SelectedId.indexOf('-') + 1);
-            //    this._Evenement.EvenementParent = new Evenement;
-            //    if (_NewSelectedId.indexOf('-') < 0) {
-            //        this._Evenement.EvenementParent.Id = _NewSelectedId;
-            //    }
-            //    else {
-            //        this._Evenement.EvenementParent.Id = _NewSelectedId.substring(0, _SelectedId.indexOf('-'));
-            //    }
-            //    this._Evenement.EvenementParent.Libelle = _SelectedLibelle.replace('____', '').replace('____', '').trim();
-            //}
+            if (_SelectedId.indexOf('-') < 0) {
+                this._Evenement.Typologie = new Typologie();
+                this._Evenement.Typologie.Id = _SelectedId;
+                this._Evenement.Typologie.Libelle = _SelectedLibelle;
+                this._Evenement.EvenementParent = new Evenement();
+                this._Evenement.EvenementParent.Id = null;
+                this._Evenement.EvenementParent.Libelle = null;
+            }
+            else {
+                this._Evenement.Typologie = new Typologie();
+                this._Evenement.Typologie.Id = _SelectedId.substring(0, _SelectedId.indexOf('-'));
+                this._Evenement.Typologie.Libelle = null;
+                var _NewSelectedId = _SelectedId.substring(_SelectedId.indexOf('-') + 1);
+                this._Evenement.EvenementParent = new Evenement;
+                if (_NewSelectedId.indexOf('-') < 0) {
+                    this._Evenement.EvenementParent.Id = _NewSelectedId;
+                }
+                else {
+                    this._Evenement.EvenementParent.Id = _NewSelectedId.substring(0, _SelectedId.indexOf('-'));
+                }
+                this._Evenement.EvenementParent.Libelle = _SelectedLibelle.replace('____', '').replace('____', '').trim();
+            }
         }
     }
 
@@ -540,8 +548,6 @@ export class AppComponent implements OnInit {
     public _EvenementsSearchParameters: EvenementsSearchParameters;
     public GetEvenements(_Id: number, _Libelle: string, _EleveId: number, _EvenementParentId: number, _DtMin: string, _DtMax: string, _TypologieId: number) {
 
-        var Valid = true;
-
         this._EvenementsSearchParameters = new EvenementsSearchParameters();
         this._EvenementsSearchParameters.Id = _Id;
         this._EvenementsSearchParameters.Libelle = _Libelle;
@@ -552,19 +558,17 @@ export class AppComponent implements OnInit {
         this._EvenementsSearchParameters.TypologieId = _TypologieId;
 
         var _Body = JSON.stringify(this._EvenementsSearchParameters);
-        var _HeaderOptions = new Headers({
-            'Content-Type': 'application/json',
-            'APIKey': 'AEZRETRYTUYIUOIP'
-        });
+        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-
         this._HttpService.post(this._Url + 'API/Evenements/GetEvenements', _Body, _RequestOptions)
-            .subscribe((data: Response) => {
-                var _JsonResponse = data.json() as Evenement[];
-                this._Evenements = _JsonResponse;
-                if (this._Evenements.length == 0) { this._NoResult = true; }
-                else { this._NoResult = false; }
-
+            .subscribe(data => {
+                if (data.ok) {
+                    var _JsonResponse = data.json() as Evenement[];
+                    this._Evenements = _JsonResponse;
+                    if (this._Evenements.length == 0) { this._NoResult = true; }
+                    else { this._NoResult = false; }
+                }
+                else { alert('Une erreur est survenue !'); }
             });
 
 
@@ -574,22 +578,20 @@ export class AppComponent implements OnInit {
 
 
     public GetEvenementReservation(_EvenementId: number) {
-        var Valid = true;
 
         this._EvenementsSearchParameters = new EvenementsSearchParameters();
         this._EvenementsSearchParameters.Id = _EvenementId;
 
         var _Body = JSON.stringify(this._EvenementsSearchParameters);
-        var _HeaderOptions = new Headers({
-            'Content-Type': 'application/json',
-            'APIKey': 'AEZRETRYTUYIUOIP'
-        });
+        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-
         this._HttpService.post(this._Url + 'API/Evenements/GetEvenements', _Body, _RequestOptions)
-            .subscribe((data: Response) => {
-                var _EvenementLibelle = ((data.json())[0] as Evenement).Libelle;
-                alert('[' + _EvenementId + '] ' + _EvenementLibelle);
+            .subscribe(data => {
+                if (data.ok) {
+                    var _EvenementLibelle = ((data.json())[0] as Evenement).Libelle;
+                    alert('[' + _EvenementId + '] ' + _EvenementLibelle);
+                }
+                else { alert('Une erreur est survenue !'); }
             });
     }
 
@@ -604,16 +606,14 @@ export class AppComponent implements OnInit {
         this._PlanningsSearchParameters.Plus = 2;
 
         var _Body = JSON.stringify(this._PlanningsSearchParameters);
-        var _HeaderOptions = new Headers({
-            'Content-Type': 'application/json',
-            'APIKey': 'AEZRETRYTUYIUOIP'
-        });
+        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-
         this._HttpService.post(this._Url + 'API/Evenements/GetPlanningsBack', _Body, _RequestOptions)
-            .subscribe((data: Response) => {
-                var _Temp = data.json() as Planning[];
-                this._Evenement.Plannings = _Temp;
+            .subscribe(data => {
+                if (data.ok) {
+                    this._Evenement.Plannings = data.json() as Planning[];
+                }
+                else { alert('Une erreur est survenue !'); }
             });
 
     }
@@ -654,17 +654,20 @@ export class AppComponent implements OnInit {
             this._Evenement.Reservations = null;
             this._Evenement.Plannings = null;
         } catch { };
+
         if (_Option == 0) { //création
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-
             this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Evenements', _RequestOptions)
                 .subscribe(data => {
-                    this._InitReturn = (data.json())[0] as number;
-                    this._Evenement = new Evenement();
-                    this._Evenement.EvenementParent = new Evenement();
-                    this._Evenement.Id = this._InitReturn;
-                    this._Evenement.Etat = 0;
+                    if (data.ok) {
+                        this._InitReturn = (data.json())[0] as number;
+                        this._Evenement = new Evenement();
+                        this._Evenement.EvenementParent = new Evenement();
+                        this._Evenement.Id = this._InitReturn;
+                        this._Evenement.Etat = 0;
+                    }
+                    else { alert('Une erreur est survenue !'); }
                 });
         }
         else if (_Option == 1) { //modification
@@ -702,12 +705,18 @@ export class AppComponent implements OnInit {
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
             this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
                 .subscribe(data => {
-                    this._AddUpdReturn = data.json() as number;
                     if (data.ok) {
-
+                        alert(_Confirmation);
+                        this._AddUpdReturn = data.json() as number;
                         //mise à jour du model
                         if (this._Evenement.Etat == 0) {
-                            this._Evenements.push(this._Evenement);
+                            if ((this._Evenements == null) || (this._Evenements == undefined) || (this._Evenements.length == 0)) {
+                                this._Evenements = [];
+                            }
+                            var _NouveauEvenement = JSON.parse(JSON.stringify(this._Evenement));
+                            this._Evenements.push(_NouveauEvenement);
+                            if (this._Evenements.length == 0) { this._NoResult = true; }
+                            else { this._NoResult = false; }
                         }
                         else {
                             if ((this._Evenements.find(t => t.Id === this._Evenement.Id) != undefined) && (this._Evenements.find(t => t.Id === this._Evenement.Id) != null)) {
@@ -723,6 +732,7 @@ export class AppComponent implements OnInit {
                         this._HttpService.post(this._Url + 'API/Evenements/UpdPlannings', _Body, _RequestOptions)
                             .subscribe(data => {
                                 if (data.ok) {
+                                    alert('Le planning a bien ete modifie !');
                                     this.InitEvenement(null, null);
                                 }
                                 else { alert('Une erreur est survenue !'); }
@@ -744,11 +754,17 @@ export class AppComponent implements OnInit {
 
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-
+            var _Confirmation = 'L\'evenement ' + this._Evenements[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._Url + 'API/Contenus/DelEvenement?_Id=' + this._Evenements[_Index].Id.toString(), _RequestOptions)
                 .subscribe(data => {
-                    this._DelReturn = data.json() as number;
-                    this._Evenements.splice(_Index, 1);
+                    if (data.ok) {
+                        alert(_Confirmation);
+                        this._DelReturn = data.json() as number;
+                        this._Evenements.splice(_Index, 1);
+                        if (this._Evenements.length == 0) { this._NoResult = true; }
+                        else { this._NoResult = false; }
+                    }
+                    else { alert('Une erreur est survenue !'); }
                 });
         }
 

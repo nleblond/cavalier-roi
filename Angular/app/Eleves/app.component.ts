@@ -42,10 +42,12 @@ export class AppComponent implements OnInit {
         //récupération des typologies/evenements
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-
         this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe(data => {
-                this._TypologiesEvenements = data.json() as Evenement[];
+                if (data.ok) {
+                    this._TypologiesEvenements = data.json() as Evenement[];
+                }
+                else { alert('Une erreur est survenue !'); }
             }
         );
 
@@ -74,8 +76,6 @@ export class AppComponent implements OnInit {
     public _ElevesSearchParameters: ElevesSearchParameters;
     public GetEleves(_Id: number, _Nom: string, _Prenom: string, _Email: string, _License: string, _Club: string, _EvenementId: number, _TypologieId: number) {
 
-        var Valid = true;
-
         this._ElevesSearchParameters = new ElevesSearchParameters();
         this._ElevesSearchParameters.Id = _Id;
         this._ElevesSearchParameters.Nom = _Nom;
@@ -87,17 +87,16 @@ export class AppComponent implements OnInit {
         this._ElevesSearchParameters.TypologieId = _TypologieId;
 
         var _Body = JSON.stringify(this._ElevesSearchParameters);
-        var _HeaderOptions = new Headers({
-                                            'Content-Type': 'application/json',
-                                            'APIKey': 'AEZRETRYTUYIUOIP'
-        });
+        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-
         this._HttpService.post(this._Url + 'API/Eleves/GetEleves', _Body, _RequestOptions)
-            .subscribe((data: Response) => {
-                this._Eleves = data.json() as Eleve[];
-                if (this._Eleves.length == 0) { this._NoResult = true; }
-                else { this._NoResult = false; }
+            .subscribe(data => {
+                if (data.ok) {
+                    this._Eleves = data.json() as Eleve[];
+                    if (this._Eleves.length == 0) { this._NoResult = true; }
+                    else { this._NoResult = false; }
+                }
+                else { alert('Une erreur est survenue !'); }
             }
         );
 
@@ -120,11 +119,17 @@ export class AppComponent implements OnInit {
 
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-
+            var _Confirmation = 'L\'eleve ' + this._Eleves[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._Url + 'API/Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe(data => {
-                    this._DelReturn = data.json() as number;
-                    this._Eleves.splice(_Index, 1);
+                    if (data.ok) {
+                        alert(_Confirmation);
+                        this._DelReturn = data.json() as number;
+                        this._Eleves.splice(_Index, 1);
+                        if (this._Eleves.length == 0) { this._NoResult = true; }
+                        else { this._NoResult = false; }
+                    }
+                    else { alert('Une erreur est survenue !'); }
                 }
             );
         }

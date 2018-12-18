@@ -32,7 +32,8 @@ namespace WS.Controllers
                                     emplacementId: (_Parameters.EmplacementId == null ? -1 : _Parameters.EmplacementId),
                                     modeId: (_Parameters.ModeId == null ? -1 : _Parameters.ModeId),
                                     evenementId: (_Parameters.EvenementId == null ? -1 : _Parameters.EvenementId),
-                                    typologieId: (_Parameters.TypologieId == null ? -1 : _Parameters.TypologieId)
+                                    typologieId: (_Parameters.TypologieId == null ? -1 : _Parameters.TypologieId),
+                                    top: _Parameters.Top
                                ).ToList();
 
             List<Contenu> _Contenus = new List<Contenu>();
@@ -40,7 +41,7 @@ namespace WS.Controllers
             {
                 Contenu _NewContenu = new Contenu();
                 _NewContenu.Id = _CurrentC.Id;
-                _NewContenu.Titre = _CurrentC.Titre;
+                _NewContenu.Titre = _CurrentC.Titre.ToLower().Accents().ToUpper();
 
                 _NewContenu.DtCreation = _CurrentC.DtCreation;
                 _NewContenu.DtModification = _CurrentC.DtModification;
@@ -116,7 +117,7 @@ namespace WS.Controllers
 
             Int32? _ReturnValue = DB.UpdContenu(
                 id: _Contenu.Id,
-                titre: _Contenu.Titre,
+                titre: _Contenu.Titre.ToLower().Accents().ToUpper(),
                 texte: _Contenu.Texte,
 
                 dtDebut: _DtDebut,
@@ -164,7 +165,7 @@ namespace WS.Controllers
 
             Int32? _ReturnValue = DB.AddContenu(
                 id: _Contenu.Id,
-                titre: _Contenu.Titre,
+                titre: _Contenu.Titre.ToLower().Accents().ToUpper(),
                 texte: _Contenu.Texte,
 
                 dtDebut: _DtDebut,

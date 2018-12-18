@@ -8,7 +8,7 @@
         <div class="br10"></div>
         <select placeholder="Mode/Emplacement" title="Mode/Emplacement" (change)="ChangeModeEmplacement($event, 0)">
             <option value="">Mode/Emplacement</option>
-            <option *ngFor="let m of _ModesEmplacements" [value]="m.FormatedId" [selected]="((_EmplacementId != null) & (m.Id == _EmplacementId)) || m.FormatedId == ModeId">{{m.Libelle}} {{m.Key != null ? '(' + m.Key + ')' : ''}}</option>
+            <option *ngFor="let m of _ModesEmplacements" [value]="m.FormatedId" [selected]="((_EmplacementId != null) && (m.Id == _EmplacementId)) || m.FormatedId == ModeId">{{m.Libelle}} {{m.Key != null ? '(' + m.Key + ')' : ''}}</option>
         </select>
         <input type="hidden" [value]="_EmplacementId" #EmplacementId />
         <input type="hidden" [value]="_ModeId" #ModeId />
@@ -54,27 +54,30 @@
             <tr *ngFor="let c of _Contenus; let i = index">
                 <td>{{c.Id}}</td>
                 <td>{{c.Titre}}</td>
-                <td>{{c.Mode.Libelle}}</td>
+                <td>
+                    <div>{{c.Mode.Libelle}}</div>
+                    <div>{{c.Exclusif == true ? '(Exclusif)' : ''}}</div>
+                </td>
                 <td>
                     <div><u>Début</u>&nbsp;:&nbsp;{{c.DtDebut}}</div>
                     <div><u>Fin</u>&nbsp;:&nbsp;{{c.DtFin}}</div>
                 </td>
-                <td><div *ngIf="c.Full != undefined && c.Full != null"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Full}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Full}}" /></a></div></td>
-                <td><div *ngIf="c.Horizontale != undefined && c.Horizontale != null"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Horizontale}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Horizontale}}" /></a></div></td>
-                <td><div *ngIf="c.Carree != undefined && c.Carree != null"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Carree}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Carree}}" /></a></div></td>
-                <td><div *ngIf="c.Verticale != undefined && c.Verticale != null"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Verticale}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Verticale}}" /></a></div></td>
-                <td><div *ngIf="c.Logo != undefined && c.Logo != null"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Logo}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Logo}}" /></a></div></td>
+                <td><div *ngIf="c.Full != undefined && c.Full != null && c.Full != ''"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Full}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Full}}" /></a></div></td>
+                <td><div *ngIf="c.Horizontale != undefined && c.Horizontale != null && c.horizontale != ''"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Horizontale}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Horizontale}}" /></a></div></td>
+                <td><div *ngIf="c.Carree != undefined && c.Carree != null && c.Carree != ''"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Carree}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Carree}}" /></a></div></td>
+                <td><div *ngIf="c.Verticale != undefined && c.Verticale != null && c.Verticale != ''"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Verticale}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Verticale}}" /></a></div></td>
+                <td><div *ngIf="c.Logo != undefined && c.Logo != null && c.Logo != ''"><a href="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Logo}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{c.Id}}/{{c.Logo}}" /></a></div></td>
                 <td>{{c.Evenement.Libelle}}</td>
                 <td>
                     <input type="button" title="Gérer" value="Gérer" (click)="InitContenu(1, i)" />
                     <div class="clear-right"></div>
                     <div class="br10"></div>
-                    <input type="button" title="Supprimer" value="Supprimer" (click)="DelContenu(i)" />
+                    <input type="button" title="Supprimer" value="Supprimer" (click)="DelContenu(i)" *ngIf="GetShow('supprimer', i)" />
                 </td>
             </tr>
             <tr *ngIf="_NoResult">
                 <td>Aucun résultat</td>
-                <td colspan="8"></td>
+                <td colspan="10"></td>
             </tr>
         </tbody>
     </table>
@@ -105,7 +108,7 @@
 
             <div class="emplacements">
                 <div *ngFor="let e of _ModesEmplacements; let i = index">
-                    <div *ngIf="GetShow('emplacement', e.Mode.Id, e.Key)"><label>{{e.Libelle.replace('____', '')}} {{e.Key != null ? '(' + e.Key + ')' : ''}}</label> <input type="checkbox" [checked]="GetCheck(e.Id)" (change)="ChangeCheck($event, e.Id)" /></div>
+                    <div *ngIf="GetShow('emplacement', i)"><label>{{e.Libelle.replace('____', '')}} {{e.Key != null ? '(' + e.Key + ')' : ''}}</label> <input type="checkbox" [checked]="GetCheck(e.Id)" (change)="ChangeCheck($event, e.Id)" /></div>
                 </div>
             </div>
             <div class="br10"></div>
@@ -124,7 +127,7 @@
                 <div class="br10"></div>
             </div>
 
-            <div *ngIf="GetShow('actualite|partenariat')">
+            <div *ngIf="GetShow('partenariat')">
                 <input type="text" placeholder="Lien" title="Lien" class="lien" [(ngModel)]="_Contenu.Lien" maxlength="255" #CurrentLien />
                 <div class="br10"></div>
                 <textarea placeholder="Script" cols="33" rows="15" class="script" [(ngModel)]="_Contenu.Script" maxlength="255" #CurrentScript></textarea>

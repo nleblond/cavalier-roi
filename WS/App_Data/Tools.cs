@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Net;
 using System.Net.Mail;
-using System.Security;
-using System.Security.Cryptography;
 using System.Dynamic;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.Script.Serialization;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Xml.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Web.Script.Serialization;
 
 /// <summary>
 /// Bibliothèque Générique
-/// v2.86
-/// 14/05/2013
+/// v2.87
+/// 18/12/2018
 /// C#
 /// </summary>
 public static class Tools
