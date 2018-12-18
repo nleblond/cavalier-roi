@@ -169,7 +169,7 @@
 
     <div class="clear"></div>
 
-    @Html.Partial("~/Views/Shared/PartenariatsEncarts.cshtml", null)
+    @Html.Partial("~/Views/Shared/PartenariatsEncarts.cshtml", (@Model.ContenusPartenariatsEncarts) as List<WS.Models.OUT.Contenu>)
 
     <div class="clear"></div>
 

@@ -298,5 +298,234 @@ namespace Angular.Controllers
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+        [Route("Stages")]
+        public ActionResult Stages()
+        {
+            //contenu : zone
+            List<Contenu> _ContenusZones = BLL.ContenusManager.GetContenus(40, 1).Result;
+
+            //contenu : modal message
+            List<Contenu> _ContenusModals = new List<Contenu>();
+
+            //contenus : partenariats "encart"
+            List<Contenu> _ContenusPartenariatsEncarts = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsEncartsGeneral = BLL.ContenusManager.GetContenus(2, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsEncartsGeneral) { _ContenusPartenariatsEncarts.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsEncartsContext = BLL.ContenusManager.GetContenus(6, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsEncartsContext) { _ContenusPartenariatsEncarts.Add(_Current); }
+
+            //contenus : partenariats "bandeau"
+            List<Contenu> _ContenusPartenariatsBandeaux = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsBandeauxGeneral = BLL.ContenusManager.GetContenus(49, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsBandeauxGeneral) { _ContenusPartenariatsBandeaux.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsBandeauxContext = BLL.ContenusManager.GetContenus(29, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsBandeauxContext) { _ContenusPartenariatsBandeaux.Add(_Current); }
+
+            //contenus : partenariats "promo"
+            List<Contenu> _ContenusPartenariatsPromos = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsPromosGeneral = BLL.ContenusManager.GetContenus(15, 3).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsPromosGeneral) { _ContenusPartenariatsPromos.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsPromosContext = BLL.ContenusManager.GetContenus(18, 3).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsPromosContext) { _ContenusPartenariatsPromos.Add(_Current); }
+
+            dynamic _Model = new ExpandoObject();
+            _Model.ContenusZones = _ContenusZones as List<Contenu>;
+            _Model.ContenusPartenariatsEncarts = _ContenusPartenariatsEncarts as List<Contenu>;
+            _Model.ContenusPartenariatsBandeaux = _ContenusPartenariatsBandeaux as List<Contenu>;
+            _Model.ContenusPartenariatsPromos = _ContenusPartenariatsPromos as List<Contenu>;
+            _Model.ContenusModals = _ContenusModals as List<Contenu>;
+
+            return View("~/Views/Stages.cshtml", _Model);
+        }
+
+
+        [Route("Cours")]
+        public ActionResult Cours()
+        {
+            //contenu : zone
+            List<Contenu> _ContenusZones = BLL.ContenusManager.GetContenus(39, 1).Result;
+
+            //contenu : modal message
+            List<Contenu> _ContenusModals = new List<Contenu>();
+
+            //contenus : partenariats "encart"
+            List<Contenu> _ContenusPartenariatsEncarts = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsEncartsGeneral = BLL.ContenusManager.GetContenus(2, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsEncartsGeneral) { _ContenusPartenariatsEncarts.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsEncartsContext = BLL.ContenusManager.GetContenus(5, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsEncartsContext) { _ContenusPartenariatsEncarts.Add(_Current); }
+
+            //contenus : partenariats "bandeau"
+            List<Contenu> _ContenusPartenariatsBandeaux = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsBandeauxGeneral = BLL.ContenusManager.GetContenus(49, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsBandeauxGeneral) { _ContenusPartenariatsBandeaux.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsBandeauxContext = BLL.ContenusManager.GetContenus(28, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsBandeauxContext) { _ContenusPartenariatsBandeaux.Add(_Current); }
+
+            //contenus : partenariats "promo"
+            List<Contenu> _ContenusPartenariatsPromos = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsPromosGeneral = BLL.ContenusManager.GetContenus(15, 3).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsPromosGeneral) { _ContenusPartenariatsPromos.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsPromosContext = BLL.ContenusManager.GetContenus(17, 3).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsPromosContext) { _ContenusPartenariatsPromos.Add(_Current); }
+
+            dynamic _Model = new ExpandoObject();
+            _Model.ContenusZones = _ContenusZones as List<Contenu>;
+            _Model.ContenusPartenariatsEncarts = _ContenusPartenariatsEncarts as List<Contenu>;
+            _Model.ContenusPartenariatsBandeaux = _ContenusPartenariatsBandeaux as List<Contenu>;
+            _Model.ContenusPartenariatsPromos = _ContenusPartenariatsPromos as List<Contenu>;
+            _Model.ContenusModals = _ContenusModals as List<Contenu>;
+
+            return View("~/Views/Cours.cshtml", _Model);
+        }
+
+
+        [Route("Tournois")]
+        public ActionResult Tournois()
+        {
+            //contenu : zone
+            List<Contenu> _ContenusZones = BLL.ContenusManager.GetContenus(41, 1).Result;
+
+            //contenu : modal message
+            List<Contenu> _ContenusModals = new List<Contenu>();
+
+            //contenus : partenariats "encart"
+            List<Contenu> _ContenusPartenariatsEncarts = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsEncartsGeneral = BLL.ContenusManager.GetContenus(2, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsEncartsGeneral) { _ContenusPartenariatsEncarts.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsEncartsContext = BLL.ContenusManager.GetContenus(7, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsEncartsContext) { _ContenusPartenariatsEncarts.Add(_Current); }
+
+            //contenus : partenariats "bandeau"
+            List<Contenu> _ContenusPartenariatsBandeaux = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsBandeauxGeneral = BLL.ContenusManager.GetContenus(49, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsBandeauxGeneral) { _ContenusPartenariatsBandeaux.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsBandeauxContext = BLL.ContenusManager.GetContenus(30, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsBandeauxContext) { _ContenusPartenariatsBandeaux.Add(_Current); }
+
+            //contenus : partenariats "promo"
+            List<Contenu> _ContenusPartenariatsPromos = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsPromosGeneral = BLL.ContenusManager.GetContenus(15, 3).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsPromosGeneral) { _ContenusPartenariatsPromos.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsPromosContext = BLL.ContenusManager.GetContenus(19, 3).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsPromosContext) { _ContenusPartenariatsPromos.Add(_Current); }
+
+            dynamic _Model = new ExpandoObject();
+            _Model.ContenusZones = _ContenusZones as List<Contenu>;
+            _Model.ContenusPartenariatsEncarts = _ContenusPartenariatsEncarts as List<Contenu>;
+            _Model.ContenusPartenariatsBandeaux = _ContenusPartenariatsBandeaux as List<Contenu>;
+            _Model.ContenusPartenariatsPromos = _ContenusPartenariatsPromos as List<Contenu>;
+            _Model.ContenusModals = _ContenusModals as List<Contenu>;
+
+            return View("~/Views/Tournois.cshtml", _Model);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [Route("MonCompte")]
+        public ActionResult MonCompte()
+        {
+            //contenu : zone
+            List<Contenu> _ContenusZones = BLL.ContenusManager.GetContenus(48, 1).Result;
+
+            //contenu : modal message
+            List<Contenu> _ContenusModals = new List<Contenu>();
+
+            //contenus : partenariats "encart"
+            List<Contenu> _ContenusPartenariatsEncarts = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsEncartsGeneral = BLL.ContenusManager.GetContenus(2, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsEncartsGeneral) { _ContenusPartenariatsEncarts.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsEncartsContext = BLL.ContenusManager.GetContenus(14, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsEncartsContext) { _ContenusPartenariatsEncarts.Add(_Current); }
+
+            //contenus : partenariats "bandeau"
+            List<Contenu> _ContenusPartenariatsBandeaux = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsBandeauxGeneral = BLL.ContenusManager.GetContenus(49, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsBandeauxGeneral) { _ContenusPartenariatsBandeaux.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsBandeauxContext = BLL.ContenusManager.GetContenus(37, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsBandeauxContext) { _ContenusPartenariatsBandeaux.Add(_Current); }
+
+            //contenus : partenariats "promo"
+            List<Contenu> _ContenusPartenariatsPromos = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsPromosGeneral = BLL.ContenusManager.GetContenus(15, 3).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsPromosGeneral) { _ContenusPartenariatsPromos.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsPromosContext = BLL.ContenusManager.GetContenus(26, 3).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsPromosContext) { _ContenusPartenariatsPromos.Add(_Current); }
+
+            dynamic _Model = new ExpandoObject();
+            _Model.ContenusZones = _ContenusZones as List<Contenu>;
+            _Model.ContenusPartenariatsEncarts = _ContenusPartenariatsEncarts as List<Contenu>;
+            _Model.ContenusPartenariatsBandeaux = _ContenusPartenariatsBandeaux as List<Contenu>;
+            _Model.ContenusPartenariatsPromos = _ContenusPartenariatsPromos as List<Contenu>;
+            _Model.ContenusModals = _ContenusModals as List<Contenu>;
+
+            return View("~/Views/MonCompte.cshtml", _Model);
+        }
+
+
+
+        [Route("Boutique")]
+        public ActionResult Boutique()
+        {
+            //contenu : zone
+            List<Contenu> _ContenusZones = BLL.ContenusManager.GetContenus(44, 1).Result;
+
+            //contenu : modal message
+            List<Contenu> _ContenusModals = new List<Contenu>();
+
+            //contenus : partenariats "encart"
+            List<Contenu> _ContenusPartenariatsEncarts = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsEncartsGeneral = BLL.ContenusManager.GetContenus(2, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsEncartsGeneral) { _ContenusPartenariatsEncarts.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsEncartsContext = BLL.ContenusManager.GetContenus(10, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsEncartsContext) { _ContenusPartenariatsEncarts.Add(_Current); }
+
+            //contenus : partenariats "bandeau"
+            List<Contenu> _ContenusPartenariatsBandeaux = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsBandeauxGeneral = BLL.ContenusManager.GetContenus(49, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsBandeauxGeneral) { _ContenusPartenariatsBandeaux.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsBandeauxContext = BLL.ContenusManager.GetContenus(33, 1).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsBandeauxContext) { _ContenusPartenariatsBandeaux.Add(_Current); }
+
+            //contenus : partenariats "promo"
+            List<Contenu> _ContenusPartenariatsPromos = new List<Contenu>();
+            List<Contenu> _ContenusPartenariatsPromosGeneral = BLL.ContenusManager.GetContenus(15, 3).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsPromosGeneral) { _ContenusPartenariatsPromos.Add(_Current); }
+            List<Contenu> _ContenusPartenariatsPromosContext = BLL.ContenusManager.GetContenus(22, 3).Result;
+            foreach (Contenu _Current in _ContenusPartenariatsPromosContext) { _ContenusPartenariatsPromos.Add(_Current); }
+
+            dynamic _Model = new ExpandoObject();
+            _Model.ContenusZones = _ContenusZones as List<Contenu>;
+            _Model.ContenusPartenariatsEncarts = _ContenusPartenariatsEncarts as List<Contenu>;
+            _Model.ContenusPartenariatsBandeaux = _ContenusPartenariatsBandeaux as List<Contenu>;
+            _Model.ContenusPartenariatsPromos = _ContenusPartenariatsPromos as List<Contenu>;
+            _Model.ContenusModals = _ContenusModals as List<Contenu>;
+
+            return View("~/Views/Boutique.cshtml", _Model);
+        }
     }
 }

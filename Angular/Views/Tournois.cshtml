@@ -6,46 +6,7 @@
 
 <div class="tournois">
 
-    <div class="zone">
-        <img class="photo" src="~/Content/Images/Tournois.jpg" />
-        <div class="titre">LES TOURNOIS DE L'ECOLE DU CAVALIER ROI</div>
-        <div class="texte">
-            Les tournois du Cavalier Roi se feront en partenariat avec la Ville et le Club d'Echecs d'Ollioules.
-            <br />
-            Nous vous accueillerons avec grand plaisir dans un cadre où convivialité rimera avec compétitivité !
-            <br />
-            <br />
-            Il y aura tout au long de la saison plusieurs tournois qui seront bien évidement homologués FIDE :
-            <br />
-            - Tournois de Blitz
-            <br />
-            - Tournois Rapide
-            <br />
-            - Tournois Internationaux en parties longues
-            <br />
-            - Stage / Tournoi
-            <br />
-            <br />
-            Nous vous réservons très prochainement quelques petites surprises... 😉
-
-
-            @*Quelle meilleure solution pour se mettre à l'épreuve et jauger ses progrès que de se confronter à d'autres joueurs ?
-            <br />
-            <br />
-            L'école du Cavalier Roi organise pour vous des tournois où convivialité et sportivité rimeront avec compétitivité !
-            <br />
-            <br />
-            Nous vous proposons de venir participer à nos tournois où toutes les conditions de jeu seront au rendez vous pour offrir un pur moment de plaisir échiquéen.
-            <br />
-            <br />
-            Tournoi de Blitz et de Blitz à 4, partie Rapides et longues avec homologation FIDE, ainsi que des formules Stages / Tournois et cela tout au long de l'année.
-            <br />
-            <br />
-            Pour tout renseignement, n'hésitez pas à nous contacter ou vous inscrire directement en ligne afin de valider votre participation !*@
-
-
-        </div>
-    </div>
+    @Html.Partial("~/Views/Shared/Zones.cshtml", @Model.ContenusZones as List<WS.Models.OUT.Contenu>)
 
     <div class="clear"></div>
 
@@ -196,10 +157,10 @@
 
     <div class="clear"></div>
 
-    @Html.Partial("~/Views/Shared/PartenariatsEncarts.cshtml", null)
+    @Html.Partial("~/Views/Shared/PartenariatsEncarts.cshtml", @Model.ContenusPartenariatsEncarts as List<WS.Models.OUT.Contenu>)
 
     <div class="clear"></div>
 
 </div>
 
-<script language="javascript" src="@Url.Content("~/Areas/Evenements/Scripts/Views/Tournois.js")" type="text/javascript"></script>
+<script language="javascript" src="@Url.Content("~/Scripts/Views/Tournois.js")" type="text/javascript"></script>
