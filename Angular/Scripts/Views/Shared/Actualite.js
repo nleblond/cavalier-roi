@@ -32,7 +32,7 @@
             var _Dates = _DtCreation;
             if (_DtModification != null && _DtModification != '') { _Dates = _Dates + ' - ' + _DtModification; }
             if (_DtDebut != null && _DtDebut != '') { _Dates = _Dates + ' - ' + _DtDebut; }
-            $('#Div_Actu .texte label').html(_Dates);
+            $('#Div_Actu .titre label').html(_Dates);
 
             if (_Logo != null && _Logo != '') {
                 $('#Div_Actu img.logo').attr('src', '/Content/Images/Contenus/' + _Id + '/' + _Logo).show();

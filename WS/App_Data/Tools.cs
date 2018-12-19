@@ -17,7 +17,7 @@ using System.Web.Script.Serialization;
 /// <summary>
 /// Bibliothèque Générique
 /// v2.87
-/// 18/12/2018
+/// 19/12/2018
 /// C#
 /// </summary>
 public static class Tools
@@ -425,6 +425,11 @@ public static class Tools
     }
 
 
+
+    public static String ToEuro(this String Value, Boolean Html = false)
+    {
+        return Value + (Html == true ? "&euro;" : "€");
+    }
 
     /// <summary>Formater une chaine de caractères pour de l'url rewriting/// </summary>
     /// <param name="value"></param>

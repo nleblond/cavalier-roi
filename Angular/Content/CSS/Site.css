@@ -88,7 +88,7 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 .page_backoffice .details .elements input[type="file"] { color: #000000; border: solid 1pt #000000; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; }
 .page_backoffice .details .elements textarea { color: #000000; border: solid 1pt #000000; width: 485px; padding: 2px 2px 2px 2px; }
 .page_backoffice .details .elements select { color: #000000; border: solid 1pt #000000; width: 200px; padding: 2px 2px 2px 2px; }
-.page_backoffice .details .elements .libelle { width: 485px; }
+.page_backoffice .details .elements .libelle { width: 485px; /*text-transform:uppercase;*/ }
 .page_backoffice .details .elements .lien { width: 485px; }
 .page_backoffice .details .elements .publication { width: 160px; }
 .page_backoffice .details .elements .prix { width: 40px; }
@@ -270,31 +270,28 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 .contenu div.stages .stage table.formule td:nth-child(1) { text-align: left; width: 80%; }
 .contenu div.stages .stage table.formule td:nth-child(2) { text-align: right; width: 10%; }
 .contenu div.stages .stage table.formule td:nth-child(3) { text-align: right; width: 10%; }
-.contenu div.stages .stage table.formule2 { margin: -1.0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; float: right; }
-.contenu div.stages .stage table.formule2 tr { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 100%; }
-.contenu div.stages .stage table.formule2 td { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
 
 
 /* page cours */
 /********************************************************************************************/
 .contenu div.cours { width: 1000px; margin: 0rem 1.0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
-.contenu div.cours .cour { float: left; padding: 1rem 1rem 1rem 1rem; margin: 0rem 1.0rem 1.0rem 0rem; width: 457px; height: auto; background-color: #000000; border: solid 1pt #FECC16; }
-.contenu div.cours .cour .last { margin: 0rem 0rem 1.0rem 0rem; }
+.contenu div.cours .cour { float: left; padding: 1rem 1rem 0rem 1rem; margin: 0rem 1.0rem 0rem 0rem; width: 457px; height: auto; background-color: #000000; border: solid 1pt #FECC16; }
+.contenu div.cours .cour .last { margin: 0rem 0rem 0rem 0rem; }
 .contenu div.cours .last { margin: 0rem 0rem 1.0rem 0rem; }
 .contenu div.cours .cour .titre { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 1.0rem 0rem; font-size: 1.0rem; }
-.contenu div.cours .cour .photo { float: left; margin: 0rem 1.0rem 1.0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 210px; height: 140px; }
+.contenu div.cours .cour .photo { float: left; margin: 0rem 1.0rem 1.0rem 0rem; padding: 0rem 0rem 0rem 0rem; max-width: 210px; }
 .contenu div.cours .cour table.formule { float: right; margin: 0rem 0rem 0.5rem 0rem; padding: 0rem 0rem 0rem 0rem; }
 .contenu div.cours .cour table.formule tr { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 100%; }
 .contenu div.cours .cour table.formule td { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
-.contenu div.cours .cour .descriptif { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; text-align: justify; }
+.contenu div.cours .cour .descriptif { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 1rem 0rem; }
 
 
 /* page tournois */
 /********************************************************************************************/
 .contenu div.tournois { width: 1000px; margin: 0rem 1.0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
 .contenu div.tournois .tournoi { float: left; border: solid 1pt #FECC16; padding: 1.0rem 1.0rem 1.0rem 1.0rem; margin: 0rem 1.0rem 1.0rem 0rem; width: 965px; background-color: #000000; }
-.contenu div.tournois .tournoi .photo { float: left; margin: 0rem 0rem 1.0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 705px; height: auto; cursor: pointer; }
-.contenu div.tournois .tournoi .full { float: right; margin: 0rem 0rem 0rem 1.0rem; padding: 0rem 0rem 0rem 0rem; width: 240px; height: auto; cursor: pointer; }
+.contenu div.tournois .tournoi .bandeau { float: left; margin: 0rem 0rem 1.0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 705px; height: auto; cursor: pointer; }
+.contenu div.tournois .tournoi .photo { float: right; margin: 0rem 0rem 0rem 1.0rem; padding: 0rem 0rem 0rem 0rem; width: 240px; height: auto; cursor: pointer; }
 .contenu div.tournois .tournoi .please { float: left; margin: 0rem 0rem 0.5rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 705px; }
 .contenu div.tournois .tournoi .please .titre { float: left; margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 5px 0rem; font-size: 1.0rem; }
 .contenu div.tournois .tournoi .please table.formule { float: right; margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; text-align: right; }
@@ -634,8 +631,8 @@ div.modal_calendrier .texte .selections table td:nth-child(2) { padding: 0rem 0r
     /********************************************************************************************/
     .contenu div.tournois { float: left; width: 100%; }
     .contenu div.tournois .tournoi { width: 100%; }
-    .contenu div.tournois .tournoi .photo { float: left; width: 100%; }
-    .contenu div.tournois .tournoi .full { float: right; width: 30%; }
+    .contenu div.tournois .tournoi .bandeau { float: left; width: 100%; }
+    .contenu div.tournois .tournoi .photo { float: right; width: 30%; }
     .contenu div.tournois .tournoi .please { float: left; margin: 0rem 0rem 0.5rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 64%; }
     .contenu div.tournois .tournoi .please .titre { float: left; display: inline-block; width: 100%;  }
     .contenu div.tournois .tournoi .please table.formule { float: left; border-top: solid 1pt #FECC16; width: 100%; margin: 0rem 0rem 0rem 0rem; }

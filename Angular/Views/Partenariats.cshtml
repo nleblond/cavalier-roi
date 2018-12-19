@@ -1,4 +1,7 @@
-﻿@{
+﻿@model dynamic
+
+@{
+    try { ViewBag.Title = Model.ContenusZones[0].Titre; } catch { }
     Layout = "~/Views/Shared/_LayoutFrontOffice.cshtml";
 }
 
@@ -15,7 +18,7 @@
         {
             <div class="partenariat @((_Index + 1) % 3 == 0 ? "last" : "")">
                 <span>DEPUIS LE @((Model.ContenuPartenariats[_Index].DtDebut as String).Left(10))</span>
-                <a href="@Model.ContenuPartenariats[_Index].Lien" target="_blank"  title="Cliquer pour consulter"><img class="full" src="/Content/Images/Contenus/@Model.ContenuPartenariats[_Index].Id/@Model.ContenuPartenariats[_Index].Carree" /></a>
+                <a href="@Model.ContenuPartenariats[_Index].Lien" target="_blank" title="Cliquer pour consulter"><img class="full" src="/Content/Images/Contenus/@Model.ContenuPartenariats[_Index].Id/@Model.ContenuPartenariats[_Index].Carree" /></a>
             </div>
         }
 

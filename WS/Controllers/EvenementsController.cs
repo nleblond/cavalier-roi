@@ -40,7 +40,7 @@ namespace WS.Controllers
             {
                 Evenement _NewEvenement = new Evenement();
                 _NewEvenement.Id = _CurrentE.Id;
-                _NewEvenement.Libelle = (String.IsNullOrEmpty(_CurrentE.Libelle) ? null : _CurrentE.Libelle.Trim());
+                _NewEvenement.Libelle = (String.IsNullOrEmpty(_CurrentE.Libelle) ? null : _CurrentE.Libelle.ToLower().Accents().ToUpper().Trim());
 
                 _NewEvenement.Descriptif = (String.IsNullOrEmpty(_CurrentE.Descriptif) ? null : _CurrentE.Descriptif.Trim());
 
@@ -211,7 +211,7 @@ namespace WS.Controllers
 
             Int32? _ReturnValue = DB.UpdEvenement(
                                                     id: _Evenement.Id,
-                                                    libelle: _Evenement.Libelle,
+                                                    libelle: _Evenement.Libelle.ToLower().Accents().ToUpper().Trim(),
                                                     descriptif : _Evenement.Descriptif,
                                                     dtDebut: _DtDebut,
                                                     dtFin: _DtFin,
@@ -279,7 +279,7 @@ namespace WS.Controllers
 
             Int32? _ReturnValue = DB.AddEvenement(
                                                     id: _Evenement.Id,
-                                                    libelle: _Evenement.Libelle,
+                                                    libelle: _Evenement.Libelle.ToLower().Accents().ToUpper().Trim(),
                                                     descriptif: _Evenement.Descriptif,
                                                     dtDebut: _DtDebut,
                                                     dtFin: _DtFin,

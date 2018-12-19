@@ -41,7 +41,7 @@ namespace WS.Controllers
             {
                 Contenu _NewContenu = new Contenu();
                 _NewContenu.Id = _CurrentC.Id;
-                _NewContenu.Titre = _CurrentC.Titre.ToLower().Accents().ToUpper();
+                _NewContenu.Titre = _CurrentC.Titre.ToLower().Accents().ToUpper().Trim();
 
                 _NewContenu.DtCreation = _CurrentC.DtCreation;
                 _NewContenu.DtModification = _CurrentC.DtModification;
@@ -117,7 +117,7 @@ namespace WS.Controllers
 
             Int32? _ReturnValue = DB.UpdContenu(
                 id: _Contenu.Id,
-                titre: _Contenu.Titre.ToLower().Accents().ToUpper(),
+                titre: _Contenu.Titre.ToLower().Accents().ToUpper().Trim(),
                 texte: _Contenu.Texte,
 
                 dtDebut: _DtDebut,
@@ -165,7 +165,7 @@ namespace WS.Controllers
 
             Int32? _ReturnValue = DB.AddContenu(
                 id: _Contenu.Id,
-                titre: _Contenu.Titre.ToLower().Accents().ToUpper(),
+                titre: _Contenu.Titre.ToLower().Accents().ToUpper().Trim(),
                 texte: _Contenu.Texte,
 
                 dtDebut: _DtDebut,

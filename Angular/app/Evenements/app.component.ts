@@ -188,9 +188,19 @@ export class AppComponent implements OnInit {
             }
             return false;
         }
-        else if ((_Option == 'descriptif') || (_Option == 'photo')) {
+        else if (_Option == 'descriptif') {
             if ((_Evenement.EvenementParent == null) || ((_Evenement.EvenementParent != null) && (_Evenement.EvenementParent.Id == null))) { //pas de parent
                 if ((_Evenement.Typologie.Id == 0) || (_Evenement.Typologie.Id == 1) || (_Evenement.Typologie.Id == 3)) { return true; } //stage, tournoi, cours
+                return false;
+            }
+            else { //parent
+                if (_Evenement.Typologie.Id == 3) { return true; } //cours
+                return false;
+            }
+        }
+        else if (_Option == 'photo') {
+            if ((_Evenement.EvenementParent == null) || ((_Evenement.EvenementParent != null) && (_Evenement.EvenementParent.Id == null))) { //pas de parent
+                if ((_Evenement.Typologie.Id == 0) || (_Evenement.Typologie.Id == 1) || (_Evenement.Typologie.Id == 3) || (_Evenement.Typologie.Id == 2)) { return true; } //stage, tournoi, cours, compétition
                 return false;
             }
             else { //parent
@@ -761,7 +771,7 @@ export class AppComponent implements OnInit {
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'L\'evenement ' + this._Evenements[_Index].Id + ' a bien ete supprime !';
-            this._HttpService.get(this._Url + 'API/Contenus/DelEvenement?_Id=' + this._Evenements[_Index].Id.toString(), _RequestOptions)
+            this._HttpService.get(this._Url + 'API/Evenements/DelEvenement?_Id=' + this._Evenements[_Index].Id.toString(), _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);

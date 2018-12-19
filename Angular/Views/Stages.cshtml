@@ -1,4 +1,7 @@
-﻿@{
+﻿@model dynamic
+
+@{
+    try { ViewBag.Title = Model.ContenusZones[0].Titre; } catch { }
     Layout = "~/Views/Shared/_LayoutFrontOffice.cshtml";
 }
 
@@ -8,185 +11,89 @@
 
     <div class="clear"></div>
 
-    <div class="stage">
-        <img class="photo" src="~/Content/Images/Map.jpg" />
-        <span class="titre">STAGE DE JANVIER 2019</span>
-        <div class="clear-left"></div>
-        <span class="descriptif texte">
-            Et voilà enfin ce que vous attendez tous !
-            <br />
-            <vr />
-            Le premier stage de perfectionnement aux échecs par Eric MORY informatisé !
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Ce stage se déroulera du <span>14 Janvier 2019</span> au <span>18 Janvier 2019</span>.
-            <br />
-            <br />
-            Attention, les places sont limitées, il n'y en aura par pour tout le monde. Plusieurs formules sont disponibles, à vous de choisir laquelle vous conviendra le mieux !
-        </span>
-        <div class="clear-left"></div>
-        <div class="date">
-            <div>Date de début : <span>01/07/2019 10:00</span></div>
-            <div class="clear-left"></div>
-            <div>Date de fin : <span>31/08/2019 17:00</span></div>
-            <div class="clear-left"></div>
-            <div>Date limite d'inscription : <span>01/07/2019 20:00</span></div>
-            <div class="clear-left"></div>
-            <div>Nombre minimum de participants : <span>10</span></div>
-            <div class="clear-left"></div>
-            <div>Nombre maximum de participants : <span>30</span></div>
-        </div>
-        <div class="clear-left"></div>
-        <table cellpadding="0" cellspacing="0" border="0" class="formule2 texte">
-            <tr>
-                <td class="prix">160,00€&nbsp;&nbsp;</td>
-                <td class="reserver"><input type="button" title="Réserver" value="Réserver" /></td>
-            </tr>
-        </table>
-    </div>
 
-    <div class="stage last">
-        <img class="photo" src="~/Content/Images/Map.jpg" />
-        <span class="titre">STAGE DE MARS 2019</span>
-        <div class="clear-left"></div>
-        <span class="descriptif texte">
-            Et voilà enfin ce que vous attendez tous !
-            <br />
-            <vr />
-            Le premier stage de perfectionnement aux échecs par Eric MORY informatisé !
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Attention, les places sont limitées, il n'y en aura par pour tout le monde. Plusieurs formules sont disponibles, à vous de choisir laquelle vous conviendra le mieux !
-        </span>
-        <div class="clear-left"></div>
-        <div class="date">
-            <div>Date de début : <span>01/07/2019 10:00</span></div>
-            <div class="clear-left"></div>
-            <div>Date de fin : <span>31/08/2019 17:00</span></div>
-            <div class="clear-left"></div>
-            <div>Date limite d'inscription : <span>01/07/2019 20:00</span></div>
-            <div class="clear-left"></div>
-            <div>Nombre minimum de participants : <span>10</span></div>
-            <div class="clear-left"></div>
-            <div>Nombre maximum de participants : <span>30</span></div>
-        </div>
-        <div class="clear-left"></div>
-        <table cellpadding="0" cellspacing="0" border="0" class="formule texte">
-            <tr>
-                <td class="libelle">FORMULE COMPLETE</td>
-                <td class="prix">160,00€&nbsp;&nbsp;</td>
-                <td class="reserver"><input type="button" title="Réserver" value="Réserver" /></td>
-            </tr>
-            <tr>
-                <td class="libelle">FORMULE 2 DEMI-JOURNEES</td>
-                <td class="prix">40,00€&nbsp;&nbsp;</td>
-                <td class="reserver"><input type="button" title="Réserver" value="Réserver" /></td>
-            </tr>
-            <tr>
-                <td class="libelle">FORMULE 3 DEMI-JOURNEES</td>
-                <td class="prix">60,00€&nbsp;&nbsp;</td>
-                <td class="reserver"><input type="button" title="Réserver" value="Réserver" /></td>
-            </tr>
-        </table>
-    </div>
+    @if ((Model != null) && (Model.EvenementsStages.Count > 0))
+    {
 
-    <div class="stage">
-        <span class="titre">STAGE DE MAI 2019</span>
-        <div class="clear-left"></div>
-        <span class="descriptif texte">
-            Et voilà enfin ce que vous attendez tous !
-            <br />
-            <vr />
-            Le premier stage de perfectionnement aux échecs par Eric MORY informatisé !
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Attention, les places sont limitées, il n'y en aura par pour tout le monde. Plusieurs formules sont disponibles, à vous de choisir laquelle vous conviendra le mieux !
-        </span>
-        <div class="clear-left"></div>
-        <div class="date">
-            <div>Date de début : <span>01/07/2019 10:00</span></div>
-            <div class="clear-left"></div>
-            <div>Date de fin : <span>31/08/2019 17:00</span></div>
-            <div class="clear-left"></div>
-            <div>Date limite d'inscription : <span>01/07/2019 20:00</span></div>
-            <div class="clear-left"></div>
-            <div>Nombre minimum de participants : <span>10</span></div>
-            <div class="clear-left"></div>
-            <div>Nombre maximum de participants : <span>30</span></div>
-        </div>
-        <div class="clear-left"></div>
-        <table cellpadding="0" cellspacing="0" border="0" class="formule texte">
-            <tr>
-                <td class="libelle">FORMULE COMPLETE</td>
-                <td class="prix">160,00€&nbsp;&nbsp;</td>
-                <td class="reserver"><input type="button" title="Réserver" value="Réserver" /></td>
-            </tr>
-            <tr>
-                <td class="libelle">FORMULE 2 DEMI-JOURNEES</td>
-                <td class="prix">40,00€&nbsp;&nbsp;</td>
-                <td class="reserver"><input type="button" title="Réserver" value="Réserver" /></td>
-            </tr>
-            <tr>
-                <td class="libelle">FORMULE 3 DEMI-JOURNEES</td>
-                <td class="prix">60,00€&nbsp;&nbsp;</td>
-                <td class="reserver"><input type="button" title="Réserver" value="Réserver" /></td>
-            </tr>
-        </table>
-    </div>
+        List<WS.Models.OUT.Evenement> _Stages = (Model.EvenementsStages as List<WS.Models.OUT.Evenement>).FindAll(e => e.EvenementParent == null);
 
-    <div class="stage last">
-        <span class="titre">STAGE D'ETE 2019</span>
-        <div class="clear-left"></div>
-        <span class="descriptif texte">
-            Et voilà enfin ce que vous attendez tous !
-            <br />
-            <vr />
-            Le premier stage de perfectionnement aux échecs par Eric MORY informatisé !
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Attention, les places sont limitées, il n'y en aura par pour tout le monde. Plusieurs formules sont disponibles, à vous de choisir laquelle vous conviendra le mieux !
-        </span>
-        <div class="clear-left"></div>
-        <div class="date">
-            <div>Date de début : <span>01/07/2019 10:00</span></div>
-            <div class="clear-left"></div>
-            <div>Date de fin : <span>31/08/2019 17:00</span></div>
-            <div class="clear-left"></div>
-            <div>Date limite d'inscription : <span>01/07/2019 20:00</span></div>
-            <div class="clear-left"></div>
-            <div>Nombre minimum de participants : <span>10</span></div>
-            <div class="clear-left"></div>
-            <div>Nombre maximum de participants : <span>30</span></div>
-            <div class="clear-left"></div>
-        </div>
-        <div class="clear-left"></div>
-        <table cellpadding="0" cellspacing="0" border="0" class="formule2 texte">
-            <tr>
-                <td class="prix">300,00€&nbsp;&nbsp;</td>
-                <td class="reserver"><input type="button" title="Réserver" value="Réserver" /></td>
-            </tr>
-        </table>
-    </div>
+        for (Int32 _Index = 0; _Index < _Stages.Count; _Index++)
+        {
+
+            <div class="stage @((_Index + 1) % 2 == 0 ? "last" : "")">
+                @if (!String.IsNullOrEmpty(_Stages[_Index].Photo))
+                {
+                    <img class="photo" src="/Content/Images/Evenements/@_Stages[_Index].Id/@_Stages[_Index].Photo" />
+                }
+                <span class="titre">@_Stages[_Index].Libelle</span>
+                <div class="clear-left"></div>
+                @if (_Stages[_Index].Descriptif != null)
+                {
+                    <span class="descriptif texte">@Html.Raw((@_Stages[_Index].Descriptif as String).ToBR())</span>
+                    <div class="clear-left"></div>
+                }
+                <div class="date">
+                    @if (_Stages[_Index].DtDebut != null)
+                    {
+                        <div>Date de début : <span>@_Stages[_Index].DtDebut</span></div>
+                        <div class="clear-left"></div>
+                    }
+                    @if (_Stages[_Index].DtFin != null)
+                    {
+                        <div>Date de fin : <span>@_Stages[_Index].DtFin</span></div>
+                        <div class="clear-left"></div>
+                    }
+                    @if (_Stages[_Index].DtLimiteInscription != null)
+                    {
+                        <div>Date limite d'inscription : <span>@_Stages[_Index].DtLimiteInscription</span></div>
+                        <div class="clear-left"></div>
+                    }
+                    @if ((_Stages[_Index].Minimum != null) && (_Stages[_Index].Minimum != 1))
+                    {
+                        <div>Nombre minimum d'inscriptions : <span>@_Stages[_Index].Minimum</span></div>
+                        <div class="clear-left"></div>
+                    }
+                    @if ((_Stages[_Index].Maximum != null) && (_Stages[_Index].Maximum != 1))
+                    {
+                        <div>Nombre maximum d'inscriptions : <span>@_Stages[_Index].Maximum</span></div>
+                        <div class="clear-left"></div>
+                    }
+                </div>
+                <div class="clear-left"></div>
+
+                @{ 
+                    List<WS.Models.OUT.Evenement> _FormulesStages = (Model.EvenementsStages as List<WS.Models.OUT.Evenement>).FindAll(e => 
+                            e.EvenementParent != null
+                            &&
+                            e.EvenementParent.Id != null
+                            &&
+                            e.EvenementParent.Id == _Stages[_Index].Id
+                    );
+                }
+                
+                <table cellpadding="0" cellspacing="0" border="0" class="formule texte">
+                <tr>
+                    <td class="libelle">FORMULE COMPLETE</td>
+                    <td class="prix">&nbsp;&nbsp;@_Stages[_Index].Prix€&nbsp;&nbsp;</td>
+                    <td class="reserver"><input type="button" title="Réserver" value="Réserver" /></td>
+                </tr>
+                @if ((_FormulesStages != null) && (_FormulesStages.Count > 0))
+                {
+                    for (Int32 _Index2 = 0; _Index2 < _FormulesStages.Count; _Index2++)
+                    {
+                        <tr>
+                            <td class="libelle">@_FormulesStages[_Index2].Libelle</td>
+                            <td class="prix">&nbsp;&nbsp;@_FormulesStages[_Index2].Prix€&nbsp;&nbsp;</td>
+                            <td class="reserver"><input type="button" title="Réserver" value="Réserver" /></td>
+                        </tr>
+                    }
+                }
+                </table>
+                
+            </div>
+            
+        }
+    }
 
     <div class="clear"></div>
 

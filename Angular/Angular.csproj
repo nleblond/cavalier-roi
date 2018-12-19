@@ -162,6 +162,7 @@
     <Compile Include="Areas\Eleves\Controllers\ElevesController.cs" />
     <Compile Include="Areas\Eleves\ElevesAreaRegistration.cs" />
     <Compile Include="BLL\CommandesManager.cs" />
+    <Compile Include="BLL\EvenementsManager.cs" />
     <Compile Include="BLL\ContenusManager.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">

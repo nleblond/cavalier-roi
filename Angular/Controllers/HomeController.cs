@@ -315,6 +315,9 @@ namespace Angular.Controllers
             //contenu : zone
             List<Contenu> _ContenusZones = BLL.ContenusManager.GetContenus(40, 1).Result;
 
+            //evenements : stages
+            List<Evenement> _EvenementsStages = BLL.EvenementsManager.GetEvenements(0).Result;
+
             //contenu : modal message
             List<Contenu> _ContenusModals = new List<Contenu>();
 
@@ -341,6 +344,7 @@ namespace Angular.Controllers
 
             dynamic _Model = new ExpandoObject();
             _Model.ContenusZones = _ContenusZones as List<Contenu>;
+            _Model.EvenementsStages = _EvenementsStages as List<Evenement>;
             _Model.ContenusPartenariatsEncarts = _ContenusPartenariatsEncarts as List<Contenu>;
             _Model.ContenusPartenariatsBandeaux = _ContenusPartenariatsBandeaux as List<Contenu>;
             _Model.ContenusPartenariatsPromos = _ContenusPartenariatsPromos as List<Contenu>;
@@ -355,6 +359,9 @@ namespace Angular.Controllers
         {
             //contenu : zone
             List<Contenu> _ContenusZones = BLL.ContenusManager.GetContenus(39, 1).Result;
+
+            //evenements : cours
+            List<Evenement> _EvenementsCours = BLL.EvenementsManager.GetEvenements(3).Result;
 
             //contenu : modal message
             List<Contenu> _ContenusModals = new List<Contenu>();
@@ -382,6 +389,7 @@ namespace Angular.Controllers
 
             dynamic _Model = new ExpandoObject();
             _Model.ContenusZones = _ContenusZones as List<Contenu>;
+            _Model.EvenementsCours = _EvenementsCours as List<Evenement>;
             _Model.ContenusPartenariatsEncarts = _ContenusPartenariatsEncarts as List<Contenu>;
             _Model.ContenusPartenariatsBandeaux = _ContenusPartenariatsBandeaux as List<Contenu>;
             _Model.ContenusPartenariatsPromos = _ContenusPartenariatsPromos as List<Contenu>;
@@ -394,8 +402,15 @@ namespace Angular.Controllers
         [Route("Tournois")]
         public ActionResult Tournois()
         {
-            //contenu : zone
+            //contenu : zones
             List<Contenu> _ContenusZones = BLL.ContenusManager.GetContenus(41, 1).Result;
+            List<Contenu> _ContenusZones2 = BLL.ContenusManager.GetContenus(43, 1).Result;
+
+            //evenements : tournois
+            List<Evenement> _EvenementsTournois = BLL.EvenementsManager.GetEvenements(1).Result;
+
+            //evenements : tournois
+            List<Evenement> _EvenementsCompetitions = BLL.EvenementsManager.GetEvenements(2).Result;
 
             //contenu : modal message
             List<Contenu> _ContenusModals = new List<Contenu>();
@@ -423,6 +438,9 @@ namespace Angular.Controllers
 
             dynamic _Model = new ExpandoObject();
             _Model.ContenusZones = _ContenusZones as List<Contenu>;
+            _Model.ContenusZones2 = _ContenusZones2 as List<Contenu>;
+            _Model.EvenementsTournois = _EvenementsTournois as List<Evenement>;
+            _Model.EvenementsCompetitions = _EvenementsCompetitions as List<Evenement>;
             _Model.ContenusPartenariatsEncarts = _ContenusPartenariatsEncarts as List<Contenu>;
             _Model.ContenusPartenariatsBandeaux = _ContenusPartenariatsBandeaux as List<Contenu>;
             _Model.ContenusPartenariatsPromos = _ContenusPartenariatsPromos as List<Contenu>;

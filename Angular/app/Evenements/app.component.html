@@ -49,9 +49,9 @@
                 <td>{{e.Id}}</td>
                 <td>{{e.Libelle}}</td>
                 <td>[{{e.Typologie.Id}}] {{e.Typologie.Libelle}}</td>
-                <td><div *ngIf="e.Logo != undefined && e.Logo != null"><a href="{{_Url}}Content/Images/Contenus/{{e.Id}}/{{e.Logo}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{e.Id}}/{{e.Logo}}" /></a></div></td>
-                <td><div *ngIf="e.Photo != undefined && e.Photo != null"><a href="{{_Url}}Content/Images/Contenus/{{e.Id}}/{{e.Photo}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{e.Id}}/{{e.Photo}}" /></a></div></td>
-                <td><div *ngIf="e.Bandeau != undefined && e.Bandeau != null"><a href="{{_Url}}Content/Images/Contenus/{{e.Id}}/{{e.Bandeau}}" target="_blank"><img src="{{_Url}}Content/Images/Contenus/{{e.Id}}/{{e.Bandeau}}" /></a></div></td>
+                <td><div *ngIf="e.Logo != undefined && e.Logo != null"><a href="{{_Url}}Content/Images/Evenements/{{e.Id}}/{{e.Logo}}" target="_blank"><img src="{{_Url}}Content/Images/Evenements/{{e.Id}}/{{e.Logo}}" /></a></div></td>
+                <td><div *ngIf="e.Photo != undefined && e.Photo != null"><a href="{{_Url}}Content/Images/Evenements/{{e.Id}}/{{e.Photo}}" target="_blank"><img src="{{_Url}}Content/Images/Evenements/{{e.Id}}/{{e.Photo}}" /></a></div></td>
+                <td><div *ngIf="e.Bandeau != undefined && e.Bandeau != null"><a href="{{_Url}}Content/Images/Evenements/{{e.Id}}/{{e.Bandeau}}" target="_blank"><img src="{{_Url}}Content/Images/Evenements/{{e.Id}}/{{e.Bandeau}}" /></a></div></td>
                 <td>{{e.DtDebut | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                 <td>{{e.DtFin | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                 <td><div *ngIf="GetShow('parent', e)">[{{e.EvenementParent.Id}}] {{e.EvenementParent.Libelle}}</div></td>

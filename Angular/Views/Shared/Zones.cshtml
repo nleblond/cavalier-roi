@@ -7,9 +7,18 @@
     foreach (WS.Models.OUT.Contenu _Current in Model)
     {
         <div class="zone">
-            <a href="/Content/Images/Contenus/@_Current.Id/@_Current.Full" target="_blank" title="Cliquer pour agrandir"><img class="photo" src="/Content/Images/Contenus/@_Current.Id/@_Current.Full" /></a>
-            <div class="titre">@_Current.Titre</div>
-            <div class="texte">@Html.Raw(_Current.Texte.ToBR())</div>
+            @if (!String.IsNullOrEmpty(_Current.Full))
+            {
+                <a href="/Content/Images/Contenus/@_Current.Id/@_Current.Full" target="_blank" title="Cliquer pour agrandir"><img class="photo" src="/Content/Images/Contenus/@_Current.Id/@_Current.Full" /></a>
+            }
+            @if (!String.IsNullOrEmpty(_Current.Titre))
+            {
+                <div class="titre">@_Current.Titre</div>
+            }
+            @if (!String.IsNullOrEmpty(_Current.Texte))
+            {
+                <div class="texte">@Html.Raw(_Current.Texte.ToBR())</div>
+            }
         </div>
     }
 

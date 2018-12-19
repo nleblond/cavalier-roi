@@ -1,4 +1,7 @@
-﻿@{
+﻿@model dynamic
+    
+@{
+    try { ViewBag.Title = Model.ContenusZones[0].Titre; } catch { }
     Layout = "~/Views/Shared/_LayoutFrontOffice.cshtml";
 }
 

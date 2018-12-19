@@ -1,5 +1,7 @@
-﻿@{
-    ViewBag.Title = "Tournois";
+﻿@model dynamic
+
+@{
+    try { ViewBag.Title = Model.ContenusZones[0].Titre; } catch { }
     Layout = "~/Views/Shared/_LayoutFrontOffice.cshtml";
 }
 
@@ -10,151 +12,120 @@
 
     <div class="clear"></div>
 
-    <div class="tournoi">
-        <img class="photo" src="~/Content/Images/Actu_Kasparov_Bandeau.jpg" />
-        <img class="full" src="~/Content/Images/TournoiAffiche.jpg" title="Agrandir" />
-        <div class="please">
-            <div class="titre">TOURNOI ETE 2019</div>
-            <table cellpadding="0" cellspacing="0" border="0" class="formule texte">
-                <tr>
-                    <td class="prix">10,00€&nbsp;&nbsp;</td>
-                    <td class="reserver"><input type="button" title="Participer" value="Participer" /></td>
-                </tr>
-            </table>
-        </div>
-        <div class="clear-left"></div>
-        <div class="descriptif texte">
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip.
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip.
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip.
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip.
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-        </div>
-        <div class="date">
-            <div>Date de début : <span>14/01/2019 10:00</span></div>
-            <div class="clear-left"></div>
-            <div>Date de fin : <span>18/01/2019 17:00</span></div>
-            <div class="clear-left"></div>
-            <div>Date limite d'inscription : <span>25/12/2019 20:00</span></div>
-            <div class="clear-left"></div>
-            <div>Nombre limite d'inscriptions : <span>15</span></div>
-            <div class="clear-left"></div>
-        </div>
-    </div>
+    @if ((Model != null) && (Model.EvenementsTournois.Count > 0))
+    {
 
-    <div class="tournoi last">
-        <img class="full" src="~/Content/Images/TournoiAffiche.jpg" />
-        <div class="please">
-            <div class="titre">TOURNOI ETE 2020</div>
-            <table cellpadding="0" cellspacing="0" border="0" class="formule texte">
-                <tr>
-                    <td class="prix">20,00€&nbsp;&nbsp;</td>
-                    <td class="reserver"><input type="button" title="Participer" value="Participer" /></td>
-                </tr>
-            </table>
-        </div>
-        <div class="clear-left"></div>
-        <div class="descriptif texte">
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip.
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip.
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip.
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip.
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-        </div>
-        <div class="date">
-            <div>Date de début : <span>14/01/2019 10:00</span></div>
-            <div class="clear-left"></div>
-            <div>Date de fin : <span>18/01/2019 17:00</span></div>
-            <div class="clear-left"></div>
-            <div>Date limite d'inscription : <span>25/12/2019 20:00</span></div>
-            <div class="clear-left"></div>
-            <div>Nombre limite d'inscriptions : <span>15</span></div>
-            <div class="clear-left"></div>
-        </div>
-    </div>
+        for (Int32 _Index = 0; _Index < Model.EvenementsTournois.Count; _Index++)
+        {
 
-    <div class="clear"></div>
+            <div class="tournoi @((_Index + 1) % 2 == 0 ? "last" : "")">
 
-    <div class="zone">
-        <img class="photo" src="~/Content/Images/Tournois.jpg" style="display:none;" />
-        <div class="titre">PLUS DE TOURNOIS</div>
-        <div class="texte">
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-        </div>
-    </div>
-
-    <div class="clear"></div>
-
-    <div class="exterieurs">
-        <div class="slider">
-            <div class="container">
-                <div class="content">
-                    <ul>
-                        <li class="li1">
-                            <div><a href="" target="_blanck"><img class="affiche" src="~/Content/Images/Tournois/1.png" title="Agrandir" /></a></div>
-                            <div class="legende"><input type="button" value="Participer" title="Participer" /></div>
-                        </li>
-                        <li class="li2">
-                            <div><a href="" target="_blanck"><img class="affiche" src="~/Content/Images/Tournois/2.jpg" title="Agrandir" /></a></div>
-                            <div class="legende"><input type="button" value="Participer" title="Participer" /></div>
-                        </li>
-                        <li class="li3">
-                            <div><a href="" target="_blanck"><img class="affiche" src="~/Content/Images/Tournois/3.jpg" title="Agrandir" /></a></div>
-                            <div class="legende"><input type="button" value="Participer" title="Participer" /></div>
-                        </li>
-                        <li class="li4">
-                            <div><a href="" target="_blanck"><img class="affiche" src="~/Content/Images/Tournois/4.png" title="Agrandir" /></a></div>
-                            <div class="legende"><input type="button" value="Participer" title="Participer" /></div>
-                        </li>
-                    </ul>
-                    <div class="clear"></div>
+                @if (!String.IsNullOrEmpty(Model.EvenementsTournois[_Index].Bandeau))
+                {
+                    <img class="bandeau" src="/Content/Images/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Bandeau" />
+                }
+                @if (!String.IsNullOrEmpty(Model.EvenementsTournois[_Index].Photo))
+                {
+                    <a href="/Content/Images/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Photo" target="_blank" title="Cliquer pour agrandir">
+                        <img class="photo" src="/Content/Images/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Photo" />
+                    </a>
+                }
+                <div class="please">
+                    <div class="titre">@Model.EvenementsTournois[_Index].Libelle</div>
+                    <table cellpadding="0" cellspacing="0" border="0" class="formule texte">
+                        <tr>
+                            <td class="prix">
+                                @if (Model.EvenementsTournois[_Index].Prix != null)
+                                {
+                                    <span>&nbsp; &nbsp;@Model.EvenementsTournois[_Index].Prix€&nbsp; &nbsp;</span>
+                                }
+                            </td>
+                            <td class="reserver"><input type="button" title="Participer" value="Participer" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="clear-left"></div>
+                @if (Model.EvenementsTournois[_Index].Descriptif != null)
+                {
+                    <div class="descriptif texte">@Html.Raw((@Model.EvenementsTournois[_Index].Descriptif as String).ToBR())</div>
+                }
+                <div class="date">
+                    @if (Model.EvenementsTournois[_Index].DtDebut != null)
+                    {
+                        <div>Date de début : <span>@Model.EvenementsTournois[_Index].DtDebut</span></div>
+                        <div class="clear-left"></div>
+                    }
+                    @if (Model.EvenementsTournois[_Index].DtFin != null)
+                    {
+                        <div>Date de fin : <span>@Model.EvenementsTournois[_Index].DtFin</span></div>
+                        <div class="clear-left"></div>
+                    }
+                    @if (Model.EvenementsTournois[_Index].DtLimiteInscription != null)
+                    {
+                        <div>Date limite d'inscription : <span>@Model.EvenementsTournois[_Index].DtLimiteInscription</span></div>
+                        <div class="clear-left"></div>
+                    }
+                    @if ((Model.EvenementsTournois[_Index].Minimum != null) && (Model.EvenementsTournois[_Index].Minimum != 1))
+                    {
+                        <div>Nombre minimum d'inscriptions : <span>@Model.EvenementsTournois[_Index].Minimum</span></div>
+                        <div class="clear-left"></div>
+                    }
+                    @if ((Model.EvenementsTournois[_Index].Maximum != null) && (Model.EvenementsTournois[_Index].Maximum != 1))
+                    {
+                        <div>Nombre maximum d'inscriptions : <span>@Model.EvenementsTournois[_Index].Maximum</span></div>
+                        <div class="clear-left"></div>
+                    }
                 </div>
                 <div class="clear"></div>
-                <div class="pagination" style="display:block;">
-                    <div class="puces">
-                        <input name="slider" id="Radio_Pagination0" type="radio" checked="checked">
-                        <input name="slider" id="Radio_Pagination1" type="radio">
-                        <input name="slider" id="Radio_Pagination2" type="radio">
-                        <input name="slider" id="Radio_Pagination3" type="radio">
-                        <input name="slider" id="Radio_Pagination4" type="radio">
+            </div>
+        }
+
+    }
+
+    <div class="clear"></div>
+
+    @Html.Partial("~/Views/Shared/Zones.cshtml", @Model.ContenusZones2 as List<WS.Models.OUT.Contenu>)
+
+    <div class="clear"></div>
+
+    @if ((Model != null) && (Model.EvenementsCompetitions.Count > 0))
+    {
+
+        <div class="exterieurs">
+            <div class="slider">
+                <div class="container">
+                    <div class="content">
+                        <ul>
+                            @for (Int32 _Index = 0; _Index < Model.EvenementsCompetitions.Count; _Index++)
+                            {
+                                <li class="li@_Index">
+                                    <div>
+                                        <a href="/Content/Images/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" target="_blank" title="Cliquer pour agrandir">
+                                            <img class="affiche" src="/Content/Images/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" />
+                                        </a>
+                                    </div>
+                                    <div class="legende"><input type="button" value="Participer" title="Participer" /></div>
+                                </li>
+                            }
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="pagination" style="display:block;">
+                        <div class="puces">
+                            <input name="slider" id="Radio_Pagination0" type="radio" checked="checked">
+                            @for (Int32 _Index = 1; _Index < Model.EvenementsCompetitions.Count / 4; _Index++)
+                            {
+                                <input name="slider" id="Radio_Pagination@_Index" type="radio">
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
+                            }
+    
     <div class="clear"></div>
 
     @Html.Partial("~/Views/Shared/PartenariatsEncarts.cshtml", @Model.ContenusPartenariatsEncarts as List<WS.Models.OUT.Contenu>)
@@ -162,5 +133,6 @@
     <div class="clear"></div>
 
 </div>
+
 
 <script language="javascript" src="@Url.Content("~/Scripts/Views/Tournois.js")" type="text/javascript"></script>
