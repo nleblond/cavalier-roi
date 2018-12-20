@@ -17,7 +17,7 @@
     <AssemblyName>Angular</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -178,23 +178,16 @@
     <Content Include="app\Evenements\app.component.html" />
     <TypeScriptCompile Include="app\Evenements\Models\PlanningsSearchParameters.ts" />
     <Content Include="app\Produits\app.component.html" />
-    <Content Include="Areas\Commandes\Scripts\Views\Commandes.js" />
     <Content Include="Scripts\Views\Actualites.js" />
-    <Content Include="Areas\Contenus\Scripts\Views\Contenus.js" />
     <Content Include="Scripts\Views\Partenariats.js" />
-    <Content Include="Scripts\Views\Shared\Zones.js" />
     <Content Include="Scripts\Views\Shared\Actualite.js" />
-    <Content Include="Scripts\Views\Shared\Actualites.js" />
     <Content Include="Scripts\Views\Cours.js" />
-    <Content Include="Areas\Evenements\Scripts\Views\Evenements.js" />
     <Content Include="Areas\Evenements\Scripts\Views\Shared\CalendrierParDemiJournee.js" />
     <Content Include="Areas\Evenements\Scripts\Views\Shared\CalendrierParHeure.js" />
     <Content Include="Scripts\Views\Stages.js" />
     <Content Include="Scripts\Views\Tournois.js" />
     <Content Include="Scripts\Views\Boutique.js" />
-    <Content Include="Areas\Produits\Scripts\Views\Produits.js" />
     <Content Include="Scripts\Views\Shared\Panier.js" />
-    <Content Include="Areas\Eleves\Scripts\Views\Eleves.js" />
     <Content Include="Scripts\Views\MonCompte.js" />
     <Content Include="Scripts\Views\Shared\Connexion.js" />
     <Content Include="Content\CSS\Site.css" />
@@ -410,9 +403,6 @@
     <Content Include="Scripts\Views\Shared\Footer.js" />
     <Content Include="Scripts\Views\Shared\Menu.js" />
     <Content Include="Scripts\Views\Shared\Messages.js" />
-    <Content Include="Scripts\Views\Shared\PartenariatsPromos.js" />
-    <Content Include="Scripts\Views\Shared\PartenariatsBandeaux.js" />
-    <Content Include="Scripts\Views\Shared\PartenariatsEncarts.js" />
     <Content Include="systemjs-angular-loader.js" />
     <Content Include="systemjs.config.extras.js" />
     <Content Include="systemjs.config.js" />
@@ -536,7 +526,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63121</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63121/</IISUrl>
+          <IISUrl>http://localhost/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

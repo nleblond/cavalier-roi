@@ -18,7 +18,8 @@ var PlanningsSearchParameters_1 = require("./Models/PlanningsSearchParameters");
 var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
-        this._Url = '/';
+        this._WsUrl = '/API/';
+        this._RootUrl = '/';
         this._Id = null;
         this._EleveId = null;
         this._TypologieId = null;
@@ -50,7 +51,7 @@ var AppComponent = /** @class */ (function () {
         //r�cup�ration des typologies/evenements parents uniquement
         var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements?_OnlyParentsYN=Y', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements?_OnlyParentsYN=Y', _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 _this._TypologiesEvenementsParents = data.json();
@@ -62,7 +63,7 @@ var AppComponent = /** @class */ (function () {
         //r�cup�ration des typologies + �v�nements
         var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 _this._TypologiesEvenements = data.json();
@@ -605,7 +606,7 @@ var AppComponent = /** @class */ (function () {
         var _Body = JSON.stringify(this._EvenementsSearchParameters);
         var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Evenements/GetEvenements', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Evenements/GetEvenements', _Body, _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 var _JsonResponse = data.json();
@@ -628,7 +629,7 @@ var AppComponent = /** @class */ (function () {
         var _Body = JSON.stringify(this._EvenementsSearchParameters);
         var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Evenements/GetEvenements', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Evenements/GetEvenements', _Body, _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 var _EvenementLibelle = (data.json())[0].Libelle;
@@ -649,7 +650,7 @@ var AppComponent = /** @class */ (function () {
         var _Body = JSON.stringify(this._PlanningsSearchParameters);
         var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Evenements/GetPlanningsBack', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Evenements/GetPlanningsBack', _Body, _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 _this._Evenement.Plannings = data.json();
@@ -690,7 +691,7 @@ var AppComponent = /** @class */ (function () {
         if (_Option == 0) { //cr�ation
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-            this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Evenements', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Divers/GetId?_Table=Evenements', _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
                     _this._InitReturn = (data.json())[0];
@@ -723,12 +724,12 @@ var AppComponent = /** @class */ (function () {
         var _Confirmation = '';
         var _Method = '';
         if (this._Evenement.Etat == 0) {
-            _Method = 'API/Evenements/AddEvenement';
+            _Method = 'Evenements/AddEvenement';
             _Question = 'Voulez-vous vraiment ajouter l\'evenement ' + this._Evenement.Id + ' et le planning ?';
             _Confirmation = 'L\'evenement ' + this._Evenement.Id + ' a bien ete ajoute !';
         }
         else {
-            _Method = 'API/Evenements/UpdEvenement';
+            _Method = 'Evenements/UpdEvenement';
             _Question = 'Voulez-vous vraiment modifier l\'evenement ' + this._Evenement.Id + ' et le planning ?';
             _Confirmation = 'L\'evenement ' + this._Evenement.Id + ' a bien ete modifie !';
         }
@@ -737,7 +738,7 @@ var AppComponent = /** @class */ (function () {
             var _Body = JSON.stringify(this._Evenement);
             var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-            this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
+            this._HttpService.post(this._WsUrl + _Method, _Body, _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
                     alert(_Confirmation);
@@ -766,7 +767,7 @@ var AppComponent = /** @class */ (function () {
                     var _Body = JSON.stringify(_this._Evenement.Plannings);
                     var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
                     var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-                    _this._HttpService.post(_this._Url + 'API/Evenements/UpdPlannings', _Body, _RequestOptions)
+                    _this._HttpService.post(_this._WsUrl + 'Evenements/UpdPlannings', _Body, _RequestOptions)
                         .subscribe(function (data) {
                         if (data.ok) {
                             alert('Le planning a bien ete modifie !');
@@ -789,7 +790,7 @@ var AppComponent = /** @class */ (function () {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'L\'evenement ' + this._Evenements[_Index].Id + ' a bien ete supprime !';
-            this._HttpService.get(this._Url + 'API/Evenements/DelEvenement?_Id=' + this._Evenements[_Index].Id.toString(), _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Evenements/DelEvenement?_Id=' + this._Evenements[_Index].Id.toString(), _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
                     alert(_Confirmation);

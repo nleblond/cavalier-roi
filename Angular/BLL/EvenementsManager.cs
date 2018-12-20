@@ -35,9 +35,9 @@ namespace Angular.BLL
             HttpContent _JsonRequestContent = new StringContent(_Parameters.ToSerializedJson(), Encoding.UTF8, "application/json");
             HttpRequestMessage _Request = new HttpRequestMessage
             {
-                RequestUri = new Uri("http://localhost:63121/API/Evenements/GetEvenements"),
+                RequestUri = new Uri(Constants.WS_URL + "/Evenements/GetEvenements"),
                 Method = HttpMethod.Post,
-                Headers = { { "APIKey", "AEZRETRYTUYIUOIP" } },
+                Headers = { { "APIKey", Constants.WS_PASSKEY } },
                 Content = _JsonRequestContent
             };
 

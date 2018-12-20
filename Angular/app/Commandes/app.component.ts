@@ -16,7 +16,8 @@ declare var jQuery: any;
 
 export class AppComponent implements OnInit {
 
-    public _Url: string = '/';
+    public _WsUrl: string = '/API/';
+    public _RootUrl: string = '/';
 
 
     constructor(private _HttpService: Http) { }
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit {
         //récupération des statuts
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetStatuts', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetStatuts', _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     this._Statuts = data.json() as Statut[];
@@ -97,7 +98,7 @@ export class AppComponent implements OnInit {
         var _Body = JSON.stringify(this._CommandesSearchParameters);
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Commandes/GetCommandes', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Commandes/GetCommandes', _Body, _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     this._Commandes = data.json() as Commande[];
@@ -128,7 +129,7 @@ export class AppComponent implements OnInit {
             var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
             var _Confirmation = 'La commande ' + this._Commandes[_Index].Id + ' a bien ete modifiee !';
-            this._HttpService.post(this._Url + 'API/Commandes/UpdCommande', _Body, _RequestOptions)
+            this._HttpService.post(this._WsUrl + 'Commandes/UpdCommande', _Body, _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);
@@ -150,7 +151,7 @@ export class AppComponent implements OnInit {
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
             var _Confirmation = 'La commande ' + this._Commandes[_Index].Id + ' a bien ete supprimee !';
-            this._HttpService.get(this._Url + 'API/Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);

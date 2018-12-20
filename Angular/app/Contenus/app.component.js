@@ -19,7 +19,8 @@ var Publication_1 = require("./Models/Publication");
 var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
-        this._Url = '/';
+        this._WsUrl = '/API/';
+        this._RootUrl = '/';
         this._Id = null;
         this._TypologieId = null;
         this._EvenementId = null;
@@ -55,7 +56,7 @@ var AppComponent = /** @class */ (function () {
         //r�cup�ration des typologies/�v�nements
         var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 _this._TypologiesEvenements = data.json();
@@ -67,7 +68,7 @@ var AppComponent = /** @class */ (function () {
         //r�cup�ration des modes/emplacements
         var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetModesEmplacements', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetModesEmplacements', _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 _this._ModesEmplacements = data.json();
@@ -229,7 +230,7 @@ var AppComponent = /** @class */ (function () {
         if (_Option == 0) {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-            this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Contenus', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Divers/GetId?_Table=Contenus', _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
                     _this._InitReturn = (data.json())[0];
@@ -265,7 +266,7 @@ var AppComponent = /** @class */ (function () {
         var _Body = JSON.stringify(this._ContenusSearchParameters);
         var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Contenus/GetContenus', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Contenus/GetContenus', _Body, _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 _this._Contenus = data.json();
@@ -287,12 +288,12 @@ var AppComponent = /** @class */ (function () {
         var _Confirmation = '';
         var _Method = '';
         if (this._Contenu.Etat == 0) {
-            _Method = 'API/Contenus/AddContenu';
+            _Method = 'Contenus/AddContenu';
             _Question = 'Voulez-vous vraiment ajouter le contenu ' + this._Contenu.Id + ' ?';
             _Confirmation = 'Le contenu ' + this._Contenu.Id + ' a bien ete ajoute !';
         }
         else {
-            _Method = 'API/Contenus/UpdContenu';
+            _Method = 'Contenus/UpdContenu';
             _Question = 'Voulez-vous vraiment modifier le contenu ' + this._Contenu.Id + ' ?';
             _Confirmation = 'Le contenu ' + this._Contenu.Id + ' a bien ete modifie !';
         }
@@ -300,7 +301,7 @@ var AppComponent = /** @class */ (function () {
             var _Body = JSON.stringify(this._Contenu);
             var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-            this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
+            this._HttpService.post(this._WsUrl + _Method, _Body, _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
                     alert(_Confirmation);
@@ -338,7 +339,7 @@ var AppComponent = /** @class */ (function () {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'Le contenu ' + this._Contenus[_Index].Id + ' a bien ete supprime !';
-            this._HttpService.get(this._Url + 'API/Contenus/DelContenu?_Id=' + this._Contenus[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Contenus/DelContenu?_Id=' + this._Contenus[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
                     alert(_Confirmation);

@@ -18,7 +18,7 @@
         {
             <div class="partenariat @((_Index + 1) % 3 == 0 ? "last" : "")">
                 <span>DEPUIS LE @((Model.ContenuPartenariats[_Index].DtDebut as String).Left(10))</span>
-                <a href="@Model.ContenuPartenariats[_Index].Lien" target="_blank" title="Cliquer pour consulter"><img class="full" src="/Content/Images/Contenus/@Model.ContenuPartenariats[_Index].Id/@Model.ContenuPartenariats[_Index].Carree" /></a>
+                <a href="@Model.ContenuPartenariats[_Index].Lien" target="_blank" title="Cliquer pour consulter"><img class="full" src="@Constants.IMG_URL/Contenus/@Model.ContenuPartenariats[_Index].Id/@Model.ContenuPartenariats[_Index].Carree" /></a>
             </div>
         }
 
@@ -32,4 +32,4 @@
 
 </div>
 
-<script language="javascript" src="@Url.Content("~/Scripts/Views/Partenariats.js")" type="text/javascript"></script>
+<script language="javascript" src="@Constants.ROOT_URL/Scripts/Views/Partenariats.js" type="text/javascript"></script>

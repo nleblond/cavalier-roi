@@ -16,7 +16,8 @@ var CommandeUpdateParameters_1 = require("./Models/CommandeUpdateParameters");
 var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
-        this._Url = '/';
+        this._WsUrl = '/API/';
+        this._RootUrl = '/';
         this._Id = null;
         this._ProduitId = null;
         this._EleveId = null;
@@ -48,7 +49,7 @@ var AppComponent = /** @class */ (function () {
         //r�cup�ration des statuts
         var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetStatuts', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetStatuts', _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 _this._Statuts = data.json();
@@ -88,7 +89,7 @@ var AppComponent = /** @class */ (function () {
         var _Body = JSON.stringify(this._CommandesSearchParameters);
         var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Commandes/GetCommandes', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Commandes/GetCommandes', _Body, _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 _this._Commandes = data.json();
@@ -116,7 +117,7 @@ var AppComponent = /** @class */ (function () {
             var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
             var _Confirmation = 'La commande ' + this._Commandes[_Index].Id + ' a bien ete modifiee !';
-            this._HttpService.post(this._Url + 'API/Commandes/UpdCommande', _Body, _RequestOptions)
+            this._HttpService.post(this._WsUrl + 'Commandes/UpdCommande', _Body, _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
                     alert(_Confirmation);
@@ -134,7 +135,7 @@ var AppComponent = /** @class */ (function () {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
             var _Confirmation = 'La commande ' + this._Commandes[_Index].Id + ' a bien ete supprimee !';
-            this._HttpService.get(this._Url + 'API/Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
                     alert(_Confirmation);

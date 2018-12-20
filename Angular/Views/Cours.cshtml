@@ -37,7 +37,7 @@
 
                 @if (!String.IsNullOrEmpty(_Cours[_Index].Photo))
                 {
-                    <img class="photo" src="/Content/Images/Evenements/@_Cours[_Index].Id/@_Cours[_Index].Photo" />
+                    <img class="photo" src="@Constants.IMG_URL/Evenements/@_Cours[_Index].Id/@_Cours[_Index].Photo" />
                     <div class="clear-right"></div>
                 }
                 @if (!String.IsNullOrEmpty(_Cours[_Index].Descriptif))
@@ -58,4 +58,4 @@
 
 </div>
 
-<script language="javascript" src="@Url.Content("~/Scripts/Views/Cours.js")" type="text/javascript"></script>
+<script language="javascript" src="@Constants.ROOT_URL/Scripts/Views/Cours.js" type="text/javascript"></script>

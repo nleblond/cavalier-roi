@@ -1,6 +1,6 @@
 ﻿<div class="panier">
     <div class="interieur">
-        <img class="fermer" src="~/Content/Images/Boutons/Fermer.svg" />
+        <img class="fermer" src="@Constants.IMG_URL/Boutons/Fermer.svg" />
         <div class="titre">MON PANIER</div>
         <table cellpadding="0" cellspacing="0" border="0" class="texte">
             <tr>
@@ -36,11 +36,11 @@
             <input type="text" placeholder="Email" class="mail" />
             <input type="text" placeholder="Téléphone" class="phone" />
         </div>
-        <img src="~/Content/Images/Paypal.svg" title="Paiement sécurisé" class="paypal" />
+        <img src="@Constants.IMG_URL/Paypal.svg" title="Paiement sécurisé" class="paypal" />
         <input type="button" title="Valider" value="Valider" class="fright" />
         <div class="clear-right"></div>
     </div>
 </div>
 
 
-<script language="javascript" src="@Url.Content("~/Scripts/Views/Shared/Panier.js")" type="text/javascript"></script>
+<script language="javascript" src="@Constants.ROOT_URL/Scripts/Views/Shared/Panier.js" type="text/javascript"></script>

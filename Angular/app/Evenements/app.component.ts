@@ -20,7 +20,8 @@ declare var jQuery: any;
 
 export class AppComponent implements OnInit {
 
-    public _Url: string = '/';
+    public _WsUrl: string = '/API/';
+    public _RootUrl: string = '/';
 
 
 
@@ -52,7 +53,7 @@ export class AppComponent implements OnInit {
         //récupération des typologies/evenements parents uniquement
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements?_OnlyParentsYN=Y', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements?_OnlyParentsYN=Y', _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     this._TypologiesEvenementsParents = data.json() as Evenement[];
@@ -63,7 +64,7 @@ export class AppComponent implements OnInit {
         //récupération des typologies + évènements
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     this._TypologiesEvenements = data.json() as Evenement[];
@@ -571,7 +572,7 @@ export class AppComponent implements OnInit {
         var _Body = JSON.stringify(this._EvenementsSearchParameters);
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Evenements/GetEvenements', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Evenements/GetEvenements', _Body, _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     var _JsonResponse = data.json() as Evenement[];
@@ -596,7 +597,7 @@ export class AppComponent implements OnInit {
         var _Body = JSON.stringify(this._EvenementsSearchParameters);
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Evenements/GetEvenements', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Evenements/GetEvenements', _Body, _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     var _EvenementLibelle = ((data.json())[0] as Evenement).Libelle;
@@ -619,7 +620,7 @@ export class AppComponent implements OnInit {
         var _Body = JSON.stringify(this._PlanningsSearchParameters);
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Evenements/GetPlanningsBack', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Evenements/GetPlanningsBack', _Body, _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     this._Evenement.Plannings = data.json() as Planning[];
@@ -669,7 +670,7 @@ export class AppComponent implements OnInit {
         if (_Option == 0) { //création
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-            this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Evenements', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Divers/GetId?_Table=Evenements', _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         this._InitReturn = (data.json())[0] as number;
@@ -703,12 +704,12 @@ export class AppComponent implements OnInit {
         var _Confirmation = '';
         var _Method = '';
         if (this._Evenement.Etat == 0) {
-            _Method = 'API/Evenements/AddEvenement';
+            _Method = 'Evenements/AddEvenement';
             _Question = 'Voulez-vous vraiment ajouter l\'evenement ' + this._Evenement.Id + ' et le planning ?';
             _Confirmation = 'L\'evenement ' + this._Evenement.Id + ' a bien ete ajoute !';
         }
         else {
-            _Method = 'API/Evenements/UpdEvenement';
+            _Method = 'Evenements/UpdEvenement';
             _Question = 'Voulez-vous vraiment modifier l\'evenement ' + this._Evenement.Id + ' et le planning ?';
             _Confirmation = 'L\'evenement ' + this._Evenement.Id + ' a bien ete modifie !';
         }
@@ -719,7 +720,7 @@ export class AppComponent implements OnInit {
             var _Body = JSON.stringify(this._Evenement);
             var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-            this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
+            this._HttpService.post(this._WsUrl + _Method, _Body, _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);
@@ -745,7 +746,7 @@ export class AppComponent implements OnInit {
                         var _Body = JSON.stringify(this._Evenement.Plannings);
                         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
                         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-                        this._HttpService.post(this._Url + 'API/Evenements/UpdPlannings', _Body, _RequestOptions)
+                        this._HttpService.post(this._WsUrl + 'Evenements/UpdPlannings', _Body, _RequestOptions)
                             .subscribe((data: Response) => {
                                 if (data.ok) {
                                     alert('Le planning a bien ete modifie !');
@@ -771,7 +772,7 @@ export class AppComponent implements OnInit {
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'L\'evenement ' + this._Evenements[_Index].Id + ' a bien ete supprime !';
-            this._HttpService.get(this._Url + 'API/Evenements/DelEvenement?_Id=' + this._Evenements[_Index].Id.toString(), _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Evenements/DelEvenement?_Id=' + this._Evenements[_Index].Id.toString(), _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);

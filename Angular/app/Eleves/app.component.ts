@@ -18,7 +18,8 @@ declare var jQuery: any;
 
 export class AppComponent implements OnInit {
 
-    public _Url: string = '/';
+    public _WsUrl: string = '/API/';
+    public _RootUrl: string = '/';
 
 
     constructor(private _HttpService: Http) { }
@@ -45,7 +46,7 @@ export class AppComponent implements OnInit {
         //récupération des typologies/evenements
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     this._TypologiesEvenements = data.json() as Evenement[];
@@ -92,7 +93,7 @@ export class AppComponent implements OnInit {
         var _Body = JSON.stringify(this._ElevesSearchParameters);
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Eleves/GetEleves', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Eleves/GetEleves', _Body, _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     this._Eleves = data.json() as Eleve[];
@@ -123,7 +124,7 @@ export class AppComponent implements OnInit {
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'L\'eleve ' + this._Eleves[_Index].Id + ' a bien ete supprime !';
-            this._HttpService.get(this._Url + 'API/Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);

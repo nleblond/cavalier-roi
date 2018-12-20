@@ -49,9 +49,9 @@
                 <td>{{e.Id}}</td>
                 <td>{{e.Libelle}}</td>
                 <td>[{{e.Typologie.Id}}] {{e.Typologie.Libelle}}</td>
-                <td><div *ngIf="e.Logo != undefined && e.Logo != null"><a href="{{_Url}}Content/Images/Evenements/{{e.Id}}/{{e.Logo}}" target="_blank"><img src="{{_Url}}Content/Images/Evenements/{{e.Id}}/{{e.Logo}}" /></a></div></td>
-                <td><div *ngIf="e.Photo != undefined && e.Photo != null"><a href="{{_Url}}Content/Images/Evenements/{{e.Id}}/{{e.Photo}}" target="_blank"><img src="{{_Url}}Content/Images/Evenements/{{e.Id}}/{{e.Photo}}" /></a></div></td>
-                <td><div *ngIf="e.Bandeau != undefined && e.Bandeau != null"><a href="{{_Url}}Content/Images/Evenements/{{e.Id}}/{{e.Bandeau}}" target="_blank"><img src="{{_Url}}Content/Images/Evenements/{{e.Id}}/{{e.Bandeau}}" /></a></div></td>
+                <td><div *ngIf="e.Logo != undefined && e.Logo != null"><a href="{{_RootUrl}}Content/Images/Evenements/{{e.Id}}/{{e.Logo}}" target="_blank"><img src="{{_RootUrl}}Content/Images/Evenements/{{e.Id}}/{{e.Logo}}" /></a></div></td>
+                <td><div *ngIf="e.Photo != undefined && e.Photo != null"><a href="{{_RootUrl}}Content/Images/Evenements/{{e.Id}}/{{e.Photo}}" target="_blank"><img src="{{_RootUrl}}Content/Images/Evenements/{{e.Id}}/{{e.Photo}}" /></a></div></td>
+                <td><div *ngIf="e.Bandeau != undefined && e.Bandeau != null"><a href="{{_RootUrl}}Content/Images/Evenements/{{e.Id}}/{{e.Bandeau}}" target="_blank"><img src="{{_RootUrl}}Content/Images/Evenements/{{e.Id}}/{{e.Bandeau}}" /></a></div></td>
                 <td>{{e.DtDebut | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                 <td>{{e.DtFin | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                 <td><div *ngIf="GetShow('parent', e)">[{{e.EvenementParent.Id}}] {{e.EvenementParent.Libelle}}</div></td>
@@ -83,7 +83,7 @@
     <h2>Details</h2>
 
     <div class="elements">
-        <img class="fermer" src="/Content/Images/Boutons/Fermer.svg" (click)="InitEvenement(null, null)" />
+        <img class="fermer" src="@Constants.IMG_URL/Boutons/Fermer.svg" (click)="InitEvenement(null, null)" />
         <span>{{_Evenement.Id}}</span>
         <div class="br10"></div>
         <input type="text" placeholder="Libellé" title="Libellé" class="libelle" [(ngModel)]="_Evenement.Libelle" maxlength="255" #CurrentLibelle />

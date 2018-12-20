@@ -34,11 +34,9 @@ namespace Angular.BLL
 
             HttpRequestMessage _Request = new HttpRequestMessage
             {
-                RequestUri = new Uri("http://localhost:63122/API/Commandes/GetCommandes"),
+                RequestUri = new Uri(Constants.WS_URL + "/Commandes/GetCommandes"),
                 Method = HttpMethod.Post,
-                Headers = {
-                    { "APIKey", "AEZRETRYTUYIUOIP" }
-                },
+                Headers = { { "APIKey", Constants.WS_PASSKEY } },
                 Content = _JsonRequestContent
             };
 

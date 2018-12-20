@@ -15,7 +15,8 @@ declare var jQuery: any;
 
 export class AppComponent implements OnInit {
 
-    public _Url: string = '/';
+    public _WsUrl: string = '/API/';
+    public _RootUrl : string = '/';
 
 
 
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit {
         //récupération des catégories
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetCategories', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetCategories', _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     this._Categories = data.json() as Categorie[];
@@ -100,7 +101,7 @@ export class AppComponent implements OnInit {
         if (_Option == 0) {
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-            this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Produits', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Divers/GetId?_Table=Produits', _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         this._InitReturn = (data.json())[0] as number;
@@ -142,7 +143,7 @@ export class AppComponent implements OnInit {
         var _Body = JSON.stringify(this._ProduitsSearchParameters);
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Produits/GetProduits', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Produits/GetProduits', _Body, _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     this._Produits = data.json() as Produit[];
@@ -163,12 +164,12 @@ export class AppComponent implements OnInit {
         var _Confirmation = '';
         var _Method = '';
         if (this._Produit.Etat == 0) {
-            _Method = 'API/Produits/AddProduit';
+            _Method = 'Produits/AddProduit';
             _Question = 'Voulez-vous vraiment ajouter le produit ' + this._Produit.Id + ' ? '
             _Confirmation = 'Le produit ' + this._Produit.Id + ' a bien ete ajoute !';
         }
         else {
-            _Method = 'API/Produits/UpdProduit';
+            _Method = 'Produits/UpdProduit';
             _Question = 'Voulez-vous vraiment modifier le produit ' + this._Produit.Id + ' ? '
             _Confirmation = 'Le produit ' + this._Produit.Id + ' a bien ete modifie !';
         }
@@ -178,7 +179,7 @@ export class AppComponent implements OnInit {
             var _Body = JSON.stringify(this._Produit);
             var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-            this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
+            this._HttpService.post(this._WsUrl + _Method, _Body, _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);
@@ -219,7 +220,7 @@ export class AppComponent implements OnInit {
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'Le produit ' + this._Produits[_Index].Id + ' a bien ete supprime !';
-            this._HttpService.get(this._Url + 'API/Produits/DelProduit?_Id=' + this._Produits[_Index].Id.toString() + '&_Real=Y', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Produits/DelProduit?_Id=' + this._Produits[_Index].Id.toString() + '&_Real=Y', _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);

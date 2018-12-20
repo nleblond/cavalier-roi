@@ -1,3 +1,0 @@
-﻿$(window).on('load', function () {
-
-});

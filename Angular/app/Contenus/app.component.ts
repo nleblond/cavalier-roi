@@ -20,7 +20,8 @@ declare var jQuery: any;
 
 export class AppComponent implements OnInit {
 
-    public _Url: string = '/';
+    public _WsUrl: string = '/API/';
+    public _RootUrl: string = '/';
 
     constructor(private _HttpService: Http) { }
 
@@ -53,7 +54,7 @@ export class AppComponent implements OnInit {
         //récupération des typologies/évènements
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     this._TypologiesEvenements = data.json() as Evenement[];
@@ -65,7 +66,7 @@ export class AppComponent implements OnInit {
         //récupération des modes/emplacements
         var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetModesEmplacements', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetModesEmplacements', _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     this._ModesEmplacements = data.json() as Emplacement[];
@@ -247,7 +248,7 @@ export class AppComponent implements OnInit {
         if (_Option == 0) {
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
-            this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Contenus', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Divers/GetId?_Table=Contenus', _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         this._InitReturn = (data.json())[0] as number;
@@ -289,7 +290,7 @@ export class AppComponent implements OnInit {
         var _Body = JSON.stringify(this._ContenusSearchParameters);
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Contenus/GetContenus', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Contenus/GetContenus', _Body, _RequestOptions)
             .subscribe((data: Response) => {
                 if (data.ok) {
                     this._Contenus = data.json() as Contenu[];
@@ -310,12 +311,12 @@ export class AppComponent implements OnInit {
         var _Confirmation = '';
         var _Method = '';
         if (this._Contenu.Etat == 0) {
-            _Method = 'API/Contenus/AddContenu';
+            _Method = 'Contenus/AddContenu';
             _Question = 'Voulez-vous vraiment ajouter le contenu ' + this._Contenu.Id + ' ?';
             _Confirmation = 'Le contenu ' + this._Contenu.Id + ' a bien ete ajoute !';
         }
         else {
-            _Method = 'API/Contenus/UpdContenu';
+            _Method = 'Contenus/UpdContenu';
             _Question = 'Voulez-vous vraiment modifier le contenu ' + this._Contenu.Id + ' ?';
             _Confirmation = 'Le contenu ' + this._Contenu.Id + ' a bien ete modifie !';
         }
@@ -325,7 +326,7 @@ export class AppComponent implements OnInit {
             var _Body = JSON.stringify(this._Contenu);
             var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
-            this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
+            this._HttpService.post(this._WsUrl + _Method, _Body, _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);
@@ -362,7 +363,7 @@ export class AppComponent implements OnInit {
             var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'Le contenu ' + this._Contenus[_Index].Id + ' a bien ete supprime !';
-            this._HttpService.get(this._Url + 'API/Contenus/DelContenu?_Id=' + this._Contenus[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Contenus/DelContenu?_Id=' + this._Contenus[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
                         alert(_Confirmation);

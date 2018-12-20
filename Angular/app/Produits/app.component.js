@@ -17,7 +17,8 @@ var Produit_1 = require("./Models/Produit");
 var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
-        this._Url = '/';
+        this._WsUrl = '/API/';
+        this._RootUrl = '/';
         this._Id = null;
         this._CommandeId = null;
         this._CategorieId = null;
@@ -45,7 +46,7 @@ var AppComponent = /** @class */ (function () {
         //r�cup�ration des cat�gories
         var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetCategories', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetCategories', _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 _this._Categories = data.json();
@@ -97,7 +98,7 @@ var AppComponent = /** @class */ (function () {
         if (_Option == 0) {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-            this._HttpService.get(this._Url + 'API/Divers/GetId?_Table=Produits', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Divers/GetId?_Table=Produits', _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
                     _this._InitReturn = (data.json())[0];
@@ -132,7 +133,7 @@ var AppComponent = /** @class */ (function () {
         var _Body = JSON.stringify(this._ProduitsSearchParameters);
         var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Produits/GetProduits', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Produits/GetProduits', _Body, _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 _this._Produits = data.json();
@@ -154,12 +155,12 @@ var AppComponent = /** @class */ (function () {
         var _Confirmation = '';
         var _Method = '';
         if (this._Produit.Etat == 0) {
-            _Method = 'API/Produits/AddProduit';
+            _Method = 'Produits/AddProduit';
             _Question = 'Voulez-vous vraiment ajouter le produit ' + this._Produit.Id + ' ? ';
             _Confirmation = 'Le produit ' + this._Produit.Id + ' a bien ete ajoute !';
         }
         else {
-            _Method = 'API/Produits/UpdProduit';
+            _Method = 'Produits/UpdProduit';
             _Question = 'Voulez-vous vraiment modifier le produit ' + this._Produit.Id + ' ? ';
             _Confirmation = 'Le produit ' + this._Produit.Id + ' a bien ete modifie !';
         }
@@ -167,7 +168,7 @@ var AppComponent = /** @class */ (function () {
             var _Body = JSON.stringify(this._Produit);
             var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-            this._HttpService.post(this._Url + _Method, _Body, _RequestOptions)
+            this._HttpService.post(this._WsUrl + _Method, _Body, _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
                     alert(_Confirmation);
@@ -205,7 +206,7 @@ var AppComponent = /** @class */ (function () {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'Le produit ' + this._Produits[_Index].Id + ' a bien ete supprime !';
-            this._HttpService.get(this._Url + 'API/Produits/DelProduit?_Id=' + this._Produits[_Index].Id.toString() + '&_Real=Y', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Produits/DelProduit?_Id=' + this._Produits[_Index].Id.toString() + '&_Real=Y', _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
                     alert(_Confirmation);

@@ -26,7 +26,7 @@
 <body>
 
     <script type="text/javascript">
-        var imgRelativePath = '../Content/Images';
+        var imgRelativePath = '@Constants.IMG_URL';
     </script>
 
     <div class="page_frontoffice">
@@ -37,7 +37,7 @@
 
             <div class="colonne">
 
-                <img class="logo_site" src="~/Content/Images/Logo Noir 425.png" />
+                <img class="logo_site" src="@Constants.IMG_URL/Logo Noir 425.png" />
 
                 @Html.Partial("~/Views/Shared/Panier.cshtml")
 

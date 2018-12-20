@@ -15,7 +15,8 @@ var ElevesSearchParameters_1 = require("./Models/ElevesSearchParameters");
 var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
-        this._Url = '/';
+        this._WsUrl = '/API/';
+        this._RootUrl = '/';
         this._Id = null;
         this._EvenementId = null;
         this._TypologieId = null;
@@ -43,7 +44,7 @@ var AppComponent = /** @class */ (function () {
         //r�cup�ration des typologies/evenements
         var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
-        this._HttpService.get(this._Url + 'API/Divers/GetTypologiesEvenements', _RequestOptions)
+        this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 _this._TypologiesEvenements = data.json();
@@ -82,7 +83,7 @@ var AppComponent = /** @class */ (function () {
         var _Body = JSON.stringify(this._ElevesSearchParameters);
         var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
-        this._HttpService.post(this._Url + 'API/Eleves/GetEleves', _Body, _RequestOptions)
+        this._HttpService.post(this._WsUrl + 'Eleves/GetEleves', _Body, _RequestOptions)
             .subscribe(function (data) {
             if (data.ok) {
                 _this._Eleves = data.json();
@@ -107,7 +108,7 @@ var AppComponent = /** @class */ (function () {
             var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'L\'eleve ' + this._Eleves[_Index].Id + ' a bien ete supprime !';
-            this._HttpService.get(this._Url + 'API/Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)
+            this._HttpService.get(this._WsUrl + 'Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
                     alert(_Confirmation);

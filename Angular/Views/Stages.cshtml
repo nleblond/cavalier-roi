@@ -23,7 +23,7 @@
             <div class="stage @((_Index + 1) % 2 == 0 ? "last" : "")">
                 @if (!String.IsNullOrEmpty(_Stages[_Index].Photo))
                 {
-                    <img class="photo" src="/Content/Images/Evenements/@_Stages[_Index].Id/@_Stages[_Index].Photo" />
+                    <img class="photo" src="@Constants.IMG_URL/Evenements/@_Stages[_Index].Id/@_Stages[_Index].Photo" />
                 }
                 <span class="titre">@_Stages[_Index].Libelle</span>
                 <div class="clear-left"></div>
@@ -103,4 +103,4 @@
 
 </div>
 
-<script language="javascript" src="@Url.Content("~/Scripts/Views/Stages.js")" type="text/javascript"></script>
+<script language="javascript" src="@Constants.ROOT_URL/Scripts/Views/Stages.js" type="text/javascript"></script>

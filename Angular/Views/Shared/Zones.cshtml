@@ -9,7 +9,7 @@
         <div class="zone">
             @if (!String.IsNullOrEmpty(_Current.Full))
             {
-                <a href="/Content/Images/Contenus/@_Current.Id/@_Current.Full" target="_blank" title="Cliquer pour agrandir"><img class="photo" src="/Content/Images/Contenus/@_Current.Id/@_Current.Full" /></a>
+                <a href="@Constants.IMG_URL/Contenus/@_Current.Id/@_Current.Full" target="_blank" title="Cliquer pour agrandir"><img class="photo" src="@Constants.IMG_URL/Contenus/@_Current.Id/@_Current.Full" /></a>
             }
             @if (!String.IsNullOrEmpty(_Current.Titre))
             {
@@ -24,5 +24,3 @@
 
 }
 
-
-<script language="javascript" src="@Url.Content("~/Areas/Contenus/Scripts/Views/Shared/Zones.js")" type="text/javascript"></script>

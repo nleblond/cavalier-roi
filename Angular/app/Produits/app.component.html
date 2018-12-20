@@ -47,7 +47,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let p of _Produits; let i = index">
-                <td><a href="{{_Url}}Content/Images/Produits/{{p.Id}}/{{p.Image}}" target="_blank"><img src="{{_Url}}Content/Images/Produits/{{p.Id}}/{{p.Visuel}}" /></a></td>
+                <td><a href="{{_RootUrl}}Content/Images/Produits/{{p.Id}}/{{p.Image}}" target="_blank"><img src="{{_RootUrl}}Content/Images/Produits/{{p.Id}}/{{p.Visuel}}" /></a></td>
                 <td>
                     <div>{{p.Id}}</div>
                     <div>{{p.Reference}}</div>
@@ -57,7 +57,7 @@
                 <td>{{p.Stock}}</td>
                 <td>{{p.Prix | number : '1.2-2'}}€</td>
                 <td><a href="/Commandes?_ProduitId={{p.Id}}" title="Voir les commandes">{{p.NbCommandes}}</a></td>
-                <td><img src="{{_Url}}Content/Images/Produits/{{p.Id}}/{{p.Logo}}" /></td>
+                <td><img src="{{_RootUrl}}Content/Images/Produits/{{p.Id}}/{{p.Logo}}" /></td>
                 <td>
                     <input type="button" title="Gérer" value="Gérer" (click)="InitProduit(1, i)" />
                     <div class="clear-right"></div>
@@ -80,7 +80,7 @@
 <div class="details" *ngIf="_Produit != undefined && _Produit != null && _Produit.Id != undefined && _Produit.Id != null">
     <h2>Details</h2>
     <div class="elements">
-        <img class="fermer" src="/Content/Images/Boutons/Fermer.svg" (click)="InitProduit(null, null)" />
+        <img class="fermer" src="@Constants.IMG_URL/Boutons/Fermer.svg" (click)="InitProduit(null, null)" />
         <span>{{_Produit.Id}}</span>
         <div class="br10"></div>
         <input type="text" placeholder="Référence" title="Référence" [(ngModel)]="_Produit.Reference" maxlength="50" #CurrentReference />
