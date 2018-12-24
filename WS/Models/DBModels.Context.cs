@@ -42,8 +42,10 @@ namespace WS.Models
         public virtual DbSet<Adresses> Adresses { get; set; }
         public virtual DbSet<Modes> Modes { get; set; }
         public virtual DbSet<Plannings> Plannings { get; set; }
-        public virtual DbSet<Participations> Participations { get; set; }
         public virtual DbSet<Evenements> Evenements { get; set; }
+        public virtual DbSet<Participations> Participations { get; set; }
+        public virtual DbSet<Plannings_Stock> Plannings_Stock { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     
         public virtual ObjectResult<EleveResult> GetEleves(Nullable<int> id, string nom, string prenom, string email, string club, string license, Nullable<int> evenementId, Nullable<int> typologieId)
         {
@@ -729,7 +731,7 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReservationResult>("GetReservations", eleveIdParameter, evenementIdParameter);
         }
     
-        public virtual int AddEvenement(Nullable<int> id, string libelle, string descriptif, Nullable<System.DateTime> dtDebut, Nullable<System.DateTime> dtFin, Nullable<System.DateTime> dtLimiteInscription, Nullable<int> maximum, Nullable<double> prix, Nullable<double> duree, string logo, string photo, string bandeau, string lien, Nullable<int> typologieId, Nullable<int> evenementParentId)
+        public virtual int AddEvenement(Nullable<int> id, string libelle, string descriptif, Nullable<System.DateTime> dtDebut, Nullable<System.DateTime> dtFin, Nullable<System.DateTime> dtLimiteInscription, Nullable<int> minimum, Nullable<int> maximum, Nullable<double> prix, Nullable<double> duree, string logo, string photo, string bandeau, string lien, Nullable<int> typologieId, Nullable<int> evenementParentId)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
@@ -754,6 +756,10 @@ namespace WS.Models
             var dtLimiteInscriptionParameter = dtLimiteInscription.HasValue ?
                 new ObjectParameter("DtLimiteInscription", dtLimiteInscription) :
                 new ObjectParameter("DtLimiteInscription", typeof(System.DateTime));
+    
+            var minimumParameter = minimum.HasValue ?
+                new ObjectParameter("Minimum", minimum) :
+                new ObjectParameter("Minimum", typeof(int));
     
             var maximumParameter = maximum.HasValue ?
                 new ObjectParameter("Maximum", maximum) :
@@ -791,10 +797,10 @@ namespace WS.Models
                 new ObjectParameter("EvenementParentId", evenementParentId) :
                 new ObjectParameter("EvenementParentId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddEvenement", idParameter, libelleParameter, descriptifParameter, dtDebutParameter, dtFinParameter, dtLimiteInscriptionParameter, maximumParameter, prixParameter, dureeParameter, logoParameter, photoParameter, bandeauParameter, lienParameter, typologieIdParameter, evenementParentIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddEvenement", idParameter, libelleParameter, descriptifParameter, dtDebutParameter, dtFinParameter, dtLimiteInscriptionParameter, minimumParameter, maximumParameter, prixParameter, dureeParameter, logoParameter, photoParameter, bandeauParameter, lienParameter, typologieIdParameter, evenementParentIdParameter);
         }
     
-        public virtual int UpdEvenement(Nullable<int> id, string libelle, string descriptif, Nullable<System.DateTime> dtDebut, Nullable<System.DateTime> dtFin, Nullable<System.DateTime> dtLimiteInscription, Nullable<int> maximum, Nullable<double> prix, Nullable<double> duree, string logo, string photo, string bandeau, string lien, Nullable<int> typologieId, Nullable<int> evenementParentId)
+        public virtual int UpdEvenement(Nullable<int> id, string libelle, string descriptif, Nullable<System.DateTime> dtDebut, Nullable<System.DateTime> dtFin, Nullable<System.DateTime> dtLimiteInscription, Nullable<int> minimum, Nullable<int> maximum, Nullable<double> prix, Nullable<double> duree, string logo, string photo, string bandeau, string lien, Nullable<int> typologieId, Nullable<int> evenementParentId)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
@@ -819,6 +825,10 @@ namespace WS.Models
             var dtLimiteInscriptionParameter = dtLimiteInscription.HasValue ?
                 new ObjectParameter("DtLimiteInscription", dtLimiteInscription) :
                 new ObjectParameter("DtLimiteInscription", typeof(System.DateTime));
+    
+            var minimumParameter = minimum.HasValue ?
+                new ObjectParameter("Minimum", minimum) :
+                new ObjectParameter("Minimum", typeof(int));
     
             var maximumParameter = maximum.HasValue ?
                 new ObjectParameter("Maximum", maximum) :
@@ -856,7 +866,7 @@ namespace WS.Models
                 new ObjectParameter("EvenementParentId", evenementParentId) :
                 new ObjectParameter("EvenementParentId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdEvenement", idParameter, libelleParameter, descriptifParameter, dtDebutParameter, dtFinParameter, dtLimiteInscriptionParameter, maximumParameter, prixParameter, dureeParameter, logoParameter, photoParameter, bandeauParameter, lienParameter, typologieIdParameter, evenementParentIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdEvenement", idParameter, libelleParameter, descriptifParameter, dtDebutParameter, dtFinParameter, dtLimiteInscriptionParameter, minimumParameter, maximumParameter, prixParameter, dureeParameter, logoParameter, photoParameter, bandeauParameter, lienParameter, typologieIdParameter, evenementParentIdParameter);
         }
     
         public virtual int UpdPlanning(Nullable<int> id, string creneau0809, string creneau0910, string creneau1011, string creneau1112, string creneau1213, string creneau1314, string creneau1415, string creneau1516, string creneau1617, string creneau1718, Nullable<System.DateTime> jour)
@@ -919,6 +929,210 @@ namespace WS.Models
                 new ObjectParameter("Id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelEvenement", idParameter);
+        }
+    
+        public virtual ObjectResult<ParticipationResult> GetParticipations(Nullable<int> eleveId, Nullable<int> evenementId)
+        {
+            var eleveIdParameter = eleveId.HasValue ?
+                new ObjectParameter("EleveId", eleveId) :
+                new ObjectParameter("EleveId", typeof(int));
+    
+            var evenementIdParameter = evenementId.HasValue ?
+                new ObjectParameter("EvenementId", evenementId) :
+                new ObjectParameter("EvenementId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ParticipationResult>("GetParticipations", eleveIdParameter, evenementIdParameter);
+        }
+    
+        public virtual int UpdParticipation(Nullable<int> id, Nullable<int> quantite)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var quantiteParameter = quantite.HasValue ?
+                new ObjectParameter("Quantite", quantite) :
+                new ObjectParameter("Quantite", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdParticipation", idParameter, quantiteParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> AddEleve(string nom, string prenom, Nullable<System.DateTime> dtNaissance, string sexe, string club, string photo, string email, string password, string fixe, string portable, string commentaire, string license, string classement, string suivi)
+        {
+            var nomParameter = nom != null ?
+                new ObjectParameter("Nom", nom) :
+                new ObjectParameter("Nom", typeof(string));
+    
+            var prenomParameter = prenom != null ?
+                new ObjectParameter("Prenom", prenom) :
+                new ObjectParameter("Prenom", typeof(string));
+    
+            var dtNaissanceParameter = dtNaissance.HasValue ?
+                new ObjectParameter("DtNaissance", dtNaissance) :
+                new ObjectParameter("DtNaissance", typeof(System.DateTime));
+    
+            var sexeParameter = sexe != null ?
+                new ObjectParameter("Sexe", sexe) :
+                new ObjectParameter("Sexe", typeof(string));
+    
+            var clubParameter = club != null ?
+                new ObjectParameter("Club", club) :
+                new ObjectParameter("Club", typeof(string));
+    
+            var photoParameter = photo != null ?
+                new ObjectParameter("Photo", photo) :
+                new ObjectParameter("Photo", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var fixeParameter = fixe != null ?
+                new ObjectParameter("Fixe", fixe) :
+                new ObjectParameter("Fixe", typeof(string));
+    
+            var portableParameter = portable != null ?
+                new ObjectParameter("Portable", portable) :
+                new ObjectParameter("Portable", typeof(string));
+    
+            var commentaireParameter = commentaire != null ?
+                new ObjectParameter("Commentaire", commentaire) :
+                new ObjectParameter("Commentaire", typeof(string));
+    
+            var licenseParameter = license != null ?
+                new ObjectParameter("License", license) :
+                new ObjectParameter("License", typeof(string));
+    
+            var classementParameter = classement != null ?
+                new ObjectParameter("Classement", classement) :
+                new ObjectParameter("Classement", typeof(string));
+    
+            var suiviParameter = suivi != null ?
+                new ObjectParameter("suivi", suivi) :
+                new ObjectParameter("suivi", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AddEleve", nomParameter, prenomParameter, dtNaissanceParameter, sexeParameter, clubParameter, photoParameter, emailParameter, passwordParameter, fixeParameter, portableParameter, commentaireParameter, licenseParameter, classementParameter, suiviParameter);
+        }
+    
+        public virtual int UpdEleve(Nullable<int> id, string nom, string prenom, Nullable<System.DateTime> dtNaissance, string sexe, string club, string photo, string email, string password, string fixe, string portable, string commentaire, string license, string classement, string suivi)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var nomParameter = nom != null ?
+                new ObjectParameter("Nom", nom) :
+                new ObjectParameter("Nom", typeof(string));
+    
+            var prenomParameter = prenom != null ?
+                new ObjectParameter("Prenom", prenom) :
+                new ObjectParameter("Prenom", typeof(string));
+    
+            var dtNaissanceParameter = dtNaissance.HasValue ?
+                new ObjectParameter("DtNaissance", dtNaissance) :
+                new ObjectParameter("DtNaissance", typeof(System.DateTime));
+    
+            var sexeParameter = sexe != null ?
+                new ObjectParameter("Sexe", sexe) :
+                new ObjectParameter("Sexe", typeof(string));
+    
+            var clubParameter = club != null ?
+                new ObjectParameter("Club", club) :
+                new ObjectParameter("Club", typeof(string));
+    
+            var photoParameter = photo != null ?
+                new ObjectParameter("Photo", photo) :
+                new ObjectParameter("Photo", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var fixeParameter = fixe != null ?
+                new ObjectParameter("Fixe", fixe) :
+                new ObjectParameter("Fixe", typeof(string));
+    
+            var portableParameter = portable != null ?
+                new ObjectParameter("Portable", portable) :
+                new ObjectParameter("Portable", typeof(string));
+    
+            var commentaireParameter = commentaire != null ?
+                new ObjectParameter("Commentaire", commentaire) :
+                new ObjectParameter("Commentaire", typeof(string));
+    
+            var licenseParameter = license != null ?
+                new ObjectParameter("License", license) :
+                new ObjectParameter("License", typeof(string));
+    
+            var classementParameter = classement != null ?
+                new ObjectParameter("Classement", classement) :
+                new ObjectParameter("Classement", typeof(string));
+    
+            var suiviParameter = suivi != null ?
+                new ObjectParameter("Suivi", suivi) :
+                new ObjectParameter("Suivi", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdEleve", idParameter, nomParameter, prenomParameter, dtNaissanceParameter, sexeParameter, clubParameter, photoParameter, emailParameter, passwordParameter, fixeParameter, portableParameter, commentaireParameter, licenseParameter, classementParameter, suiviParameter);
+        }
+    
+        public virtual int DelParticipation(Nullable<int> id, string real)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var realParameter = real != null ?
+                new ObjectParameter("Real", real) :
+                new ObjectParameter("Real", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelParticipation", idParameter, realParameter);
+        }
+    
+        public virtual int DelReservation(Nullable<int> id, string real)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var realParameter = real != null ?
+                new ObjectParameter("Real", real) :
+                new ObjectParameter("Real", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelReservation", idParameter, realParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> ConnectEleve(string email, string password)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("ConnectEleve", emailParameter, passwordParameter);
+        }
+    
+        public virtual int ReinitEleve(string email, string password)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReinitEleve", emailParameter, passwordParameter);
         }
     }
 }

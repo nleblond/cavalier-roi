@@ -20,7 +20,9 @@ var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
         this._WsUrl = '/API/';
+        this._APIKey = 'AEZRETRYTUYIUOIP';
         this._RootUrl = '/';
+        this._ImgUrl = 'http://www.cavalier-roi.fr/Content/Images';
         this._Id = null;
         this._TypologieId = null;
         this._EvenementId = null;
@@ -54,7 +56,7 @@ var AppComponent = /** @class */ (function () {
             this.GetContenus(this._Id, null, this._EmplacementId, this._ModeId, null, null, this._EvenementId, this._TypologieId);
         }
         //r�cup�ration des typologies/�v�nements
-        var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe(function (data) {
@@ -66,7 +68,7 @@ var AppComponent = /** @class */ (function () {
             }
         });
         //r�cup�ration des modes/emplacements
-        var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._WsUrl + 'Divers/GetModesEmplacements', _RequestOptions)
             .subscribe(function (data) {
@@ -228,12 +230,12 @@ var AppComponent = /** @class */ (function () {
         catch (_a) { }
         ;
         if (_Option == 0) {
-            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             this._HttpService.get(this._WsUrl + 'Divers/GetId?_Table=Contenus', _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
-                    _this._InitReturn = (data.json())[0];
+                    _this._InitReturn = data.json();
                     _this._Contenu = new Contenu_1.Contenu();
                     _this._Contenu.Id = _this._InitReturn;
                     _this._Contenu.Etat = 0; //creation
@@ -248,9 +250,9 @@ var AppComponent = /** @class */ (function () {
             this._Contenu.Etat = 1; //modification
         }
         //initialisation des datetimepickers des d�tails
-        setTimeout(function () {
-            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
-        }, 1000);
+        //setTimeout(function () {
+        //    jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        //}, 1000);
     };
     AppComponent.prototype.GetContenus = function (_Id, _Titre, _EmplacementId, _ModeId, _DtMin, _DtMax, _EvenementId, _TypologieId) {
         var _this = this;
@@ -264,7 +266,7 @@ var AppComponent = /** @class */ (function () {
         this._ContenusSearchParameters.EvenementId = _EvenementId;
         this._ContenusSearchParameters.TypologieId = _TypologieId;
         var _Body = JSON.stringify(this._ContenusSearchParameters);
-        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._WsUrl + 'Contenus/GetContenus', _Body, _RequestOptions)
             .subscribe(function (data) {
@@ -299,7 +301,7 @@ var AppComponent = /** @class */ (function () {
         }
         if (confirm(_Question)) {
             var _Body = JSON.stringify(this._Contenu);
-            var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
             this._HttpService.post(this._WsUrl + _Method, _Body, _RequestOptions)
                 .subscribe(function (data) {
@@ -336,7 +338,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.DelContenu = function (_Index) {
         var _this = this;
         if (confirm('Voulez-vous vraiment supprimer le contenu ' + this._Contenus[_Index].Id + ' ?')) {
-            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'Le contenu ' + this._Contenus[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._WsUrl + 'Contenus/DelContenu?_Id=' + this._Contenus[_Index].Id.toString() + '&_Real=N', _RequestOptions)

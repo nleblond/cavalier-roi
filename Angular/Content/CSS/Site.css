@@ -10,7 +10,7 @@
 }
 
 body { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; background-color: #000000; }
-hr { border: 0; color: #FECC16; background-color: #FECC16; height: 0.5pt; }
+hr { border: 0; color: #FECC16; background-color: #FECC16; height: 1pt; }
 .clear { clear: both; }
 .clear-left { clear: left; }
 .clear-right { clear: right; }
@@ -366,42 +366,41 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 .contenu div.moncompte .commandes table th.first { padding: 0rem 0rem 0.2rem 0rem; }
 .contenu div.moncompte .commandes table td { padding: 0.2rem 0rem 0rem 1.0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; }
 .contenu div.moncompte .commandes table td.first { padding: 0.2rem 0rem 0rem 0rem; }
-/*
-.contenu div.moncompte .commandes table td:nth-child(1) { background-color: red; }
-.contenu div.moncompte .commandes table td:nth-child(2) { background-color: blue; }
-.contenu div.moncompte .commandes table td:nth-child(3) { background-color: yellow; }
-.contenu div.moncompte .commandes table td:nth-child(4) { background-color: green; }
-.contenu div.moncompte .commandes table td:nth-child(5) { background-color: pink; }
-.contenu div.moncompte .commandes table td:nth-child(6) { background-color: purple; }
-*/
 
-.contenu div.moncompte .cours { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
+.contenu div.moncompte .cours { padding: 0rem 0rem 0rem 0rem; margin: 0rem 2% 0rem 0rem; width: 49%; float: left; }
+.contenu div.moncompte .cours .crediter, .contenu div.moncompte .cours .reserver, .contenu div.moncompte .cours .supprimer { cursor:pointer; }
 .contenu div.moncompte .cours table.formules { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
 .contenu div.moncompte .cours table.formules tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
 .contenu div.moncompte .cours table.formules th { padding: 0.2rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; color: #FECC16; text-align: left; vertical-align: middle; border-bottom: solid 1pt #FECC16; }
 .contenu div.moncompte .cours table.formules th.first { padding: 0.2rem 0rem 0rem 0rem; }
 .contenu div.moncompte .cours table.formules td { padding: 0.2rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; vertical-align: top; }
-.contenu div.moncompte .cours table.formules td.first { padding: 0.2rem 0rem 0.2rem 0rem; }
-
-.contenu div.moncompte .cours table.formules td.actions { width: 130px; text-align: right; }
-.contenu div.moncompte .cours table.formules td.actions input[type="text"] { width: 30px; }
-
-.contenu div.moncompte .cours table.formules td table.dates { padding: 1.0rem 0rem 0.8rem 0rem; margin: 0.2rem 1.0rem 0rem 3rem; border: solid 1pt #FECC16; }
-.contenu div.moncompte .cours table.formules td table.dates tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
+.contenu div.moncompte .cours table.formules td .quantite { width :30px; }
+.contenu div.moncompte .cours table.formules td table.dates { padding: 1.0rem 0rem 0.8rem 0rem; margin: 0.2rem 1.0rem 1.0rem 3rem; border: solid 1pt #FECC16;  }
+.contenu div.moncompte .cours table.formules td table.dates tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; white-space: nowrap; }
 .contenu div.moncompte .cours table.formules td table.dates th { padding: 0rem 0rem 0.5rem 1.0rem; margin: 0rem 0rem 0rem 0rem; color: #FECC16; text-align: left; vertical-align: middle; border-bottom: inherit; }
 .contenu div.moncompte .cours table.formules td table.dates th.last { padding: 1.0rem 1.0rem 0.5rem 1.0rem; }
 .contenu div.moncompte .cours table.formules td table.dates td { padding: 0rem 0rem 0.2rem 1.0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; vertical-align: middle; }
 .contenu div.moncompte .cours table.formules td table.dates td.last { padding: 0rem 1.0rem 0rem 1.0rem; }
 
-.contenu div.moncompte .stages { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
-.contenu div.moncompte .stages table { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
-.contenu div.moncompte .stages table tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; vertical-align: top; }
-.contenu div.moncompte .stages table th { padding: 0rem 0rem 0.2rem 1.0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; color: #FECC16; border-bottom: solid 1pt #FECC16; }
-.contenu div.moncompte .stages table th.first { padding: 0rem 0rem 0.2rem 0rem; }
-.contenu div.moncompte .stages table td { padding: 0.2rem 0rem 0rem 1.0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; }
-.contenu div.moncompte .stages table td.first { padding: 0.2rem 0rem 0rem 0rem; }
+.contenu div.moncompte .stages { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 49%; float: left; }
+.contenu div.moncompte .stages .crediter, .contenu div.moncompte .stages .supprimer { cursor:pointer; }
+.contenu div.moncompte .stages table.formules { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
+.contenu div.moncompte .stages table.formules tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
+.contenu div.moncompte .stages table.formules th { padding: 0.2rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; color: #FECC16; text-align: left; vertical-align: middle; border-bottom: solid 1pt #FECC16; }
+.contenu div.moncompte .stages table.formules th.first { padding: 0.2rem 0rem 0rem 0rem; }
+.contenu div.moncompte .stages table.formules td { padding: 0.2rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; vertical-align: top; }
+.contenu div.moncompte .stages table.formules td.first { padding: 0.2rem 0rem 0.2rem 0rem; }
+.contenu div.moncompte .stages table.formules td.actions { width: 130px; text-align: right; }
+.contenu div.moncompte .stages table.formules td.actions input[type="text"] { width: 30px; }
+.contenu div.moncompte .stages table.formules td table.dates { padding: 1.0rem 0rem 0.8rem 0rem; margin: 0.2rem 1.0rem 1.0rem 3rem; border: solid 1pt #FECC16; }
+.contenu div.moncompte .stages table.formules td table.dates tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
+.contenu div.moncompte .stages table.formules td table.dates th { padding: 0rem 0rem 0.5rem 1.0rem; margin: 0rem 0rem 0rem 0rem; color: #FECC16; text-align: left; vertical-align: middle; border-bottom: inherit; white-space: nowrap; }
+.contenu div.moncompte .stages table.formules td table.dates th.last { padding: 1.0rem 1.0rem 0.5rem 1.0rem; }
+.contenu div.moncompte .stages table.formules td table.dates td { padding: 0rem 0rem 0.2rem 1.0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; vertical-align: middle; }
+.contenu div.moncompte .stages table.formules td table.dates td.last { padding: 0rem 1.0rem 0rem 1.0rem; }
 
 .contenu div.moncompte .tournois { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
+.contenu div.moncompte .tournois .supprimer { cursor:pointer; }
 .contenu div.moncompte .tournois table { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem; width: 100%; }
 .contenu div.moncompte .tournois table tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; vertical-align: top; }
 .contenu div.moncompte .tournois table th { padding: 0rem 0rem 0.2rem 1.0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; color: #FECC16; border-bottom: solid 1pt #FECC16; }
@@ -457,22 +456,29 @@ div.modal_actu div.script iframe { width: 100%; height: 100%; }
 
 /* modal connexion */
 /********************************************************************************************/
-div.modal_connexion { display: none; border: solid 1pt #FECC16; margin: 1.0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 386px; height: auto; background-color: #000000; z-index: 9000!important; }
-div.modal_connexion a { text-decoration: none; color: #FFFFFF; }
-div.modal_connexion a:hover { text-decoration: underline; color: #FFFFFF; }
-div.modal_connexion .fermer { position: absolute; right: -10px; top: -10px; margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 1.0rem; height: 1.0rem; cursor: pointer; }
+div.modal_connexion { display: none; border: solid 1pt #FECC16; margin: 1.0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 400px; height: auto; background-color: #000000; z-index: 9000!important; }
+div.modal_connexion .fermer { position: absolute; right: -0.6rem; top: -0.6rem;  margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 1.0rem; height: 1.0rem; cursor: pointer; }
 div.modal_connexion .titre { margin: 1.0rem 1.0rem 10px 1.0rem; }
 div.modal_connexion .texte { margin: 1.0rem 1.0rem 1.0rem 1.0rem; }
-div.modal_connexion .infos { margin: 0rem 0rem 0rem 0rem; }
 div.modal_connexion table { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
-div.modal_connexion table td { padding: 0rem 5px 5px 0rem; margin: 0rem 0rem 0rem 0rem; }
-div.modal_connexion table td:nth-child(2) { padding: 0rem 0rem 5px 0rem; text-align: right; }
+div.modal_connexion table td { padding: 0rem 0rem 0.1rem 0rem; margin: 0rem 0rem 0rem 0rem; }
+div.modal_connexion table td:nth-child(2) { text-align: right; }
+div.modal_connexion .nom { width: 225px; }
+div.modal_connexion .prenom { width: 225px; }
+div.modal_connexion .email { width: 225px; }
+div.modal_connexion .password { width: 225px; }
+div.modal_connexion .club { width: 225px; }
+div.modal_connexion .naissance { width: 80px; }
+div.modal_connexion .fixe { width: 80px; }
+div.modal_connexion .portable { width: 80px; }
+div.modal_connexion .license { width: 80px; }
+div.modal_connexion .classement { width: 80px; }
 
 
 /* modal calendrier */
 /********************************************************************************************/
 div.modal_calendrier { display: none; border: solid 1pt #FECC16; margin: 1.0rem 0rem 0rem 0rem; width: 390px; height: auto; background-color: black; padding: 1.0rem 1.0rem 1.0rem 1.0rem; z-index: 9000!important; }
-div.modal_calendrier .fermer { position: absolute; right: -10px; top: -10px; margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 1.0rem; height: 1.0rem; cursor: pointer; }
+div.modal_calendrier .fermer { position: absolute; right: -0.6rem; top: -0.6rem; margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 1.0rem; height: 1.0rem; cursor: pointer; }
 div.modal_calendrier .titre { float: left; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem; }
 div.modal_calendrier .texte .dates { float: left; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 10px 0rem; }
 div.modal_calendrier .texte .heures { float: right; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; }

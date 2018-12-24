@@ -13,16 +13,24 @@ namespace WS.Models
     
     public partial class EleveResult
     {
-        public int NbCommandes { get; set; }
-        public int NbStages { get; set; }
-        public int NbCours { get; set; }
-        public int NbTournois { get; set; }
-        public int Id { get; set; }
+        public Nullable<int> NbCommandes { get; set; }
+        public Nullable<int> NbStages { get; set; }
+        public Nullable<int> NbCours { get; set; }
+        public Nullable<int> NbTournois { get; set; }
+        public Nullable<int> Id { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public string Email { get; set; }
         public string Classement { get; set; }
         public string License { get; set; }
         public string Club { get; set; }
+        public string DtNaissance { get; set; }
+        public string Sexe { get; set; }
+        public string Photo { get; set; }
+        public string Fixe { get; set; }
+        public string Portable { get; set; }
+        public string Commentaire { get; set; }
+        public string Suivi { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -21,8 +21,9 @@ declare var jQuery: any;
 export class AppComponent implements OnInit {
 
     public _WsUrl: string = '/API/';
+    public _APIKey: string = 'AEZRETRYTUYIUOIP';
     public _RootUrl: string = '/';
-
+    public _ImgUrl: string = 'http://www.cavalier-roi.fr/Content/Images'; 
 
 
     constructor(private _HttpService: Http) { }
@@ -51,7 +52,7 @@ export class AppComponent implements OnInit {
 
 
         //récupération des typologies/evenements parents uniquement
-        var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements?_OnlyParentsYN=Y', _RequestOptions)
             .subscribe((data: Response) => {
@@ -62,7 +63,7 @@ export class AppComponent implements OnInit {
             });
 
         //récupération des typologies + évènements
-        var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe((data: Response) => {
@@ -115,7 +116,14 @@ export class AppComponent implements OnInit {
                 this._Evenement.EvenementParent.Libelle = _SelectedLibelle.replace('____', '').replace('____', '').trim();
             }
         }
+
+        //initialisation des datetimepickers des détails
+        setTimeout(function () {
+            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        }, 1000);
     }
+
+
 
     public GetSelect(_Evenement: Evenement) {
 
@@ -570,7 +578,7 @@ export class AppComponent implements OnInit {
         this._EvenementsSearchParameters.TypologieId = _TypologieId;
 
         var _Body = JSON.stringify(this._EvenementsSearchParameters);
-        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._WsUrl + 'Evenements/GetEvenements', _Body, _RequestOptions)
             .subscribe((data: Response) => {
@@ -595,7 +603,7 @@ export class AppComponent implements OnInit {
         this._EvenementsSearchParameters.Id = _EvenementId;
 
         var _Body = JSON.stringify(this._EvenementsSearchParameters);
-        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._WsUrl + 'Evenements/GetEvenements', _Body, _RequestOptions)
             .subscribe((data: Response) => {
@@ -618,7 +626,7 @@ export class AppComponent implements OnInit {
         this._PlanningsSearchParameters.Plus = 2;
 
         var _Body = JSON.stringify(this._PlanningsSearchParameters);
-        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._WsUrl + 'Evenements/GetPlanningsBack', _Body, _RequestOptions)
             .subscribe((data: Response) => {
@@ -668,12 +676,12 @@ export class AppComponent implements OnInit {
         } catch { };
 
         if (_Option == 0) { //création
-            var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             this._HttpService.get(this._WsUrl + 'Divers/GetId?_Table=Evenements', _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
-                        this._InitReturn = (data.json())[0] as number;
+                        this._InitReturn = data.json() as number;
                         this._Evenement = new Evenement();
                         this._Evenement.EvenementParent = new Evenement();
                         this._Evenement.Id = this._InitReturn;
@@ -690,9 +698,9 @@ export class AppComponent implements OnInit {
         this.GetPlannings(); //récupération des derniers enregistrements "planning" en date
 
         //initialisation des datetimepickers des détails
-        setTimeout(function () {
-            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
-        }, 1000);
+        //setTimeout(function () {
+        //    jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        //}, 1000);
     }
             
 
@@ -718,7 +726,7 @@ export class AppComponent implements OnInit {
 
             //mise à jour de l'évènement
             var _Body = JSON.stringify(this._Evenement);
-            var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
             this._HttpService.post(this._WsUrl + _Method, _Body, _RequestOptions)
                 .subscribe((data: Response) => {
@@ -744,7 +752,7 @@ export class AppComponent implements OnInit {
 
                         //mise à jour du planning que la modification de l'évènement a pu modifier
                         var _Body = JSON.stringify(this._Evenement.Plannings);
-                        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+                        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
                         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
                         this._HttpService.post(this._WsUrl + 'Evenements/UpdPlannings', _Body, _RequestOptions)
                             .subscribe((data: Response) => {
@@ -769,7 +777,7 @@ export class AppComponent implements OnInit {
 
         if (confirm('Voulez-vous vraiment supprimer l\'evenement ' + this._Evenements[_Index].Id + ' ?')) {
 
-            var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'L\'evenement ' + this._Evenements[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._WsUrl + 'Evenements/DelEvenement?_Id=' + this._Evenements[_Index].Id.toString(), _RequestOptions)

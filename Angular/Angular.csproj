@@ -58,6 +58,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -161,9 +162,11 @@
     <Compile Include="Areas\Produits\ProduitsAreaRegistration.cs" />
     <Compile Include="Areas\Eleves\Controllers\ElevesController.cs" />
     <Compile Include="Areas\Eleves\ElevesAreaRegistration.cs" />
-    <Compile Include="BLL\CommandesManager.cs" />
-    <Compile Include="BLL\EvenementsManager.cs" />
-    <Compile Include="BLL\ContenusManager.cs" />
+    <Compile Include="CALL\ElevesManager.cs" />
+    <Compile Include="CALL\CommandesManager.cs" />
+    <Compile Include="CALL\EvenementsManager.cs" />
+    <Compile Include="CALL\ContenusManager.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -406,7 +409,9 @@
     <Content Include="systemjs-angular-loader.js" />
     <Content Include="systemjs.config.extras.js" />
     <Content Include="systemjs.config.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

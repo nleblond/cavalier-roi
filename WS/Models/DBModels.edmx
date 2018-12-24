@@ -69,7 +69,6 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Nom" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Prenom" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
@@ -77,13 +76,15 @@
           <Property Name="Sexe" Type="char" MaxLength="1" />
           <Property Name="Club" Type="nvarchar" MaxLength="255" />
           <Property Name="Photo" Type="nvarchar" MaxLength="255" />
-          <Property Name="Password" Type="nvarchar" MaxLength="20" />
           <Property Name="Fixe" Type="nchar" MaxLength="10" />
           <Property Name="Portable" Type="nchar" MaxLength="10" />
           <Property Name="Commentaire" Type="text" />
           <Property Name="License" Type="nchar" MaxLength="20" />
           <Property Name="Classement" Type="nchar" MaxLength="6" />
           <Property Name="DeletedYN" Type="char" MaxLength="1" />
+          <Property Name="Suivi" Type="text" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Emplacements">
           <Key>
@@ -154,8 +155,8 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="EvenementId" Type="int" Nullable="false" />
           <Property Name="EleveId" Type="int" Nullable="false" />
-          <Property Name="Quantite" Type="nchar" MaxLength="10" />
           <Property Name="DeletedYN" Type="char" MaxLength="1" />
+          <Property Name="Quantite" Type="float" />
         </EntityType>
         <EntityType Name="Plannings">
           <Key>
@@ -172,6 +173,23 @@
           <Property Name="Creneau1516" Type="nchar" MaxLength="10" />
           <Property Name="Creneau1617" Type="nchar" MaxLength="10" />
           <Property Name="Creneau1718" Type="nchar" MaxLength="10" />
+          <Property Name="Jour" Type="date" />
+        </EntityType>
+        <EntityType Name="Plannings_Stock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Creneau0809" Type="int" />
+          <Property Name="Creneau0910" Type="int" />
+          <Property Name="Creneau1011" Type="int" />
+          <Property Name="Creneau1112" Type="int" />
+          <Property Name="Creneau1213" Type="int" />
+          <Property Name="Creneau1314" Type="int" />
+          <Property Name="Creneau1415" Type="int" />
+          <Property Name="Creneau1516" Type="int" />
+          <Property Name="Creneau1617" Type="int" />
+          <Property Name="Creneau1718" Type="int" />
           <Property Name="Jour" Type="date" />
         </EntityType>
         <EntityType Name="Produits">
@@ -222,6 +240,16 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Libelle" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Position" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Typologies">
           <Key>
@@ -463,6 +491,22 @@
           <Parameter Name="ModeId" Type="int" Mode="In" />
           <Parameter Name="EvenementId" Type="int" Mode="In" />
         </Function>
+        <Function Name="AddEleve" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nom" Type="nvarchar" Mode="In" />
+          <Parameter Name="Prenom" Type="nvarchar" Mode="In" />
+          <Parameter Name="DtNaissance" Type="datetime" Mode="In" />
+          <Parameter Name="Sexe" Type="char" Mode="In" />
+          <Parameter Name="Club" Type="nvarchar" Mode="In" />
+          <Parameter Name="Photo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="Fixe" Type="nchar" Mode="In" />
+          <Parameter Name="Portable" Type="nchar" Mode="In" />
+          <Parameter Name="Commentaire" Type="text" Mode="In" />
+          <Parameter Name="License" Type="nchar" Mode="In" />
+          <Parameter Name="Classement" Type="nchar" Mode="In" />
+          <Parameter Name="suivi" Type="text" Mode="In" />
+        </Function>
         <Function Name="AddEvenement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
           <Parameter Name="Libelle" Type="nvarchar" Mode="In" />
@@ -470,6 +514,7 @@
           <Parameter Name="DtDebut" Type="datetime" Mode="In" />
           <Parameter Name="DtFin" Type="datetime" Mode="In" />
           <Parameter Name="DtLimiteInscription" Type="datetime" Mode="In" />
+          <Parameter Name="Minimum" Type="int" Mode="In" />
           <Parameter Name="Maximum" Type="int" Mode="In" />
           <Parameter Name="Prix" Type="float" Mode="In" />
           <Parameter Name="Duree" Type="float" Mode="In" />
@@ -503,6 +548,10 @@
           <Parameter Name="ContenuId" Type="int" Mode="In" />
           <Parameter Name="EmplacementId" Type="int" Mode="In" />
         </Function>
+        <Function Name="ConnectEleve" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="DelCommande" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
           <Parameter Name="Real" Type="char" Mode="In" />
@@ -517,6 +566,10 @@
         <Function Name="DelEvenement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
         </Function>
+        <Function Name="DelParticipation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Real" Type="char" Mode="In" />
+        </Function>
         <Function Name="DelProduit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
           <Parameter Name="Real" Type="char" Mode="In" />
@@ -524,6 +577,10 @@
         <Function Name="DelPublication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ContenuId" Type="int" Mode="In" />
           <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DelReservation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Real" Type="char" Mode="In" />
         </Function>
         <Function Name="GetCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetCommandes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -575,6 +632,10 @@
         <Function Name="GetModesEmplacements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ModeId" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetParticipations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EleveId" Type="int" Mode="In" />
+          <Parameter Name="EvenementId" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetPlanningsBack" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Mois" Type="int" Mode="In" />
           <Parameter Name="Annee" Type="int" Mode="In" />
@@ -604,6 +665,10 @@
         <Function Name="GetTypologiesEvenements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="OnlyParentsYN" Type="char" Mode="In" />
         </Function>
+        <Function Name="ReinitEleve" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="UpdCommande" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
           <Parameter Name="StatutId" Type="int" Mode="In" />
@@ -627,6 +692,23 @@
           <Parameter Name="ModeId" Type="int" Mode="In" />
           <Parameter Name="EvenementId" Type="int" Mode="In" />
         </Function>
+        <Function Name="UpdEleve" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Nom" Type="nvarchar" Mode="In" />
+          <Parameter Name="Prenom" Type="nvarchar" Mode="In" />
+          <Parameter Name="DtNaissance" Type="datetime" Mode="In" />
+          <Parameter Name="Sexe" Type="char" Mode="In" />
+          <Parameter Name="Club" Type="nvarchar" Mode="In" />
+          <Parameter Name="Photo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="Fixe" Type="nchar" Mode="In" />
+          <Parameter Name="Portable" Type="nchar" Mode="In" />
+          <Parameter Name="Commentaire" Type="text" Mode="In" />
+          <Parameter Name="License" Type="nchar" Mode="In" />
+          <Parameter Name="Classement" Type="nchar" Mode="In" />
+          <Parameter Name="Suivi" Type="text" Mode="In" />
+        </Function>
         <Function Name="UpdEvenement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
           <Parameter Name="Libelle" Type="nvarchar" Mode="In" />
@@ -634,6 +716,7 @@
           <Parameter Name="DtDebut" Type="datetime" Mode="In" />
           <Parameter Name="DtFin" Type="datetime" Mode="In" />
           <Parameter Name="DtLimiteInscription" Type="datetime" Mode="In" />
+          <Parameter Name="Minimum" Type="int" Mode="In" />
           <Parameter Name="Maximum" Type="int" Mode="In" />
           <Parameter Name="Prix" Type="float" Mode="In" />
           <Parameter Name="Duree" Type="float" Mode="In" />
@@ -643,6 +726,10 @@
           <Parameter Name="Lien" Type="nvarchar" Mode="In" />
           <Parameter Name="TypologieId" Type="int" Mode="In" />
           <Parameter Name="EvenementParentId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdParticipation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Quantite" Type="int" Mode="In" />
         </Function>
         <Function Name="UpdPlanning" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
@@ -690,10 +777,12 @@
           <EntitySet Name="Modes" EntityType="Self.Modes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Participations" EntityType="Self.Participations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Plannings" EntityType="Self.Plannings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Plannings_Stock" EntityType="Self.Plannings_Stock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Produits" EntityType="Self.Produits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Publications" EntityType="Self.Publications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservations" EntityType="Self.Reservations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Statuts" EntityType="Self.Statuts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Typologies" EntityType="Self.Typologies" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Commandes_Adresses" Association="Self.FK_Commandes_Adresses">
             <End Role="Adresses" EntitySet="Adresses" />
@@ -838,7 +927,7 @@
           <Property Name="Sexe" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="Club" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Photo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Fixe" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Portable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Commentaire" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -847,8 +936,9 @@
           <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservations_Eleves" FromRole="Eleves" ToRole="Reservations" />
           <Property Name="DeletedYN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Commandes" Relationship="DBModelsContext.FK_Commandes_Eleves" FromRole="Eleves" ToRole="Commandes" />
+          <Property Name="Suivi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Participations" Relationship="DBModelsContext.FK_Participations_Eleves" FromRole="Eleves" ToRole="Participations" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="Emplacements">
           <Key>
             <PropertyRef Name="Id" />
@@ -930,7 +1020,7 @@
           <Property Name="DeletedYN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="Jour" Type="DateTime" Precision="0" />
           <Property Name="Creneau" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Evenements" Relationship="DBModelsContext.FK_Reservations_Evenements" FromRole="Reservations" ToRole="Evenements" />
+          <NavigationProperty Name="Evenement" Relationship="DBModelsContext.FK_Reservations_Evenements" FromRole="Reservations" ToRole="Evenements" />
         </EntityType>
         <EntityType Name="Statuts">
           <Key>
@@ -1290,6 +1380,7 @@
             <Parameter Name="DtDebut" Mode="In" Type="DateTime" />
             <Parameter Name="DtFin" Mode="In" Type="DateTime" />
             <Parameter Name="DtLimiteInscription" Mode="In" Type="DateTime" />
+            <Parameter Name="Minimum" Mode="In" Type="Int32" />
             <Parameter Name="Maximum" Mode="In" Type="Int32" />
             <Parameter Name="Prix" Mode="In" Type="Double" />
             <Parameter Name="Duree" Mode="In" Type="Double" />
@@ -1307,6 +1398,7 @@
             <Parameter Name="DtDebut" Mode="In" Type="DateTime" />
             <Parameter Name="DtFin" Mode="In" Type="DateTime" />
             <Parameter Name="DtLimiteInscription" Mode="In" Type="DateTime" />
+            <Parameter Name="Minimum" Mode="In" Type="Int32" />
             <Parameter Name="Maximum" Mode="In" Type="Int32" />
             <Parameter Name="Prix" Mode="In" Type="Double" />
             <Parameter Name="Duree" Mode="In" Type="Double" />
@@ -1317,11 +1409,6 @@
             <Parameter Name="TypologieId" Mode="In" Type="Int32" />
             <Parameter Name="EvenementParentId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Participations" EntityType="DBModelsContext.Participations" />
-          <AssociationSet Name="FK_Participations_Eleves" Association="DBModelsContext.FK_Participations_Eleves">
-            <End Role="Eleves" EntitySet="Eleves" />
-            <End Role="Participations" EntitySet="Participations" />
-          </AssociationSet>
           <FunctionImport Name="UpdPlanning">
             <Parameter Name="Id" Mode="In" Type="Int32" />
             <Parameter Name="Creneau0809" Mode="In" Type="String" />
@@ -1345,16 +1432,80 @@
             <End Role="Typologies" EntitySet="Typologies" />
             <End Role="Evenements" EntitySet="Evenements" />
           </AssociationSet>
-          <AssociationSet Name="FK_Participations_Evenements" Association="DBModelsContext.FK_Participations_Evenements">
-            <End Role="Evenements" EntitySet="Evenements" />
-            <End Role="Participations" EntitySet="Participations" />
-          </AssociationSet>
           <AssociationSet Name="FK_Reservations_Evenements" Association="DBModelsContext.FK_Reservations_Evenements">
             <End Role="Evenements" EntitySet="Evenements" />
             <End Role="Reservations" EntitySet="Reservations" />
           </AssociationSet>
           <FunctionImport Name="DelEvenement">
           <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetParticipations" ReturnType="Collection(DBModelsContext.ParticipationResult)">
+            <Parameter Name="EleveId" Mode="In" Type="Int32" />
+            <Parameter Name="EvenementId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Participations" EntityType="DBModelsContext.Participations" />
+          <AssociationSet Name="FK_Participations_Eleves" Association="DBModelsContext.FK_Participations_Eleves">
+            <End Role="Eleves" EntitySet="Eleves" />
+            <End Role="Participations" EntitySet="Participations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participations_Evenements" Association="DBModelsContext.FK_Participations_Evenements">
+            <End Role="Evenements" EntitySet="Evenements" />
+            <End Role="Participations" EntitySet="Participations" />
+          </AssociationSet>
+          <FunctionImport Name="UpdParticipation">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Quantite" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddEleve" ReturnType="Collection(Int32)">
+            <Parameter Name="Nom" Mode="In" Type="String" />
+            <Parameter Name="Prenom" Mode="In" Type="String" />
+            <Parameter Name="DtNaissance" Mode="In" Type="DateTime" />
+            <Parameter Name="Sexe" Mode="In" Type="String" />
+            <Parameter Name="Club" Mode="In" Type="String" />
+            <Parameter Name="Photo" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Fixe" Mode="In" Type="String" />
+            <Parameter Name="Portable" Mode="In" Type="String" />
+            <Parameter Name="Commentaire" Mode="In" Type="String" />
+            <Parameter Name="License" Mode="In" Type="String" />
+            <Parameter Name="Classement" Mode="In" Type="String" />
+            <Parameter Name="suivi" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdEleve">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Nom" Mode="In" Type="String" />
+            <Parameter Name="Prenom" Mode="In" Type="String" />
+            <Parameter Name="DtNaissance" Mode="In" Type="DateTime" />
+            <Parameter Name="Sexe" Mode="In" Type="String" />
+            <Parameter Name="Club" Mode="In" Type="String" />
+            <Parameter Name="Photo" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Fixe" Mode="In" Type="String" />
+            <Parameter Name="Portable" Mode="In" Type="String" />
+            <Parameter Name="Commentaire" Mode="In" Type="String" />
+            <Parameter Name="License" Mode="In" Type="String" />
+            <Parameter Name="Classement" Mode="In" Type="String" />
+            <Parameter Name="Suivi" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DelParticipation">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Real" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DelReservation">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Real" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Plannings_Stock" EntityType="DBModelsContext.Plannings_Stock" />
+          <EntitySet Name="sysdiagrams" EntityType="DBModelsContext.sysdiagrams" />
+          <FunctionImport Name="ConnectEleve" ReturnType="Collection(Int32)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ReinitEleve">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <Association Name="FK_Commandes_Eleves">
@@ -1377,17 +1528,25 @@
           <Property Type="String" Name="FormatedId" Nullable="false" />
         </ComplexType>
         <ComplexType Name="EleveResult" >
-          <Property Type="Int32" Name="NbCommandes" Nullable="false" />
-          <Property Type="Int32" Name="NbStages" Nullable="false" />
-          <Property Type="Int32" Name="NbCours" Nullable="false" />
-          <Property Type="Int32" Name="NbTournois" Nullable="false" />
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Nom" Nullable="false" />
-          <Property Type="String" Name="Prenom" Nullable="false" />
-          <Property Type="String" Name="Email" Nullable="false" />
-          <Property Type="String" Name="Classement" Nullable="false" />
-          <Property Type="String" Name="License" Nullable="false" />
-          <Property Type="String" Name="Club" Nullable="false" />
+          <Property Type="Int32" Name="NbCommandes" Nullable="true" />
+          <Property Type="Int32" Name="NbStages" Nullable="true" />
+          <Property Type="Int32" Name="NbCours" Nullable="true" />
+          <Property Type="Int32" Name="NbTournois" Nullable="true" />
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="String" Name="Nom" Nullable="true" />
+          <Property Type="String" Name="Prenom" Nullable="true" />
+          <Property Type="String" Name="Email" Nullable="true" />
+          <Property Type="String" Name="Classement" Nullable="true" />
+          <Property Type="String" Name="License" Nullable="true" />
+          <Property Type="String" Name="Club" Nullable="true" />
+          <Property Type="String" Name="DtNaissance" Nullable="true" />
+          <Property Type="String" Name="Sexe" Nullable="true" />
+          <Property Type="String" Name="Photo" Nullable="true" />
+          <Property Type="String" Name="Fixe" Nullable="true" />
+          <Property Type="String" Name="Portable" Nullable="true" />
+          <Property Type="String" Name="Commentaire" Nullable="true" />
+          <Property Type="String" Name="Suivi" Nullable="true" />
+          <Property Type="String" Name="Password" Nullable="true" />
         </ComplexType>
         <ComplexType Name="CommandeResult" >
           <Property Type="Int32" Name="Id" Nullable="true" />
@@ -1621,30 +1780,6 @@
           <Property Type="Int32" Name="EvenementId" Nullable="true" />
           <Property Type="String" Name="EvenementLibelle" Nullable="true" MaxLength="255" />
         </ComplexType>
-        <EntityType Name="Participations">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="EvenementId" Type="Int32" Nullable="false" />
-          <Property Name="EleveId" Type="Int32" Nullable="false" />
-          <Property Name="Quantite" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="DeletedYN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Eleve" Relationship="DBModelsContext.FK_Participations_Eleves" FromRole="Participations" ToRole="Eleves" />
-          <NavigationProperty Name="Evenements" Relationship="DBModelsContext.FK_Participations_Evenements" FromRole="Participations" ToRole="Evenements" />
-        </EntityType>
-        <Association Name="FK_Participations_Eleves">
-          <End Type="DBModelsContext.Eleves" Role="Eleves" Multiplicity="1" />
-          <End Type="DBModelsContext.Participations" Role="Participations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Eleves">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Participations">
-              <PropertyRef Name="EleveId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Evenements">
           <Key>
             <PropertyRef Name="Id" />
@@ -1668,8 +1803,8 @@
           <Property Name="Duree" Type="Int32" />
           <NavigationProperty Name="Contenus" Relationship="DBModelsContext.FK_Contenus_Evenements" FromRole="Evenements" ToRole="Contenus" />
           <NavigationProperty Name="Typologie" Relationship="DBModelsContext.FK_Evenements_Typologies" FromRole="Evenements" ToRole="Typologies" />
-          <NavigationProperty Name="Participations" Relationship="DBModelsContext.FK_Participations_Evenements" FromRole="Evenements" ToRole="Participations" />
           <NavigationProperty Name="Reservations" Relationship="DBModelsContext.FK_Reservations_Evenements" FromRole="Evenements" ToRole="Reservations" />
+          <NavigationProperty Name="Participations" Relationship="DBModelsContext.FK_Participations_Evenements" FromRole="Evenements" ToRole="Participations" />
         </EntityType>
         <Association Name="FK_Contenus_Evenements">
           <End Type="DBModelsContext.Evenements" Role="Evenements" Multiplicity="0..1" />
@@ -1695,18 +1830,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Participations_Evenements">
-          <End Type="DBModelsContext.Evenements" Role="Evenements" Multiplicity="1" />
-          <End Type="DBModelsContext.Participations" Role="Participations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Evenements">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Participations">
-              <PropertyRef Name="EvenementId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Reservations_Evenements">
           <End Type="DBModelsContext.Evenements" Role="Evenements" Multiplicity="0..1" />
           <End Type="DBModelsContext.Reservations" Role="Reservations" Multiplicity="*" />
@@ -1719,6 +1842,83 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="ParticipationResult">
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="Double" Name="Quantite" Nullable="true" />
+          <Property Type="Int32" Name="EleveId" Nullable="true" />
+          <Property Type="String" Name="Nom" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Prenom" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="EvenementId" Nullable="true" />
+          <Property Type="String" Name="EvenementLibelle" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="TypologieId" Nullable="true" />
+          <Property Type="String" Name="TypologieLibelle" Nullable="false" />
+          <Property Type="String" Name="DtDebut" Nullable="true" />
+          <Property Type="String" Name="DtFin" Nullable="true" />
+          <Property Type="Double" Name="Duree" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Participations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="EvenementId" Type="Int32" Nullable="false" />
+          <Property Name="EleveId" Type="Int32" Nullable="false" />
+          <Property Name="DeletedYN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Quantite" Type="Double" />
+          <NavigationProperty Name="Eleve" Relationship="DBModelsContext.FK_Participations_Eleves" FromRole="Participations" ToRole="Eleves" />
+          <NavigationProperty Name="Evenement" Relationship="DBModelsContext.FK_Participations_Evenements" FromRole="Participations" ToRole="Evenements" />
+        </EntityType>
+        <Association Name="FK_Participations_Eleves">
+          <End Type="DBModelsContext.Eleves" Role="Eleves" Multiplicity="1" />
+          <End Type="DBModelsContext.Participations" Role="Participations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Eleves">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participations">
+              <PropertyRef Name="EleveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participations_Evenements">
+          <End Type="DBModelsContext.Evenements" Role="Evenements" Multiplicity="1" />
+          <End Type="DBModelsContext.Participations" Role="Participations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evenements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participations">
+              <PropertyRef Name="EvenementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Plannings_Stock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Creneau0809" Type="Int32" />
+          <Property Name="Creneau0910" Type="Int32" />
+          <Property Name="Creneau1011" Type="Int32" />
+          <Property Name="Creneau1112" Type="Int32" />
+          <Property Name="Creneau1213" Type="Int32" />
+          <Property Name="Creneau1314" Type="Int32" />
+          <Property Name="Creneau1415" Type="Int32" />
+          <Property Name="Creneau1516" Type="Int32" />
+          <Property Name="Creneau1617" Type="Int32" />
+          <Property Name="Creneau1718" Type="Int32" />
+          <Property Name="Jour" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1777,6 +1977,7 @@
           <EntitySetMapping Name="Eleves">
             <EntityTypeMapping TypeName="DBModelsContext.Eleves">
               <MappingFragment StoreEntitySet="Eleves">
+                <ScalarProperty Name="Suivi" ColumnName="Suivi" />
                 <ScalarProperty Name="DeletedYN" ColumnName="DeletedYN" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
@@ -2128,17 +2329,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="AddEvenement" FunctionName="DBModelsContext.Store.AddEvenement" />
           <FunctionImportMapping FunctionImportName="UpdEvenement" FunctionName="DBModelsContext.Store.UpdEvenement" />
-          <EntitySetMapping Name="Participations">
-            <EntityTypeMapping TypeName="DBModelsContext.Participations">
-              <MappingFragment StoreEntitySet="Participations">
-                <ScalarProperty Name="DeletedYN" ColumnName="DeletedYN" />
-                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
-                <ScalarProperty Name="EleveId" ColumnName="EleveId" />
-                <ScalarProperty Name="EvenementId" ColumnName="EvenementId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="UpdPlanning" FunctionName="DBModelsContext.Store.UpdPlanning" />
           <EntitySetMapping Name="Evenements">
             <EntityTypeMapping TypeName="DBModelsContext.Evenements">
@@ -2164,6 +2354,66 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="DelEvenement" FunctionName="DBModelsContext.Store.DelEvenement" />
+          <FunctionImportMapping FunctionImportName="GetParticipations" FunctionName="DBModelsContext.Store.GetParticipations">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBModelsContext.ParticipationResult">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+                <ScalarProperty Name="EleveId" ColumnName="EleveId" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="EvenementId" ColumnName="EvenementId" />
+                <ScalarProperty Name="EvenementLibelle" ColumnName="EvenementLibelle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Participations">
+            <EntityTypeMapping TypeName="DBModelsContext.Participations">
+              <MappingFragment StoreEntitySet="Participations">
+                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+                <ScalarProperty Name="DeletedYN" ColumnName="DeletedYN" />
+                <ScalarProperty Name="EleveId" ColumnName="EleveId" />
+                <ScalarProperty Name="EvenementId" ColumnName="EvenementId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UpdParticipation" FunctionName="DBModelsContext.Store.UpdParticipation" />
+          <FunctionImportMapping FunctionImportName="AddEleve" FunctionName="DBModelsContext.Store.AddEleve" />
+          <FunctionImportMapping FunctionImportName="UpdEleve" FunctionName="DBModelsContext.Store.UpdEleve" />
+          <FunctionImportMapping FunctionImportName="DelParticipation" FunctionName="DBModelsContext.Store.DelParticipation" />
+          <FunctionImportMapping FunctionImportName="DelReservation" FunctionName="DBModelsContext.Store.DelReservation" />
+          <EntitySetMapping Name="Plannings_Stock">
+            <EntityTypeMapping TypeName="DBModelsContext.Plannings_Stock">
+              <MappingFragment StoreEntitySet="Plannings_Stock">
+                <ScalarProperty Name="Jour" ColumnName="Jour" />
+                <ScalarProperty Name="Creneau1718" ColumnName="Creneau1718" />
+                <ScalarProperty Name="Creneau1617" ColumnName="Creneau1617" />
+                <ScalarProperty Name="Creneau1516" ColumnName="Creneau1516" />
+                <ScalarProperty Name="Creneau1415" ColumnName="Creneau1415" />
+                <ScalarProperty Name="Creneau1314" ColumnName="Creneau1314" />
+                <ScalarProperty Name="Creneau1213" ColumnName="Creneau1213" />
+                <ScalarProperty Name="Creneau1112" ColumnName="Creneau1112" />
+                <ScalarProperty Name="Creneau1011" ColumnName="Creneau1011" />
+                <ScalarProperty Name="Creneau0910" ColumnName="Creneau0910" />
+                <ScalarProperty Name="Creneau0809" ColumnName="Creneau0809" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBModelsContext.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ConnectEleve" FunctionName="DBModelsContext.Store.ConnectEleve" />
+          <FunctionImportMapping FunctionImportName="ReinitEleve" FunctionName="DBModelsContext.Store.ReinitEleve" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

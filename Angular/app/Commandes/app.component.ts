@@ -17,7 +17,9 @@ declare var jQuery: any;
 export class AppComponent implements OnInit {
 
     public _WsUrl: string = '/API/';
+    public _APIKey: string = 'AEZRETRYTUYIUOIP';
     public _RootUrl: string = '/';
+    public _ImgUrl: string = 'http://www.cavalier-roi.fr/Content/Images'; 
 
 
     constructor(private _HttpService: Http) { }
@@ -45,7 +47,7 @@ export class AppComponent implements OnInit {
         if ((this._Id != null) || (this._ProduitId != null) || (this._EleveId != null)) { this.GetCommandes(this._Id, null, null, this._ProduitId, this._EleveId, null, null, this._StatutId); }
 
         //récupération des statuts
-        var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._WsUrl + 'Divers/GetStatuts', _RequestOptions)
             .subscribe((data: Response) => {
@@ -96,7 +98,7 @@ export class AppComponent implements OnInit {
         this._CommandesSearchParameters.StatutId = _StatutId;
 
         var _Body = JSON.stringify(this._CommandesSearchParameters);
-        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._WsUrl + 'Commandes/GetCommandes', _Body, _RequestOptions)
             .subscribe((data: Response) => {
@@ -126,7 +128,7 @@ export class AppComponent implements OnInit {
             this._CommandeUpdateParameters.ReferenceExterne = this._Commandes[_Index].ReferenceExterne;
 
             var _Body = JSON.stringify(this._CommandeUpdateParameters);
-            var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
             var _Confirmation = 'La commande ' + this._Commandes[_Index].Id + ' a bien ete modifiee !';
             this._HttpService.post(this._WsUrl + 'Commandes/UpdCommande', _Body, _RequestOptions)
@@ -148,7 +150,7 @@ export class AppComponent implements OnInit {
 
         if (confirm('Voulez-vous vraiment supprimer la commande ' + this._Commandes[_Index].Id + ' ?')) {
 
-            var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
             var _Confirmation = 'La commande ' + this._Commandes[_Index].Id + ' a bien ete supprimee !';
             this._HttpService.get(this._WsUrl + 'Commandes/DelCommande?_Id=' + this._Commandes[_Index].Id.toString() + '&_Real=N', _RequestOptions)

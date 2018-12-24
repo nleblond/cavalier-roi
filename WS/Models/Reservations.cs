@@ -22,6 +22,6 @@ namespace WS.Models
         public string Creneau { get; set; }
     
         public virtual Eleves Eleve { get; set; }
-        public virtual Evenements Evenements { get; set; }
+        public virtual Evenements Evenement { get; set; }
     }
 }

@@ -13,9 +13,9 @@
         <input type="hidden" [value]="_EmplacementId" #EmplacementId />
         <input type="hidden" [value]="_ModeId" #ModeId />
         <div class="br10"></div>
-        <input type="datetime" placeholder="Date de publication minimale" title="Date de publication minimale" readonly="readonly" #DtMin />
+        <input type="datetime" placeholder="Date de publication minimale" title="Date de publication minimale" #DtMin />
         <div class="br10"></div>
-        <input type="datetime" placeholder="Date de publication maximale" title="Date de publication maximale" readonly="readonly" #DtMax />
+        <input type="datetime" placeholder="Date de publication maximale" title="Date de publication maximale" #DtMax />
         <div class="br10"></div>
         <select placeholder="Typologie/Evènement" title="Typologie/Evènement" (change)="ChangeTypologieEvenement($event, 0)">
             <option value="">Typologie/Evènement</option>
@@ -62,11 +62,11 @@
                     <div><u>Début</u>&nbsp;:&nbsp;{{c.DtDebut}}</div>
                     <div><u>Fin</u>&nbsp;:&nbsp;{{c.DtFin}}</div>
                 </td>
-                <td><div *ngIf="c.Full != undefined && c.Full != null && c.Full != ''"><a href="{{_RootUrl}}Content/Images/Contenus/{{c.Id}}/{{c.Full}}" target="_blank"><img src="{{_RootUrl}}Content/Images/Contenus/{{c.Id}}/{{c.Full}}" /></a></div></td>
-                <td><div *ngIf="c.Horizontale != undefined && c.Horizontale != null && c.horizontale != ''"><a href="{{_RootUrl}}Content/Images/Contenus/{{c.Id}}/{{c.Horizontale}}" target="_blank"><img src="{{_RootUrl}}Content/Images/Contenus/{{c.Id}}/{{c.Horizontale}}" /></a></div></td>
-                <td><div *ngIf="c.Carree != undefined && c.Carree != null && c.Carree != ''"><a href="{{_RootUrl}}Content/Images/Contenus/{{c.Id}}/{{c.Carree}}" target="_blank"><img src="{{_RootUrl}}Content/Images/Contenus/{{c.Id}}/{{c.Carree}}" /></a></div></td>
-                <td><div *ngIf="c.Verticale != undefined && c.Verticale != null && c.Verticale != ''"><a href="{{_RootUrl}}Content/Images/Contenus/{{c.Id}}/{{c.Verticale}}" target="_blank"><img src="{{_RootUrl}}Content/Images/Contenus/{{c.Id}}/{{c.Verticale}}" /></a></div></td>
-                <td><div *ngIf="c.Logo != undefined && c.Logo != null && c.Logo != ''"><a href="{{_RootUrl}}Content/Images/Contenus/{{c.Id}}/{{c.Logo}}" target="_blank"><img src="{{_RootUrl}}Content/Images/Contenus/{{c.Id}}/{{c.Logo}}" /></a></div></td>
+                <td><div *ngIf="c.Full != undefined && c.Full != null && c.Full != ''"><a href="{{_ImgUrl}}/Contenus/{{c.Id}}/{{c.Full}}" target="_blank"><img src="{{_ImgUrl}}/Contenus/{{c.Id}}/{{c.Full}}" /></a></div></td>
+                <td><div *ngIf="c.Horizontale != undefined && c.Horizontale != null && c.horizontale != ''"><a href="{{_ImgUrl}}/Contenus/{{c.Id}}/{{c.Horizontale}}" target="_blank"><img src="{{_ImgUrl}}/Contenus/{{c.Id}}/{{c.Horizontale}}" /></a></div></td>
+                <td><div *ngIf="c.Carree != undefined && c.Carree != null && c.Carree != ''"><a href="{{_ImgUrl}}/Contenus/{{c.Id}}/{{c.Carree}}" target="_blank"><img src="{{_ImgUrl}}/Contenus/{{c.Id}}/{{c.Carree}}" /></a></div></td>
+                <td><div *ngIf="c.Verticale != undefined && c.Verticale != null && c.Verticale != ''"><a href="{{_ImgUrl}}/Contenus/{{c.Id}}/{{c.Verticale}}" target="_blank"><img src="{{_ImgUrl}}/Contenus/{{c.Id}}/{{c.Verticale}}" /></a></div></td>
+                <td><div *ngIf="c.Logo != undefined && c.Logo != null && c.Logo != ''"><a href="{{_ImgUrl}}/Contenus/{{c.Id}}/{{c.Logo}}" target="_blank"><img src="{{_ImgUrl}}/Contenus/{{c.Id}}/{{c.Logo}}" /></a></div></td>
                 <td>{{c.Evenement.Libelle}}</td>
                 <td>
                     <input type="button" title="Gérer" value="Gérer" (click)="InitContenu(1, i)" />
@@ -94,7 +94,7 @@
     <h2>Details</h2>
 
     <div class="elements">
-        <img class="fermer" src="@Constants.IMG_URL/Boutons/Fermer.svg" (click)="InitContenu(null, null)" />
+        <img class="fermer" src="{{_ImgUrl}}/Boutons/Fermer.svg" (click)="InitContenu(null, null)" />
         <span>{{_Contenu.Id}}</span>
         <div class="br10"></div>
         <input type="text" placeholder="Titre" title="Titre" class="libelle" [(ngModel)]="_Contenu.Titre" maxlength="100" #CurrentTitre />
@@ -112,9 +112,9 @@
                 </div>
             </div>
             <div class="br10"></div>
-            <input type="datetime" placeholder="Date de début de publication" title="Date de début de publication" class="publication" readonly="readonly" [(ngModel)]="_Contenu.DtDebut" #CurrentDtDebut />
+            <input type="datetime" placeholder="Date de début de publication" title="Date de début de publication" class="publication" [(ngModel)]="_Contenu.DtDebut" #CurrentDtDebut />
             <div class="br10"></div>
-            <input type="datetime" placeholder="Date de fin de publication" title="Date de fin de publication" class="publication" readonly="readonly" [(ngModel)]="_Contenu.DtFin" #CurrentDtFin />
+            <input type="datetime" placeholder="Date de fin de publication" title="Date de fin de publication" class="publication" [(ngModel)]="_Contenu.DtFin" #CurrentDtFin />
             <div class="br10"></div>
 
             <div *ngIf="GetShow('partenariat')">

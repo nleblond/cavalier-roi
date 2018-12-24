@@ -16,26 +16,28 @@ using WS.Models.IN;
 using WS.Models.OUT;
 
 
-namespace Angular.BLL
+namespace Angular.CALL
 {
-    public static class EvenementsManager
+    public static class ContenusManager
     {
 
 
 
-        public static async Task<List<Evenement>> GetEvenements(Int32? _TypologieId = null)
+        public static async Task<List<Contenu>> GetContenus(Int32? _EmplacementId = null, Int32? _Top = null, Int32? _ModeId = null)
         {
 
             var _Client = new HttpClient();
             _Client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
 
-            EvenementsSearchParameters _Parameters = new EvenementsSearchParameters();
-            _Parameters.TypologieId = _TypologieId;
+            ContenusSearchParameters _Parameters = new ContenusSearchParameters();
+            _Parameters.EmplacementId = _EmplacementId;
+            _Parameters.Top = _Top;
+            _Parameters.ModeId = _ModeId;
 
             HttpContent _JsonRequestContent = new StringContent(_Parameters.ToSerializedJson(), Encoding.UTF8, "application/json");
             HttpRequestMessage _Request = new HttpRequestMessage
             {
-                RequestUri = new Uri(Constants.WS_URL + "/Evenements/GetEvenements"),
+                RequestUri = new Uri(Constants.WS_URL + "/Contenus/GetContenus"),
                 Method = HttpMethod.Post,
                 Headers = { { "APIKey", Constants.WS_PASSKEY } },
                 Content = _JsonRequestContent
@@ -43,9 +45,9 @@ namespace Angular.BLL
 
             HttpResponseMessage _Response = _Client.SendAsync(_Request).Result;
             String _JsonResponseContent = await _Response.Content.ReadAsStringAsync();
-            List<Evenement> _Evenements = JsonConvert.DeserializeObject<List<Evenement>>(_JsonResponseContent);
+            List<Contenu> _Contenus = JsonConvert.DeserializeObject<List<Contenu>>(_JsonResponseContent);
 
-            return _Evenements;
+            return _Contenus;
 
         }
 

@@ -17,7 +17,6 @@ namespace WS.Models.OUT
             this.Evenement = null;
         }
 
-
         public Int32? Id { get; set; }
 
         public String Jour { get; set; }

@@ -11,260 +11,286 @@
 
     <div class="clear"></div>
 
-    <div class="infos">
-        <h2>MES INFORMATIONS</h2>
-        <table cellpadding="0" cellspacing="0" border="0" class="texte">
-            <tr>
-                <td>Nom&nbsp;:&nbsp;</td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Prénom&nbsp;:&nbsp;</td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Date de naissance&nbsp;:&nbsp;</td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Sexe&nbsp;:&nbsp;</td>
-                <td>
-                    <select>
-                        <option value="0"></option>
-                        <option value="1">Mme</option>
-                        <option value="0">M.</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Photo&nbsp;:&nbsp;</td>
-                <td><input type="file" /></td>
-            </tr>
-            <tr>
-                <td>Téléphone fixe&nbsp;:&nbsp;</td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Téléphone mobile&nbsp;:&nbsp;</td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Numéro de license&nbsp;:&nbsp;</td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Classement&nbsp;:&nbsp;</td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Club&nbsp;:&nbsp;</td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="last"><input type="button" title="Valider" value="Valider" /></td>
-            </tr>
-        </table>
-        <table cellpadding="0" cellspacing="0" border="0" class="texte">
-            <tr>
-                <td>Email/Identifiant&nbsp;:&nbsp;</td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Mot de passe&nbsp;:&nbsp;</td>
-                <td><input type="password" /></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="last"><input type="button" title="Valider" value="Valider" /></td>
-            </tr>
-            <tr>
-                <td colspan="2"><img class="photo" src="@Constants.IMG_URL/Contact.jpg" /></td>
-            </tr>
-        </table>
-        <table cellpadding="0" cellspacing="0" border="0" class="texte">
-            <tr class="rouge">
-                <td>Commentaire&nbsp;:&nbsp;</td>
-                <td><textarea rows="8" cols="38" disabled></textarea></td>
-            </tr>
-            <tr class="rouge">
-                <td>Suivi&nbsp;:&nbsp;</td>
-                <td><textarea rows="8" cols="38"></textarea></td>
-            </tr>
-            <tr class="rouge">
-                <td></td>
-                <td><span class="rouge" title="Valider">✔</span></td>
-            </tr>
-        </table>
-    </div>
+    @if (Model.Connected == false)
+    {
+        <script language="javascript" lang="fr-fr">
+            this.setTimeout(function () {
+                $('#Div_Connexion').ModalPopUp('open');
+            }, 800);
+        </script>
+    }
+
+    @if (Model.Connected == true && Model.Eleve != null)
+    {
+        <div class="infos">
+            <h2>MES INFORMATIONS</h2>
+            <table cellpadding="0" cellspacing="0" border="0" class="texte">
+                <tr>
+                    <td>Nom&nbsp;:&nbsp;</td>
+                    <td><input type="text" class="nom" maxlength="50" value="@Model.Eleve.Nom" /></td>
+                </tr>
+                <tr>
+                    <td>Prénom&nbsp;:&nbsp;</td>
+                    <td><input type="text" class="prenom" maxlength="50" value="@Model.Eleve.Prenom" /></td>
+                </tr>
+                <tr>
+                    <td>Date de naissance&nbsp;:&nbsp;</td>
+                    <td><input type="text" class="naissance" maxlength="10" readonly="readonly" value="@Model.Eleve.DtNaissance" /></td>
+                </tr>
+                <tr>
+                    <td>Sexe&nbsp;:&nbsp;</td>
+                    <td>
+                        <select class="sexe">
+                            <option value=""></option>
+                            <option value="F" @(Model.Eleve.Sexe == "F" ? "selected=selected" : "")>F</option>
+                            <option value="M" @(Model.Eleve.Sexe == "M" ? "selected=selected" : "")>H</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Téléphone fixe&nbsp;:&nbsp;</td>
+                    <td><input type="text" class="fixe" maxlength="10" value="@Model.Eleve.Fixe" /></td>
+                </tr>
+                <tr>
+                    <td>Téléphone portable&nbsp;:&nbsp;</td>
+                    <td><input type="text" class="portable" maxlength="10" value="@Model.Eleve.Portable" /></td>
+                </tr>
+                <tr>
+                    <td>Numéro de license&nbsp;:&nbsp;</td>
+                    <td><input type="text" class="license" maxlength="20" value="@Model.Eleve.License" /></td>
+                </tr>
+                <tr>
+                    <td>Classement&nbsp;:&nbsp;</td>
+                    <td><input type="text" class="classement" maxlength="6" value="@Model.Eleve.Classement" /></td>
+                </tr>
+                <tr>
+                    <td>Club&nbsp;:&nbsp;</td>
+                    <td><input type="text" class="club" maxlength="255" value="@Model.Eleve.Club" /></td>
+                </tr>
+            </table>
+            <table cellpadding="0" cellspacing="0" border="0" class="texte">
+                <tr class="rouge">
+                    <td>Commentaire&nbsp;:&nbsp;</td>
+                    <td><textarea rows="6" cols="38" class="commentaire">@Model.Eleve.Commentaire</textarea></td>
+                </tr>
+                <tr class="rouge">
+                    <td>Suivi&nbsp;:&nbsp;</td>
+                    <td><textarea rows="6" cols="38" class="suivi">@Model.Eleve.Suivi</textarea></td>
+                </tr>
+            </table>
+            <table cellpadding="0" cellspacing="0" border="0" class="texte">
+                <tr>
+                    <td>Email/Identifiant&nbsp;:&nbsp;</td>
+                    <td><input type="text" class="email" maxlength="255" value="@Model.Eleve.Email" /></td>
+                </tr>
+                <tr>
+                    <td>Mot de passe&nbsp;:&nbsp;</td>
+                    <td><input type="password" class="password" maxlength="20" value="@Model.Eleve.Password" /></td>
+                </tr>
+                <tr style="display:none;">
+                    <td colspan="2"><img class="photo" src="@Constants.IMG_URL/Eleves/@Model.Eleve.Id/@Model.Eleve.Photo" /></td>
+                </tr>
+                <tr style="display:none;">
+                    <td>Photo&nbsp;:&nbsp;</td>
+                    <td><input type="file" value="@Model.Eleve.Photo" /></td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" class="id" value="@Model.Eleve.Id" /></td>
+                    <td class="last"><input type="button" class="valider" title="Valider" value="Valider" /></td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="clear"></div>
+    }
+
+    @if (Model.Eleve != null && Model.Eleve.Commandes != null & Model.Eleve.Commandes.Count > 0)
+    {
+        <div class="commandes">
+            <h2>MES COMMANDES</h2>
+            <table cellpadding="0" cellspacing="0" border="0" class="texte">
+                <thead>
+                    <tr>
+                        <th class="first">N°</th>
+                        <th>Date</th>
+                        <th>Produit</th>
+                        <th style="white-space:nowrap;">Prix</th>
+                        <th class="last">Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (WS.Models.OUT.Commande _CurrentC in Model.Eleve.Commandes)
+                    {
+                        <tr>
+                            <td class="first">@_CurrentC.Id</td>
+                            <td>@_CurrentC.DtCreation</td>
+                            <td>
+                                @foreach (WS.Models.OUT.Ligne _CurrentL in _CurrentC.Lignes)
+                                {
+                                    <div>
+                                        <span>@_CurrentL.Quantite</span>
+                                        <span>&nbsp;x&nbsp;</span>
+                                        <span>@_CurrentL.Produit.Libelle</span>
+                                    </div>
+                                }
+                            </td>
+                            <td>@_CurrentC.Prix€</td>
+                            <td class="last">@_CurrentC.Statut.Libelle</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="clear"></div>
+    }
+
+    @if (Model.Eleve != null && Model.Eleve.Participations != null & (Model.Eleve.Participations as List<WS.Models.OUT.Participation>).FindAll(p => p.Evenement.Typologie.Id == 3).Count > 0)
+    {
+        <div class="cours">
+            <h2>MES COURS</h2>
+            <table cellpadding="0" cellspacing="0" border="0" class="formules texte">
+                <tbody>
+                    @foreach (WS.Models.OUT.Participation _CurrentP in (Model.Eleve.Participations as List<WS.Models.OUT.Participation>).FindAll(p => p.Evenement.Typologie.Id == 3))
+                    {
+                        <tr class="formule">
+                            <td class="first">
+                                <span>@_CurrentP.Evenement.Libelle</span>
+                                <table cellpadding="0" cellspacing="0" border="0" class="dates">
+                                    <thead>
+                                        <tr>
+                                            <th class="first">Date</th>
+                                            <th>Heure de début</th>
+                                            <th>Heure de fin</th>
+                                            <th class="last"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (WS.Models.OUT.Reservation _CurrentR in (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id))
+                                        {
+                                            <tr class="reservation">
+                                                <td class="first">@_CurrentR.Jour</td>
+                                                <td>@(_CurrentR.Creneau.Replace("Creneau", "").Left(2))H</td>
+                                                <td>@(_CurrentR.Creneau.Replace("Creneau", "").Right(2))H</td>
+                                                <td class="last">
+                                                    <input type="hidden" value="@_CurrentR.Id" />
+                                                    <span class="rouge supprimer" title="Supprimer">✖</span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <div>
+                                    <input type="text" class="quantite" title="Quantité disponible" value="@_CurrentP.Quantite" />H
+                                    @if (_CurrentP.Evenement.Duree != null)
+                                    {
+                                        <span>sur @(_CurrentP.Evenement.Duree)H</span>
+                                    }
+                                    <span class="rouge crediter" title="Créditer">✔</span>
+                                </div>
+                                <div class="actions">
+                                    <input type="button" class="reserver" title="Réserver" value="Réserver" />
+                                    <input type="hidden" class="id" value="@_CurrentP.Id" />
+                                    <span class="rouge supprimer" title="Supprimer">✖</span>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model.Eleve != null && Model.Eleve.Participations != null & (Model.Eleve.Participations as List<WS.Models.OUT.Participation>).FindAll(p => p.Evenement.Typologie.Id == 0).Count > 0)
+    {
+        <div class="stages">
+            <h2>MES STAGES</h2>
+            <table cellpadding="0" cellspacing="0" border="0" class="formules texte">
+                <tbody>
+                    @foreach (WS.Models.OUT.Participation _CurrentP in (Model.Eleve.Participations as List<WS.Models.OUT.Participation>).FindAll(p => p.Evenement.Typologie.Id == 0))
+                    {
+                        <tr class="formule">
+                            <td class="first">
+                                <div>@_CurrentP.Evenement.Libelle</div>
+                                <table cellpadding="0" cellspacing="0" border="0" class="dates">
+                                    <thead>
+                                        <tr>
+                                            <th class="first">Date</th>
+                                            <th>Heure de début</th>
+                                            <th>Heure de fin</th>
+                                            <th class="last"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            String _Jour = null;
+                                        }
+                                        @foreach (WS.Models.OUT.Reservation _CurrentR in (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id).OrderBy(p => p.Jour))
+                                        {
+                                            if (_Jour != _CurrentR.Jour)
+                                            {
+                                                _Jour = _CurrentR.Jour;
+                                                String _HeureDebut = (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id && p.Jour == _Jour).OrderBy(p => p.Creneau).FirstOrDefault().Creneau.Replace("Creneau", "").Left(2) + "H";
+                                                String _HeureFin = (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id && p.Jour == _Jour).OrderByDescending(p => p.Creneau).FirstOrDefault().Creneau.Replace("Creneau", "").Right(2) + "H";
+
+                                                <tr>
+                                                    <td class="first">@_CurrentR.Jour</td>
+                                                    <td>@_HeureDebut</td>
+                                                    <td>@_HeureFin</td>
+                                                    <td class="last"></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="actions">
+                                <input type="hidden" class="id" value="@_CurrentP.Id" />
+                                <span class="rouge supprimer" title="Supprimer">✖</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    }
 
     <div class="clear"></div>
 
-    <div class="commandes">
-        <h2>MES COMMANDES</h2>
-        <table cellpadding="0" cellspacing="0" border="0" class="texte">
-            <thead>
-                <tr>
-                    <th class="first">N°</th>
-                    <th>Date</th>
-                    <th>Produit</th>
-                    <th style="white-space:nowrap;">Qté</th>
-                    <th style="white-space:nowrap;">Prix</th>
-                    <th class="last">Statut</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="first">12345</td>
-                    <td>20/12/1979 15:55</td>
-                    <td>ARMURE DU CHEVALIER DU ZODIAQUE / SAINT SEIYA&nbsp;:&nbsp;HADES V4 15TH</td>
-                    <td>1</td>
-                    <td>150,00€</td>
-                    <td class="last">Envoyé</td>
-                </tr>
-                <tr>
-                    <td class="first">12346</td>
-                    <td>20/12/1979 18:15</td>
-                    <td>ARMURE DU CHEVALIER DU ZODIAQUE / SAINT SEIYA&nbsp;:&nbsp;ATHENA V4 10TH</td>
-                    <td>1</td>
-                    <td>120,00€</td>
-                    <td class="last">En cours d'envoi</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="clear"></div>
-
-    <div class="cours">
-        <h2>MES COURS</h2>
-        <table cellpadding="0" cellspacing="0" border="0" class="formules texte">
-            <thead>
-                <tr>
-                    <th colspan="2" class="first">Formule</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="formule">
-                    <td class="first">
-                        <div>FORMULE 2H</div>
-                        <table cellpadding="0" cellspacing="0" border="0" class="dates">
-                            <thead>
-                                <tr>
-                                    <th class="first">Date</th>
-                                    <th>Heure de début</th>
-                                    <th>Heure de fin</th>
-                                    <th class="last"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="first">MARDI 01/01/2018</td>
-                                    <td>10H</td>
-                                    <td>11H</td>
-                                    <td class="last"></td>
-                                </tr>
-                                <tr>
-                                    <td class="first">MERCREDI 01/01/2019</td>
-                                    <td>15H</td>
-                                    <td>16H</td>
-                                    <td class="last"><span class="rouge" title="Annuler">✖</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                    <td class="actions">
-                        <div><input type="text" value="0" />H sur&nbsp;<span>2H</span></div>
-                        <div><span class="rouge" title="Créditer">✔</span></div>
-                        <div><input type="button" title="Réserver" value="Réserver" /></div>
-                    </td>
-                </tr>
-                <tr class="formule">
-                    <td class="first">
-                        <div>FORMULE A LA DEMANDE</div>
-                        <table cellpadding="0" cellspacing="0" border="0" class="dates">
-                            <thead>
-                                <tr>
-                                    <th class="first">Date</th>
-                                    <th>Heure de début</th>
-                                    <th>Heure de fin</th>
-                                    <th>&nbsp;</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="first">-</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                    <td class="actions">
-                        <div><input type="text" value="50" />H</div>
-                        <div><span class="rouge" title="Créditer">✔</span></div>
-                        <div><input type="button" title="Réserver" value="Réserver" /></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
-
-    <div class="clear"></div>
-
-    <div class="stages">
-        <h2>MES STAGES</h2>
-        <table cellpadding="0" cellspacing="0" border="0" class="texte">
-            <thead>
-                <tr>
-                    <th class="first">Libellé</th>
-                    <th>Date de début</th>
-                    <th>Date de fin</th>
-                    <th class="last"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="first">PERFECTIONNEMENT A LA [S]ODOMIE [S]URPRISE</td>
-                    <td>MARDI 01/01/2018 10H</td>
-                    <td>VENDREDI 04/01/2018 17H</td>
-                    <td class="last"></td>
-                </tr>
-                <tr>
-                    <td class="first">COMMENT OBTENIR UNE PIPE</td>
-                    <td>DIMANCHE 12/11/2018 12H</td>
-                    <td>DIMANCHE 12/11/2018 12H</td>
-                    <td class="last right"><span class="rouge" title="Annuler">✖</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="clear"></div>
-
-    <div class="tournois">
-        <h2>MES TOURNOIS</h2>
-        <table cellpadding="0" cellspacing="0" border="0" class="texte">
-            <thead>
-                <tr>
-                    <th class="first">Libellé</th>
-                    <th>Date de début</th>
-                    <th>Date de fin</th>
-                    <th class="last"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="first">LA PLUS GROSSE TEUB DU VAR</td>
-                    <td>MARDI 01/01/2018 10H</td>
-                    <td>VENDREDI 04/01/2018 17H</td>
-                    <td class="right last"><span class="rouge" title="Annuler">✖</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    @if (Model.Eleve != null && Model.Eleve.Participations != null & (Model.Eleve.Participations as List<WS.Models.OUT.Participation>).FindAll(p => p.Evenement.Typologie.Id == 1).Count > 0)
+    {
+        <div class="tournois">
+            <h2>MES TOURNOIS</h2>
+            <table cellpadding="0" cellspacing="0" border="0" class="texte">
+                <thead>
+                    <tr>
+                        <th class="first">Libellé</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                        <th class="last"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (WS.Models.OUT.Participation _CurrentP in (Model.Eleve.Participations as List<WS.Models.OUT.Participation>).FindAll(p => p.Evenement.Typologie.Id == 1))
+                    {
+                        <tr class="formule">
+                            <td class="first">@_CurrentP.Evenement.Libelle</td>
+                            <td>@_CurrentP.Evenement.DtDebut</td>
+                            <td>@_CurrentP.Evenement.DtFin</td>
+                            <td class="last actions">
+                                <input type="hidden" class="id" value="@_CurrentP.Id" />
+                                <span class="rouge supprimer" title="Supprimer">✖</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
 
     <div class="clear"></div>
 

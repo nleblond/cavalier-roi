@@ -38,13 +38,15 @@
         <AssociationConnector Association="DBModelsContext.FK_Emplacements_Modes" />
         <AssociationConnector Association="DBModelsContext.FK_Publications_Contenus1" />
         <EntityTypeShape EntityType="DBModelsContext.Plannings" Width="1.5" PointX="10.5" PointY="0.625" />
-        <EntityTypeShape EntityType="DBModelsContext.Participations" Width="1.5" PointX="6.25" PointY="4.125" />
-        <AssociationConnector Association="DBModelsContext.FK_Participations_Eleves" />
         <EntityTypeShape EntityType="DBModelsContext.Evenements" Width="1.5" PointX="1.25" PointY="0.5" />
         <AssociationConnector Association="DBModelsContext.FK_Contenus_Evenements" />
         <AssociationConnector Association="DBModelsContext.FK_Evenements_Typologies" />
-        <AssociationConnector Association="DBModelsContext.FK_Participations_Evenements" />
         <AssociationConnector Association="DBModelsContext.FK_Reservations_Evenements" />
+        <EntityTypeShape EntityType="DBModelsContext.Participations" Width="1.5" PointX="6.375" PointY="4.375" />
+        <AssociationConnector Association="DBModelsContext.FK_Participations_Eleves" />
+        <AssociationConnector Association="DBModelsContext.FK_Participations_Evenements" />
+        <EntityTypeShape EntityType="DBModelsContext.Plannings_Stock" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DBModelsContext.sysdiagrams" Width="1.5" PointX="5.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

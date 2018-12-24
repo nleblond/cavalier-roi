@@ -15,13 +15,13 @@ using System.Text;
 using WS.Models.IN;
 using WS.Models.OUT;
 
-namespace Angular.BLL
+namespace Angular.CALL
 {
-    public class CommandesManager
+    public static class CommandesManager
     {
 
 
-        public async void GetCommandes()
+        public static async Task<List<Commande>> GetCommandes()
         {
             var _Client = new HttpClient();
             _Client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
@@ -41,12 +41,10 @@ namespace Angular.BLL
             };
 
             HttpResponseMessage _Response = _Client.SendAsync(_Request).Result;
-
             String _JsonResponseContent = await _Response.Content.ReadAsStringAsync();
+            List<Commande> _Commandes = JsonConvert.DeserializeObject<List<Commande>>(_JsonResponseContent);
 
-
-            List<Commande> Commandes = JsonConvert.DeserializeObject<List<Commande>>(_JsonResponseContent);
-            //List<Commande> Commandes = _JsonResponseContent.ToDeserializedJson<List<Commande>>();
+            return _Commandes;
 
         }
 

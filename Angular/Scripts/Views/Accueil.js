@@ -14,7 +14,7 @@ function GetCommandes() {
         type: 'POST',
         url: 'http://localhost:63123//Commandes/GetCommandes',
         headers: {
-            'APIKey': 'AEZRETRYTUYIUOIP',
+            'APIKey': this._APIKey,
             'Content-Type': 'application/json'
         },
         dataType: 'json',

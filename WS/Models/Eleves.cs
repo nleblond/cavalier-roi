@@ -37,6 +37,7 @@ namespace WS.Models
         public string License { get; set; }
         public string Classement { get; set; }
         public string DeletedYN { get; set; }
+        public string Suivi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservations> Reservations { get; set; }

@@ -16,7 +16,9 @@ var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
         this._WsUrl = '/API/';
+        this._APIKey = 'AEZRETRYTUYIUOIP';
         this._RootUrl = '/';
+        this._ImgUrl = 'http://www.cavalier-roi.fr/Content/Images';
         this._Id = null;
         this._EvenementId = null;
         this._TypologieId = null;
@@ -42,7 +44,7 @@ var AppComponent = /** @class */ (function () {
             this.GetEleves(this._Id, null, null, null, null, null, this._EvenementId, this._TypologieId);
         }
         //r�cup�ration des typologies/evenements
-        var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe(function (data) {
@@ -81,7 +83,7 @@ var AppComponent = /** @class */ (function () {
         this._ElevesSearchParameters.EvenementId = _EvenementId;
         this._ElevesSearchParameters.TypologieId = _TypologieId;
         var _Body = JSON.stringify(this._ElevesSearchParameters);
-        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._WsUrl + 'Eleves/GetEleves', _Body, _RequestOptions)
             .subscribe(function (data) {
@@ -105,7 +107,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.DelEleve = function (_Index) {
         var _this = this;
         if (confirm('Voulez-vous vraiment supprimer l\'eleve ' + this._Eleves[_Index].Nom + ' ' + this._Eleves[_Index].Prenom + ' ?')) {
-            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'L\'eleve ' + this._Eleves[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._WsUrl + 'Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)

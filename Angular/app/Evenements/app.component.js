@@ -19,7 +19,9 @@ var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
         this._WsUrl = '/API/';
+        this._APIKey = 'AEZRETRYTUYIUOIP';
         this._RootUrl = '/';
+        this._ImgUrl = 'http://www.cavalier-roi.fr/Content/Images';
         this._Id = null;
         this._EleveId = null;
         this._TypologieId = null;
@@ -49,7 +51,7 @@ var AppComponent = /** @class */ (function () {
             this.GetEvenements(this._Id, null, this._EleveId, this._EvenementParentId, null, null, this._TypologieId);
         }
         //r�cup�ration des typologies/evenements parents uniquement
-        var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements?_OnlyParentsYN=Y', _RequestOptions)
             .subscribe(function (data) {
@@ -61,7 +63,7 @@ var AppComponent = /** @class */ (function () {
             }
         });
         //r�cup�ration des typologies + �v�nements
-        var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe(function (data) {
@@ -112,6 +114,10 @@ var AppComponent = /** @class */ (function () {
                 this._Evenement.EvenementParent.Libelle = _SelectedLibelle.replace('____', '').replace('____', '').trim();
             }
         }
+        //initialisation des datetimepickers des d�tails
+        setTimeout(function () {
+            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        }, 1000);
     };
     AppComponent.prototype.GetSelect = function (_Evenement) {
         if ((this._Evenement.EvenementParent.Id == undefined) || (this._Evenement.EvenementParent.Id == null)) {
@@ -604,7 +610,7 @@ var AppComponent = /** @class */ (function () {
         this._EvenementsSearchParameters.EleveId = _EleveId;
         this._EvenementsSearchParameters.TypologieId = _TypologieId;
         var _Body = JSON.stringify(this._EvenementsSearchParameters);
-        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._WsUrl + 'Evenements/GetEvenements', _Body, _RequestOptions)
             .subscribe(function (data) {
@@ -627,7 +633,7 @@ var AppComponent = /** @class */ (function () {
         this._EvenementsSearchParameters = new EvenementsSearchParameters_1.EvenementsSearchParameters();
         this._EvenementsSearchParameters.Id = _EvenementId;
         var _Body = JSON.stringify(this._EvenementsSearchParameters);
-        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._WsUrl + 'Evenements/GetEvenements', _Body, _RequestOptions)
             .subscribe(function (data) {
@@ -648,7 +654,7 @@ var AppComponent = /** @class */ (function () {
         this._PlanningsSearchParameters.Annee = (new Date()).getFullYear();
         this._PlanningsSearchParameters.Plus = 2;
         var _Body = JSON.stringify(this._PlanningsSearchParameters);
-        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._WsUrl + 'Evenements/GetPlanningsBack', _Body, _RequestOptions)
             .subscribe(function (data) {
@@ -689,12 +695,12 @@ var AppComponent = /** @class */ (function () {
         catch (_a) { }
         ;
         if (_Option == 0) { //cr�ation
-            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             this._HttpService.get(this._WsUrl + 'Divers/GetId?_Table=Evenements', _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
-                    _this._InitReturn = (data.json())[0];
+                    _this._InitReturn = data.json();
                     _this._Evenement = new Evenement_1.Evenement();
                     _this._Evenement.EvenementParent = new Evenement_1.Evenement();
                     _this._Evenement.Id = _this._InitReturn;
@@ -714,9 +720,9 @@ var AppComponent = /** @class */ (function () {
         }
         this.GetPlannings(); //r�cup�ration des derniers enregistrements "planning" en date
         //initialisation des datetimepickers des d�tails
-        setTimeout(function () {
-            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
-        }, 1000);
+        //setTimeout(function () {
+        //    jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        //}, 1000);
     };
     AppComponent.prototype.AddUpdEvenement = function () {
         var _this = this;
@@ -736,7 +742,7 @@ var AppComponent = /** @class */ (function () {
         if (confirm(_Question)) {
             //mise � jour de l'�v�nement
             var _Body = JSON.stringify(this._Evenement);
-            var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
             this._HttpService.post(this._WsUrl + _Method, _Body, _RequestOptions)
                 .subscribe(function (data) {
@@ -765,7 +771,7 @@ var AppComponent = /** @class */ (function () {
                     }
                     //mise � jour du planning que la modification de l'�v�nement a pu modifier
                     var _Body = JSON.stringify(_this._Evenement.Plannings);
-                    var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+                    var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': _this._APIKey });
                     var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
                     _this._HttpService.post(_this._WsUrl + 'Evenements/UpdPlannings', _Body, _RequestOptions)
                         .subscribe(function (data) {
@@ -787,7 +793,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.DelEvenement = function (_Index) {
         var _this = this;
         if (confirm('Voulez-vous vraiment supprimer l\'evenement ' + this._Evenements[_Index].Id + ' ?')) {
-            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'L\'evenement ' + this._Evenements[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._WsUrl + 'Evenements/DelEvenement?_Id=' + this._Evenements[_Index].Id.toString(), _RequestOptions)

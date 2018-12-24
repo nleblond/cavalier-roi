@@ -4,90 +4,111 @@
     <div class="texte">
 
         <h2>JE SUIS DEJA INSCRIT</h2>
-        <table cellpadding="0" cellspacing="0" border="0">
+        <table cellpadding="0" cellspacing="0" border="0" class="connexion">
             <tr>
-                <td>Email/Identifiant : </td>
-                <td><input type="text" /></td>
+                <td>Email/Identifiant : <span class="jaune">*</span></td>
+                <td><input type="text" class="email" /></td>
             </tr>
             <tr>
-                <td>Mot de passe : </td>
-                <td><input type="text" /></td>
+                <td>Mot de passe : <span class="jaune">*</span></td>
+                <td><input type="password" class="password" /></td>
             </tr>
             <tr>
-                <td></td>
-                <td><input type="button" title="Valider" value="Valider" /></td>
+                <td><span class="jaune">* : champ obligatoire</span></td>
+                <td><input type="button" class="valider" title="Connecter" value="Connecter" /></td>
             </tr>
         </table>
 
+        <div class="clear"></div>
+        <div class="br10"></div>
+        <hr />
+
         <h2>JE M'INSCRIS</h2>
-        <table cellpadding="0" cellspacing="0" border="0">
+        <table cellpadding="0" cellspacing="0" border="0" class="inscription">
             <tr>
-                <td>Email/Identifiant : </td>
-                <td><input type="text" /></td>
+                <td>Email/Identifiant : <span class="jaune">*</span></td>
+                <td><input type="text" class="email" maxlength="255" /></td>
             </tr>
             <tr>
-                <td>Mot de passe : </td>
-                <td><input type="password" /></td>
+                <td>Mot de passe : <span class="jaune">*</span></td>
+                <td><input type="password" class="password" maxlength="20" /></td>
             </tr>
             <tr>
-                <td colspan="2"><hr /></td>
+                <td>Nom : <span class="jaune">*</span></td>
+                <td><input type="text" class="nom" maxlength="50" /></td>
             </tr>
             <tr>
-                <td>Nom : </td>
-                <td><input type="text" /></td>
+                <td>Prénom : <span class="jaune">*</span></td>
+                <td><input type="text" class="prenom" maxlength="50" /></td>
             </tr>
             <tr>
-                <td>Prénom : </td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Date de naissance : </td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Sexe : </td>
+                <td>Sexe : <span class="jaune">*</span></td>
                 <td>
-                    <select>
-                        <option value="0"></option>
-                        <option value="1">Mme</option>
-                        <option value="0">M.</option>
+                    <select class="sexe">
+                        <option value=""></option>
+                        <option value="F">F</option>
+                        <option value="M">M</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td>Photo : </td>
-                <td><input type="file" /></td>
+                <td>Date de naissance : <span class="jaune">*</span></td>
+                <td><input type="text" class="naissance" maxlength="10" readonly="readonly" /></td>
+            </tr>
+            @*<tr>
+            <td>Photo : </td>
+            <td><input type="file" /></td>
+        </tr>*@
+            <tr>
+                <td>Téléphone fixe : <span class="jaune">**</span></td>
+                <td><input type="text" class="fixe" maxlength="10" /></td>
             </tr>
             <tr>
-                <td>Téléphone fixe : </td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Téléphone mobile : </td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Numéro de license : </td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td>Classement : </td>
-                <td><input type="text" /></td>
+                <td>Téléphone portable : <span class="jaune">**</span></td>
+                <td><input type="text" class="portable" maxlength="10" /></td>
             </tr>
             <tr>
                 <td>Club : </td>
-                <td><input type="text" /></td>
+                <td><input type="text" class="club" maxlength="255" /></td>
+            </tr>
+            <tr>
+                <td>Numéro de license : </td>
+                <td><input type="text" class="license" maxlength="20" /></td>
+            </tr>
+            <tr>
+                <td>Classement : </td>
+                <td><input type="text" class="classement" maxlength="6" /></td>
             </tr>
             <tr>
                 <td>Commentaire :</td>
-                <td><textarea rows="8" cols="38" disabled></textarea></td>
+                <td><textarea rows="8" cols="38" class="commentaire"></textarea></td>
             </tr>
             <tr>
-                <td></td>
-                <td><input type="button" title="Valider" value="Valider" /></td>
+                <td>
+                    <div><span class="jaune">* : champ obligatoire</span></div>
+                    <div><span class="jaune">** : un champ obligatoire</span></div>
+                </td>
+                <td><input type="button" class="valider" title="Valider" value="Valider" /></td>
             </tr>
         </table>
 
+        <div class="clear"></div>
+        <div class="br10"></div>
+        <hr />
+
+        <h2>J'AI OUBLIE MON MOT DE PASSE</h2>
+        <table cellpadding="0" cellspacing="0" border="0" class="reinitialisation">
+            <tr>
+                <td>Email/Identifiant : <span class="jaune">*</span></td>
+                <td><input type="text" class="email" /></td>
+            </tr>
+            <tr>
+                <td><span class="jaune">* : champ obligatoire</span></td>
+                <td><input type="button" class="valider" title="Réinitialiser" value="Réinitialiser" /></td>
+            </tr>
+        </table>
+
+        <div class="clear"></div>
     </div>
 </div>
 

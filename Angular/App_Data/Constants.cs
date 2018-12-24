@@ -3,52 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-public class Constants
+
+namespace Angular
 {
-
-    public static String WS_URL
+    public class Constants
     {
-        get
+
+        public static String WS_URL
         {
-            return System.Configuration.ConfigurationManager.AppSettings["WS_URL"];
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["WS_URL"];
+            }
         }
-    }
 
-    public static String WS_PASSKEY
-    {
-        get
+        public static String WS_PASSKEY
         {
-            return System.Configuration.ConfigurationManager.AppSettings["WS_PASSKEY"];
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["WS_PASSKEY"];
+            }
         }
-    }
 
 
-    public static String IMG_URL
-    {
-        get
+        public static String IMG_URL
         {
-            return System.Configuration.ConfigurationManager.AppSettings["IMG_URL"];
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["IMG_URL"];
+            }
         }
-    }
 
 
-    public static String ROOT_URL
-    {
-        get
+        public static String ROOT_URL
         {
-            return System.Configuration.ConfigurationManager.AppSettings["ROOT_URL"];
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["ROOT_URL"];
+            }
         }
+
     }
-
-
-    //public static String WS_PASSKEY
-    //{
-    //    get
-    //    {
-    //        try { return System.Configuration.ConfigurationManager.AppSettings["URL_REPORTINGS_CHRONODELIVERIES"].ToUpper().CompareTo("TRUE") == 0; }
-    //        catch { return true; }
-    //    }
-    //}
-
-
 }

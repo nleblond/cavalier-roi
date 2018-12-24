@@ -19,7 +19,9 @@ declare var jQuery: any;
 export class AppComponent implements OnInit {
 
     public _WsUrl: string = '/API/';
+    public _APIKey: string = 'AEZRETRYTUYIUOIP';
     public _RootUrl: string = '/';
+    public _ImgUrl: string = 'http://www.cavalier-roi.fr/Content/Images'; 
 
 
     constructor(private _HttpService: Http) { }
@@ -44,7 +46,7 @@ export class AppComponent implements OnInit {
         if ((this._Id != null) || (this._TypologieId != null) || (this._EvenementId != null)) { this.GetEleves(this._Id, null, null, null, null, null, this._EvenementId, this._TypologieId); }
 
         //récupération des typologies/evenements
-        var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe((data: Response) => {
@@ -91,7 +93,7 @@ export class AppComponent implements OnInit {
         this._ElevesSearchParameters.TypologieId = _TypologieId;
 
         var _Body = JSON.stringify(this._ElevesSearchParameters);
-        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._WsUrl + 'Eleves/GetEleves', _Body, _RequestOptions)
             .subscribe((data: Response) => {
@@ -121,7 +123,7 @@ export class AppComponent implements OnInit {
 
         if (confirm('Voulez-vous vraiment supprimer l\'eleve ' + this._Eleves[_Index].Nom + ' ' + this._Eleves[_Index].Prenom + ' ?')) {
 
-            var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'L\'eleve ' + this._Eleves[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._WsUrl + 'Eleves/DelEleve?_Id=' + this._Eleves[_Index].Id.toString() + '&_Real=N', _RequestOptions)

@@ -18,7 +18,9 @@ var AppComponent = /** @class */ (function () {
     function AppComponent(_HttpService) {
         this._HttpService = _HttpService;
         this._WsUrl = '/API/';
+        this._APIKey = 'AEZRETRYTUYIUOIP';
         this._RootUrl = '/';
+        this._ImgUrl = 'http://www.cavalier-roi.fr/Content/Images';
         this._Id = null;
         this._CommandeId = null;
         this._CategorieId = null;
@@ -44,7 +46,7 @@ var AppComponent = /** @class */ (function () {
             this.GetProduits(this._Id, null, null, this._CategorieId, null, null, this._CommandeId);
         }
         //r�cup�ration des cat�gories
-        var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._WsUrl + 'Divers/GetCategories', _RequestOptions)
             .subscribe(function (data) {
@@ -96,12 +98,12 @@ var AppComponent = /** @class */ (function () {
         catch (_a) { }
         ;
         if (_Option == 0) {
-            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             this._HttpService.get(this._WsUrl + 'Divers/GetId?_Table=Produits', _RequestOptions)
                 .subscribe(function (data) {
                 if (data.ok) {
-                    _this._InitReturn = (data.json())[0];
+                    _this._InitReturn = data.json();
                     _this._Produit = new Produit_1.Produit();
                     _this._Produit.Id = _this._InitReturn;
                     _this._Produit.Etat = 0; //creation
@@ -116,9 +118,9 @@ var AppComponent = /** @class */ (function () {
             this._Produit.Etat = 1; //modification
         }
         //initialisation des datetimepickers des d�tails
-        setTimeout(function () {
-            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
-        }, 1000);
+        //setTimeout(function () {
+        //    jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        //}, 1000);
     };
     AppComponent.prototype.GetProduits = function (_Id, _Reference, _Libelle, _CategorieId, _StockMin, _StockMax, _CommandeId) {
         var _this = this;
@@ -131,7 +133,7 @@ var AppComponent = /** @class */ (function () {
         this._ProduitsSearchParameters.StockMax = _StockMax;
         this._ProduitsSearchParameters.CommandeId = _CommandeId;
         var _Body = JSON.stringify(this._ProduitsSearchParameters);
-        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._WsUrl + 'Produits/GetProduits', _Body, _RequestOptions)
             .subscribe(function (data) {
@@ -166,7 +168,7 @@ var AppComponent = /** @class */ (function () {
         }
         if (confirm(_Question)) {
             var _Body = JSON.stringify(this._Produit);
-            var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
             this._HttpService.post(this._WsUrl + _Method, _Body, _RequestOptions)
                 .subscribe(function (data) {
@@ -203,7 +205,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.DelProduit = function (_Index) {
         var _this = this;
         if (confirm('Voulez-vous vraiment supprimer le produit ' + this._Produits[_Index].Id + ' ?')) {
-            var _HeaderOptions = new http_1.Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'Le produit ' + this._Produits[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._WsUrl + 'Produits/DelProduit?_Id=' + this._Produits[_Index].Id.toString() + '&_Real=Y', _RequestOptions)

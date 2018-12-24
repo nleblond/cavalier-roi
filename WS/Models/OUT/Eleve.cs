@@ -9,20 +9,21 @@ namespace WS.Models.OUT
     {
         public Eleve()
         {
-            this.Participations = new List<Participations>();
-            this.Reservations = new List<Reservations>();
+            this.Participations = new List<Participation>();
+            this.Reservations = new List<Reservation>();
             this.Commandes = new List<Commande>();
         }
 
-        public Int32 Id { get; set; }
+        public Int32? Id { get; set; }
         public String Nom { get; set; }
         public String Prenom { get; set; }
         public String Email { get; set; }
-        public DateTime? DtNaissance { get; set; }
+
+        public String Password { get; set; }
+        public String DtNaissance { get; set; }
         public String Sexe { get; set; }
         public String Club { get; set; }
         public String Photo { get; set; }
-        public String Password { get; set; }
         public String Fixe { get; set; }
         public String Portable { get; set; }
         public String Commentaire { get; set; }
@@ -30,12 +31,15 @@ namespace WS.Models.OUT
         public String Classement { get; set; }
 
 
+        public String Suivi { get; set; }
+
+
         public String DeletedYN { get; set; }
 
 
-        public List<Participations> Participations { get; set; }
+        public List<Participation> Participations { get; set; }
 
-        public List<Reservations> Reservations { get; set; }
+        public List<Reservation> Reservations { get; set; }
 
         public List<Commande> Commandes { get; set; }
 

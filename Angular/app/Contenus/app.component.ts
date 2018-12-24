@@ -21,7 +21,9 @@ declare var jQuery: any;
 export class AppComponent implements OnInit {
 
     public _WsUrl: string = '/API/';
+    public _APIKey: string = 'AEZRETRYTUYIUOIP';
     public _RootUrl: string = '/';
+    public _ImgUrl: string = 'http://www.cavalier-roi.fr/Content/Images'; 
 
     constructor(private _HttpService: Http) { }
 
@@ -52,7 +54,7 @@ export class AppComponent implements OnInit {
 
 
         //récupération des typologies/évènements
-        var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._WsUrl + 'Divers/GetTypologiesEvenements', _RequestOptions)
             .subscribe((data: Response) => {
@@ -64,7 +66,7 @@ export class AppComponent implements OnInit {
         );
 
         //récupération des modes/emplacements
-        var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
         this._HttpService.get(this._WsUrl + 'Divers/GetModesEmplacements', _RequestOptions)
             .subscribe((data: Response) => {
@@ -246,12 +248,12 @@ export class AppComponent implements OnInit {
         } catch { };
 
         if (_Option == 0) {
-            var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             this._HttpService.get(this._WsUrl + 'Divers/GetId?_Table=Contenus', _RequestOptions)
                 .subscribe((data: Response) => {
                     if (data.ok) {
-                        this._InitReturn = (data.json())[0] as number;
+                        this._InitReturn = data.json() as number;
                         this._Contenu = new Contenu();
                         this._Contenu.Id = this._InitReturn;
                         this._Contenu.Etat = 0; //creation
@@ -265,9 +267,9 @@ export class AppComponent implements OnInit {
         }
 
         //initialisation des datetimepickers des détails
-        setTimeout(function () {
-            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
-        }, 1000);
+        //setTimeout(function () {
+        //    jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        //}, 1000);
 
     }
 
@@ -288,7 +290,7 @@ export class AppComponent implements OnInit {
         this._ContenusSearchParameters.TypologieId = _TypologieId;
 
         var _Body = JSON.stringify(this._ContenusSearchParameters);
-        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+        var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
         this._HttpService.post(this._WsUrl + 'Contenus/GetContenus', _Body, _RequestOptions)
             .subscribe((data: Response) => {
@@ -324,7 +326,7 @@ export class AppComponent implements OnInit {
         if (confirm(_Question)) {
 
             var _Body = JSON.stringify(this._Contenu);
-            var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Post, headers: _HeaderOptions });
             this._HttpService.post(this._WsUrl + _Method, _Body, _RequestOptions)
                 .subscribe((data: Response) => {
@@ -360,7 +362,7 @@ export class AppComponent implements OnInit {
 
         if (confirm('Voulez-vous vraiment supprimer le contenu ' + this._Contenus[_Index].Id + ' ?')) {
 
-            var _HeaderOptions = new Headers({ 'APIKey': 'AEZRETRYTUYIUOIP' });
+            var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
             var _Confirmation = 'Le contenu ' + this._Contenus[_Index].Id + ' a bien ete supprime !';
             this._HttpService.get(this._WsUrl + 'Contenus/DelContenu?_Id=' + this._Contenus[_Index].Id.toString() + '&_Real=N', _RequestOptions)
