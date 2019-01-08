@@ -17,9 +17,9 @@ namespace WS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Eleves()
         {
-            this.Reservations = new HashSet<Reservations>();
             this.Commandes = new HashSet<Commandes>();
-            this.Participations = new HashSet<Participations>();
+            this.Reservations = new HashSet<Reservations>();
+            this.Participations1 = new HashSet<Participations>();
         }
     
         public int Id { get; set; }
@@ -38,12 +38,14 @@ namespace WS.Models
         public string Classement { get; set; }
         public string DeletedYN { get; set; }
         public string Suivi { get; set; }
+        public Nullable<bool> Administration { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Commandes> Commandes { get; set; }
+        public virtual Participations Participations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservations> Reservations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Commandes> Commandes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Participations> Participations { get; set; }
+        public virtual ICollection<Participations> Participations1 { get; set; }
     }
 }

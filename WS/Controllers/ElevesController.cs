@@ -5,6 +5,7 @@ using WS.Models;
 using WS.Models.IN;
 using WS.Models.OUT;
 using WS.BLL;
+using System.Collections.Generic;
 
 namespace WS.Controllers
 {
@@ -122,11 +123,16 @@ namespace WS.Controllers
 
 
 
-
-
-
-
-
+        [HttpPost]
+        public IHttpActionResult AddParticipation(Participation _Participation)
+        {
+            return Ok(ElevesManager.AddParticipation(
+                                                _EleveId: _Participation.Eleve.Id,
+                                                _EvenementId: _Participation.Evenement.Id,
+                                                _Quantite: _Participation.Quantite
+                                             ));
+        }
+        
 
         [HttpPost]
         public IHttpActionResult UpdParticipation(ParticipationUpdateParameters _Parameters)
@@ -145,6 +151,44 @@ namespace WS.Controllers
                                     _Id: _Parameters.Id,
                                     _Real: _Parameters.Real
                                 ));
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [HttpPost]
+        public IHttpActionResult AddAllReservations(Participation _Participation) //on passe par la participation pour insérer toutes ses réservations
+        {
+            return Ok(ElevesManager.AddAllReservations(
+                                                _EleveId: _Participation.Eleve.Id,
+                                                _EvenementId: _Participation.Evenement.Id
+                                             ));
+        }
+
+        [HttpPost]
+        public IHttpActionResult AddReservations(List<Reservation> _Reservations)
+        {
+            return Ok(ElevesManager.AddReservations(_Reservations));
+        }
+
+        [HttpPost]
+        public IHttpActionResult AddReservation(Reservation _Reservation)
+        {
+            return Ok(ElevesManager.AddReservation(
+                                                _EleveId: _Reservation.Eleve.Id,
+                                                _EvenementId: _Reservation.Evenement.Id,
+                                                _Jour: _Reservation.Jour,
+                                                _Creneau: _Reservation.Creneau
+                                             ));
         }
 
 

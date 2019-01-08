@@ -175,7 +175,7 @@ export class AppComponent implements OnInit {
                 return false;
             }
             else { //parent
-                if ((_Evenement.Typologie.Id == 0) || (_Evenement.Typologie.Id == 3)) { return true; } //stage, cours
+                //if ((_Evenement.Typologie.Id == 0) || (_Evenement.Typologie.Id == 3)) { return true; } //stage, cours
                 return false;
             }
         }
@@ -308,6 +308,22 @@ export class AppComponent implements OnInit {
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 9 && this._Evenement.Plannings[_IndexPlanning].Creneau1718 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1718 != null) {
+            return '#FFFFFF';
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        else if (_IndexProperty == 10 && this._Evenement.Plannings[_IndexPlanning].Creneau1819 == this._Evenement.Id.toString()) {
+            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1819' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            else { return '#FECC16'; }
+        }
+        else if (_IndexProperty == 10 && this._Evenement.Plannings[_IndexPlanning].Creneau1819 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1819 != null) {
+            return '#FFFFFF';
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        else if (_IndexProperty == 11 && this._Evenement.Plannings[_IndexPlanning].Creneau1920 == this._Evenement.Id.toString()) {
+            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1920' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            else { return '#FECC16'; }
+        }
+        else if (_IndexProperty == 11 && this._Evenement.Plannings[_IndexPlanning].Creneau1920 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1920 != null) {
             return '#FFFFFF';
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -551,11 +567,59 @@ export class AppComponent implements OnInit {
                 this._Evenement.Plannings[_IndexPlanning].Creneau1718 = null;
             }
         }
-        else if (_IndexProperty == 8 && this._Evenement.Plannings[_IndexPlanning].Creneau1718 == null) {
+        else if (_IndexProperty == 9 && this._Evenement.Plannings[_IndexPlanning].Creneau1718 == null) {
             this._Evenement.Plannings[_IndexPlanning].Creneau1718 = this._Evenement.Id.toString();
         }
-        else if (_IndexProperty == 8 && this._Evenement.Plannings[_IndexPlanning].Creneau1718 != null && this._Evenement.Plannings[_IndexPlanning].Creneau1718 != this._Evenement.Id.toString()) {
+        else if (_IndexProperty == 9 && this._Evenement.Plannings[_IndexPlanning].Creneau1718 != null && this._Evenement.Plannings[_IndexPlanning].Creneau1718 != this._Evenement.Id.toString()) {
             this.GetEvenementReservation(parseInt(this._Evenement.Plannings[_IndexPlanning].Creneau1718));
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        else if (_IndexProperty == 10 && this._Evenement.Plannings[_IndexPlanning].Creneau1819 == this._Evenement.Id.toString()) {
+            var _Reservations = this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1819' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour) as Reservation[];
+            if (_Reservations != null && _Reservations.length > 0) {
+                for (var i = 0; i < this._Evenement.Reservations.length; i++) {
+                    if (this._Evenement.Reservations[i].Creneau == 'Creneau1819' && this._Evenement.Reservations[i].Jour == this._Evenement.Plannings[_IndexPlanning].Jour) {
+                        var _Eleve = this._Evenement.Reservations[i].Eleve;
+                        if (confirm('Voulez-vous vraiment supprimer la reservation de [' + _Eleve.Id + '] ' + _Eleve.Nom + ' ' + _Eleve.Prenom + ' ?')) {
+                            this._Evenement.Reservations.splice(i, 1);
+                            this._Evenement.Plannings[_IndexPlanning].Creneau1819 = null;
+                        }
+                    }
+                }
+            }
+            else {
+                this._Evenement.Plannings[_IndexPlanning].Creneau1819 = null;
+            }
+        }
+        else if (_IndexProperty == 10 && this._Evenement.Plannings[_IndexPlanning].Creneau1819 == null) {
+            this._Evenement.Plannings[_IndexPlanning].Creneau1819 = this._Evenement.Id.toString();
+        }
+        else if (_IndexProperty == 10 && this._Evenement.Plannings[_IndexPlanning].Creneau1819 != null && this._Evenement.Plannings[_IndexPlanning].Creneau1819 != this._Evenement.Id.toString()) {
+            this.GetEvenementReservation(parseInt(this._Evenement.Plannings[_IndexPlanning].Creneau1819));
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        else if (_IndexProperty == 11 && this._Evenement.Plannings[_IndexPlanning].Creneau1920 == this._Evenement.Id.toString()) {
+            var _Reservations = this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1920' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour) as Reservation[];
+            if (_Reservations != null && _Reservations.length > 0) {
+                for (var i = 0; i < this._Evenement.Reservations.length; i++) {
+                    if (this._Evenement.Reservations[i].Creneau == 'Creneau1920' && this._Evenement.Reservations[i].Jour == this._Evenement.Plannings[_IndexPlanning].Jour) {
+                        var _Eleve = this._Evenement.Reservations[i].Eleve;
+                        if (confirm('Voulez-vous vraiment supprimer la reservation de [' + _Eleve.Id + '] ' + _Eleve.Nom + ' ' + _Eleve.Prenom + ' ?')) {
+                            this._Evenement.Reservations.splice(i, 1);
+                            this._Evenement.Plannings[_IndexPlanning].Creneau1920 = null;
+                        }
+                    }
+                }
+            }
+            else {
+                this._Evenement.Plannings[_IndexPlanning].Creneau1920 = null;
+            }
+        }
+        else if (_IndexProperty == 11 && this._Evenement.Plannings[_IndexPlanning].Creneau1920 == null) {
+            this._Evenement.Plannings[_IndexPlanning].Creneau1920 = this._Evenement.Id.toString();
+        }
+        else if (_IndexProperty == 11 && this._Evenement.Plannings[_IndexPlanning].Creneau1920 != null && this._Evenement.Plannings[_IndexPlanning].Creneau1920 != this._Evenement.Id.toString()) {
+            this.GetEvenementReservation(parseInt(this._Evenement.Plannings[_IndexPlanning].Creneau1920));
         }
 
     }
@@ -775,7 +839,7 @@ export class AppComponent implements OnInit {
     _DelReturn: number;
     public DelEvenement(_Index: number) {
 
-        if (confirm('Voulez-vous vraiment supprimer l\'evenement ' + this._Evenements[_Index].Id + ' ?')) {
+        if (confirm('Voulez-vous vraiment supprimer l\'evenement ' + this._Evenements[_Index].Id + ' (+ participations + reservations + contenus + publications) ?')) {
 
             var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
             var _RequestOptions = new RequestOptions({ method: RequestMethod.Get, headers: _HeaderOptions });
@@ -794,9 +858,6 @@ export class AppComponent implements OnInit {
         }
 
     }
-
-
-
 
 }
 

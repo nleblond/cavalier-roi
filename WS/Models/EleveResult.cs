@@ -32,5 +32,6 @@ namespace WS.Models
         public string Commentaire { get; set; }
         public string Suivi { get; set; }
         public string Password { get; set; }
+        public Nullable<bool> Administration { get; set; }
     }
 }

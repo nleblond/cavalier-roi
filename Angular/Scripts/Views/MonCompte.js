@@ -5,48 +5,107 @@ $(window).on('load', function () {
 
     $('.menu .moncompte').addClass('select');
 
-    //créditer
-    $('.cours .formule').each(function () {
-        var _Formule = $(this);
-        $(this).find('span.crediter').on('click', function () {
-            UpdParticipation(_Formule.find('.id').val(), _Formule.find('.quantite').val(), _Formule.find('.quantite'));
-            return false;
-        })
+
+    //date de naissance
+    $('.infos .naissance').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'dd/mm/yy',
+        yearRange: '-100:+0'
     });
 
 
-    //valider (modifier)
+
+    //informations (modifier)
     $('.infos .valider').on('click', function () {
         UpdEleve();
         return false;
     });
 
+    //cours
+    $('.cours .formule').each(function () {
 
-    //date de naissance
-    $('.naissance').datepicker();
+        var _Formule = $(this);
 
+        //créditer
+        _Formule.find('.actions span.crediter').on('click', function () {
+            var _ParticipationId = _Formule.find('.actions input[type="hidden"]').val();
+            var _ParticipationQuantiteObject = _Formule.find('.quantite');
+            var _ParticipationReserverObject = _Formule.find('input[type="button"].reserver');
+            UpdParticipation(_ParticipationId, _ParticipationQuantiteObject, _ParticipationReserverObject);
+            return false;
+        });
 
-    //suppression des participations
-    $('.actions span.supprimer').each(function () {
-        $(this).on('click', function () {
+        //supprimer
+        _Formule.find('.actions span.supprimer').on('click', function () {
             var _ParticipationId = $(this).parent().find('input[type=hidden]').val();
-            var _ParticipationObject = $(this).parents('.formule');
-            DelParticipation(_ParticipationId, _ParticipationObject);
+            var _ParticipationObjectToDelete = _Formule;
+            DelParticipation(_ParticipationId, _ParticipationObjectToDelete);
             return false;
         });
-    });
 
+        //réserver
+        _Formule.find('.actions input.reserver').on('click', function () {
 
-    //suppression des réservations
-    $('.dates span.supprimer').each(function () {
-        $(this).on('click', function () {
+            var _Connected = CheckConnectedEleve();
+            if (_Connected == true) {
+                var _EvenementId = $(this).data('evenementid');
+                var _EvenementLibelle = $(this).data('evenementlibelle');
+                var _EleveId = $(this).data('eleveid');
+                var _Quantite = $(this).data('quantite');
+                var _Jour = $(this).data('jour');
+                var _Prix = $(this).data('prix');
+
+                OpenCalendrierParHeure(_EvenementId, _EvenementLibelle, _EleveId, _Quantite, _Jour, _Prix);
+            }
+            else {
+                OpenConnexion();
+            }
+
+            return false;
+        });
+
+        //supprimer une réservation
+        _Formule.find('.dates span.supprimer').on('click', function () {
             var _ReservationId = $(this).parent().find('input[type=hidden]').val();
-            var _ReservationObject = $(this).parents('.reservation');
-            var _ParticipationQuantiteObject = $(this).parents('.formule').find('.quantite');
-            DelReservation(_ReservationId, _ReservationObject, _ParticipationQuantiteObject);
+            var _ReservationObjectToDelete = $(this).parents('.reservation');
+            var _ParticipationQuantiteObjectToUpdate = $(this).parents('.formule').find('.quantite');
+            DelReservation(_ReservationId, _ReservationObjectToDelete, _ParticipationQuantiteObjectToUpdate);
             return false;
         });
+
     });
+
+    //stages
+    $('.stages .formule').each(function () {
+
+        var _Formule = $(this);
+
+        //supprimer
+        _Formule.find('.actions span.supprimer').on('click', function () {
+            var _ParticipationId = $(this).parent().find('input[type=hidden]').val();
+            var _ParticipationObjectToDelete = _Formule;
+            DelParticipation(_ParticipationId, _ParticipationObjectToDelete);
+            return false;
+        });
+
+    });
+
+    //tournois
+    $('.tournois .formule').each(function () {
+
+        var _Formule = $(this);
+
+        //supprimer
+        _Formule.find('.actions span.supprimer').on('click', function () {
+            var _ParticipationId = $(this).parent().find('input[type=hidden]').val();
+            var _ParticipationObjectToDelete = _Formule;
+            DelParticipation(_ParticipationId, _ParticipationObjectToDelete);
+            return false;
+        });
+
+    });
+    
 
 });
 
@@ -134,10 +193,12 @@ function UpdEleve() {
 
 
 
-function UpdParticipation(_Id, _Quantite, _AlertObject) {
+function UpdParticipation(_Id, _QuantiteObject, _ReserverObject) {
 
     var _AlertMessage;
     var _Valid = true;
+    var _Quantite = _QuantiteObject.val();
+
     if ((_Quantite == '') || (!isInteger(_Quantite))) {
         _AlertMessage = 'Merci de saisir une quantité disponible valide !';
         _Valid = false;
@@ -159,7 +220,15 @@ function UpdParticipation(_Id, _Quantite, _AlertObject) {
             retryLimit: 0,
             beforeSend: function (request) { },
             success: function (data) {
-                alert('La quantité disponible a bien été modifiée !')
+                alert('La quantité disponible a bien été modifiée !');
+                _ReserverObject.data('quantite', _Quantite);
+                if (parseInt(_Quantite) > 0) {
+                    _ReserverObject.show();
+                }
+                else {
+                    _ReserverObject.hide();
+                }
+
             },
             error: function (xhr, textStatus) {
                 if (textStatus == 'timeout') {
@@ -177,7 +246,7 @@ function UpdParticipation(_Id, _Quantite, _AlertObject) {
     }
     else {
         alert(_AlertMessage);
-        _AlertObject.focus();
+        _QuantiteObject.focus();
     }
 }
 

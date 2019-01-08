@@ -104,7 +104,7 @@ namespace WS.Controllers
         [HttpPost]
         public IHttpActionResult GetPlanningsFront(PlanningsSearchParameters _Parameters)
         {
-            return Ok(EvenementsManager.GetPlanningsFront(_Parameters.EvenementId));
+            return Ok(EvenementsManager.GetPlanningsFront(_Parameters.EvenementId, _Parameters.Jour));
         }
 
 
@@ -124,6 +124,28 @@ namespace WS.Controllers
         public IHttpActionResult UpdPlannings(List<Planning> _Plannings)
         {
             return Ok(EvenementsManager.UpdPlannings(_Plannings));
+        }
+
+
+        [HttpPost]
+        public IHttpActionResult UpdPlanning(Planning _Planning)
+        {
+            return Ok(EvenementsManager.UpdPlanning(
+                                        _Id: _Planning.Id,
+                                        _Jour: _Planning.Jour,
+                                        _Creneau0809: _Planning.Creneau0809,
+                                        _Creneau0910: _Planning.Creneau0910,
+                                        _Creneau1011: _Planning.Creneau1011,
+                                        _Creneau1112: _Planning.Creneau1112,
+                                        _Creneau1213: _Planning.Creneau1213,
+                                        _Creneau1314: _Planning.Creneau1314,
+                                        _Creneau1415: _Planning.Creneau1415,
+                                        _Creneau1516: _Planning.Creneau1516,
+                                        _Creneau1617: _Planning.Creneau1617,
+                                        _Creneau1718: _Planning.Creneau1718,
+                                        _Creneau1819: _Planning.Creneau1819,
+                                        _Creneau1920: _Planning.Creneau1920
+                                    ));
         }
 
 

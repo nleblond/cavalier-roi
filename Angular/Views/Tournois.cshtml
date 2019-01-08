@@ -2,11 +2,12 @@
 
 @{
     try { ViewBag.Title = Model.ContenusZones[0].Titre; } catch { }
+    try { ViewBag.Description = Model.ContenusZones[0].Texte; } catch { }
     Layout = "~/Views/Shared/_LayoutFrontOffice.cshtml";
 }
 
 
-<div class="tournois">
+<div class="tournois_competitions">
 
     @Html.Partial("~/Views/Shared/Zones.cshtml", @Model.ContenusZones as List<WS.Models.OUT.Contenu>)
 
@@ -14,72 +15,107 @@
 
     @if ((Model != null) && (Model.EvenementsTournois.Count > 0))
     {
+        <div class="tournois">
+            @for (Int32 _Index = 0; _Index < Model.EvenementsTournois.Count; _Index++)
+            {
+                <div class="tournoi @((_Index + 1) % 2 == 0 ? "last" : "")">
 
-        for (Int32 _Index = 0; _Index < Model.EvenementsTournois.Count; _Index++)
-        {
-
-            <div class="tournoi @((_Index + 1) % 2 == 0 ? "last" : "")">
-
-                @if (!String.IsNullOrEmpty(Model.EvenementsTournois[_Index].Bandeau))
-                {
-                    <img class="bandeau" src="@Constants.IMG_URL/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Bandeau" />
-                }
-                @if (!String.IsNullOrEmpty(Model.EvenementsTournois[_Index].Photo))
-                {
-                    <a href="@Constants.IMG_URL/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Photo" target="_blank" title="Cliquer pour agrandir">
-                        <img class="photo" src="@Constants.IMG_URL/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Photo" />
-                    </a>
-                }
-                <div class="please">
-                    <div class="titre">@Model.EvenementsTournois[_Index].Libelle</div>
-                    <table cellpadding="0" cellspacing="0" border="0" class="formule texte">
-                        <tr>
-                            <td class="prix">
-                                @if (Model.EvenementsTournois[_Index].Prix != null)
-                                {
-                                    <span>&nbsp; &nbsp;@Model.EvenementsTournois[_Index].Prix€&nbsp; &nbsp;</span>
-                                }
-                            </td>
-                            <td class="reserver"><input type="button" title="Participer" value="Participer" /></td>
-                        </tr>
-                    </table>
+                    @if (!String.IsNullOrEmpty(Model.EvenementsTournois[_Index].Bandeau))
+                    {
+                        <img class="bandeau" src="@Constants.IMG_URL/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Bandeau" />
+                    }
+                    @if (!String.IsNullOrEmpty(Model.EvenementsTournois[_Index].Photo))
+                    {
+                        <a href="@Constants.IMG_URL/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Photo" target="_blank" title="Cliquer pour agrandir">
+                            <img class="photo" src="@Constants.IMG_URL/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Photo" />
+                        </a>
+                    }
+                    <div class="please">
+                        <div class="titre">@Model.EvenementsTournois[_Index].Libelle</div>
+                        <table cellpadding="0" cellspacing="0" border="0" class="formule texte">
+                            <tr>
+                                <td class="prix">
+                                    @if (Model.EvenementsTournois[_Index].Prix != null)
+                                    {
+                                        <span>@Model.EvenementsTournois[_Index].Prix€&nbsp; &nbsp;</span>
+                                    }
+                                </td>
+                                <td class="reserver">
+                                    @if (
+                                            //(
+                                            //    (String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtDebut) == true)
+                                            //    ||
+                                            //    (String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtDebut) == false) && (DateTime.Parse(Model.EvenementsTournois[_Index].DtDebut) >= DateTime.Now)
+                                            //)
+                                            //&&
+                                            //(
+                                            //    (String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtLimiteInscription) == true)
+                                            //    ||
+                                            //    (String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtLimiteInscription) == false) && (DateTime.Parse(Model.EvenementsTournois[_Index].DtLimiteInscription) >= DateTime.Now)
+                                            //)
+                                            //&&
+                                            //(
+                                            //    (Model.EvenementsTournois[_Index].Maximum == null)
+                                            //    ||
+                                            //    (Model.EvenementsTournois[_Index].Maximum != null) && (Model.EvenementsTournois[_Index].Maximum > Model.EvenementsTournois[_Index].Compte)
+                                            //)
+                                            1 == 1
+                                    )
+                                    {
+                                        <input type="button" class="reserver" title="Participer" value="Participer"
+                                               data-evenementid="@Model.EvenementsTournois[_Index].Id"
+                                               data-evenementlibelle="@Model.EvenementsTournois[_Index].Libelle"
+                                               data-eleveid="@(Model.Eleve != null ? Model.Eleve.Id : String.Empty)"
+                                               data-prix="@Model.EvenementsTournois[_Index].Prix" />
+                                    }
+                                    else if ((Model.EvenementsTournois[_Index].Maximum != null) && (Model.EvenementsTournois[_Index].Maximum <= Model.EvenementsTournois[_Index].Compte))
+                                    {
+                                        <span class="jaune">COMPLET</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="jaune">TERMIN&Eacute;</span>
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="clear-left"></div>
+                    @if (Model.EvenementsTournois[_Index].Descriptif != null)
+                    {
+                        <div class="descriptif texte">@Html.Raw((@Model.EvenementsTournois[_Index].Descriptif as String).ToBR())</div>
+                    }
+                    <div class="date">
+                        @if (!String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtDebut))
+                        {
+                            <div>Date de début : <span>@Model.EvenementsTournois[_Index].DtDebut</span></div>
+                            <div class="clear-left"></div>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtFin))
+                        {
+                            <div>Date de fin : <span>@Model.EvenementsTournois[_Index].DtFin</span></div>
+                            <div class="clear-left"></div>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtLimiteInscription))
+                        {
+                            <div>Date limite d'inscription : <span>@Model.EvenementsTournois[_Index].DtLimiteInscription</span></div>
+                            <div class="clear-left"></div>
+                        }
+                        @if ((Model.EvenementsTournois[_Index].Minimum != null) && (Model.EvenementsTournois[_Index].Minimum != 1))
+                        {
+                            <div>Nombre minimum d'inscriptions : <span>@Model.EvenementsTournois[_Index].Minimum</span></div>
+                            <div class="clear-left"></div>
+                        }
+                        @if ((Model.EvenementsTournois[_Index].Maximum != null) && (Model.EvenementsTournois[_Index].Maximum != 1))
+                        {
+                            <div>Nombre maximum d'inscriptions : <span>@Model.EvenementsTournois[_Index].Maximum</span></div>
+                            <div class="clear-left"></div>
+                        }
+                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="clear-left"></div>
-                @if (Model.EvenementsTournois[_Index].Descriptif != null)
-                {
-                    <div class="descriptif texte">@Html.Raw((@Model.EvenementsTournois[_Index].Descriptif as String).ToBR())</div>
-                }
-                <div class="date">
-                    @if (Model.EvenementsTournois[_Index].DtDebut != null)
-                    {
-                        <div>Date de début : <span>@Model.EvenementsTournois[_Index].DtDebut</span></div>
-                        <div class="clear-left"></div>
-                    }
-                    @if (Model.EvenementsTournois[_Index].DtFin != null)
-                    {
-                        <div>Date de fin : <span>@Model.EvenementsTournois[_Index].DtFin</span></div>
-                        <div class="clear-left"></div>
-                    }
-                    @if (Model.EvenementsTournois[_Index].DtLimiteInscription != null)
-                    {
-                        <div>Date limite d'inscription : <span>@Model.EvenementsTournois[_Index].DtLimiteInscription</span></div>
-                        <div class="clear-left"></div>
-                    }
-                    @if ((Model.EvenementsTournois[_Index].Minimum != null) && (Model.EvenementsTournois[_Index].Minimum != 1))
-                    {
-                        <div>Nombre minimum d'inscriptions : <span>@Model.EvenementsTournois[_Index].Minimum</span></div>
-                        <div class="clear-left"></div>
-                    }
-                    @if ((Model.EvenementsTournois[_Index].Maximum != null) && (Model.EvenementsTournois[_Index].Maximum != 1))
-                    {
-                        <div>Nombre maximum d'inscriptions : <span>@Model.EvenementsTournois[_Index].Maximum</span></div>
-                        <div class="clear-left"></div>
-                    }
-                </div>
-                <div class="clear"></div>
-            </div>
-        }
-
+            }
+        </div>
     }
 
     <div class="clear"></div>
@@ -90,22 +126,23 @@
 
     @if ((Model != null) && (Model.EvenementsCompetitions.Count > 0))
     {
-
-        <div class="exterieurs">
+        <div class="competitions">
             <div class="slider">
                 <div class="container">
                     <div class="content">
                         <ul>
                             @for (Int32 _Index = 0; _Index < Model.EvenementsCompetitions.Count; _Index++)
                             {
-                                <li class="li@_Index">
-                                    <div>
-                                        <a href="@Constants.IMG_URL/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" target="_blank" title="Cliquer pour agrandir">
-                                            <img class="affiche" src="@Constants.IMG_URL/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" />
-                                        </a>
+                            <li class="li@_Index">
+                                <a href="@Constants.IMG_URL/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" target="_blank" title="Cliquer pour agrandir">
+                                    <img class="affiche" src="@Constants.IMG_URL/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" />
+                                </a>
+                                @if (!String.IsNullOrEmpty(Model.EvenementsCompetitions[_Index].Lien)) { 
+                                    <div class="legende">
+                                        <input type="button" data-lien="@Model.EvenementsCompetitions[_Index].Lien" class="participer" value="Participer" title="Participer" />
                                     </div>
-                                    <div class="legende"><input type="button" value="Participer" title="Participer" /></div>
-                                </li>
+                                }
+                            </li>
                             }
                         </ul>
                         <div class="clear"></div>
@@ -123,8 +160,7 @@
                 </div>
             </div>
         </div>
-
-                            }
+    }
     
     <div class="clear"></div>
 

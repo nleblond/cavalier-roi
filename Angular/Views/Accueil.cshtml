@@ -2,6 +2,7 @@
 
 @{
     try { ViewBag.Title = Model.ContenusZones[0].Titre; } catch { }
+    try { ViewBag.Description = Model.ContenusZones[0].Texte; } catch { }
     Layout = "~/Views/Shared/_LayoutFrontOffice.cshtml";
 }
 

@@ -18,7 +18,8 @@ namespace WS.Models.OUT
         public String Creneau1516 { get; set; }
         public String Creneau1617 { get; set; }
         public String Creneau1718 { get; set; }
-
+        public String Creneau1819 { get; set; }
+        public String Creneau1920 { get; set; }
 
         public String Jour { get; set; }
     }

@@ -32,5 +32,6 @@ namespace WS.Models
         public Nullable<int> TypologieId { get; set; }
         public string TypologieLibelle { get; set; }
         public Nullable<int> Minimum { get; set; }
+        public Nullable<int> Compte { get; set; }
     }
 }

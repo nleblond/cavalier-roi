@@ -175,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\Commandes\app.component.html" />
+    <Content Include="Views\Shared\CalendrierParEvenement.cshtml" />
     <TypeScriptCompile Include="app\Commandes\Models\CommandeUpdateParameters.ts" />
     <Content Include="app\Contenus\app.component.html" />
     <Content Include="app\Eleves\app.component.html" />
@@ -185,8 +186,9 @@
     <Content Include="Scripts\Views\Partenariats.js" />
     <Content Include="Scripts\Views\Shared\Actualite.js" />
     <Content Include="Scripts\Views\Cours.js" />
-    <Content Include="Areas\Evenements\Scripts\Views\Shared\CalendrierParDemiJournee.js" />
-    <Content Include="Areas\Evenements\Scripts\Views\Shared\CalendrierParHeure.js" />
+    <Content Include="Scripts\Views\Shared\CalendrierParDemiJournee.js" />
+    <Content Include="Scripts\Views\Shared\CalendrierParEvenement.js" />
+    <Content Include="Scripts\Views\Shared\CalendrierParHeure.js" />
     <Content Include="Scripts\Views\Stages.js" />
     <Content Include="Scripts\Views\Tournois.js" />
     <Content Include="Scripts\Views\Boutique.js" />
@@ -378,8 +380,8 @@
     <Content Include="Areas\Contenus\Views\web.config" />
     <Content Include="Views\Cours.cshtml" />
     <Content Include="Areas\Evenements\Views\Evenements.cshtml" />
-    <Content Include="Areas\Evenements\Views\Shared\CalendrierParDemiJournee.cshtml" />
-    <Content Include="Areas\Evenements\Views\Shared\CalendrierParHeure.cshtml" />
+    <Content Include="Views\Shared\CalendrierParDemiJournee.cshtml" />
+    <Content Include="Views\Shared\CalendrierParHeure.cshtml" />
     <Content Include="Views\Stages.cshtml" />
     <Content Include="Views\Tournois.cshtml" />
     <Content Include="Areas\Evenements\Views\web.config" />
@@ -447,6 +449,8 @@
     <Folder Include="Areas\Eleves\Scripts\Views\Shared\" />
     <Folder Include="Areas\Eleves\Views\Shared\" />
     <Folder Include="Areas\Evenements\Models\" />
+    <Folder Include="Areas\Evenements\Scripts\Views\Shared\" />
+    <Folder Include="Areas\Evenements\Views\Shared\" />
     <Folder Include="Areas\Produits\Models\" />
     <Folder Include="Areas\Produits\Scripts\Views\Shared\" />
     <Folder Include="Areas\Produits\Views\Shared\" />

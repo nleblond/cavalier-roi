@@ -282,9 +282,6 @@
     <Compile Include="Models\Plannings.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Plannings_Stock.cs">
-      <DependentUpon>DBModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ProduitResult.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
@@ -304,9 +301,6 @@
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Statuts.cs">
-      <DependentUpon>DBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TypologieEvenementResult.cs">

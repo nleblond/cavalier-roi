@@ -1434,11 +1434,13 @@ public static class Tools
             MailMsg.Priority = MailPriority.Normal;
             SmtpClient.Host = MailHost;
             SmtpClient.Port = MailPort;
+            SmtpClient.EnableSsl = true;
+            SmtpClient.UseDefaultCredentials = true;
             if ((Username != null) && (Password != null)) { SmtpClient.Credentials = new NetworkCredential(Username, Password); }
             SmtpClient.Send(MailMsg);
             MailMsg.Dispose();
         }
-        catch (Exception)
+        catch (Exception Ex)
         {
             return false;
         }

@@ -36,7 +36,6 @@ namespace WS.Models
         public virtual DbSet<Lignes> Lignes { get; set; }
         public virtual DbSet<Produits> Produits { get; set; }
         public virtual DbSet<Publications> Publications { get; set; }
-        public virtual DbSet<Reservations> Reservations { get; set; }
         public virtual DbSet<Statuts> Statuts { get; set; }
         public virtual DbSet<Typologies> Typologies { get; set; }
         public virtual DbSet<Adresses> Adresses { get; set; }
@@ -44,8 +43,7 @@ namespace WS.Models
         public virtual DbSet<Plannings> Plannings { get; set; }
         public virtual DbSet<Evenements> Evenements { get; set; }
         public virtual DbSet<Participations> Participations { get; set; }
-        public virtual DbSet<Plannings_Stock> Plannings_Stock { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Reservations> Reservations { get; set; }
     
         public virtual ObjectResult<EleveResult> GetEleves(Nullable<int> id, string nom, string prenom, string email, string club, string license, Nullable<int> evenementId, Nullable<int> typologieId)
         {
@@ -709,13 +707,17 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PlanningResult>("GetPlanningsBack", moisParameter, anneeParameter, plusParameter);
         }
     
-        public virtual ObjectResult<PlanningResult> GetPlanningsFront(Nullable<int> evenementId)
+        public virtual ObjectResult<PlanningResult> GetPlanningsFront(Nullable<int> evenementId, string jour)
         {
             var evenementIdParameter = evenementId.HasValue ?
                 new ObjectParameter("EvenementId", evenementId) :
                 new ObjectParameter("EvenementId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PlanningResult>("GetPlanningsFront", evenementIdParameter);
+            var jourParameter = jour != null ?
+                new ObjectParameter("Jour", jour) :
+                new ObjectParameter("Jour", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PlanningResult>("GetPlanningsFront", evenementIdParameter, jourParameter);
         }
     
         public virtual ObjectResult<ReservationResult> GetReservations(Nullable<int> eleveId, Nullable<int> evenementId)
@@ -869,7 +871,7 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdEvenement", idParameter, libelleParameter, descriptifParameter, dtDebutParameter, dtFinParameter, dtLimiteInscriptionParameter, minimumParameter, maximumParameter, prixParameter, dureeParameter, logoParameter, photoParameter, bandeauParameter, lienParameter, typologieIdParameter, evenementParentIdParameter);
         }
     
-        public virtual int UpdPlanning(Nullable<int> id, string creneau0809, string creneau0910, string creneau1011, string creneau1112, string creneau1213, string creneau1314, string creneau1415, string creneau1516, string creneau1617, string creneau1718, Nullable<System.DateTime> jour)
+        public virtual int UpdPlanning(Nullable<int> id, string creneau0809, string creneau0910, string creneau1011, string creneau1112, string creneau1213, string creneau1314, string creneau1415, string creneau1516, string creneau1617, string creneau1718, string creneau1819, string creneau1920, Nullable<System.DateTime> jour)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
@@ -915,11 +917,19 @@ namespace WS.Models
                 new ObjectParameter("Creneau1718", creneau1718) :
                 new ObjectParameter("Creneau1718", typeof(string));
     
+            var creneau1819Parameter = creneau1819 != null ?
+                new ObjectParameter("Creneau1819", creneau1819) :
+                new ObjectParameter("Creneau1819", typeof(string));
+    
+            var creneau1920Parameter = creneau1920 != null ?
+                new ObjectParameter("Creneau1920", creneau1920) :
+                new ObjectParameter("Creneau1920", typeof(string));
+    
             var jourParameter = jour.HasValue ?
                 new ObjectParameter("Jour", jour) :
                 new ObjectParameter("Jour", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdPlanning", idParameter, creneau0809Parameter, creneau0910Parameter, creneau1011Parameter, creneau1112Parameter, creneau1213Parameter, creneau1314Parameter, creneau1415Parameter, creneau1516Parameter, creneau1617Parameter, creneau1718Parameter, jourParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdPlanning", idParameter, creneau0809Parameter, creneau0910Parameter, creneau1011Parameter, creneau1112Parameter, creneau1213Parameter, creneau1314Parameter, creneau1415Parameter, creneau1516Parameter, creneau1617Parameter, creneau1718Parameter, creneau1819Parameter, creneau1920Parameter, jourParameter);
         }
     
         public virtual int DelEvenement(Nullable<int> id)
@@ -1133,6 +1143,70 @@ namespace WS.Models
                 new ObjectParameter("Password", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReinitEleve", emailParameter, passwordParameter);
+        }
+    
+        public virtual int AddFullReservation(Nullable<int> evenementId, Nullable<int> eleveId)
+        {
+            var evenementIdParameter = evenementId.HasValue ?
+                new ObjectParameter("EvenementId", evenementId) :
+                new ObjectParameter("EvenementId", typeof(int));
+    
+            var eleveIdParameter = eleveId.HasValue ?
+                new ObjectParameter("EleveId", eleveId) :
+                new ObjectParameter("EleveId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddFullReservation", evenementIdParameter, eleveIdParameter);
+        }
+    
+        public virtual int AddParticipation(Nullable<int> evenementId, Nullable<int> eleveId, Nullable<double> quantite)
+        {
+            var evenementIdParameter = evenementId.HasValue ?
+                new ObjectParameter("EvenementId", evenementId) :
+                new ObjectParameter("EvenementId", typeof(int));
+    
+            var eleveIdParameter = eleveId.HasValue ?
+                new ObjectParameter("EleveId", eleveId) :
+                new ObjectParameter("EleveId", typeof(int));
+    
+            var quantiteParameter = quantite.HasValue ?
+                new ObjectParameter("Quantite", quantite) :
+                new ObjectParameter("Quantite", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddParticipation", evenementIdParameter, eleveIdParameter, quantiteParameter);
+        }
+    
+        public virtual int AddReservation(Nullable<int> evenementId, Nullable<int> eleveId, Nullable<System.DateTime> jour, string creneau)
+        {
+            var evenementIdParameter = evenementId.HasValue ?
+                new ObjectParameter("EvenementId", evenementId) :
+                new ObjectParameter("EvenementId", typeof(int));
+    
+            var eleveIdParameter = eleveId.HasValue ?
+                new ObjectParameter("EleveId", eleveId) :
+                new ObjectParameter("EleveId", typeof(int));
+    
+            var jourParameter = jour.HasValue ?
+                new ObjectParameter("Jour", jour) :
+                new ObjectParameter("Jour", typeof(System.DateTime));
+    
+            var creneauParameter = creneau != null ?
+                new ObjectParameter("Creneau", creneau) :
+                new ObjectParameter("Creneau", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddReservation", evenementIdParameter, eleveIdParameter, jourParameter, creneauParameter);
+        }
+    
+        public virtual int AddAllReservations(Nullable<int> evenementId, Nullable<int> eleveId)
+        {
+            var evenementIdParameter = evenementId.HasValue ?
+                new ObjectParameter("EvenementId", evenementId) :
+                new ObjectParameter("EvenementId", typeof(int));
+    
+            var eleveIdParameter = eleveId.HasValue ?
+                new ObjectParameter("EleveId", eleveId) :
+                new ObjectParameter("EleveId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddAllReservations", evenementIdParameter, eleveIdParameter);
         }
     }
 }

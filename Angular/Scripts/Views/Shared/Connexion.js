@@ -11,7 +11,12 @@ $(window).on('load', function () {
     });
 
     //date de naissance
-    $('.naissance').datepicker();
+    $('.inscription .naissance').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'dd/mm/yy',
+        yearRange: '-100:+0'
+    });
 
     //connexion
     $('.connexion .valider').on('click', function () {
@@ -31,9 +36,55 @@ $(window).on('load', function () {
         return false;
     });
 
-    $('.connexion .email').focus();
-
 });
+
+
+
+
+function OpenConnexion() {
+    $('#Div_Connexion').ModalPopUp('open');
+
+    $('.connexion .email').focus();
+}
+
+
+function CloseConnexion() {
+    $('#Div_Connexion').ModalPopUp('close');
+}
+
+
+
+
+function CheckConnectedEleve() {
+
+    var _Result = false;
+    $.ajax({
+        type: 'POST',
+        url: '/CheckConnectedEleve',
+        async: false,
+        timeout: 100000000,
+        tryCount: 0,
+        retryLimit: 0,
+        beforeSend: function (request) { },
+        success: function (data) {
+            _Result = data;
+        },
+        error: function (xhr, textStatus) {
+            if (textStatus == 'timeout') {
+                this.tryCount++;
+                if (this.tryCount <= this.retryLimit) {
+                    $.ajax(this);
+                }
+            }
+            else if (textStatus == 'error') {
+                alert('Une erreur est survenue : ' + data.textStatus);
+            }
+        },
+        complete: function () { }
+    });
+    return _Result;
+}
+
 
 
 function ConnectEleve() {
@@ -41,7 +92,7 @@ function ConnectEleve() {
     var _AlertMessage;
     var _AlertObject;
     var _Valid = true;
-    if (($('.connexion .email').val() == '') || (!isEmail($('.connexion .email').val()))) {
+    if (isEmail($('.connexion .email').val()) == false) {
         _AlertMessage = 'Merci de saisir un email/identifiant valide !';
         _AlertObject = $('.connexion .email');
         _Valid = false;
@@ -61,9 +112,10 @@ function ConnectEleve() {
         $.ajax({
             type: 'POST',
             url: '/ConnectEleve',
-            headers: { 'APIKey': _APIKey, 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             dataType: 'json',
             data: JSON.stringify(_Params),
+            async: false,
             timeout: 100000000,
             tryCount: 0,
             retryLimit: 0,
@@ -104,7 +156,7 @@ function ReinitEleve() {
     var _AlertMessage;
     var _AlertObject;
     var _Valid = true;
-    if (($('.reinitialisation .email').val() == '') || (!isEmail($('.reinitialisation .email').val()))) {
+    if (isEmail($('.reinitialisation .email').val()) == false) {
         _AlertMessage = 'Merci de saisir un email/identifiant valide !';
         _AlertObject = $('.reinitialisation .email');
         _Valid = false;
@@ -119,9 +171,10 @@ function ReinitEleve() {
         $.ajax({
             type: 'POST',
             url: '/ReinitEleve',
-            headers: { 'APIKey': _APIKey, 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             dataType: 'json',
             data: JSON.stringify(_Params),
+            async: false,
             timeout: 100000000,
             tryCount: 0,
             retryLimit: 0,
@@ -164,17 +217,17 @@ function AddEleve() {
     var _AlertMessage;
     var _AlertObject;
     var _Valid = true;
-    if (($('.inscription .email').val() == '') || (!isEmail($('.inscription .email').val()))) {
+    if (isEmail($('.inscription .email').val()) == false) {
         _AlertMessage = 'Merci de saisir un email/identifiant valide !';
         _AlertObject = $('.inscription .email');
         _Valid = false;
     }
-    if ($('.inscription .password').val() == '') {
+    else if ($('.inscription .password').val() == '') {
         _AlertMessage = 'Merci de saisir un mot de passe !';
         _AlertObject = $('.inscription .password');
         _Valid = false;
     }
-    if ($('.inscription .nom').val() == '') {
+    else if ($('.inscription .nom').val() == '') {
         _AlertMessage = 'Merci de saisir un nom !';
         _AlertObject = $('.inscription .nom');
         _Valid = false;
@@ -203,33 +256,37 @@ function AddEleve() {
     if (_Valid) {
 
         var _Params = {};
-        _Params.Nom = $('.inscription .nom').val();
-        _Params.Prenom = $('.inscription .prenom').val();
-        _Params.Email = $('.inscription .email').val();
-        _Params.Password = $('.inscription .password').val();
-        _Params.DtNaissance = $('.inscription .naissance').val();
-        _Params.Sexe = $('.inscription .sexe').val();
-        _Params.Club = $('.inscription .club').val();
-        _Params.Photo = null; //$('.inscription .photo').val();
-        _Params.Fixe = $('.inscription .fixe').val();
-        _Params.Portable = $('.inscription .portable').val();
-        _Params.Commentaire = $('.inscription .commentaire').val();
-        _Params.License = $('.inscription .license').val();
-        _Params.Classement = $('.inscription .classement').val();
+        _Params._Nom = $('.inscription .nom').val();
+        _Params._Prenom = $('.inscription .prenom').val();
+        _Params._Email = $('.inscription .email').val();
+        _Params._Password = $('.inscription .password').val();
+        _Params._DtNaissance = $('.inscription .naissance').val();
+        _Params._Sexe = $('.inscription .sexe').val();
+        _Params._Club = $('.inscription .club').val();
+        _Params._Photo = null; //$('.inscription .photo').val();
+        _Params._Fixe = $('.inscription .fixe').val();
+        _Params._Portable = $('.inscription .portable').val();
+        _Params._Commentaire = $('.inscription .commentaire').val();
+        _Params._License = $('.inscription .license').val();
+        _Params._Classement = $('.inscription .classement').val();
 
         $.ajax({
             type: 'POST',
-            url: _WsUrl + 'Eleves/AddEleve',
-            headers: { 'APIKey': _APIKey, 'Content-Type': 'application/json' },
+            url: '/AddEleve',
+            headers: { 'Content-Type': 'application/json' },
             dataType: 'json',
             data: JSON.stringify(_Params),
+            async: false,
             timeout: 100000000,
             tryCount: 0,
             retryLimit: 0,
             beforeSend: function (request) { },
             success: function (data) {
                 if (data) {
-                    alert('La demande a été traitée, merci de consulter votre boite mail !');
+                    if (document.location.href.toLowerCase().indexOf('moncompte') > -1) {
+                        alert('La demande a été traitée, merci de consulter votre boite mail !');
+                        document.location.href = document.location.href;
+                    }
                 }
                 else {
                     alert('La demande n\'a pas pu être traitée, merci de recommencer !');

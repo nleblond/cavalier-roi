@@ -2,6 +2,7 @@
     
 @{
     try { ViewBag.Title = Model.ContenusZones[0].Titre; } catch { }
+    try { ViewBag.Description = Model.ContenusZones[0].Texte; } catch { }
     Layout = "~/Views/Shared/_LayoutFrontOffice.cshtml";
 }
 
@@ -27,9 +28,29 @@
                             {
                                 <span>&nbsp; &nbsp;@_Cours[_Index].Prix€&nbsp; &nbsp;</span>
                             }
-                    
                         </td>
-                        <td class="reserver"><input type="button" title="Réserver" value="Réserver" /></td>
+                        <td class="reserver">
+                            @if (_Cours[_Index].Prix != null)
+                            {
+                                <input type="button" class="reserver" title="Réserver" value="Réserver"
+                                       data-evenementid="@_Cours[_Index].Id"
+                                       data-evenementlibelle="@_Cours[_Index].Libelle"
+                                       data-eleveid="@(Model.Eleve != null ? Model.Eleve.Id : String.Empty)"
+                                       data-duree="@_Cours[_Index].Duree"
+                                       data-jour="@DateTime.Now.ToString("dd/MM/yyyy")"
+                                       data-prix="@_Cours[_Index].Prix" />
+                            }
+                            else
+                            {
+                                <input type="button" class="reserver" title="Contacter" value="Contacter"
+                                       data-evenementid="@_Cours[_Index].Id"
+                                       data-evenementlibelle="@_Cours[_Index].Libelle"
+                                       data-eleveid="@(Model.Eleve != null ? Model.Eleve.Id : String.Empty)"
+                                       data-duree=""
+                                       data-jour=""
+                                       data-prix="" />
+                            }
+                        </td>
                     </tr>
                 </table>
                 <div class="titre">@_Cours[_Index].Libelle</div>

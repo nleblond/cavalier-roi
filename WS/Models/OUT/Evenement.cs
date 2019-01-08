@@ -32,6 +32,7 @@ namespace WS.Models.OUT
         public String DtLimiteInscription { set; get; }
         public Int32? Minimum { set; get; }
         public Int32? Maximum { set; get; }
+        public Int32? Compte { set; get; }
 
 
         public Double? Prix { set; get; }

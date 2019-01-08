@@ -16,7 +16,9 @@ export class Evenement {
         this.DtFin = null;
 
         this.DtLimiteInscription = null;
+        this.Minimum = null;
         this.Maximum = null;
+        this.Compte = null;
 
         this.Prix = null;
         this.Duree = null;
@@ -56,6 +58,7 @@ export class Evenement {
     public DtLimiteInscription: string | null;
     public Minimum: number | null;
     public Maximum: number | null;
+    public Compte: number | null;
 
     public Prix: number | null;
     public Duree: number | null;

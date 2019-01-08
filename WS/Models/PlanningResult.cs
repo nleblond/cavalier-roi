@@ -25,5 +25,7 @@ namespace WS.Models
         public string Creneau1617 { get; set; }
         public string Creneau1718 { get; set; }
         public string Jour { get; set; }
+        public string Creneau1819 { get; set; }
+        public string Creneau1920 { get; set; }
     }
 }

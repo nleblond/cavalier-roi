@@ -15,6 +15,8 @@
         this.Creneau1516 = null;
         this.Creneau1617 = null;
         this.Creneau1718 = null;
+        this.Creneau1819 = null;
+        this.Creneau1920 = null;
     }
 
     public Id: number | null;
@@ -31,6 +33,8 @@
     public Creneau1516: string | null;
     public Creneau1617: string | null;
     public Creneau1718: string | null;
+    public Creneau1819: string | null;
+    public Creneau1920: string | null;
 
 
 }

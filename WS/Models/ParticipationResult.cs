@@ -25,5 +25,6 @@ namespace WS.Models
         public string DtDebut { get; set; }
         public string DtFin { get; set; }
         public Nullable<double> Duree { get; set; }
+        public Nullable<int> EvenementParentId { get; set; }
     }
 }

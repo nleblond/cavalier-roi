@@ -10,6 +10,10 @@ namespace WS.Models.IN
 
         public Int32? EvenementId { set; get; }
 
+        public String Jour { set; get; }
+
+
+
         public Int32? Annee { set; get; }
 
         public Int32? Mois { set; get; }

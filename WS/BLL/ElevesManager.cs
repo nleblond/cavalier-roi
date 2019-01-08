@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 using WS.Models;
@@ -58,6 +59,7 @@ namespace WS.BLL
                 _NewEleve.NbCours = _Current.NbCours;
                 _NewEleve.NbTournois = _Current.NbTournois;
 
+                _NewEleve.Administration = _Current.Administration;
 
 
                 //récupération des réservations de l'élève
@@ -106,6 +108,11 @@ namespace WS.BLL
                     _NewParticipation.Evenement.DtDebut = _CurrentP.DtDebut;
                     _NewParticipation.Evenement.DtFin = _CurrentP.DtFin;
                     _NewParticipation.Evenement.Duree = _CurrentP.Duree;
+                    if (_CurrentP.EvenementParentId != null) {
+                        _NewParticipation.Evenement.EvenementParent = new Evenement();
+                        _NewParticipation.Evenement.EvenementParent.Id = _CurrentP.EvenementParentId;
+                    }
+
                     _NewEleve.Participations.Add(_NewParticipation);
                 }
 
@@ -129,7 +136,7 @@ namespace WS.BLL
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
 
-            System.Data.Entity.Core.Objects.ObjectResult<Int32?> _IdResult = _DB.ConnectEleve(
+            ObjectResult<Int32?> _IdResult = _DB.ConnectEleve(
                                     email: _Email.Trim(),
                                     password: _Password.Trim().ToEncryptedTripleDES(Constants.PASSPHRASE).ToEncodedURL()
                                );
@@ -248,7 +255,7 @@ namespace WS.BLL
             String _CryptedPassword = null;
             if (!String.IsNullOrEmpty(_Password)) { _CryptedPassword = _Password.Trim().ToEncryptedTripleDES(Constants.PASSPHRASE).ToEncodedURL(); }
 
-            System.Data.Entity.Core.Objects.ObjectResult<Int32?> _IdResult = _DB.AddEleve(
+            ObjectResult<Int32?> _IdResult = _DB.AddEleve(
                                     nom: (!String.IsNullOrEmpty(_Nom) ? _Nom.Trim() : null),
                                     prenom: (!String.IsNullOrEmpty(_Prenom) ? _Prenom.Trim() : null),
                                     dtNaissance: _DtNaissanceF,
@@ -265,6 +272,11 @@ namespace WS.BLL
                                     suivi: (!String.IsNullOrEmpty(_Suivi) ? _Suivi.Trim() : null)
                               );
 
+            //je n'arrive pas à récupérer l'id de l'élève créé, je vais donc utiliser la procédure pour connecter l'élève
+            _IdResult = _DB.ConnectEleve(
+                                    email: _Email.Trim(),
+                                    password: _Password.Trim().ToEncryptedTripleDES(Constants.PASSPHRASE).ToEncodedURL()
+                               );
             Int32? _Id = null;
             try
             {
@@ -283,15 +295,26 @@ namespace WS.BLL
 
 
 
+
+
+
+        public static Int32? AddParticipation(Int32? _EleveId = null, Int32? _EvenementId = null, Double? _Quantite = null)
+        {
+            DBModelsParameters _DB = new WS.Models.DBModelsParameters();
+
+            return _DB.AddParticipation(
+                                            eleveId: _EleveId,
+                                            evenementId: _EvenementId,
+                                            quantite: _Quantite);
+        }
+        
         public static Int32? UpdParticipation(Int32? _Id = null, Int32? _Quantite = null)
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
 
             return _DB.UpdParticipation(_Id, _Quantite);
         }
-
-
-
+               
         public static Int32? DelParticipation(Int32? _Id = null, String _Real = "N")
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
@@ -300,6 +323,51 @@ namespace WS.BLL
         }
 
 
+
+
+
+        public static Int32? AddAllReservations(Int32? _EleveId = null, Int32? _EvenementId = null)
+        {
+            DBModelsParameters _DB = new WS.Models.DBModelsParameters();
+
+            return _DB.AddAllReservations(
+                                            eleveId: _EleveId,
+                                            evenementId:_EvenementId
+                                         );
+        }
+
+        public static Int32? AddReservations(List<Reservation> _Reservations)
+        {
+            Int32? _ReturnValue = null;
+            if ((_Reservations != null) && (_Reservations.Count > 0))
+            {
+                foreach (Reservation _Current in _Reservations)
+                {
+                    _ReturnValue = AddReservation(
+                                                    _EleveId: _Current.Eleve.Id,
+                                                    _EvenementId: _Current.Evenement.Id,
+                                                    _Jour: _Current.Jour,
+                                                    _Creneau: _Current.Creneau
+                                                );
+                }
+            }
+            return _ReturnValue;
+        }
+
+        public static Int32? AddReservation(Int32? _EleveId = null, Int32? _EvenementId = null, String _Jour = null, String _Creneau = null)
+        {
+            DBModelsParameters _DB = new WS.Models.DBModelsParameters();
+
+            DateTime? _JourF = null;
+            if (!String.IsNullOrEmpty(_Jour)) { _JourF = DateTime.Parse(_Jour); }
+
+            return _DB.AddReservation(
+                                        eleveId: _EleveId,
+                                        evenementId: _EvenementId,
+                                        jour: _JourF,
+                                        creneau: _Creneau
+                                        );
+        }
 
         public static Int32? DelReservation(Int32? _Id = null, String _Real = "N")
         {

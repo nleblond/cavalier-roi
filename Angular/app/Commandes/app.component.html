@@ -46,7 +46,7 @@
         <tbody>
             <tr *ngFor="let c of _Commandes; let i = index">
                 <td>{{c.Id}}</td>
-                <td>{{c.DtCreation | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{c.DtCreation}}</td>
                 <td>
                     <div><input type="text" [value]="c.ReferenceTransaction" placeholder="Référence de transaction (Paypal)" title="Référence de transaction (Paypal)" (change)="ChangeReferenceTransaction($event, i)" #ReferenceTransaction /></div>
                     <div><input type="text" [value]="c.ReferenceExterne" placeholder="Référence externe" title="Référence externe" (change)="ChangeReferenceExterne($event, i)" #ReferenceExterne /></div>

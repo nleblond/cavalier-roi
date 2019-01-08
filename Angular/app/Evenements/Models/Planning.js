@@ -14,6 +14,8 @@ var Planning = /** @class */ (function () {
         this.Creneau1516 = null;
         this.Creneau1617 = null;
         this.Creneau1718 = null;
+        this.Creneau1819 = null;
+        this.Creneau1920 = null;
     }
     return Planning;
 }());

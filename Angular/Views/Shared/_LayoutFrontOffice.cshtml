@@ -8,12 +8,17 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>@ViewBag.Title</title>
+    <title>L'ECOLE DU CAVALIER ROI : @ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description" />
+    
+    
     @Styles.Render("~/Content/CSS/Site.css")
     <link href="~/Scripts/jquery-ui/jquery-ui.css" rel="stylesheet" />
 
     @Scripts.Render("~/Scripts/jquery/jquery-3.3.1.js")
     @Scripts.Render("~/Scripts/jquery-ui/jquery-ui.min.js")
+    @Scripts.Render("~/Scripts/jquery-ui/jquery-ui-datepicker-fr-addon.js")
+    @Scripts.Render("~/Scripts/jquery-ui/jquery-ui-timepicker-addon.js")
 
     @Scripts.Render("~/Scripts/jquery-nl/functions-2.6.2.js")
     @Scripts.Render("~/Scripts/jquery-nl/navigateurs-1.6.1.js")
@@ -21,6 +26,23 @@
     @Scripts.Render("~/Scripts/jquery-nl/jquery-nl-modalpopup-2.6.5.B.js")
     @Scripts.Render("~/Scripts/jquery-nl/jquery-nl-touchslider-2.3.6.js")
 
+    <link rel="apple-touch-icon" sizes="57x57" href="/Content/Images/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/Content/Images/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/Content/Images/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/Content/Images/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/Content/Images/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/Content/Images/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/Content/Images/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/Content/Images/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/Content/Images/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/Content/Images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Content/Images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/Content/Images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Content/Images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/Content/Images/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/Content/Images/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 
 </head>
 <body>
@@ -28,6 +50,24 @@
     <script type="text/javascript">
         var imgRelativePath = '@Constants.IMG_URL';
     </script>
+
+
+
+
+    @Html.Partial("~/Views/Shared/Messages.cshtml", @Model.ContenusModals as List<WS.Models.OUT.Contenu>)
+
+
+    @Html.Partial("~/Views/Shared/Contact.cshtml")
+
+    @Html.Partial("~/Views/Shared/Actualite.cshtml")
+
+    @Html.Partial("~/Views/Shared/CalendrierParHeure.cshtml")
+
+    @Html.Partial("~/Views/Shared/CalendrierParDemiJournee.cshtml")
+
+    @Html.Partial("~/Views/Shared/CalendrierParEvenement.cshtml")
+
+    @Html.Partial("~/Views/Shared/Connexion.cshtml")
 
     <div class="page_frontoffice">
 
@@ -65,19 +105,9 @@
 
     </div>
 
-    @Html.Partial("~/Views/Shared/Contact.cshtml")
 
 
-    @Html.Partial("~/Views/Shared/Messages.cshtml", @Model.ContenusModals as List<WS.Models.OUT.Contenu>)
 
-    @Html.Partial("~/Views/Shared/Actualite.cshtml")
-
-
-    @Html.Partial("~/Views/Shared/Connexion.cshtml")
-
-    @Html.Partial("~/Areas/Evenements/Views/Shared/CalendrierParHeure.cshtml")
-
-    @Html.Partial("~/Areas/Evenements/Views/Shared/CalendrierParDemiJournee.cshtml")
 
 
 </body>

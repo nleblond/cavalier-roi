@@ -2,6 +2,7 @@
 
 @{
     try { ViewBag.Title = Model.ContenusZones[0].Titre; } catch { }
+    try { ViewBag.Description = Model.ContenusZones[0].Texte; } catch { }
     Layout = "~/Views/Shared/_LayoutFrontOffice.cshtml";
 }
 
@@ -15,7 +16,7 @@
     {
         <script language="javascript" lang="fr-fr">
             this.setTimeout(function () {
-                $('#Div_Connexion').ModalPopUp('open');
+                OpenConnexion();
             }, 800);
         </script>
     }
@@ -68,7 +69,8 @@
                     <td><input type="text" class="club" maxlength="255" value="@Model.Eleve.Club" /></td>
                 </tr>
             </table>
-            <table cellpadding="0" cellspacing="0" border="0" class="texte">
+
+            <table cellpadding="0" cellspacing="0" border="0" class="texte" style="display:@(Model.Eleve.Administration == true ? "block" : "none");">
                 <tr class="rouge">
                     <td>Commentaire&nbsp;:&nbsp;</td>
                     <td><textarea rows="6" cols="38" class="commentaire">@Model.Eleve.Commentaire</textarea></td>
@@ -78,6 +80,7 @@
                     <td><textarea rows="6" cols="38" class="suivi">@Model.Eleve.Suivi</textarea></td>
                 </tr>
             </table>
+
             <table cellpadding="0" cellspacing="0" border="0" class="texte">
                 <tr>
                     <td>Email/Identifiant&nbsp;:&nbsp;</td>
@@ -161,41 +164,70 @@
                                     <thead>
                                         <tr>
                                             <th class="first">Date</th>
-                                            <th>Heure de début</th>
-                                            <th>Heure de fin</th>
+                                            <th>Début</th>
+                                            <th>Fin</th>
                                             <th class="last"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (WS.Models.OUT.Reservation _CurrentR in (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id))
                                         {
-                                            <tr class="reservation">
-                                                <td class="first">@_CurrentR.Jour</td>
-                                                <td>@(_CurrentR.Creneau.Replace("Creneau", "").Left(2))H</td>
-                                                <td>@(_CurrentR.Creneau.Replace("Creneau", "").Right(2))H</td>
-                                                <td class="last">
-                                                    <input type="hidden" value="@_CurrentR.Id" />
-                                                    <span class="rouge supprimer" title="Supprimer">✖</span>
-                                                </td>
-                                            </tr>
+                                        <tr class="reservation">
+                                            <td class="first">@_CurrentR.Jour</td>
+                                            <td>@(_CurrentR.Creneau.Replace("Creneau", "").Left(2))H</td>
+                                            <td>@(_CurrentR.Creneau.Replace("Creneau", "").Right(2))H</td>
+                                            <td class="last">
+                                                @if (Model.Eleve.Administration == true)
+                                                {
+                                                    <div>
+                                                        <input type="hidden" class="id" value="@_CurrentR.Id" />
+                                                        <span class="rouge supprimer" title="Supprimer">✖</span>
+                                                    </div>
+                                                }
+                                            </td>
+                                        </tr>
                                         }
                                     </tbody>
                                 </table>
                             </td>
-                            <td>
+                            <td class="last actions left">
                                 <div>
-                                    <input type="text" class="quantite" title="Quantité disponible" value="@_CurrentP.Quantite" />H
-                                    @if (_CurrentP.Evenement.Duree != null)
+                                    @if (Model.Eleve.Administration == true)
                                     {
-                                        <span>sur @(_CurrentP.Evenement.Duree)H</span>
+                                        <input type="text" class="quantite" title="Quantité disponible" value="@_CurrentP.Quantite" />
                                     }
-                                    <span class="rouge crediter" title="Créditer">✔</span>
+                                    else
+                                    {
+                                        <span>@(_CurrentP.Quantite)</span>
+                                    }
+                                    H
+                                    @*
+                                        @if (_CurrentP.Evenement.Duree != null)
+                                        {
+                                            <span>sur @(_CurrentP.Evenement.Duree)H</span>
+                                        }
+                                    *@
+                                    @if (Model.Eleve.Administration == true)
+                                    {
+                                        <input type="hidden" class="id" value="@_CurrentP.Id" />
+                                        <span class="rouge crediter" title="Créditer">✔</span>
+                                    }
                                 </div>
-                                <div class="actions">
-                                    <input type="button" class="reserver" title="Réserver" value="Réserver" />
-                                    <input type="hidden" class="id" value="@_CurrentP.Id" />
-                                    <span class="rouge supprimer" title="Supprimer">✖</span>
-                                </div>
+                                <div class="br5"></div>
+                                <input type="button" class="reserver" title="Réserver" value="Réserver" style="display:@(_CurrentP.Quantite != 0 ? "block" : "none");"
+                                       data-evenementid="@_CurrentP.Evenement.Id"
+                                       data-evenementlibelle="@_CurrentP.Evenement.Libelle"
+                                       data-eleveid="@Model.Eleve.Id"
+                                       data-quantite="@_CurrentP.Quantite"
+                                       data-jour="@DateTime.Now.ToString("dd/MM/yyyy")"
+                                       data-prix="" />
+                                @if (Model.Eleve.Administration == true)
+                                {
+                                    <div>
+                                        <input type="hidden" class="id" value="@_CurrentP.Id" />
+                                        <span class="rouge supprimer" title="Supprimer">✖</span>
+                                    </div>
+                                }
                             </td>
                         </tr>
                     }
@@ -219,8 +251,8 @@
                                     <thead>
                                         <tr>
                                             <th class="first">Date</th>
-                                            <th>Heure de début</th>
-                                            <th>Heure de fin</th>
+                                            <th>Début</th>
+                                            <th>Fin</th>
                                             <th class="last"></th>
                                         </tr>
                                     </thead>
@@ -247,9 +279,14 @@
                                     </tbody>
                                 </table>
                             </td>
-                            <td class="actions">
-                                <input type="hidden" class="id" value="@_CurrentP.Id" />
-                                <span class="rouge supprimer" title="Supprimer">✖</span>
+                            <td class="last actions">
+                                @if (Model.Eleve.Administration == true)
+                                {
+                                    <div>
+                                        <input type="hidden" class="id" value="@_CurrentP.Id" />
+                                        <span class="rouge supprimer" title="Supprimer">✖</span>
+                                    </div>
+                                }
                             </td>
                         </tr>
                     }
@@ -269,8 +306,8 @@
                 <thead>
                     <tr>
                         <th class="first">Libellé</th>
-                        <th>Date de début</th>
-                        <th>Date de fin</th>
+                        <th>Début</th>
+                        <th>Fin</th>
                         <th class="last"></th>
                     </tr>
                 </thead>
@@ -282,8 +319,13 @@
                             <td>@_CurrentP.Evenement.DtDebut</td>
                             <td>@_CurrentP.Evenement.DtFin</td>
                             <td class="last actions">
-                                <input type="hidden" class="id" value="@_CurrentP.Id" />
-                                <span class="rouge supprimer" title="Supprimer">✖</span>
+                                @if (Model.Eleve.Administration == true)
+                                {
+                                    <div>
+                                        <input type="hidden" class="id" value="@_CurrentP.Id" />
+                                        <span class="rouge supprimer" title="Supprimer">✖</span>
+                                    </div>
+                                }
                             </td>
                         </tr>
                     }

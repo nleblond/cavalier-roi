@@ -50,5 +50,9 @@ namespace WS.Models.OUT
         public Int32? NbStages { get; set; }
         public Int32? NbCours { get; set; }
         public Int32? NbTournois { get; set; }
+
+
+        public Boolean? Administration { set; get; }
+
     }
 }

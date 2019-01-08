@@ -52,8 +52,8 @@
                 <td><div *ngIf="e.Logo != undefined && e.Logo != null"><a href="{{_ImgUrl}}/Evenements/{{e.Id}}/{{e.Logo}}" target="_blank"><img src="{{_ImgUrl}}/Evenements/{{e.Id}}/{{e.Logo}}" /></a></div></td>
                 <td><div *ngIf="e.Photo != undefined && e.Photo != null"><a href="{{_ImgUrl}}/Evenements/{{e.Id}}/{{e.Photo}}" target="_blank"><img src="{{_ImgUrl}}/Evenements/{{e.Id}}/{{e.Photo}}" /></a></div></td>
                 <td><div *ngIf="e.Bandeau != undefined && e.Bandeau != null"><a href="{{_ImgUrl}}/Evenements/{{e.Id}}/{{e.Bandeau}}" target="_blank"><img src="{{_ImgUrl}}/Evenements/{{e.Id}}/{{e.Bandeau}}" /></a></div></td>
-                <td>{{e.DtDebut | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{e.DtFin | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{e.DtDebut}}</td>
+                <td>{{e.DtFin}}</td>
                 <td><div *ngIf="GetShow('parent', e)">[{{e.EvenementParent.Id}}] {{e.EvenementParent.Libelle}}</div></td>
                 <td>
                     <input type="button" title="Gérer" value="Gérer" (click)="InitEvenement(1, i)" />
@@ -163,6 +163,8 @@
                         <th>15H<br />16H</th>
                         <th>16H<br />17H</th>
                         <th>17H<br />18H</th>
+                        <th>18H<br />19H</th>
+                        <th>19H<br />20H</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -178,6 +180,8 @@
                         <td [ngStyle]="{ 'color': '#000000', 'background-color': GetColor(i, 7) }" (click)="ChangeColor(i, 7, p.Creneau1516)">&nbsp;</td>
                         <td [ngStyle]="{ 'color': '#000000', 'background-color': GetColor(i, 8) }" (click)="ChangeColor(i, 8, p.Creneau1617)">&nbsp;</td>
                         <td [ngStyle]="{ 'color': '#000000', 'background-color': GetColor(i, 9) }" (click)="ChangeColor(i, 9, p.Creneau1718)">&nbsp;</td>
+                        <td [ngStyle]="{ 'color': '#000000', 'background-color': GetColor(i, 10) }" (click)="ChangeColor(i, 10, p.Creneau1819)">&nbsp;</td>
+                        <td [ngStyle]="{ 'color': '#000000', 'background-color': GetColor(i, 11) }" (click)="ChangeColor(i, 11, p.Creneau1920)">&nbsp;</td>
                     </tr>
                     <tr *ngIf="_NoResult">
                         <td>Aucun résultat</td>

@@ -12,7 +12,16 @@ namespace WS.BLL
     public static class EvenementsManager
     {
 
-        public static List<Evenement> GetEvenements(Int32? _Id = null, String _Libelle = null, String _DtMin = null, String _DtMax = null, Int32? _TypologieId = null, Int32? _EvenementParentId = null, Int32? _EleveId = null, String _OnlyParentsYN = "N")
+        public static List<Evenement> GetEvenements(
+                                                        Int32? _Id = null,
+                                                        String _Libelle = null,
+                                                        String _DtMin = null,
+                                                        String _DtMax = null,
+                                                        Int32? _TypologieId = null,
+                                                        Int32? _EvenementParentId = null,
+                                                        Int32? _EleveId = null,
+                                                        String _OnlyParentsYN = "N"
+                                            )
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
 
@@ -42,6 +51,7 @@ namespace WS.BLL
                 _NewEvenement.DtLimiteInscription = (String.IsNullOrEmpty(_CurrentE.DtLimiteInscription) ? null : _CurrentE.DtLimiteInscription.Trim());
                 _NewEvenement.Minimum = _CurrentE.Minimum;
                 _NewEvenement.Maximum = _CurrentE.Maximum;
+                _NewEvenement.Compte = _CurrentE.Compte;
 
                 _NewEvenement.Prix = _CurrentE.Prix;
                 _NewEvenement.Duree = _CurrentE.Duree;
@@ -268,11 +278,11 @@ namespace WS.BLL
 
 
 
-        public static List<Planning> GetPlanningsFront(Int32? _EvenementId = null)
+        public static List<Planning> GetPlanningsFront(Int32? _EvenementId = null, String _Jour = null)
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
 
-            List<PlanningResult> _PlanningResults = _DB.GetPlanningsFront(_EvenementId).ToList();
+            List<PlanningResult> _PlanningResults = _DB.GetPlanningsFront(_EvenementId, _Jour).ToList();
 
             List<Planning> _Plannings = new List<Planning>();
             foreach (PlanningResult _CurrentP in _PlanningResults)
@@ -289,6 +299,8 @@ namespace WS.BLL
                 _NewPlanning.Creneau1516 = (String.IsNullOrEmpty(_CurrentP.Creneau1516) ? null : _CurrentP.Creneau1516.Trim());
                 _NewPlanning.Creneau1617 = (String.IsNullOrEmpty(_CurrentP.Creneau1617) ? null : _CurrentP.Creneau1617.Trim());
                 _NewPlanning.Creneau1718 = (String.IsNullOrEmpty(_CurrentP.Creneau1718) ? null : _CurrentP.Creneau1718.Trim());
+                _NewPlanning.Creneau1819 = (String.IsNullOrEmpty(_CurrentP.Creneau1819) ? null : _CurrentP.Creneau1819.Trim());
+                _NewPlanning.Creneau1920 = (String.IsNullOrEmpty(_CurrentP.Creneau1920) ? null : _CurrentP.Creneau1920.Trim());
                 _NewPlanning.Jour = _CurrentP.Jour.Trim();
 
                 _Plannings.Add(_NewPlanning);
@@ -319,6 +331,8 @@ namespace WS.BLL
                 _NewPlanning.Creneau1516 = (String.IsNullOrEmpty(_CurrentP.Creneau1516) ? null : _CurrentP.Creneau1516.Trim());
                 _NewPlanning.Creneau1617 = (String.IsNullOrEmpty(_CurrentP.Creneau1617) ? null : _CurrentP.Creneau1617.Trim());
                 _NewPlanning.Creneau1718 = (String.IsNullOrEmpty(_CurrentP.Creneau1718) ? null : _CurrentP.Creneau1718.Trim());
+                _NewPlanning.Creneau1819 = (String.IsNullOrEmpty(_CurrentP.Creneau1819) ? null : _CurrentP.Creneau1819.Trim());
+                _NewPlanning.Creneau1920 = (String.IsNullOrEmpty(_CurrentP.Creneau1920) ? null : _CurrentP.Creneau1920.Trim());
                 _NewPlanning.Jour = _CurrentP.Jour;
 
                 _Plannings.Add(_NewPlanning);
@@ -350,7 +364,9 @@ namespace WS.BLL
                                         _Creneau1415: _Current.Creneau1415,
                                         _Creneau1516: _Current.Creneau1516,
                                         _Creneau1617: _Current.Creneau1617,
-                                        _Creneau1718: _Current.Creneau1718
+                                        _Creneau1718: _Current.Creneau1718,
+                                        _Creneau1819: _Current.Creneau1819,
+                                        _Creneau1920: _Current.Creneau1920
                         );
                 }
             }
@@ -371,7 +387,9 @@ namespace WS.BLL
                                     String _Creneau1415 = null,
                                     String _Creneau1516 = null,
                                     String _Creneau1617 = null,
-                                    String _Creneau1718 = null
+                                    String _Creneau1718 = null,
+                                    String _Creneau1819 = null,
+                                    String _Creneau1920 = null
                                 )
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
@@ -391,7 +409,9 @@ namespace WS.BLL
                                     creneau1415: _Creneau1415,
                                     creneau1516: _Creneau1516,
                                     creneau1617: _Creneau1617,
-                                    creneau1718: _Creneau1718
+                                    creneau1718: _Creneau1718,
+                                    creneau1819: _Creneau1819,
+                                    creneau1920: _Creneau1920
                                 );
         }
 

@@ -9,15 +9,15 @@ using WS.Models.OUT;
 using Angular.CALL;
 
 using Microsoft.VisualBasic;
-
-
+using System.Net.Mail;
+using System.Net;
 
 namespace Angular.Controllers
 {
     public class HomeController : Controller
     {
 
-        //frontoffice
+        [Route("")]
         public ActionResult Index()
         {
             //contenu : zone
@@ -57,6 +57,12 @@ namespace Angular.Controllers
             _Model.ContenusPartenariatsBandeaux = _ContenusPartenariatsBandeaux;
             _Model.ContenusPartenariatsPromos = _ContenusPartenariatsPromos;
             _Model.ContenusModals = _ContenusModals;
+
+
+
+
+            //Tools.SendMail("L'ECOLE DU CAVALIER ROI <inscriptions@cavalier-roi.fr>", "leniko@gmail.com", "Test", "Test", true, "authsmtp.securemail.pro", 465, "inscriptions@cavalier-roi.fr", "Hokage2348+");
+
 
             return View("~/Views/Accueil.cshtml", _Model);
         }
@@ -308,6 +314,27 @@ namespace Angular.Controllers
         [Route("Stages")]
         public ActionResult Stages()
         {
+
+            //connexion
+            Eleve _Eleve = null;
+            Boolean _Connected = false;
+            if (Session["www.cavalier-roi.fr"] == null)
+            {
+                _Connected = false;
+            }
+            else if ((Session["www.cavalier-roi.fr"] != null) && ((Session["www.cavalier-roi.fr"] as Eleve).Id != null))
+            {
+                try
+                {
+                    _Eleve = ElevesManager.GetEleve((Session["www.cavalier-roi.fr"] as Eleve).Id).Result;
+                    _Connected = true;
+                }
+                catch (Exception)
+                {
+                    _Connected = false;
+                }
+            }
+
             //contenu : zone
             List<Contenu> _ContenusZones = ContenusManager.GetContenus(40, 1).Result;
 
@@ -339,6 +366,8 @@ namespace Angular.Controllers
             foreach (Contenu _Current in _ContenusPartenariatsPromosContext) { _ContenusPartenariatsPromos.Add(_Current); }
 
             dynamic _Model = new ExpandoObject();
+            _Model.Connected = _Connected;
+            _Model.Eleve = _Eleve as Eleve;
             _Model.ContenusZones = _ContenusZones as List<Contenu>;
             _Model.EvenementsStages = _EvenementsStages as List<Evenement>;
             _Model.ContenusPartenariatsEncarts = _ContenusPartenariatsEncarts as List<Contenu>;
@@ -353,6 +382,27 @@ namespace Angular.Controllers
         [Route("Cours")]
         public ActionResult Cours()
         {
+
+            //connexion
+            Eleve _Eleve = null;
+            Boolean _Connected = false;
+            if (Session["www.cavalier-roi.fr"] == null)
+            {
+                _Connected = false;
+            }
+            else if ((Session["www.cavalier-roi.fr"] != null) && ((Session["www.cavalier-roi.fr"] as Eleve).Id != null))
+            {
+                try
+                {
+                    _Eleve = ElevesManager.GetEleve((Session["www.cavalier-roi.fr"] as Eleve).Id).Result;
+                    _Connected = true;
+                }
+                catch (Exception)
+                {
+                    _Connected = false;
+                }
+            }
+
             //contenu : zone
             List<Contenu> _ContenusZones = ContenusManager.GetContenus(39, 1).Result;
 
@@ -384,6 +434,8 @@ namespace Angular.Controllers
             foreach (Contenu _Current in _ContenusPartenariatsPromosContext) { _ContenusPartenariatsPromos.Add(_Current); }
 
             dynamic _Model = new ExpandoObject();
+            _Model.Connected = _Connected;
+            _Model.Eleve = _Eleve as Eleve;
             _Model.ContenusZones = _ContenusZones as List<Contenu>;
             _Model.EvenementsCours = _EvenementsCours as List<Evenement>;
             _Model.ContenusPartenariatsEncarts = _ContenusPartenariatsEncarts as List<Contenu>;
@@ -398,6 +450,27 @@ namespace Angular.Controllers
         [Route("Tournois")]
         public ActionResult Tournois()
         {
+
+            //connexion
+            Eleve _Eleve = null;
+            Boolean _Connected = false;
+            if (Session["www.cavalier-roi.fr"] == null)
+            {
+                _Connected = false;
+            }
+            else if ((Session["www.cavalier-roi.fr"] != null) && ((Session["www.cavalier-roi.fr"] as Eleve).Id != null))
+            {
+                try
+                {
+                    _Eleve = ElevesManager.GetEleve((Session["www.cavalier-roi.fr"] as Eleve).Id).Result;
+                    _Connected = true;
+                }
+                catch (Exception)
+                {
+                    _Connected = false;
+                }
+            }
+
             //contenu : zones
             List<Contenu> _ContenusZones = ContenusManager.GetContenus(41, 1).Result;
             List<Contenu> _ContenusZones2 = ContenusManager.GetContenus(43, 1).Result;
@@ -433,6 +506,8 @@ namespace Angular.Controllers
             foreach (Contenu _Current in _ContenusPartenariatsPromosContext) { _ContenusPartenariatsPromos.Add(_Current); }
 
             dynamic _Model = new ExpandoObject();
+            _Model.Connected = _Connected;
+            _Model.Eleve = _Eleve as Eleve;
             _Model.ContenusZones = _ContenusZones as List<Contenu>;
             _Model.ContenusZones2 = _ContenusZones2 as List<Contenu>;
             _Model.EvenementsTournois = _EvenementsTournois as List<Evenement>;
@@ -464,14 +539,14 @@ namespace Angular.Controllers
         public ActionResult MonCompte(Int32? _Id = null)
         {
 
+            //connexion
             Eleve _Eleve = null;
             Boolean _Connected = false;
-
             if (Session["www.cavalier-roi.fr"] == null)
             {
                 _Connected = false;
             }
-            else if ((Session["www.cavalier-roi.fr"] != null) && (_Id != null))
+            else if ((Session["www.cavalier-roi.fr"] != null) && (_Id != null) && ((Session["www.cavalier-roi.fr"] as Eleve).Administration == true))
             {
                 try
                 {
@@ -483,7 +558,7 @@ namespace Angular.Controllers
                 }
 
             }
-            else if (Session["www.cavalier-roi.fr"] != null)
+            else if ((Session["www.cavalier-roi.fr"] != null) && ((Session["www.cavalier-roi.fr"] as Eleve).Id != null))
             {
                 try
                 {
@@ -543,8 +618,7 @@ namespace Angular.Controllers
 
             if (_Id != null)
             {
-                Eleve _Eleve = new Eleve();
-                _Eleve.Id = _Id;
+                Eleve _Eleve = ElevesManager.GetEleve(_Id).Result;
                 Session["www.cavalier-roi.fr"] = _Eleve;
 
                 return Json(true);
@@ -553,6 +627,14 @@ namespace Angular.Controllers
             return Json(false);
 
         }
+
+        [Route("CheckConnectedEleve")]
+        public JsonResult CheckConnectedEleve()
+        {
+            if (Session["www.cavalier-roi.fr"] != null) { return Json(true); }
+            else { return Json(false); }
+        }
+
 
         [Route("ReinitEleve")]
         public JsonResult ReinitEleve(String _Email = null, String _Password = null)
@@ -599,8 +681,7 @@ namespace Angular.Controllers
 
             if (_Id != null)
             {
-                Eleve _Eleve = new Eleve();
-                _Eleve.Id = _Id;
+                Eleve _Eleve = ElevesManager.GetEleve(_Id).Result;
                 Session["www.cavalier-roi.fr"] = _Eleve;
 
                 return Json(true);
@@ -619,6 +700,27 @@ namespace Angular.Controllers
         [Route("Boutique")]
         public ActionResult Boutique()
         {
+
+            //connexion
+            Eleve _Eleve = null;
+            Boolean _Connected = false;
+            if (Session["www.cavalier-roi.fr"] == null)
+            {
+                _Connected = false;
+            }
+            else if ((Session["www.cavalier-roi.fr"] != null) && ((Session["www.cavalier-roi.fr"] as Eleve).Id != null))
+            {
+                try
+                {
+                    _Eleve = (Session["www.cavalier-roi.fr"] as Eleve);
+                    _Connected = true;
+                }
+                catch (Exception)
+                {
+                    _Connected = false;
+                }
+            }
+
             //contenu : zone
             List<Contenu> _ContenusZones = ContenusManager.GetContenus(44, 1).Result;
 
@@ -647,6 +749,7 @@ namespace Angular.Controllers
             foreach (Contenu _Current in _ContenusPartenariatsPromosContext) { _ContenusPartenariatsPromos.Add(_Current); }
 
             dynamic _Model = new ExpandoObject();
+            _Model.Connected = _Connected;
             _Model.ContenusZones = _ContenusZones as List<Contenu>;
             _Model.ContenusPartenariatsEncarts = _ContenusPartenariatsEncarts as List<Contenu>;
             _Model.ContenusPartenariatsBandeaux = _ContenusPartenariatsBandeaux as List<Contenu>;
@@ -655,9 +758,6 @@ namespace Angular.Controllers
 
             return View("~/Views/Boutique.cshtml", _Model);
         }
-
-
-
 
     }
 }
