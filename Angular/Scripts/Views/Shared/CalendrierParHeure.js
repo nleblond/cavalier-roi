@@ -382,7 +382,7 @@ function ValidateParticipationAndReservationsParHeure() {
 
     //toutes les réservations ne sont pas sélectionnées mais on est dans "mon compte" en train d'utiliser la réserve d'heures
     if ((document.location.href.toLowerCase().indexOf('moncompte') > -1) && ($('#Div_CalendrierParHeure .selections table').find('.selection').length > 0)) {
-        if (confirm('Voulez-vous vraiment valider ces réservations ?')) {
+        //if (confirm('Voulez-vous vraiment valider ces réservations ?')) {
             AddReservationsParHeure();
             $('#Div_CalendrierParHeure .planning').hide();
             $('#Div_CalendrierParHeure .paiement').hide();
@@ -393,17 +393,17 @@ function ValidateParticipationAndReservationsParHeure() {
                 document.location.href = document.location.href;
             }, 2000);
 
-        }
+        //}
     }
     //toutes les réservations sont sélectionnées
     else if ((document.location.href.toLowerCase().indexOf('moncompte') < 0) && ($('#Div_CalendrierParHeure .selections table').find('.selection').length == parseInt(_Duree))) {
-        if (confirm('Voulez-vous vraiment valider ces réservations ?')) {
+        //if (confirm('Voulez-vous vraiment valider ces réservations ?')) {
             $('#Div_CalendrierParHeure .planning').hide();
             $('#Div_CalendrierParHeure .paiement').show();
             $('#Div_CalendrierParHeure .confirmation').hide();
 
             $('#Div_CalendrierParHeure .fermer').hide();
-        }
+        //}
     }
     else {
 

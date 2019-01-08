@@ -112,6 +112,7 @@ function OpenCalendrierParDemiJournee(_EvenementId, _EvenementLibelle, _EleveId,
         }
         else {
             $('#Div_CalendrierParDemiJournee .paiement').show();
+            $('#Div_CalendrierParDemiJournee .todelete').hide();
         }
     }
     else { //formule partielle
@@ -173,6 +174,8 @@ function ClearCalendrierParDemiJournee() {
     $('#Div_CalendrierParDemiJournee .confirmation .confirmation5').hide();
     $('#Div_CalendrierParDemiJournee .confirmation .confirmation6').hide();
     $('#Div_CalendrierParDemiJournee .confirmation .confirmation7').hide();
+
+    $('#Div_CalendrierParDemiJournee .todelete').show();
 
     $('#Div_CalendrierParDemiJournee .fermer').show();
 
@@ -522,13 +525,13 @@ function ValidateParticipationAndReservationsParDemiJournee() {
 
     //toutes les réservations sont sélectionnées
     if ((document.location.href.toLowerCase().indexOf('moncompte') < 0) && ($('#Div_CalendrierParDemiJournee .selections table').find('.selection').length == parseInt(_Duree))) {
-        if (confirm('Voulez-vous vraiment valider ces réservations ?')) {
+        //if (confirm('Voulez-vous vraiment valider ces réservations ?')) {
             $('#Div_CalendrierParDemiJournee .planning').hide();
             $('#Div_CalendrierParDemiJournee .paiement').show();
             $('#Div_CalendrierParDemiJournee .confirmation').hide();
 
             $('#Div_CalendrierParDemiJournee .fermer').hide();
-        }
+        //}
     }
     else {
         alert('Merci de sélectionner toutes vos réservations !');
