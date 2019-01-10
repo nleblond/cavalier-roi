@@ -177,10 +177,10 @@ var AppComponent = /** @class */ (function () {
             return false;
         }
         else if (_Option == 'logo') {
-            if ((_Evenement.EvenementParent == null) || ((_Evenement.EvenementParent != null) && (_Evenement.EvenementParent.Id == null))) { //pas de parent
-                return ((_Evenement.Typologie.Id == 0) || (_Evenement.Typologie.Id == 1));
-            }
-            return false;
+            //if ((_Evenement.EvenementParent == null) || ((_Evenement.EvenementParent != null) && (_Evenement.EvenementParent.Id == null))) { //pas de parent
+            //    return ((_Evenement.Typologie.Id == 0) || (_Evenement.Typologie.Id == 1));
+            //}
+            return false; //pas utilis� pour le moment
         }
         else if (_Option == 'bandeau') {
             if ((_Evenement.EvenementParent == null) || ((_Evenement.EvenementParent != null) && (_Evenement.EvenementParent.Id == null))) { //pas de parent
@@ -775,6 +775,7 @@ var AppComponent = /** @class */ (function () {
                     _this._Evenement.EvenementParent = new Evenement_1.Evenement();
                     _this._Evenement.Id = _this._InitReturn;
                     _this._Evenement.Etat = 0;
+                    _this.GetPlannings(); //r�cup�ration des derniers enregistrements "planning" en date
                 }
                 else {
                     alert('Une erreur est survenue : ' + data.statusText + ' !');
@@ -787,8 +788,8 @@ var AppComponent = /** @class */ (function () {
                 this._Evenement.EvenementParent = new Evenement_1.Evenement();
             }
             this._Evenement.Etat = 1; //modification
+            this.GetPlannings(); //r�cup�ration des derniers enregistrements "planning" en date
         }
-        this.GetPlannings(); //r�cup�ration des derniers enregistrements "planning" en date
         //initialisation des datetimepickers des d�tails
         //setTimeout(function () {
         //    jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });

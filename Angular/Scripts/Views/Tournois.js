@@ -17,8 +17,10 @@ $(window).on('load', function () {
                 var _EvenementLibelle = $(this).data('evenementlibelle');
                 var _EleveId = $(this).data('eleveid');
                 var _Prix = $(this).data('prix');
+                var _DtDebut = $(this).data('dtdebut');
+                var _DtFin = $(this).data('dtfin');
 
-                OpenCalendrierParEvenement(_EvenementId, _EvenementLibelle, _EleveId, _Prix);
+                OpenCalendrierParEvenement(_EvenementId, _EvenementLibelle, _EleveId, _Prix, _DtDebut, _DtFin);
             }
             else {
                 OpenConnexion();

@@ -10,6 +10,13 @@ _Jours[4] = "Jeudi";
 _Jours[5] = "Vendredi";
 _Jours[6] = "Samedi";
 
+//variables Paypal
+var _Total = '';
+var _Description = 'Paiement pour réservation';
+var _Note = "Pour plus d'informations sur ce paiement, n'hésitez pas à contacter l'École du cavalier roi à paypal@cavalier-roi.fr";
+var _Item = '';
+var _Price = '';
+var _Reservations = '';
 
 $(window).on('load', function () {
 
@@ -21,26 +28,9 @@ $(window).on('load', function () {
         return false;
     });
 
-
     //validation des réservations
     $('#Div_CalendrierParHeure .planning .valider').on('click', function () {
         ValidateParticipationAndReservationsParHeure();
-        return false;
-    });
-
-    //paiement par psp
-    $('#Div_CalendrierParHeure input[type="button"].psp').on('click', function () {
-        alert('paiement paypal');
-        AddParticipationParHeure();
-        AddReservationsParHeure();
-
-        $('#Div_CalendrierParHeure .planning').hide();
-        $('#Div_CalendrierParHeure .paiement').hide();
-        $('#Div_CalendrierParHeure .confirmation').show();
-        $('#Div_CalendrierParHeure .confirmation .confirmation2').show();
-
-        $('#Div_CalendrierParHeure .fermer').show();
-
         return false;
     });
 
@@ -76,6 +66,11 @@ $(window).on('load', function () {
 
 function OpenCalendrierParHeure(_EvenementId, _EvenementLibelle, _EleveId, _Duree, _Jour, _Prix) {
 
+    //variables Paypal
+    _Total = _Prix;
+    _Price = _Prix;
+    _Item = _EvenementLibelle;
+
     ClearCalendrierParHeure();
 
     $('#Div_CalendrierParHeure .titre').html(_EvenementLibelle);
@@ -89,7 +84,7 @@ function OpenCalendrierParHeure(_EvenementId, _EvenementLibelle, _EleveId, _Dure
 
     if ((_Duree.toString() == '') || (_Duree == null)) { //participation seule (prise de contact)
 
-        AddParticipationPerHeure();
+        AddParticipationParHeure();
 
         $('#Div_CalendrierParHeure .planning').hide();
         $('#Div_CalendrierParHeure .paiement').hide();
@@ -335,13 +330,13 @@ function AddTableSelectionParHeure(_Jour, _Creneau) {
     var _Duree = $('#Div_CalendrierParHeure #Hidden_Duree').val();
 
     var _Row = '<tr class="selection" id="Tr_' + _Jour.replace('/', '-').replace('/', '-') + _Creneau + '"> \
-                <td>'
-        + (_Jours[new Date(_JourJS).getDay()]).toUpperCase() + ' ' + _Jour
-        + ' : '
-        + _Creneau.replace('Creneau', '').substring(0, 2) + 'H'
-        + ' - '
-        + _Creneau.replace('Creneau', '').substring(2) + 'H'
-        + '</td > \
+                <td class="creneau">'
+                    + (_Jours[new Date(_JourJS).getDay()]).toUpperCase() + ' ' + _Jour
+                    + ' : '
+                    + _Creneau.replace('Creneau', '').substring(0, 2) + 'H'
+                    + ' - '
+                    + _Creneau.replace('Creneau', '').substring(2) + 'H'
+                + '</td > \
                 <td class="reserver"> \
                     <input type="hidden" class="jour" value="' + _Jour + '" /> \
                     <input type="hidden" class="creneau" value="' + _Creneau + '" /> \
@@ -382,7 +377,8 @@ function ValidateParticipationAndReservationsParHeure() {
 
     //toutes les réservations ne sont pas sélectionnées mais on est dans "mon compte" en train d'utiliser la réserve d'heures
     if ((document.location.href.toLowerCase().indexOf('moncompte') > -1) && ($('#Div_CalendrierParHeure .selections table').find('.selection').length > 0)) {
-        //if (confirm('Voulez-vous vraiment valider ces réservations ?')) {
+
+        if (confirm('Voulez-vous vraiment valider ces réservations ?')) { //confirmation car pas d'étape de paiement
             AddReservationsParHeure();
             $('#Div_CalendrierParHeure .planning').hide();
             $('#Div_CalendrierParHeure .paiement').hide();
@@ -392,18 +388,24 @@ function ValidateParticipationAndReservationsParHeure() {
             setTimeout(function () {
                 document.location.href = document.location.href;
             }, 2000);
+        }
 
-        //}
     }
     //toutes les réservations sont sélectionnées
     else if ((document.location.href.toLowerCase().indexOf('moncompte') < 0) && ($('#Div_CalendrierParHeure .selections table').find('.selection').length == parseInt(_Duree))) {
-        //if (confirm('Voulez-vous vraiment valider ces réservations ?')) {
-            $('#Div_CalendrierParHeure .planning').hide();
-            $('#Div_CalendrierParHeure .paiement').show();
-            $('#Div_CalendrierParHeure .confirmation').hide();
 
-            $('#Div_CalendrierParHeure .fermer').hide();
-        //}
+        //variables paypal
+        _Reservations = '';
+        $('#Div_CalendrierParHeure .selections table tr.selection td.creneau').each(function () {
+            _Reservations = _Reservations + (_Reservations != '' ? ' / ' + $(this).html() : $(this).html());
+        });
+
+        $('#Div_CalendrierParHeure .planning').hide();
+        $('#Div_CalendrierParHeure .paiement').show();
+        $('#Div_CalendrierParHeure .confirmation').hide();
+
+        $('#Div_CalendrierParHeure .fermer').hide();
+
     }
     else {
 
@@ -420,17 +422,14 @@ function ValidateParticipationAndReservationsParHeure() {
 
 
 
-
-
-
-
-function AddParticipationParHeure() {
+function AddParticipationParHeure(_PaymentId) {
 
     var _Participation = {};
     _Participation.Evenement = {};
     _Participation.Evenement.Id = $('#Div_CalendrierParHeure #Hidden_EvenementId').val();
     _Participation.Eleve = {};
     _Participation.Eleve.Id = $('#Div_CalendrierParHeure #Hidden_EleveId').val();
+    _Participation.PaymentId = _PaymentId;
 
     $.ajax({
         type: 'POST',
@@ -460,7 +459,7 @@ function AddParticipationParHeure() {
 
 }
 
-function AddReservationsParHeure() {
+function AddReservationsParHeure(_PaymentId) {
 
     var _Reservations = [];
     $('#Div_CalendrierParHeure .selections table').find('.selection').each(function () {
@@ -471,6 +470,7 @@ function AddReservationsParHeure() {
         _Reservation.Eleve.Id = $('#Div_CalendrierParHeure #Hidden_EleveId').val();
         _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
         _Reservation.Creneau = $(this).find('input[type=hidden].creneau').val();
+        _Reservation.PaymentId = _PaymentId;
 
         _Reservations.push(_Reservation);
     });
@@ -501,4 +501,99 @@ function AddReservationsParHeure() {
         complete: function () { }
     });
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+paypal.Button.render({
+
+    env: "sandbox", // sandbox | production
+
+    //lenikopirate@gmail.com
+    client: {
+        sandbox: "AQTHpzCaxK8eC7QzC7nJC44a78S40anHoyzopm6OceNuoPog21uoyWYfUlFTlk_5m71kz-4p1D4WippM",
+        production: "Ad8wWcW6tQWVhQTQMSORbuN-p0Zv7NT78-Fqrw3xDb45zVjKl87A4iHDYhUwAd_drfuRmo5WaqbLfyL4"
+    },
+
+    // Show the buyer a 'Pay Now' button in the checkout flow
+    commit: true,
+
+    // payment() is called when the button is clicked
+    payment: function (data, actions) {
+
+        // Make a call to the REST api to create the payment
+        return actions.payment.create({
+            payment: {
+                transactions: [
+                    {
+                        "amount": {
+                            "total": _Total,
+                            "currency": "EUR"
+                        },
+                        "description": _Description,
+                        "item_list": {
+                            "items": [
+                                {
+                                    "name": _Item,
+                                    "description": _Reservations,
+                                    "quantity": "1",
+                                    "price": _Price,
+                                    "currency": "EUR"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "note_to_payer": _Note
+            },
+            experience: {
+                input_fields: {
+                    no_shipping: 1
+                }
+            }
+        });
+    },
+
+    onAuthorize: function (data, actions) {
+        return actions.payment.execute().then(function () {
+            CallBackPaypalOK(data.paymentID);
+        });
+    },
+
+    onCancel: function (data, actions) { },
+
+    onError: function (err) { CallBackPaypalKO(); }
+
+}, '#paypal-button-container');
+
+
+function CallBackPaypalOK(_PaymentId) {
+
+    AddParticipationParHeure(_PaymentId);
+    AddReservationsParHeure(_PaymentId);
+
+    $('#Div_CalendrierParHeure .paiement').hide();
+    $('#Div_CalendrierParHeure .confirmation').show();
+    $('#Div_CalendrierParHeure .confirmation .confirmation2').show();
+
+    $('#Div_CalendrierParHeure .fermer').show();
+}
+
+
+function CallBackPaypalKO() {
+    $('#Div_CalendrierParHeure .paiement').hide();
+    $('#Div_CalendrierParHeure .confirmation').show();
+    $('#Div_CalendrierParHeure .confirmation .confirmation5').show();
+
+    $('#Div_CalendrierParHeure .fermer').show();
 }

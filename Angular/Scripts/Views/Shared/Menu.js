@@ -98,4 +98,24 @@
         $('#Div_Contact').ModalPopUp('open');
     });
 
+
+    //vérification de connexion pour la page "mon compte"
+    $('li.moncompte').on('click', function () {
+
+        var _Connected = CheckConnectedEleve();
+
+        if (_Connected == true) {
+            //return true;
+            document.location.href = "/MonCompte";
+        }
+        else {
+            OpenConnexion("/MonCompte");
+        }
+
+        return false;
+    });
+
+
+
+    
 });

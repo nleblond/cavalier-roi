@@ -8,6 +8,7 @@ var Reservation = /** @class */ (function () {
         this.Jour = null;
         this.Eleve = new Eleve_1.Eleve();
         this.Evenement = new Evenement_1.Evenement();
+        this.PaymentId = null;
     }
     return Reservation;
 }());

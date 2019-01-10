@@ -361,12 +361,12 @@ public static class Tools
         else { return String.Empty; }
     }
 
-    /// <summary>Remplacer les "<" par des "&lt;" et les ">" par des "&rt;"</summary>
+    /// <summary>Remplacer les "<" par des "&lt;" et les ">" par des "&gt;"</summary>
     /// <param name="Value">Chaines de caractères à traiter</param>
     /// <returns></returns>
     public static String ToLtAndRt(this String Value)
     {
-        if (!String.IsNullOrEmpty(Value)) { return Value.Replace("<", "&lt;").Replace(">", "&rt;"); }
+        if (!String.IsNullOrEmpty(Value)) { return Value.Replace("<", "&lt;").Replace(">", "&gt;"); }
         else { return String.Empty; }
     }
 

@@ -4,44 +4,58 @@ using System.Linq;
 using System.Web;
 
 
-namespace Angular
+public class Constants
 {
-    public class Constants
+
+    public static String WS_URL
     {
-
-        public static String WS_URL
+        get
         {
-            get
-            {
-                return System.Configuration.ConfigurationManager.AppSettings["WS_URL"];
-            }
+            return System.Configuration.ConfigurationManager.AppSettings["WS_URL"];
         }
-
-        public static String WS_PASSKEY
-        {
-            get
-            {
-                return System.Configuration.ConfigurationManager.AppSettings["WS_PASSKEY"];
-            }
-        }
-
-
-        public static String IMG_URL
-        {
-            get
-            {
-                return System.Configuration.ConfigurationManager.AppSettings["IMG_URL"];
-            }
-        }
-
-
-        public static String ROOT_URL
-        {
-            get
-            {
-                return System.Configuration.ConfigurationManager.AppSettings["ROOT_URL"];
-            }
-        }
-
     }
+
+    public static String WS_PASSKEY
+    {
+        get
+        {
+            return System.Configuration.ConfigurationManager.AppSettings["WS_PASSKEY"];
+        }
+    }
+
+
+    public static String IMG_URL
+    {
+        get
+        {
+            return System.Configuration.ConfigurationManager.AppSettings["IMG_URL"];
+        }
+    }
+
+
+    public static String ROOT_URL
+    {
+        get
+        {
+            return System.Configuration.ConfigurationManager.AppSettings["ROOT_URL"];
+        }
+    }
+
+
+    public static Boolean BACKOFFICE_SECURITY
+    {
+        get
+        {
+            try
+            {
+                return Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["BACKOFFICE_SECURITY"]);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+    }
+
 }
+

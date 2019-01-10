@@ -21,5 +21,6 @@ namespace WS.Models
         public string Prenom { get; set; }
         public Nullable<int> EvenementId { get; set; }
         public string EvenementLibelle { get; set; }
+        public string PaymentId { get; set; }
     }
 }

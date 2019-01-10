@@ -186,10 +186,10 @@ export class AppComponent implements OnInit {
             return false;
         }
         else if (_Option == 'logo') {
-            if ((_Evenement.EvenementParent == null) || ((_Evenement.EvenementParent != null) && (_Evenement.EvenementParent.Id == null))) { //pas de parent
-                return ((_Evenement.Typologie.Id == 0) || (_Evenement.Typologie.Id == 1));
-            }
-            return false;
+            //if ((_Evenement.EvenementParent == null) || ((_Evenement.EvenementParent != null) && (_Evenement.EvenementParent.Id == null))) { //pas de parent
+            //    return ((_Evenement.Typologie.Id == 0) || (_Evenement.Typologie.Id == 1));
+            //}
+            return false; //pas utilisé pour le moment
         }
         else if (_Option == 'bandeau') {
             if ((_Evenement.EvenementParent == null) || ((_Evenement.EvenementParent != null) && (_Evenement.EvenementParent.Id == null))) { //pas de parent
@@ -750,6 +750,7 @@ export class AppComponent implements OnInit {
                         this._Evenement.EvenementParent = new Evenement();
                         this._Evenement.Id = this._InitReturn;
                         this._Evenement.Etat = 0;
+                        this.GetPlannings(); //récupération des derniers enregistrements "planning" en date
                     }
                     else { alert('Une erreur est survenue : ' + data.statusText + ' !'); }
                 });
@@ -758,9 +759,9 @@ export class AppComponent implements OnInit {
             this._Evenement = JSON.parse(JSON.stringify(this._Evenements[_Index]));
             if (this._Evenement.EvenementParent == null) { this._Evenement.EvenementParent = new Evenement(); }
             this._Evenement.Etat = 1; //modification
+            this.GetPlannings(); //récupération des derniers enregistrements "planning" en date
         }
-        this.GetPlannings(); //récupération des derniers enregistrements "planning" en date
-
+        
         //initialisation des datetimepickers des détails
         //setTimeout(function () {
         //    jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });

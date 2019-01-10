@@ -11,6 +11,8 @@ export class Reservation {
 
         this.Eleve = new Eleve();
         this.Evenement = new Evenement();
+
+        this.PaymentId = null;
     }
 
 
@@ -24,5 +26,9 @@ export class Reservation {
     public Eleve: Eleve | null;
 
     public Evenement: Evenement | null;
+
+
+    public PaymentId: string | null;
+
 
 }

@@ -66,7 +66,9 @@
                                                data-evenementid="@Model.EvenementsTournois[_Index].Id"
                                                data-evenementlibelle="@Model.EvenementsTournois[_Index].Libelle"
                                                data-eleveid="@(Model.Eleve != null ? Model.Eleve.Id : String.Empty)"
-                                               data-prix="@Model.EvenementsTournois[_Index].Prix" />
+                                               data-prix="@Model.EvenementsTournois[_Index].Prix"
+                                               data-dtdebut="@Model.EvenementsTournois[_Index].DtDebut"
+                                               data-dtfin="@Model.EvenementsTournois[_Index].DtFin" />
                                     }
                                     else if ((Model.EvenementsTournois[_Index].Maximum != null) && (Model.EvenementsTournois[_Index].Maximum <= Model.EvenementsTournois[_Index].Compte))
                                     {
@@ -133,16 +135,17 @@
                         <ul>
                             @for (Int32 _Index = 0; _Index < Model.EvenementsCompetitions.Count; _Index++)
                             {
-                            <li class="li@_Index">
-                                <a href="@Constants.IMG_URL/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" target="_blank" title="Cliquer pour agrandir">
-                                    <img class="affiche" src="@Constants.IMG_URL/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" />
-                                </a>
-                                @if (!String.IsNullOrEmpty(Model.EvenementsCompetitions[_Index].Lien)) { 
-                                    <div class="legende">
-                                        <input type="button" data-lien="@Model.EvenementsCompetitions[_Index].Lien" class="participer" value="Participer" title="Participer" />
-                                    </div>
-                                }
-                            </li>
+                                <li class="li@_Index">
+                                    <a href="@Constants.IMG_URL/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" target="_blank" title="Cliquer pour agrandir">
+                                        <img class="affiche" src="@Constants.IMG_URL/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" />
+                                    </a>
+                                    @if (!String.IsNullOrEmpty(Model.EvenementsCompetitions[_Index].Lien))
+                                    {
+                                        <div class="legende">
+                                            <input type="button" data-lien="@Model.EvenementsCompetitions[_Index].Lien" class="participer" value="Participer" title="Participer" />
+                                        </div>
+                                    }
+                                </li>
                             }
                         </ul>
                         <div class="clear"></div>
@@ -161,7 +164,7 @@
             </div>
         </div>
     }
-    
+
     <div class="clear"></div>
 
     @Html.Partial("~/Views/Shared/PartenariatsEncarts.cshtml", @Model.ContenusPartenariatsEncarts as List<WS.Models.OUT.Contenu>)

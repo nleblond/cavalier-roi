@@ -170,7 +170,8 @@ namespace WS.Controllers
         {
             return Ok(ElevesManager.AddAllReservations(
                                                 _EleveId: _Participation.Eleve.Id,
-                                                _EvenementId: _Participation.Evenement.Id
+                                                _EvenementId: _Participation.Evenement.Id,
+                                                _PaymentId: _Participation.PaymentId
                                              ));
         }
 
@@ -187,7 +188,8 @@ namespace WS.Controllers
                                                 _EleveId: _Reservation.Eleve.Id,
                                                 _EvenementId: _Reservation.Evenement.Id,
                                                 _Jour: _Reservation.Jour,
-                                                _Creneau: _Reservation.Creneau
+                                                _Creneau: _Reservation.Creneau,
+                                                _PaymentId: _Reservation.PaymentId
                                              ));
         }
 

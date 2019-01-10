@@ -27,6 +27,7 @@ namespace WS.Models.OUT
 
         public Evenement Evenement { get; set; }
 
-        
+        public String PaymentId { get; set; }
+
     }
 }

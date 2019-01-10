@@ -218,6 +218,7 @@
           <Property Name="Jour" Type="date" Nullable="false" />
           <Property Name="Creneau" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="DeletedYN" Type="char" MaxLength="1" />
+          <Property Name="PaymentId" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Statuts">
           <Key>
@@ -453,6 +454,7 @@
         <Function Name="AddAllReservations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EvenementId" Type="int" Mode="In" />
           <Parameter Name="EleveId" Type="int" Mode="In" />
+          <Parameter Name="PaymentId" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="AddContenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
@@ -538,6 +540,7 @@
           <Parameter Name="EleveId" Type="int" Mode="In" />
           <Parameter Name="Jour" Type="date" Mode="In" />
           <Parameter Name="Creneau" Type="nvarchar" Mode="In" />
+          <Parameter Name="PaymentId" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="ConnectEleve" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Email" Type="nvarchar" Mode="In" />
@@ -931,7 +934,6 @@
           <Property Name="Administration" Type="Boolean" />
           <NavigationProperty Name="Participations" Relationship="DBModelsContext.FK_Participations_Eleves" FromRole="Eleves" ToRole="Participations" />
           <NavigationProperty Name="Reservations" Relationship="DBModelsContext.FK_Reservations_Eleves" FromRole="Eleves" ToRole="Reservations" />
-          <NavigationProperty Name="Participations1" Relationship="DBModelsContext.FK_Participations_Eleves1" FromRole="Eleves" ToRole="Participations" />
           </EntityType>
         <EntityType Name="Emplacements">
           <Key>
@@ -1462,8 +1464,8 @@
           <EntitySet Name="Participations" EntityType="DBModelsContext.Participations" />
           <EntitySet Name="Reservations" EntityType="DBModelsContext.Reservations" />
           <AssociationSet Name="FK_Participations_Eleves" Association="DBModelsContext.FK_Participations_Eleves">
-            <End Role="Eleves" EntitySet="Eleves" />
-            <End Role="Participations" EntitySet="Participations" />
+            <End EntitySet="Eleves" Role="Eleves" />
+            <End EntitySet="Participations" Role="Participations" />
           </AssociationSet>
           <AssociationSet Name="FK_Reservations_Eleves" Association="DBModelsContext.FK_Reservations_Eleves">
             <End Role="Eleves" EntitySet="Eleves" />
@@ -1491,14 +1493,12 @@
             <Parameter Name="EleveId" Mode="In" Type="Int32" />
             <Parameter Name="Jour" Mode="In" Type="DateTime" />
             <Parameter Name="Creneau" Mode="In" Type="String" />
+            <Parameter Name="PaymentId" Mode="In" Type="String" />
           </FunctionImport>
-          <AssociationSet Name="FK_Participations_Eleves1" Association="DBModelsContext.FK_Participations_Eleves1">
-            <End Role="Eleves" EntitySet="Eleves" />
-            <End Role="Participations" EntitySet="Participations" />
-          </AssociationSet>
           <FunctionImport Name="AddAllReservations">
             <Parameter Name="EvenementId" Mode="In" Type="Int32" />
             <Parameter Name="EleveId" Mode="In" Type="Int32" />
+            <Parameter Name="PaymentId" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <Association Name="FK_Commandes_Eleves">
@@ -1778,6 +1778,7 @@
           <Property Type="String" Name="Prenom" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="EvenementId" Nullable="true" />
           <Property Type="String" Name="EvenementLibelle" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="PaymentId" Nullable="true" />
         </ComplexType>
         <EntityType Name="Evenements">
           <Key>
@@ -1853,9 +1854,8 @@
           <Property Name="EleveId" Type="Int32" Nullable="false" />
           <Property Name="Quantite" Type="Double" />
           <Property Name="DeletedYN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Eleves" Relationship="DBModelsContext.FK_Participations_Eleves" FromRole="Participations" ToRole="Eleves" />
-          <NavigationProperty Name="Evenements" Relationship="DBModelsContext.FK_Participations_Evenements" FromRole="Participations" ToRole="Evenements" />
-          <NavigationProperty Name="Eleves1" Relationship="DBModelsContext.FK_Participations_Eleves1" FromRole="Participations" ToRole="Eleves" />
+          <NavigationProperty Name="Eleve" Relationship="DBModelsContext.FK_Participations_Eleves" FromRole="Participations" ToRole="Eleves" />
+          <NavigationProperty Name="Evenement" Relationship="DBModelsContext.FK_Participations_Evenements" FromRole="Participations" ToRole="Evenements" />
         </EntityType>
         <EntityType Name="Reservations">
           <Key>
@@ -1867,18 +1867,19 @@
           <Property Name="Jour" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Creneau" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="DeletedYN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Eleves" Relationship="DBModelsContext.FK_Reservations_Eleves" FromRole="Reservations" ToRole="Eleves" />
-          <NavigationProperty Name="Evenements" Relationship="DBModelsContext.FK_Reservations_Evenements" FromRole="Reservations" ToRole="Evenements" />
+          <NavigationProperty Name="Eleve" Relationship="DBModelsContext.FK_Reservations_Eleves" FromRole="Reservations" ToRole="Eleves" />
+          <NavigationProperty Name="Evenement" Relationship="DBModelsContext.FK_Reservations_Evenements" FromRole="Reservations" ToRole="Evenements" />
+          <Property Name="PaymentId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Participations_Eleves">
-          <End Type="DBModelsContext.Eleves" Role="Eleves" Multiplicity="1" />
-          <End Type="DBModelsContext.Participations" Role="Participations" Multiplicity="0..1" />
+          <End Type="DBModelsContext.Eleves" Multiplicity="1" Role="Eleves" />
+          <End Type="DBModelsContext.Participations" Multiplicity="*" Role="Participations" />
           <ReferentialConstraint>
             <Principal Role="Eleves">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Participations">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="EleveId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1915,18 +1916,6 @@
             </Principal>
             <Dependent Role="Reservations">
               <PropertyRef Name="EvenementId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Participations_Eleves1">
-          <End Type="DBModelsContext.Eleves" Role="Eleves" Multiplicity="1" />
-          <End Type="DBModelsContext.Participations" Role="Participations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Eleves">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Participations">
-              <PropertyRef Name="EleveId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2390,6 +2379,7 @@
           <EntitySetMapping Name="Reservations">
             <EntityTypeMapping TypeName="DBModelsContext.Reservations">
               <MappingFragment StoreEntitySet="Reservations">
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
                 <ScalarProperty Name="DeletedYN" ColumnName="DeletedYN" />
                 <ScalarProperty Name="Creneau" ColumnName="Creneau" />
                 <ScalarProperty Name="Jour" ColumnName="Jour" />

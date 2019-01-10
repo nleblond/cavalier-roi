@@ -1175,7 +1175,7 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddParticipation", evenementIdParameter, eleveIdParameter, quantiteParameter);
         }
     
-        public virtual int AddReservation(Nullable<int> evenementId, Nullable<int> eleveId, Nullable<System.DateTime> jour, string creneau)
+        public virtual int AddReservation(Nullable<int> evenementId, Nullable<int> eleveId, Nullable<System.DateTime> jour, string creneau, string paymentId)
         {
             var evenementIdParameter = evenementId.HasValue ?
                 new ObjectParameter("EvenementId", evenementId) :
@@ -1193,10 +1193,14 @@ namespace WS.Models
                 new ObjectParameter("Creneau", creneau) :
                 new ObjectParameter("Creneau", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddReservation", evenementIdParameter, eleveIdParameter, jourParameter, creneauParameter);
+            var paymentIdParameter = paymentId != null ?
+                new ObjectParameter("PaymentId", paymentId) :
+                new ObjectParameter("PaymentId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddReservation", evenementIdParameter, eleveIdParameter, jourParameter, creneauParameter, paymentIdParameter);
         }
     
-        public virtual int AddAllReservations(Nullable<int> evenementId, Nullable<int> eleveId)
+        public virtual int AddAllReservations(Nullable<int> evenementId, Nullable<int> eleveId, string paymentId)
         {
             var evenementIdParameter = evenementId.HasValue ?
                 new ObjectParameter("EvenementId", evenementId) :
@@ -1206,7 +1210,11 @@ namespace WS.Models
                 new ObjectParameter("EleveId", eleveId) :
                 new ObjectParameter("EleveId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddAllReservations", evenementIdParameter, eleveIdParameter);
+            var paymentIdParameter = paymentId != null ?
+                new ObjectParameter("PaymentId", paymentId) :
+                new ObjectParameter("PaymentId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddAllReservations", evenementIdParameter, eleveIdParameter, paymentIdParameter);
         }
     }
 }

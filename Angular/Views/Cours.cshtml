@@ -1,5 +1,5 @@
 ﻿@model dynamic
-    
+
 @{
     try { ViewBag.Title = Model.ContenusZones[0].Titre; } catch { }
     try { ViewBag.Description = Model.ContenusZones[0].Texte; } catch { }
@@ -19,7 +19,7 @@
 
         for (Int32 _Index = 0; _Index < _Cours.Count; _Index++)
         {
-            
+
             <div class="cour @((_Index + 1) % 2 == 0 ? "last" : "")">
                 <table cellpadding="0" cellspacing="0" border="0" class="formule texte">
                     <tr>

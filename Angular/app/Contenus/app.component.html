@@ -134,31 +134,6 @@
                 <div class="br10"></div>
             </div>
 
-            <div *ngIf="GetShow('actualite|zone')">
-                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Full" title="Full" class="image" [(ngModel)]="_Contenu.Full" maxlength="255" #CurrentFull />
-                <div class="br10"></div>
-            </div>
-
-            <div *ngIf="GetShow('actualite|partenariat')">
-                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Horizontale" title="Horizontale" class="image" [(ngModel)]="_Contenu.Horizontale" maxlength="255" #CurrentHorizontale />
-                <div class="br10"></div>
-            </div>
-
-            <div *ngIf="GetShow('partenariat')">
-                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Carrée" title="Carrée" class="image" [(ngModel)]="_Contenu.Carree" maxlength="255" #CurrentCarree />
-                <div class="br10"></div>
-            </div>
-
-            <div *ngIf="GetShow('partenariat')">
-                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Verticale" title="Verticale" class="image" [(ngModel)]="_Contenu.Verticale" maxlength="255" #CurrentVerticale />
-                <div class="br10"></div>
-            </div>
-
-            <div *ngIf="GetShow('actualite')">
-                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Logo" title="Logo" class="logo" [(ngModel)]="_Contenu.Logo" maxlength="255" #CurrentLogo />
-                <div class="br10"></div>
-            </div>
-
             <div *ngIf="GetShow('partenariat|actualite')">
                 <select placeholder="Evènement" title="Evènement" (change)="ChangeTypologieEvenement($event, 1)">
                     <option value="-1">Evènement</option>
@@ -169,6 +144,39 @@
                         {{e.Libelle}}
                     </option>
                 </select>
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('actualite|zone')">
+                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Full" title="Full" class="image" [(ngModel)]="_Contenu.Full" maxlength="255" #CurrentFull />
+                <a *ngIf="GetShow('actualite')" href="{{_ImgUrl}}/Aides/Full Actualite.png" target="_blank">M:(&lt;425 x ?)</a>
+                <a *ngIf="GetShow('zone')" href="{{_ImgUrl}}/Aides/Full Zone.png" target="_blank">(&lt;425 x &lt;250)</a>
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('actualite|partenariat')">
+                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Horizontale" title="Horizontale" class="image" [(ngModel)]="_Contenu.Horizontale" maxlength="255" #CurrentHorizontale />
+                <a *ngIf="GetShow('actualite')" href="{{_ImgUrl}}/Aides/Horizontale Actualite.png" target="_blank">(1280 x ?)</a>
+                <a *ngIf="GetShow('partenariat')" href="{{_ImgUrl}}/Aides/Horizontale Partenariat.png" target="_blank">M:(1315 x ?)</a>
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('partenariat')">
+                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Carrée" title="Carrée" class="image" [(ngModel)]="_Contenu.Carree" maxlength="255" #CurrentCarree />
+                <a href="{{_ImgUrl}}/Aides/Carree Partenariat.png" target="_blank">(300 x 300)</a>
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('partenariat')">
+                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Verticale" title="Verticale" class="image" [(ngModel)]="_Contenu.Verticale" maxlength="255" #CurrentVerticale />
+                <a href="{{_ImgUrl}}/Aides/Verticale Partenariat.png" target="_blank">(300 x 900)</a>
+                <div class="br10"></div>
+            </div>
+
+            <div *ngIf="GetShow('actualite')">
+                Contenus/{{_Contenu.Id}}/<input type="text" placeholder="Logo" title="Logo" class="logo" [(ngModel)]="_Contenu.Logo" maxlength="255" #CurrentLogo />
+                <a href="{{_ImgUrl}}/Aides/Logo Actualite.png" target="_blank">(130 x ?)</a>
+                <div class="br10"></div>
             </div>
 
             <input *ngIf="GetShow('valider')" type="button" title="Valider" value="Valider" (click)="AddUpdContenu()" />

@@ -164,9 +164,9 @@
     <Compile Include="Areas\Eleves\ElevesAreaRegistration.cs" />
     <Compile Include="CALL\ElevesManager.cs" />
     <Compile Include="CALL\CommandesManager.cs" />
+    <Compile Include="CALL\ProduitsManager.cs" />
     <Compile Include="CALL\EvenementsManager.cs" />
     <Compile Include="CALL\ContenusManager.cs" />
-    <Compile Include="Constants.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

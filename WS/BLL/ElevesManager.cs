@@ -81,6 +81,8 @@ namespace WS.BLL
                     _NewReservation.Evenement.Id = Int32.Parse(_CurrentR.EvenementId.ToString());
                     _NewReservation.Evenement.Libelle = _CurrentR.EvenementLibelle.Trim();
 
+                    _NewReservation.PaymentId = _CurrentR.PaymentId;
+
                     _NewEleve.Reservations.Add(_NewReservation);
                 }
 
@@ -326,13 +328,14 @@ namespace WS.BLL
 
 
 
-        public static Int32? AddAllReservations(Int32? _EleveId = null, Int32? _EvenementId = null)
+        public static Int32? AddAllReservations(Int32? _EleveId = null, Int32? _EvenementId = null, String _PaymentId = null)
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
 
             return _DB.AddAllReservations(
                                             eleveId: _EleveId,
-                                            evenementId:_EvenementId
+                                            evenementId:_EvenementId,
+                                            paymentId: _PaymentId
                                          );
         }
 
@@ -347,14 +350,15 @@ namespace WS.BLL
                                                     _EleveId: _Current.Eleve.Id,
                                                     _EvenementId: _Current.Evenement.Id,
                                                     _Jour: _Current.Jour,
-                                                    _Creneau: _Current.Creneau
+                                                    _Creneau: _Current.Creneau,
+                                                    _PaymentId: _Current.PaymentId
                                                 );
                 }
             }
             return _ReturnValue;
         }
 
-        public static Int32? AddReservation(Int32? _EleveId = null, Int32? _EvenementId = null, String _Jour = null, String _Creneau = null)
+        public static Int32? AddReservation(Int32? _EleveId = null, Int32? _EvenementId = null, String _Jour = null, String _Creneau = null, String _PaymentId = null)
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
 
@@ -365,8 +369,9 @@ namespace WS.BLL
                                         eleveId: _EleveId,
                                         evenementId: _EvenementId,
                                         jour: _JourF,
-                                        creneau: _Creneau
-                                        );
+                                        creneau: _Creneau,
+                                        paymentId: _PaymentId
+                                    );
         }
 
         public static Int32? DelReservation(Int32? _Id = null, String _Real = "N")

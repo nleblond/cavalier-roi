@@ -34,8 +34,9 @@
     <table cellpadding="2" cellspacing="0" border="0" class="first">
         <thead>
             <tr>
-                <th>Visuel</th>
                 <th>ID Produit/Référence</th>
+                <th>Visuel</th>
+                <th>Image</th>
                 <th>Libellé</th>
                 <th>Catégorie</th>
                 <th>Stock</th>
@@ -47,17 +48,18 @@
         </thead>
         <tbody>
             <tr *ngFor="let p of _Produits; let i = index">
-                <td><a href="{{_ImgUrl}}/Produits/{{p.Id}}/{{p.Image}}" target="_blank"><img src="{{_ImgUrl}}/Produits/{{p.Id}}/{{p.Visuel}}" /></a></td>
                 <td>
                     <div>{{p.Id}}</div>
                     <div>{{p.Reference}}</div>
                 </td>
+                <td><div *ngIf="p.Visuel != undefined && p.Visuel != null && p.Visuel != ''"><img src="{{_ImgUrl}}/Produits/{{p.Id}}/{{p.Visuel}}" /></div></td>
+                <td><div *ngIf="p.Image != undefined && p.Image != null && p.Image != ''"><img src="{{_ImgUrl}}/Produits/{{p.Id}}/{{p.Image}}" /></div></td>
                 <td>{{p.Libelle}}</td>
                 <td>{{p.Categorie.Libelle}}</td>
                 <td>{{p.Stock}}</td>
                 <td>{{p.Prix | number : '1.2-2'}}€</td>
                 <td><a href="/Commandes?_ProduitId={{p.Id}}" title="Voir les commandes">{{p.NbCommandes}}</a></td>
-                <td><img src="{{_ImgUrl}}/Produits/{{p.Id}}/{{p.Logo}}" /></td>
+                <td><div *ngIf="p.Logo != undefined && p.Logo != null && p.Logo != ''"><img src="{{_ImgUrl}}/Produits/{{p.Id}}/{{p.Logo}}" /></div></td>
                 <td>
                     <input type="button" title="Gérer" value="Gérer" (click)="InitProduit(1, i)" />
                     <div class="clear-right"></div>
@@ -113,12 +115,19 @@
         <div class="br10"></div>
         <input type="checkbox" placeholder="Dépassement" title="Dépassement" class="depassement" [(ngModel)]="_Produit.Depassement" /><label for="CheckBox_Depassement">Dépassement de forfait livraison</label>
         <div class="br10"></div>
+
         Produits/{{_Produit.Id}}/<input type="text" placeholder="Logo" title="Logo" class="logo" [(ngModel)]="_Produit.Logo" maxlength="255" #CurrentLogo />
+        <a href="{{_ImgUrl}}/Aides/Logo Produit.png" target="_blank">(&lt;100 x &lt;100)</a>
         <div class="br10"></div>
+
         Produits/{{_Produit.Id}}/<input type="text" placeholder="Visuel" title="Visuel" class="visuel" [(ngModel)]="_Produit.Visuel" maxlength="255" #CurrentVisuel />
-        <div class="clear"></div>
-        Produits/{{_Produit.Id}}/<input type="text" placeholder="Image" title="Image" class="image" [(ngModel)]="_Produit.Image" maxlength="255" #CurrentImage />
+        <a href="{{_ImgUrl}}/Aides/Visuel Produit.png" target="_blank">(&gt;210 x ?)</a>
         <div class="br10"></div>
+
+        Produits/{{_Produit.Id}}/<input type="text" placeholder="Image" title="Image" class="image" [(ngModel)]="_Produit.Image" maxlength="255" #CurrentImage />
+        <a href="{{_ImgUrl}}/Aides/Image Produit.png" target="_blank">(&gt;210 x ?)</a>
+        <div class="br10"></div>
+        
         <input type="button" title="Valider" value="Valider" (click)="AddUpdProduit()" />
         <div class="clear"></div>
     </div>

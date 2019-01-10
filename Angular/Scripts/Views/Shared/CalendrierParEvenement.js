@@ -1,6 +1,14 @@
 ﻿var _WsUrl = '/API/';
 var _APIKey = 'AEZRETRYTUYIUOIP';
 
+//variables Paypal
+var _Total = '';
+var _Description = 'Paiement pour réservation';
+var _Note = "Pour plus d'informations sur ce paiement, n'hésitez pas à contacter l'École du cavalier roi à paypal@cavalier-roi.fr";
+var _Item = '';
+var _Price = '';
+var _Reservations = '';
+
 $(window).on('load', function () {
 
     //calendrier
@@ -8,19 +16,6 @@ $(window).on('load', function () {
 
     $('#Div_CalendrierParEvenement .fermer').on('click', function () {
         CloseCalendrierParEvenement();
-        return false;
-    });
-
-    //paiement par psp
-    $('#Div_CalendrierParEvenement input[type="button"].psp').on('click', function () {
-        alert('paiement paypal');
-        AddParticipationParEvenement();
-        AddAllReservationsParEvenement();
-
-        $('#Div_CalendrierParEvenement .paiement').hide();
-        $('#Div_CalendrierParEvenement .confirmation').show();
-        $('#Div_CalendrierParEvenement .confirmation .confirmation2').show();
-
         return false;
     });
 
@@ -40,7 +35,13 @@ $(window).on('load', function () {
 
 
 
-function OpenCalendrierParEvenement(_EvenementId, _EvenementLibelle, _EleveId, _Prix) {
+function OpenCalendrierParEvenement(_EvenementId, _EvenementLibelle, _EleveId, _Prix, _DtDebut, _DtFin) {
+
+    //variables Paypal
+    _Total = _Prix;
+    _Price = _Prix;
+    _Item = _EvenementLibelle;
+    _Reservations = 'du ' + _DtDebut + ' au ' + _DtFin;
 
     ClearCalendrierParEvenement();
 
@@ -53,8 +54,8 @@ function OpenCalendrierParEvenement(_EvenementId, _EvenementLibelle, _EleveId, _
 
     if ((_Prix.toString() == '') || (_Prix == null)) { //participation gratuite + toutes les réservations
 
-        AddParticipation();
-        AddAllReservations();
+        AddParticipationParEvenement();
+        AddAllReservationsParEvenement();
 
         $('#Div_CalendrierParEvenement .confirmation').show();
         $('#Div_CalendrierParEvenement .confirmation .confirmation3').show();
@@ -103,13 +104,14 @@ function CloseCalendrierParEvenement() {
 
 
 
-function AddParticipationParEvenement() {
+function AddParticipationParEvenement(_PaymentId) {
 
     var _Participation = {};
     _Participation.Evenement = {};
     _Participation.Evenement.Id = $('#Div_CalendrierParEvenement #Hidden_EvenementId').val();
     _Participation.Eleve = {};
     _Participation.Eleve.Id = $('#Div_CalendrierParEvenement #Hidden_EleveId').val();
+    _Participation.PaymentId = _PaymentId;
 
     $.ajax({
         type: 'POST',
@@ -139,13 +141,14 @@ function AddParticipationParEvenement() {
 
 }
 
-function AddAllReservationsParEvenement() {
+function AddAllReservationsParEvenement(_PaymentId) {
 
     var _Participation = {};
     _Participation.Evenement = {};
     _Participation.Evenement.Id = $('#Div_CalendrierParEvenement #Hidden_EvenementId').val();
     _Participation.Eleve = {};
     _Participation.Eleve.Id = $('#Div_CalendrierParEvenement #Hidden_EleveId').val();
+    _Participation.PaymentId = _PaymentId;
 
     $.ajax({
         type: 'POST',
@@ -173,4 +176,99 @@ function AddAllReservationsParEvenement() {
         complete: function () { }
     });
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+paypal.Button.render({
+
+    env: "sandbox", // sandbox | production
+
+    //lenikopirate@gmail.com
+    client: {
+        sandbox: "AQTHpzCaxK8eC7QzC7nJC44a78S40anHoyzopm6OceNuoPog21uoyWYfUlFTlk_5m71kz-4p1D4WippM",
+        production: "Ad8wWcW6tQWVhQTQMSORbuN-p0Zv7NT78-Fqrw3xDb45zVjKl87A4iHDYhUwAd_drfuRmo5WaqbLfyL4"
+    },
+
+    // Show the buyer a 'Pay Now' button in the checkout flow
+    commit: true,
+
+    // payment() is called when the button is clicked
+    payment: function (data, actions) {
+
+        // Make a call to the REST api to create the payment
+        return actions.payment.create({
+            payment: {
+                transactions: [
+                    {
+                        "amount": {
+                            "total": _Total,
+                            "currency": "EUR"
+                        },
+                        "description": _Description,
+                        "item_list": {
+                            "items": [
+                                {
+                                    "name": _Item,
+                                    "description": _Reservations,
+                                    "quantity": "1",
+                                    "price": _Price,
+                                    "currency": "EUR"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "note_to_payer": _Note
+            },
+            experience: {
+                input_fields: {
+                    no_shipping: 1
+                }
+            }
+        });
+    },
+
+    onAuthorize: function (data, actions) {
+        return actions.payment.execute().then(function () {
+            CallBackPaypalOK(data.paymentID);
+        });
+    },
+
+    onCancel: function (data, actions) { },
+
+    onError: function (err) { CallBackPaypalKO(); }
+
+}, '#paypal-button-container');
+
+
+function CallBackPaypalOK(_PaymentId) {
+
+    AddParticipationParEvenement();
+    AddAllReservationsParEvenement(_PaymentId);
+
+    $('#Div_CalendrierParEvenement .paiement').hide();
+    $('#Div_CalendrierParEvenement .confirmation').show();
+    $('#Div_CalendrierParEvenement .confirmation .confirmation2').show();
+
+    $('#Div_CalendrierParEvenement .fermer').show();
+}
+
+
+function CallBackPaypalKO() {
+    $('#Div_CalendrierParEvenement .paiement').hide();
+    $('#Div_CalendrierParEvenement .confirmation').show();
+    $('#Div_CalendrierParEvenement .confirmation .confirmation4').show();
+
+    $('#Div_CalendrierParEvenement .fermer').show();
 }

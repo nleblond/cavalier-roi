@@ -12,15 +12,6 @@
 
     <div class="clear"></div>
 
-    @if (Model.Connected == false)
-    {
-        <script language="javascript" lang="fr-fr">
-            this.setTimeout(function () {
-                OpenConnexion();
-            }, 800);
-        </script>
-    }
-
     @if (Model.Connected == true && Model.Eleve != null)
     {
         <div class="infos">
@@ -172,20 +163,20 @@
                                     <tbody>
                                         @foreach (WS.Models.OUT.Reservation _CurrentR in (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id))
                                         {
-                                        <tr class="reservation">
-                                            <td class="first">@_CurrentR.Jour</td>
-                                            <td>@(_CurrentR.Creneau.Replace("Creneau", "").Left(2))H</td>
-                                            <td>@(_CurrentR.Creneau.Replace("Creneau", "").Right(2))H</td>
-                                            <td class="last">
-                                                @if (Model.Eleve.Administration == true)
-                                                {
-                                                    <div>
-                                                        <input type="hidden" class="id" value="@_CurrentR.Id" />
-                                                        <span class="rouge supprimer" title="Supprimer">✖</span>
-                                                    </div>
-                                                }
-                                            </td>
-                                        </tr>
+                                            <tr class="reservation" title="@_CurrentR.PaymentId">
+                                                <td class="first">@_CurrentR.Jour</td>
+                                                <td>@(_CurrentR.Creneau.Replace("Creneau", "").Left(2))H</td>
+                                                <td>@(_CurrentR.Creneau.Replace("Creneau", "").Right(2))H</td>
+                                                <td class="last">
+                                                    @if (Model.Eleve.Administration == true)
+                                                    {
+                                                        <div>
+                                                            <input type="hidden" class="id" value="@_CurrentR.Id" />
+                                                            <span class="rouge supprimer" title="Supprimer">✖</span>
+                                                        </div>
+                                                    }
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
                                 </table>
@@ -259,21 +250,43 @@
                                     <tbody>
                                         @{
                                             String _Jour = null;
+                                            String _PaymentId = null;
                                         }
-                                        @foreach (WS.Models.OUT.Reservation _CurrentR in (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id).OrderBy(p => p.Jour))
+
+                                        @foreach (WS.Models.OUT.Reservation _CurrentR in (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id).OrderBy(p => p.Jour).ThenBy(p => p.PaymentId))
                                         {
                                             if (_Jour != _CurrentR.Jour)
                                             {
                                                 _Jour = _CurrentR.Jour;
-                                                String _HeureDebut = (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id && p.Jour == _Jour).OrderBy(p => p.Creneau).FirstOrDefault().Creneau.Replace("Creneau", "").Left(2) + "H";
-                                                String _HeureFin = (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id && p.Jour == _Jour).OrderByDescending(p => p.Creneau).FirstOrDefault().Creneau.Replace("Creneau", "").Right(2) + "H";
+                                                _PaymentId = _CurrentR.PaymentId;
 
-                                                <tr>
+                                                String _HeureDebut = (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id && p.Jour == _Jour && p.PaymentId == _PaymentId).OrderBy(p => p.Creneau).FirstOrDefault().Creneau.Replace("Creneau", "").Left(2) + "H";
+                                                String _HeureFin = (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id && p.Jour == _Jour && p.PaymentId == _PaymentId).OrderByDescending(p => p.Creneau).FirstOrDefault().Creneau.Replace("Creneau", "").Right(2) + "H";
+
+                                                <tr class="reservation" title="@_CurrentR.PaymentId">
                                                     <td class="first">@_CurrentR.Jour</td>
                                                     <td>@_HeureDebut</td>
                                                     <td>@_HeureFin</td>
                                                     <td class="last"></td>
                                                 </tr>
+
+                                            }
+                                            else
+                                            {
+                                                if (_PaymentId != _CurrentR.PaymentId)
+                                                {
+                                                    _PaymentId = _CurrentR.PaymentId;
+
+                                                    String _HeureDebut = (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id && p.Jour == _Jour && p.PaymentId == _PaymentId).OrderBy(p => p.Creneau).FirstOrDefault().Creneau.Replace("Creneau", "").Left(2) + "H";
+                                                    String _HeureFin = (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id && p.Jour == _Jour && p.PaymentId == _PaymentId).OrderByDescending(p => p.Creneau).FirstOrDefault().Creneau.Replace("Creneau", "").Right(2) + "H";
+
+                                                    <tr class="reservation" title="@_CurrentR.PaymentId">
+                                                        <td class="first">@_CurrentR.Jour</td>
+                                                        <td>@_HeureDebut</td>
+                                                        <td>@_HeureFin</td>
+                                                        <td class="last"></td>
+                                                    </tr>
+                                                }
                                             }
                                         }
                                     </tbody>
@@ -314,7 +327,9 @@
                 <tbody>
                     @foreach (WS.Models.OUT.Participation _CurrentP in (Model.Eleve.Participations as List<WS.Models.OUT.Participation>).FindAll(p => p.Evenement.Typologie.Id == 1))
                     {
-                        <tr class="formule">
+                        String _PaymentId = (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id).FirstOrDefault().PaymentId;
+
+                        <tr class="formule" title="@_PaymentId">
                             <td class="first">@_CurrentP.Evenement.Libelle</td>
                             <td>@_CurrentP.Evenement.DtDebut</td>
                             <td>@_CurrentP.Evenement.DtFin</td>

@@ -61,7 +61,7 @@ namespace Angular.Controllers
 
 
 
-            //Tools.SendMail("L'ECOLE DU CAVALIER ROI <inscriptions@cavalier-roi.fr>", "leniko@gmail.com", "Test", "Test", true, "authsmtp.securemail.pro", 465, "inscriptions@cavalier-roi.fr", "Hokage2348+");
+            //Tools.SendMail("L'École DU CAVALIER ROI <inscriptions@cavalier-roi.fr>", "leniko@gmail.com", "Test", "Test", true, "authsmtp.securemail.pro", 465, "inscriptions@cavalier-roi.fr", "Hokage2348+");
 
 
             return View("~/Views/Accueil.cshtml", _Model);
@@ -545,6 +545,7 @@ namespace Angular.Controllers
             if (Session["www.cavalier-roi.fr"] == null)
             {
                 _Connected = false;
+                Response.Redirect("/");
             }
             else if ((Session["www.cavalier-roi.fr"] != null) && (_Id != null) && ((Session["www.cavalier-roi.fr"] as Eleve).Administration == true))
             {
@@ -697,8 +698,13 @@ namespace Angular.Controllers
 
 
 
+
+
+
+
+
         [Route("Boutique")]
-        public ActionResult Boutique()
+        public ActionResult Boutique(Int32? _CategorieId = null)
         {
 
             //connexion
@@ -723,6 +729,9 @@ namespace Angular.Controllers
 
             //contenu : zone
             List<Contenu> _ContenusZones = ContenusManager.GetContenus(44, 1).Result;
+
+            //produits
+            List<Produit> _Produits = ProduitsManager.GetProduits(_CategorieId).Result;
 
             //contenu : modal message
             List<Contenu> _ContenusModals = new List<Contenu>();
@@ -751,6 +760,8 @@ namespace Angular.Controllers
             dynamic _Model = new ExpandoObject();
             _Model.Connected = _Connected;
             _Model.ContenusZones = _ContenusZones as List<Contenu>;
+            _Model.CategorieId = _CategorieId as Int32?;
+            _Model.Produits = _Produits as List<Produit>;
             _Model.ContenusPartenariatsEncarts = _ContenusPartenariatsEncarts as List<Contenu>;
             _Model.ContenusPartenariatsBandeaux = _ContenusPartenariatsBandeaux as List<Contenu>;
             _Model.ContenusPartenariatsPromos = _ContenusPartenariatsPromos as List<Contenu>;

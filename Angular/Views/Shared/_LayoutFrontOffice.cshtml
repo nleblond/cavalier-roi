@@ -8,10 +8,10 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>L'ECOLE DU CAVALIER ROI : @ViewBag.Title</title>
+    <title>L'École DU CAVALIER ROI : @ViewBag.Title</title>
     <meta name="description" content="@ViewBag.Description" />
-    
-    
+
+
     @Styles.Render("~/Content/CSS/Site.css")
     <link href="~/Scripts/jquery-ui/jquery-ui.css" rel="stylesheet" />
 
@@ -44,6 +44,8 @@
     <meta name="msapplication-TileImage" content="/Content/Images/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
 </head>
 <body>
 
@@ -56,18 +58,34 @@
 
     @Html.Partial("~/Views/Shared/Messages.cshtml", @Model.ContenusModals as List<WS.Models.OUT.Contenu>)
 
-
     @Html.Partial("~/Views/Shared/Contact.cshtml")
 
     @Html.Partial("~/Views/Shared/Actualite.cshtml")
 
-    @Html.Partial("~/Views/Shared/CalendrierParHeure.cshtml")
-
-    @Html.Partial("~/Views/Shared/CalendrierParDemiJournee.cshtml")
-
-    @Html.Partial("~/Views/Shared/CalendrierParEvenement.cshtml")
-
     @Html.Partial("~/Views/Shared/Connexion.cshtml")
+
+
+
+    @if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().IndexOf("cours") > -1)
+    {
+        @Html.Partial("~/Views/Shared/CalendrierParHeure.cshtml")
+    }
+    else if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().IndexOf("stages") > -1)
+    {
+        @Html.Partial("~/Views/Shared/CalendrierParDemiJournee.cshtml")
+    }
+    else if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().IndexOf("tournois") > -1)
+    {
+        @Html.Partial("~/Views/Shared/CalendrierParEvenement.cshtml")
+    }
+    else if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().IndexOf("moncompte") > -1)
+    {
+        @Html.Partial("~/Views/Shared/CalendrierParHeure.cshtml")
+    }
+
+
+
+
 
     <div class="page_frontoffice">
 

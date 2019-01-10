@@ -15,161 +15,75 @@
     <div class="avant">
         <div class="filtre">
             Categorie : <select>
-                <option value="-1"></option>
-                <option value="0">Jeux d'échecs</option>
-                <option value="1">Pendules</option>
-                <option value="2">Livres</option>
-                <option value="3">Logiciels</option>
-                <option value="3">Divers</option>
+                <option value="" @(Model.CategorieId == null ? "selected='selected'" : "")></option>
+                <option value="1" @(Model.CategorieId == 1 ? "selected='selected'" : "")>Jeux d'échecs</option>
+                <option value="2" @(Model.CategorieId == 2 ? "selected='selected'" : "")>Pendules</option>
+                <option value="3" @(Model.CategorieId == 3 ? "selected='selected'" : "")>Livres</option>
+                <option value="4" @(Model.CategorieId == 4 ? "selected='selected'" : "")>Logiciels</option>
+                <option value="0" @(Model.CategorieId == 0 ? "selected='selected'" : "")>Divers</option>
             </select>
         </div>
     </div>
 
     <div class="clear"></div>
 
-    <div class="produit">
-        <div class="titre">ARMURE DU CHEVALIER DU ZODIAQUE / SAINT SEIYA&nbsp;:&nbsp;HADES V4 15TH</div>
-        <div class="clear"></div>
-        <img class="photo" src="@Constants.IMG_URL/Map.jpg" />
-        <img class="logo" src="@Constants.IMG_URL/Logo.png" />
-        <span class="descriptif texte">
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-        </span>
-        <div class="formule texte">
-            <div class="disponibilite">EN STOCK</div>
-            <div class="prix">160,00€</div>
-            <div class="quantite">
-                <img src="@Constants.IMG_URL/boutons/Moins.svg" title="Moins" class="moins" />
-                <input type="text" value="1" class="" />
-                <img src="@Constants.IMG_URL/boutons/Plus.svg" title="Plus" class="plus" />
-            </div>
-            <div class="reserver"><input type="button" title="Ajouter" value="Ajouter" /></div>
-        </div>
-    </div>
+    @if ((Model != null) && (Model.Produits.Count > 0))
+    {
 
-    <div class="produit last">
-        <div class="titre">ARMURE DU CHEVALIER DU ZODIAQUE / SAINT SEIYA&nbsp;:&nbsp;HADES V4 15TH</div>
-        <div class="clear"></div>
-        <img class="logo" src="@Constants.IMG_URL/Logo.png" />
-        <span class="descriptif texte">
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-        </span>
-        <div class="formule texte">
-            <div class="disponibilite">EN STOCK</div>
-            <div class="prix">160,00€</div>
-            <div class="quantite">
-                <img src="@Constants.IMG_URL/boutons/Moins.svg" title="Moins" class="moins" />
-                <input type="text" value="1" class="" />
-                <img src="@Constants.IMG_URL/boutons/Plus.svg" title="Plus" class="plus" />
-            </div>
-            <div class="reserver"><input type="button" title="Ajouter" value="Ajouter" /></div>
-        </div>
-    </div>
+        for (Int32 _Index = 0; _Index < Model.Produits.Count; _Index++)
+        {
 
-    <div class="produit">
-        <div class="titre">ARMURE DU CHEVALIER DU ZODIAQUE / SAINT SEIYA&nbsp;:&nbsp;HADES V4 15TH</div>
-        <div class="clear"></div>
-        <img class="photo" src="@Constants.IMG_URL/Map.jpg" />
-        <span class="descriptif texte">
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-        </span>
-        <div class="formule texte">
-            <div class="disponibilite">EN STOCK</div>
-            <div class="prix">160,00€</div>
-            <div class="quantite">
-                <img src="@Constants.IMG_URL/boutons/Moins.svg" title="Moins" class="moins" />
-                <input type="text" value="1" class="" />
-                <img src="@Constants.IMG_URL/boutons/Plus.svg" title="Plus" class="plus" />
-            </div>
-            <div class="reserver"><input type="button" title="Ajouter" value="Ajouter" /></div>
-        </div>
-    </div>
+            <div class="produit @((_Index + 1) % 2 == 0 ? "last" : "")">
 
-    <div class="produit last">
-        <div class="titre">ARMURE DU CHEVALIER DU ZODIAQUE / SAINT SEIYA&nbsp;:&nbsp;HADES V4 15TH</div>
-        <div class="clear"></div>
-        <span class="descriptif texte">
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-            <br />
-            <br />
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ipsum
-            Lorem ipsum Lorem ipsum Lorem ip...
-        </span>
-        <div class="formule texte">
-            <div class="disponibilite">EN STOCK</div>
-            <div class="prix">160,00€</div>
-            <div class="quantite">
-                <img src="@Constants.IMG_URL/boutons/Moins.svg" title="Moins" class="moins" />
-                <input type="text" value="1" class="" />
-                <img src="@Constants.IMG_URL/boutons/Plus.svg" title="Plus" class="plus" />
+                <div class="titre">@Model.Produits[_Index].Libelle</div>
+                <div class="clear"></div>
+                
+                @if (!String.IsNullOrEmpty(Model.Produits[_Index].Visuel))
+                {
+                    <a class="visuel" href="@Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Visuel" target="_blank" title="Cliquer pour agrandir">
+                        <img src="@Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Visuel" />
+                    </a>
+                }
+                @if (!String.IsNullOrEmpty(Model.Produits[_Index].Image))
+                {
+                    <a class="image" href="@Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Image" target="_blank" title="Cliquer pour agrandir">
+                        <img src="@Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Image" />
+                    </a>
+                }
+                @if (!String.IsNullOrEmpty(Model.Produits[_Index].Logo))
+                {
+                    <img class="logo" src="@Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Logo" />
+                }
+
+                @if (Model.Produits[_Index].Descriptif != null)
+                {
+                    <span class="descriptif texte">@Html.Raw((Model.Produits[_Index].Descriptif as String).ToBR())</span>
+                }
+                
+                <div class="formule texte">
+                    <div class="disponibilite">
+                        @{
+                            if (Model.Produits[_Index].Stock >= 1)
+                            {
+                                <span>EN STOCK</span>
+                            }
+                            else if (Model.Produits[_Index].Stock <= 0)
+                            {
+                                <span>EN RUPTURE</span>
+                            }
+                        }
+                    </div>
+                    <div class="prix">&nbsp;&nbsp;@Model.Produits[_Index].Prix€&nbsp;&nbsp;</div>
+                    <div class="quantite">
+                        <img src="@Constants.IMG_URL/boutons/Moins.svg" title="Moins" class="moins" />
+                        <input type="text" value="1" class="" />
+                        <img src="@Constants.IMG_URL/boutons/Plus.svg" title="Plus" class="plus" />
+                    </div>
+                    <div class="reserver"><input type="button" title="Ajouter" value="Ajouter" /></div>
+                </div>
             </div>
-            <div class="reserver"><input type="button" title="Ajouter" value="Ajouter" /></div>
-        </div>
-    </div>
+        }
+    }
 
     <div class="clear"></div>
 

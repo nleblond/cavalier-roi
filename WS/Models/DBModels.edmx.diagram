@@ -45,7 +45,6 @@
         <AssociationConnector Association="DBModelsContext.FK_Reservations_Eleves" />
         <AssociationConnector Association="DBModelsContext.FK_Participations_Evenements" />
         <AssociationConnector Association="DBModelsContext.FK_Reservations_Evenements" />
-        <AssociationConnector Association="DBModelsContext.FK_Participations_Eleves1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -133,6 +133,8 @@
             <div class="br10"></div>
         </div>
 
+
+
         <div *ngIf="GetShow('logo', _Evenement)">
             Evenements/{{_Evenement.Id}}/<input type="text" placeholder="Logo" title="Logo" class="image" [(ngModel)]="_Evenement.Logo" maxlength="255" #CurrentLogo />
             <div class="br10"></div>
@@ -140,13 +142,22 @@
 
         <div *ngIf="GetShow('photo', _Evenement)">
             Evenements/{{_Evenement.Id}}/<input type="text" placeholder="Photo" title="Photo" class="image" [(ngModel)]="_Evenement.Photo" maxlength="255" #CurrentPhoto />
+            <a *ngIf="GetShow('cours', _Evenement)" href="{{_ImgUrl}}/Aides/Photo Cours.png" target="_blank">(210 x ?)</a>
+            <a *ngIf="GetShow('stage', _Evenement)" href="{{_ImgUrl}}/Aides/Photo Stage.png" target="_blank">(210 x ?)</a>
+            <a *ngIf="GetShow('tournoi', _Evenement)" href="{{_ImgUrl}}/Aides/Photo Tournoi.png" target="_blank">(&gt;240 x ?)</a>
+            <a *ngIf="GetShow('competition', _Evenement)" href="{{_ImgUrl}}/Aides/Photo Competition.png" target="_blank">(&gt;240 x ?)</a>
             <div class="br10"></div>
         </div>
 
         <div *ngIf="GetShow('bandeau', _Evenement)">
             Evenements/{{_Evenement.Id}}/<input type="text" placeholder="Bandeau" title="Bandeau" class="image" [(ngModel)]="_Evenement.Bandeau" maxlength="255" #CurrentPhoto />
+            <a href="{{_ImgUrl}}/Aides/Bandeau Tournoi.png" target="_blank">(705 x ?)</a>
             <div class="br10"></div>
         </div>
+
+
+
+
 
         <div class="plannings" *ngIf="!GetShow('parent', _Evenement)">
             <table cellpadding="0" cellspacing="0" border="0">

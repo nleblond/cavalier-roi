@@ -1,6 +1,9 @@
 ﻿var _WsUrl = '/API/';
 var _APIKey = 'AEZRETRYTUYIUOIP';
 
+var _UrlToRedirect = '';
+
+
 $(window).on('load', function () {
 
     //contact
@@ -41,14 +44,21 @@ $(window).on('load', function () {
 
 
 
-function OpenConnexion() {
+function OpenConnexion(_UrlToRedirect) {
     $('#Div_Connexion').ModalPopUp('open');
+
+    if ((_UrlToRedirect != '') & (_UrlToRedirect != null)) {
+        this._UrlToRedirect = _UrlToRedirect;
+    }
 
     $('.connexion .email').focus();
 }
 
 
 function CloseConnexion() {
+
+    this._UrlToRedirect = '';
+
     $('#Div_Connexion').ModalPopUp('close');
 }
 
@@ -122,7 +132,12 @@ function ConnectEleve() {
             beforeSend: function (request) { },
             success: function (data) {
                 if (data) {
-                    document.location.href = document.location.href;
+                    if (_UrlToRedirect != '') {
+                        document.location.href = _UrlToRedirect;
+                    }
+                    else {
+                        document.location.href = document.location.href;
+                    }
                 }
                 else {
                     alert('Les identifiants sont incorrects, merci de recommencer !');

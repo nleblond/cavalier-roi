@@ -8,8 +8,8 @@
         <input type="hidden" id="Hidden_EvenementId" />
         <input type="hidden" id="Hidden_EvenementLibelle" />
         <input type="hidden" id="Hidden_EleveId" />
-        <input type="hidden" id="Hidden_JourMin" />
-        <input type="hidden" id="Hidden_JourMax" />
+        <input type="hidden" id="Hidden_DtDebut" />
+        <input type="hidden" id="Hidden_DtFin" />
         <input type="hidden" id="Hidden_Prix" />
         <input type="hidden" id="Hidden_Duree" />
         <input type="hidden" id="Hidden_EvenementParentId" />
@@ -41,16 +41,16 @@
 
     <div class="texte paiement">
 
-        <h2>JE PAYE AVEC <img src="@Constants.IMG_URL/Paypal.png" title="Paiement sécurisé" class="paypal" /></h2>
+        <h2>JE PAYE EN CB OU AVEC PAYPAL</h2>
         La solution de paiement en ligne, fiable, rapide, sécurisée, qui permet de payer par carte bancaire ou par le biais de votre compte PayPal.
-        <br />
-        <input type="button" value="Valider" class="valider psp" title="Valider" />
+        <div class="br10"></div>
+        <div id="paypal-button-container" class="fright"></div>
 
         <div class="clear"></div>
 
         <h2>JE PAYE AUTREMENT</h2>
-        L'Ecole du cavalier roi vous propose de voir avec elle pour un paiement par chèque, virement, espèces...
-        <br />
+        L'École du cavalier roi vous propose de voir avec elle pour un paiement par chèque, virement, espèces...
+        <div class="br10"></div>
         <input type="button" value="Valider" class="valider autre" title="Valider" />
 
         <div class="clear"></div>
@@ -72,61 +72,61 @@
             Votre inscription à cette formule de stage a bien été prise en compte et vos réservations ont bien été enregistrées !
             <br />
             <br />
-            Vous pouvez retrouver toutes vos réservations dans la partie "Mon Compte" du site de l'Ecole du cavalier roi.
+            Vous pouvez retrouver toutes vos réservations dans la partie "Mon Compte" du site de l'École du cavalier roi.
             <br />
             <br />
-            Merci de contacter au plus vite l'Ecole du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a> pour régler le paiement.
+            Merci de contacter au plus vite l'École du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a> pour régler le paiement.
         </div>
 
         <div class="confirmation2">
             Votre inscription à cette formule de stage a bien été prise en compte, vos réservations ont bien été enregistrées et votre paiement a bien été effectué !
             <br />
             <br />
-            Vous pouvez retrouver toutes vos réservations dans la partie "Mon Compte" du site de l'Ecole du cavalier roi.
+            Vous pouvez retrouver toutes vos réservations dans la partie "Mon Compte" du site de l'École du cavalier roi.
             <br />
             <br />
-            Pour plus d'informations, n'hésitez pas à contacter l'Ecole du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a>.
+            Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a>.
         </div>
 
         <div class="confirmation3">
             Votre inscription à cette formule de stage a bien été prise en compte, vos réservations ont bien été enregistrées mais votre paiement a rencontré un problème !
             <br />
             <br />
-            Merci de contacter au plus vite l'Ecole du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a> pour régler le paiement.
+            Merci de contacter au plus vite l'École du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a> pour régler le paiement.
         </div>
 
         <div class="confirmation4">
             Votre inscription à cette formule de stage a bien été prise en compte !
             <br />
             <br />
-            Pour plus d'informations, n'hésitez pas à contacter l'Ecole du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a>.
+            Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a>.
         </div>
 
         <div class="confirmation5">
             Votre inscription à cette formule de stage a bien été prise en compte !
             <br />
             <br />
-            Vous pouvez retrouver toutes vos réservations dans la partie "Mon Compte" du site de l'Ecole du cavalier roi.
+            Vous pouvez retrouver toutes vos réservations dans la partie "Mon Compte" du site de l'École du cavalier roi.
             <br />
             <br />
-            Merci de contacter au plus vite l'Ecole du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a> pour régler le paiement.
+            Merci de contacter au plus vite l'École du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a> pour régler le paiement.
         </div>
 
         <div class="confirmation6">
             Votre inscription à cette formule de stage a bien été prise en compte et votre paiement a bien été effectué !
             <br />
             <br />
-            Vous pouvez retrouver toutes vos réservations dans la partie "Mon Compte" du site de l'Ecole du cavalier roi.
+            Vous pouvez retrouver toutes vos réservations dans la partie "Mon Compte" du site de l'École du cavalier roi.
             <br />
             <br />
-            Pour plus d'informations, n'hésitez pas à contacter l'Ecole du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a>.
+            Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a>.
         </div>
 
         <div class="confirmation7">
             Votre inscription à cette formule de stage a bien été prise en compte mais votre paiement a rencontré un problème !
             <br />
             <br />
-            Merci de contacter au plus vite l'Ecole du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a> pour régler le paiement.
+            Merci de contacter au plus vite l'École du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a> pour régler le paiement.
         </div>
 
 

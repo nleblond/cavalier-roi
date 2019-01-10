@@ -51,7 +51,7 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 .page_backoffice .filter_backoffice { min-height: 500px; padding: 10px 10px 10px 10px; /*opacity: 0.75; background-color: #000000; filter: alpha(opacity=75);*/ }
 .page_backoffice h1 { font-family: "God Of War"; font-size: 22px; color: #FECC16; text-transform: uppercase; margin: 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
 .page_backoffice h2 { font-family: "God Of War"; font-size: 18px; color: #FECC16; text-transform: uppercase; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem; }
-.page_backoffice a { text-decoration: underline; color: #FFFFFF; cursor: pointer; }
+.page_backoffice a { text-decoration: underline; color: #FECC16; cursor: pointer; }
 .page_backoffice a:hover { text-decoration: #FECC16; color: #FECC16; }
 .page_backoffice input[type="button"] { float: right; margin: 0rem 0rem 0rem 10px; }
 
@@ -261,7 +261,7 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 .contenu div.stages .stage { float: left; border: solid 1pt #FECC16; padding: 1rem 1rem 1rem 1rem; margin: 0rem 1.0rem 1rem 0rem; width: 457px; height: auto; background-color: #000000; }
 .contenu div.stages .stage .last { margin: 0rem 0rem 1.0rem 0rem; }
 .contenu div.stages .last { margin: 0rem 0rem 1.0rem 0rem; }
-.contenu div.stages .stage .photo { float: right; margin: 0rem 0rem 1rem 1rem; padding: 0rem 0rem 0rem 0rem; width: 210px; height: 140px; }
+.contenu div.stages .stage .photo { float: right; margin: 0rem 0rem 1rem 1rem; padding: 0rem 0rem 0rem 0rem; width: 210px; }
 .contenu div.stages .stage .titre { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; font-size: 1.0rem; }
 .contenu div.stages .stage .descriptif { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; text-align: justify; }
 .contenu div.stages .stage .date { margin: 0.5rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; display: inline-block; }
@@ -280,7 +280,7 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 .contenu div.cours .cour .last { margin: 0rem 0rem 0rem 0rem; }
 .contenu div.cours .last { margin: 0rem 0rem 1.0rem 0rem; }
 .contenu div.cours .cour .titre { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 1.0rem 0rem; font-size: 1.0rem; }
-.contenu div.cours .cour .photo { float: left; margin: 0rem 1.0rem 1.0rem 0rem; padding: 0rem 0rem 0rem 0rem; max-width: 210px; }
+.contenu div.cours .cour .photo { float: left; margin: 0rem 1.0rem 1.0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 210px; }
 .contenu div.cours .cour table.formule { float: right; margin: 0rem 0rem 0.5rem 0rem; padding: 0rem 0rem 0rem 0rem; }
 .contenu div.cours .cour table.formule tr { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 100%; }
 .contenu div.cours .cour table.formule td { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
@@ -330,8 +330,11 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 .contenu div.boutique .produit { float: left; padding: 1rem 1rem 1rem 1rem; margin: 0rem 1.0rem 1.0rem 0rem; width: 457px; height: auto; background-color: #000000; border: solid 1pt #FECC16; }
 .contenu div.boutique .last { margin: 0rem 0rem 1.0rem 0rem; }
 .contenu div.boutique .produit .titre { margin: 0rem 0rem 1.0rem 0rem; padding: 0rem 0rem 1.0rem 0rem; font-size: 1.0rem; width: 100%; border-bottom: solid 1pt #FECC16; }
-.contenu div.boutique .produit .photo { float: right; margin: 0rem 0rem 10px 10px; padding: 0rem 0rem 0rem 0rem; width: 210px; height: 140px; border: solid 1pt #FECC16; }
-.contenu div.boutique .produit .logo { float: left; margin: 0rem 1.0rem 1.0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 110px; height: auto; /*border: solid 1pt #FECC16;*/ }
+.contenu div.boutique .produit a.visuel { display:block; }
+.contenu div.boutique .produit a.visuel img { float: right; margin: 0rem 0rem 10px 10px; padding: 0rem 0rem 0rem 0rem; width: 210px; height: auto; }
+.contenu div.boutique .produit a.image { display:none; }
+.contenu div.boutique .produit a.image img { float: right; margin: 0rem 0rem 10px 10px; padding: 0rem 0rem 0rem 0rem; width: 210px; height: auto; }
+.contenu div.boutique .produit .logo { float: left; margin: 0rem 1.0rem 1.0rem 0rem; padding: 0rem 0rem 0rem 0rem; max-width: 100px; max-height: 100px; }
 .contenu div.boutique .produit .descriptif { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
 
 .contenu div.boutique .produit .formule { margin: 1.0rem 0rem 0rem 0rem; padding: 1.0rem 0rem 0rem 0rem; float: left; width: 100%; border-top: solid 1pt #FECC16; vertical-align: middle; }

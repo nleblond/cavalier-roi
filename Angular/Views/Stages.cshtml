@@ -33,37 +33,37 @@
                     <span class="descriptif texte">@Html.Raw((@_Stages[_Index].Descriptif as String).ToBR())</span>
                     <div class="clear-left"></div>
                 }
-                    <div class="date">
-                        @if (!String.IsNullOrEmpty(_Stages[_Index].DtDebut))
-                        {
-                            <div>Date de début : <span>@_Stages[_Index].DtDebut</span></div>
-                            <div class="clear-left"></div>
-                        }
-                        @if (!String.IsNullOrEmpty(_Stages[_Index].DtFin))
-                        {
-                            <div>Date de fin : <span>@_Stages[_Index].DtFin</span></div>
-                            <div class="clear-left"></div>
-                        }
-                        @if (!String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription))
-                        {
-                            <div>Date limite d'inscription : <span>@_Stages[_Index].DtLimiteInscription</span></div>
-                            <div class="clear-left"></div>
-                        }
-                        @if ((_Stages[_Index].Minimum != null) && (_Stages[_Index].Minimum != 1))
-                        {
-                            <div>Nombre minimum d'inscriptions : <span>@_Stages[_Index].Minimum</span></div>
-                            <div class="clear-left"></div>
-                        }
-                        @if ((_Stages[_Index].Maximum != null) && (_Stages[_Index].Maximum != 1))
-                        {
-                            <div>Nombre maximum d'inscriptions : <span>@_Stages[_Index].Maximum</span></div>
-                            <div class="clear-left"></div>
-                        }
-                    </div>
+                <div class="date">
+                    @if (!String.IsNullOrEmpty(_Stages[_Index].DtDebut))
+                    {
+                        <div>Date de début : <span>@_Stages[_Index].DtDebut</span></div>
+                        <div class="clear-left"></div>
+                    }
+                    @if (!String.IsNullOrEmpty(_Stages[_Index].DtFin))
+                    {
+                        <div>Date de fin : <span>@_Stages[_Index].DtFin</span></div>
+                        <div class="clear-left"></div>
+                    }
+                    @if (!String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription))
+                    {
+                        <div>Date limite d'inscription : <span>@_Stages[_Index].DtLimiteInscription</span></div>
+                        <div class="clear-left"></div>
+                    }
+                    @if ((_Stages[_Index].Minimum != null) && (_Stages[_Index].Minimum != 1))
+                    {
+                        <div>Nombre minimum d'inscriptions : <span>@_Stages[_Index].Minimum</span></div>
+                        <div class="clear-left"></div>
+                    }
+                    @if ((_Stages[_Index].Maximum != null) && (_Stages[_Index].Maximum != 1))
+                    {
+                        <div>Nombre maximum d'inscriptions : <span>@_Stages[_Index].Maximum</span></div>
+                        <div class="clear-left"></div>
+                    }
+                </div>
                 <div class="clear-left"></div>
 
-                @{ 
-                    List<WS.Models.OUT.Evenement> _FormulesStages = (Model.EvenementsStages as List<WS.Models.OUT.Evenement>).FindAll(e => 
+                @{
+                    List<WS.Models.OUT.Evenement> _FormulesStages = (Model.EvenementsStages as List<WS.Models.OUT.Evenement>).FindAll(e =>
                             e.EvenementParent != null
                             &&
                             e.EvenementParent.Id != null
@@ -71,7 +71,7 @@
                             e.EvenementParent.Id == _Stages[_Index].Id
                     );
                 }
-                
+
                 <table cellpadding="0" cellspacing="0" border="0" class="formule texte">
                     <tr>
                         <td class="libelle">FORMULE COMPLETE</td>
@@ -102,8 +102,8 @@
                                        data-evenementid="@_Stages[_Index].Id"
                                        data-evenementlibelle="@_Stages[_Index].Libelle"
                                        data-eleveid="@(Model.Eleve != null ? Model.Eleve.Id : String.Empty)"
-                                       data-jourmin="@_Stages[_Index].DtDebut.Left(10)"
-                                       data-jourmax="@_Stages[_Index].DtFin.Left(10)"
+                                       data-dtdebut="@_Stages[_Index].DtDebut"
+                                       data-dtfin="@_Stages[_Index].DtFin"
                                        data-prix="@_Stages[_Index].Prix"
                                        data-duree="@_Stages[_Index].Duree"
                                        data-evenementparentid="" />
@@ -118,61 +118,61 @@
                             }
                         </td>
                     </tr>
-                @if ((_FormulesStages != null) && (_FormulesStages.Count > 0))
-                {
-                    for (Int32 _Index2 = 0; _Index2 < _FormulesStages.Count; _Index2++)
+                    @if ((_FormulesStages != null) && (_FormulesStages.Count > 0))
                     {
-                        <tr>
-                            <td class="libelle">@_FormulesStages[_Index2].Libelle</td>
-                            <td class="prix">&nbsp;&nbsp;@_FormulesStages[_Index2].Prix€&nbsp;&nbsp;</td>
-                            <td class="reserver">
-                                @if (
-                                        //(
-                                        //    (String.IsNullOrEmpty(_Stages[_Index].DtDebut) == true)
-                                        //    ||
-                                        //    (String.IsNullOrEmpty(_Stages[_Index].DtDebut) == false) && (DateTime.Parse(_Stages[_Index].DtDebut) >= DateTime.Now)
-                                        //)
-                                        //&&
-                                        //(
-                                        //    (String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription) == true)
-                                        //    ||
-                                        //    (String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription) == false) && (DateTime.Parse(_Stages[_Index].DtLimiteInscription) >= DateTime.Now)
-                                        //)
-                                        //&&
-                                        //(
-                                        //    (_FormulesStages[_Index].Maximum == null)
-                                        //    ||
-                                        //    (_FormulesStages[_Index].Maximum != null) && (_FormulesStages[_Index].Maximum > _FormulesStages[_Index].Compte)
-                                        //)
-                                        1 == 1
-                                )
-                                {
-                                    <input type="button" class="reserver" title="Réserver" value="Réserver"
-                                           data-evenementid="@_FormulesStages[_Index2].Id"
-                                           data-evenementlibelle="@_FormulesStages[_Index2].Libelle"
-                                           data-eleveid="@(Model.Eleve != null ? Model.Eleve.Id : String.Empty)"
-                                           data-jourmin="@_Stages[_Index].DtDebut.Left(10)"
-                                           data-jourmax="@_Stages[_Index].DtFin.Left(10)"
-                                           data-prix="@_FormulesStages[_Index2].Prix"
-                                           data-duree="@_FormulesStages[_Index2].Duree"
-                                           data-evenementparentid="@_FormulesStages[_Index2].EvenementParent.Id" />
-                                }
-                                else if ((_FormulesStages[_Index].Maximum != null) && (_FormulesStages[_Index].Maximum <= _FormulesStages[_Index].Compte))
-                                {
-                                    <span class="jaune">COMPLET</span>
-                                }
-                                else 
-                                {
-                                    <span class="jaune">TERMIN&Eacute;</span>
-                                }
-                            </td>
-                        </tr>
+                        for (Int32 _Index2 = 0; _Index2 < _FormulesStages.Count; _Index2++)
+                        {
+                            <tr>
+                                <td class="libelle">@_FormulesStages[_Index2].Libelle</td>
+                                <td class="prix">&nbsp;&nbsp;@_FormulesStages[_Index2].Prix€&nbsp;&nbsp;</td>
+                                <td class="reserver">
+                                    @if (
+                                            //(
+                                            //    (String.IsNullOrEmpty(_Stages[_Index].DtDebut) == true)
+                                            //    ||
+                                            //    (String.IsNullOrEmpty(_Stages[_Index].DtDebut) == false) && (DateTime.Parse(_Stages[_Index].DtDebut) >= DateTime.Now)
+                                            //)
+                                            //&&
+                                            //(
+                                            //    (String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription) == true)
+                                            //    ||
+                                            //    (String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription) == false) && (DateTime.Parse(_Stages[_Index].DtLimiteInscription) >= DateTime.Now)
+                                            //)
+                                            //&&
+                                            //(
+                                            //    (_FormulesStages[_Index].Maximum == null)
+                                            //    ||
+                                            //    (_FormulesStages[_Index].Maximum != null) && (_FormulesStages[_Index].Maximum > _FormulesStages[_Index].Compte)
+                                            //)
+                                            1 == 1
+                                    )
+                                    {
+                                        <input type="button" class="reserver" title="Réserver" value="Réserver"
+                                               data-evenementid="@_FormulesStages[_Index2].Id"
+                                               data-evenementlibelle="@_FormulesStages[_Index2].Libelle"
+                                               data-eleveid="@(Model.Eleve != null ? Model.Eleve.Id : String.Empty)"
+                                               data-dtdebut="@_Stages[_Index].DtDebut"
+                                               data-dtfin="@_Stages[_Index].DtFin"
+                                               data-prix="@_FormulesStages[_Index2].Prix"
+                                               data-duree="@_FormulesStages[_Index2].Duree"
+                                               data-evenementparentid="@_FormulesStages[_Index2].EvenementParent.Id" />
+                                    }
+                                    else if ((_FormulesStages[_Index].Maximum != null) && (_FormulesStages[_Index].Maximum <= _FormulesStages[_Index].Compte))
+                                    {
+                                        <span class="jaune">COMPLET</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="jaune">TERMIN&Eacute;</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
                     }
-                }
                 </table>
 
             </div>
-            
+
         }
     }
 

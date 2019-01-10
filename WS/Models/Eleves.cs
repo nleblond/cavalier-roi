@@ -18,8 +18,8 @@ namespace WS.Models
         public Eleves()
         {
             this.Commandes = new HashSet<Commandes>();
+            this.Participations = new HashSet<Participations>();
             this.Reservations = new HashSet<Reservations>();
-            this.Participations1 = new HashSet<Participations>();
         }
     
         public int Id { get; set; }
@@ -42,10 +42,9 @@ namespace WS.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Commandes> Commandes { get; set; }
-        public virtual Participations Participations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Participations> Participations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservations> Reservations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Participations> Participations1 { get; set; }
     }
 }
