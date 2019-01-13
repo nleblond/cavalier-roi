@@ -11,6 +11,7 @@ using Angular.CALL;
 using Microsoft.VisualBasic;
 using System.Net.Mail;
 using System.Net;
+using System.Linq;
 
 namespace Angular.Controllers
 {
@@ -702,7 +703,6 @@ namespace Angular.Controllers
 
 
 
-
         [Route("Boutique")]
         public ActionResult Boutique(Int32? _CategorieId = null)
         {
@@ -757,6 +757,28 @@ namespace Angular.Controllers
             List<Contenu> _ContenusPartenariatsPromosContext = ContenusManager.GetContenus(22, 3).Result;
             foreach (Contenu _Current in _ContenusPartenariatsPromosContext) { _ContenusPartenariatsPromos.Add(_Current); }
 
+
+            //panier (commande)
+            Commande _Commande = new Commande();
+            if (Session["www.cavalier-roi.fr"] != null)
+            {
+                if ((Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours == null)
+                {
+                    (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours = new Commande();
+                    (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes = new List<Ligne>();
+
+                    (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Adresse = new Adresse();
+                    (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Adresse.Destinataire = (Session["www.cavalier-roi.fr"] as Eleve).Nom + " " + (Session["www.cavalier-roi.fr"] as Eleve).Prenom;
+                    (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Adresse.Email = (Session["www.cavalier-roi.fr"] as Eleve).Email;
+                    (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Adresse.Telephone = (String.IsNullOrEmpty((Session["www.cavalier-roi.fr"] as Eleve).Portable) == true ? (Session["www.cavalier-roi.fr"] as Eleve).Fixe : (Session["www.cavalier-roi.fr"] as Eleve).Portable);
+                }
+                _Commande = (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours;
+            }
+            else
+            {
+                _Commande = new Commande();
+            }
+
             dynamic _Model = new ExpandoObject();
             _Model.Connected = _Connected;
             _Model.ContenusZones = _ContenusZones as List<Contenu>;
@@ -766,8 +788,202 @@ namespace Angular.Controllers
             _Model.ContenusPartenariatsBandeaux = _ContenusPartenariatsBandeaux as List<Contenu>;
             _Model.ContenusPartenariatsPromos = _ContenusPartenariatsPromos as List<Contenu>;
             _Model.ContenusModals = _ContenusModals as List<Contenu>;
+            _Model.Commande = _Commande;
 
             return View("~/Views/Boutique.cshtml", _Model);
+        }
+
+
+        [Route("AddLigneToCommandeEnCours")]
+        public ActionResult AddLigneToCommandeEnCours(Int32 _ProduitId, Int32 _Quantite)
+        {
+
+            if (Session["www.cavalier-roi.fr"] != null)
+            {
+                //contrôle sur la quantité
+                Int32 _QuantiteDejaMiseAuPanier = 0;
+                foreach (Ligne _Current in (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes.FindAll(l => l.Produit.Id == _ProduitId))
+                {
+                    _QuantiteDejaMiseAuPanier += Int32.Parse(_Current.Quantite.ToString());
+                }
+                Ligne _NewLigne = ProduitsManager.AddLigneToCommandeEnCours(_ProduitId, _Quantite, _QuantiteDejaMiseAuPanier).Result;
+                if (_NewLigne != null)
+                {
+                    //génération d'un LigneId temporaire pour faciliter la suppression
+                    Int32 _LigneId = 0;
+                    if (((Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes != null) && ((Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes.Count > 0))
+                    {
+                        List<Ligne> _Lignes = (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes.OrderByDescending(l => l.Id).ToList();
+                        _LigneId = Int32.Parse(_Lignes[0].Id.ToString()) + 1;
+                    }
+                    _NewLigne.Id = _LigneId;
+                    (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes.Add(_NewLigne);
+
+                    //recalculs
+                    //------------------------------------------------------------------------------------------------------------------------------------------------------
+                    //poids
+                    Double _Poids = 0;
+                    foreach (Ligne _Current in (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes)
+                    {
+                        _Poids += Double.Parse(_Current.Produit.Poids.ToString());
+                    }
+
+                    //frais de port
+                    List<Frai> _Frais = ProduitsManager.GetFrais(_Poids).Result;
+                    Double _Depassement = 0;
+                    foreach (Ligne _Current in (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes.FindAll(l => l.Produit.Depassement == true))
+                    {
+                        _Depassement += 15;
+                    }
+                    if ((_Frais != null) && (_Depassement == 0))
+                    {
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai = _Frais[0];
+                    }
+                    else if ((_Frais != null) && (_Depassement > 0))
+                    {
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai = new Frai();
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Id = 7;
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Libelle = "Envoi exceptionnel";
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Prix = _Frais[0].Prix + _Depassement;
+                    }
+                    else
+                    {
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai = new Frai();
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Id = 6;
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Libelle = "Envoi gratuit";
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Prix = 0;
+                    }
+
+                    //prix
+                    Double _PrixLignes = 0;
+                    foreach(Ligne _Current in (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes)
+                    {
+                        _PrixLignes += Double.Parse(_Current.Prix.ToString());
+                    }
+                    (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Prix = _PrixLignes + (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Prix;
+                    //------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                    return PartialView("~/Views/Shared/PanierEtape1.cshtml", (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours);
+
+                }
+
+            }
+            else
+            {
+                //reconnexion obligatoire : ça ne peut pas arriver car il y a un controle de connexion avant l'appel
+                return null;
+            }
+
+            return PartialView("~/Views/Shared/Panier.cshtml", new Commande());
+
+        }
+
+
+        [Route("DelLigneFromCommandeEnCours")]
+        public ActionResult DelLigneFromCommandeEnCours(Int32 _LigneId)
+        {
+
+            if (Session["www.cavalier-roi.fr"] != null)
+            {
+
+                if ((Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes.Any(l => l.Id == _LigneId) == true)
+                {
+                    (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes.RemoveAll(l => l.Id == _LigneId);
+
+                    //recalculs
+                    //------------------------------------------------------------------------------------------------------------------------------------------------------
+                    //poids
+                    Double _Poids = 0;
+                    foreach (Ligne _Current in (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes)
+                    {
+                        _Poids += Double.Parse(_Current.Produit.Poids.ToString());
+                    }
+
+                    //frais de port
+                    List<Frai> _Frais = ProduitsManager.GetFrais(_Poids).Result;
+                    Double _Depassement = 0;
+                    foreach (Ligne _Current in (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes.FindAll(l => l.Produit.Depassement == true))
+                    {
+                        _Depassement += 15;
+                    }
+                    if ((_Frais != null) && (_Depassement == 0))
+                    {
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai = _Frais[0];
+                    }
+                    else if ((_Frais != null) && (_Depassement > 0))
+                    {
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai = new Frai();
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Id = 7;
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Libelle = "Envoi exceptionnel";
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Prix = _Frais[0].Prix + _Depassement;
+                    }
+                    else
+                    {
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai = new Frai();
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Id = 6;
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Libelle = "Envoi gratuit";
+                        (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Prix = 0;
+                    }
+
+                    //prix
+                    Double _PrixLignes = 0;
+                    foreach (Ligne _Current in (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes)
+                    {
+                        _PrixLignes += Double.Parse(_Current.Prix.ToString());
+                    }
+                    (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Prix = _PrixLignes + (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Frai.Prix;
+                    //------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                    return PartialView("~/Views/Shared/PanierEtape1.cshtml", (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours);
+
+                }
+
+            }
+            return PartialView("~/Views/Shared/Panier.cshtml", new Commande());
+
+        }
+
+
+        [Route("AddAdresseToCommandeEnCours")]
+        public JsonResult AddAdresseToCommandeEnCours(Adresse _Adresse)
+        {
+            if ((Session["www.cavalier-roi.fr"] != null) && ((Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours != null))
+            {
+                (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Adresse = _Adresse;
+                return Json(true);
+            }
+            return Json(false);
+        }
+
+
+        [Route("AddCommande")]
+        public JsonResult AddCommande(Int32? _StatutId = null, String _PaymentId = null)
+        {
+            if ((Session["www.cavalier-roi.fr"] != null) && ((Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours != null))
+            {
+
+                (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.ReferenceTransaction = _PaymentId;
+
+                (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Statut = new Statut();
+                (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Statut.Id = _StatutId;
+
+                (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Eleve = new Eleve();
+                (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Eleve.Id = (Session["www.cavalier-roi.fr"] as Eleve).Id;
+
+                Int32? _Id = CommandesManager.AddCommande((Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours).Result;
+
+                //commande passé, raffraichissement de la sessions
+                if (_Id != null)
+                {
+                    Session["www.cavalier-roi.fr"] = ElevesManager.GetEleve((Session["www.cavalier-roi.fr"] as Eleve).Id).Result;
+                }
+                return Json(_Id);
+            }
+            else
+            {
+                //reconnexion obligatoire : ça ne peut pas arriver car il y a un controle de connexion avant l'appel
+                return null;
+            }
         }
 
     }

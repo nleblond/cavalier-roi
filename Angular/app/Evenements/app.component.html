@@ -95,9 +95,9 @@
         <div class="br10"></div>
 
         <div *ngIf="GetShow('stage|tournoi', _Evenement) && !GetShow('parent', _Evenement)">
-            <input type="datetime" placeholder="Date de début" title="Date de début" class="publication" [(ngModel)]="_Evenement.DtDebut" #CurrentDtDebut />
+            <input type="datetime" placeholder="Date de début" title="Date de début" class="publication" [(ngModel)]="_Evenement.DtDebut" #CurrentDtDebut /> (JJ/MM/AAAA HH:MM:SS)
             <div class="br10"></div>
-            <input type="datetime" placeholder="Date de fin" title="Date de fin" class="publication" [(ngModel)]="_Evenement.DtFin" #CurrentDtFin />
+            <input type="datetime" placeholder="Date de fin" title="Date de fin" class="publication" [(ngModel)]="_Evenement.DtFin" #CurrentDtFin /> (JJ/MM/AAAA HH:MM:SS)
             <div class="br10"></div>
         </div>
 
@@ -114,7 +114,7 @@
         </div>
 
         <div *ngIf="!GetShow('competition', _Evenement)">
-            <input type="text" placeholder="Prix" title="Prix" class="prix" [(ngModel)]="_Evenement.Prix" #CurrentPrix />€
+            <input type="text" placeholder="Prix" title="Prix" class="prix" [(ngModel)]="_Evenement.Prix" #CurrentPrix /> €
             <div class="br10"></div>
         </div>
 

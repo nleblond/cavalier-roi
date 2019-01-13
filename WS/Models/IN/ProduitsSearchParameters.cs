@@ -20,6 +20,9 @@ namespace WS.Models.IN
 
         public Int32? CommandeId { set; get; }
 
+        public Int32? Top { set; get; }
+
+
     }
 
 }

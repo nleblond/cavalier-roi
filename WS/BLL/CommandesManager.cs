@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 using WS.Models;
@@ -47,7 +48,6 @@ namespace WS.BLL
                     _NewCommande.ReferenceTransaction = _Current.ReferenceTransaction.Trim();
                     _NewCommande.ReferenceExterne = _Current.ReferenceExterne.Trim();
 
-                    _NewCommande.StatutId = Int32.Parse(_Current.StatutId.ToString());
                     if (_Current.StatutId != null)
                     {
                         _NewCommande.Statut = new Statut();
@@ -55,7 +55,6 @@ namespace WS.BLL
                         _NewCommande.Statut.Libelle = _Current.StatutLibelle;
                     }
 
-                    _NewCommande.AdresseId = _Current.AdresseId;
                     if (_Current.AdresseId != null)
                     {
                         _NewCommande.Adresse = new Adresse();
@@ -69,34 +68,18 @@ namespace WS.BLL
                         _NewCommande.Adresse.Email = _Current.Email;
                     }
 
-                    _NewCommande.FraiId = _Current.FraiId;
-                    if (_Current.FraiId != null)
-                    {
-                        _NewCommande.Frai = new Frai();
-                        _NewCommande.Frai.Id = Int32.Parse(_Current.FraiId.ToString());
-                        _NewCommande.Frai.Libelle = _Current.FraiLibelle;
-                        _NewCommande.Frai.Prix = _Current.FraiPrix;
-                    }
-
-                    _NewCommande.EleveId = Int32.Parse(_Current.EleveId.ToString());
-                    if (_Current.EleveId != null)
-                    {
-                        _NewCommande.Eleve = new Eleve();
-                        _NewCommande.Eleve.Id = Int32.Parse(_Current.EleveId.ToString());
-                        _NewCommande.Eleve.Nom = _Current.Nom;
-                        _NewCommande.Eleve.Prenom = _Current.Prenom;
-                    }
-
                     _NewCommande.Lignes = new List<Ligne>();
+                    Double _PrixLignes = 0;
                     foreach (CommandeResult _Current2 in _CommandeResults.FindAll(c => c.Id == _Current.Id && c.LigneId != null) as List<CommandeResult>)
                     {
+                        _PrixLignes += Double.Parse(_Current2.Prix.ToString());
+
                         Ligne _NewLigne = new Ligne();
                         _NewLigne.Id = Int32.Parse(_Current2.LigneId.ToString());
                         _NewLigne.Quantite = Int16.Parse(_Current2.Quantite.ToString());
                         _NewLigne.Reduction = _Current2.Reduction;
                         _NewLigne.Prix = Double.Parse(_Current2.Prix.ToString());
 
-                        _NewLigne.ProduitId = Int32.Parse(_Current2.ProduitId.ToString());
                         Produit _NewProduit = new Produit();
                         _NewProduit.Id = Int32.Parse(_Current2.ProduitId.ToString());
                         _NewProduit.Libelle = _Current2.ProduitLibelle;
@@ -106,11 +89,82 @@ namespace WS.BLL
                         _NewCommande.Lignes.Add(_NewLigne);
                     }
 
+                    if (_Current.FraiId != null)
+                    {
+                        _NewCommande.Frai = new Frai();
+                        _NewCommande.Frai.Id = Int32.Parse(_Current.FraiId.ToString());
+                        _NewCommande.Frai.Libelle = _Current.FraiLibelle;
+
+                        if (_Current.FraiPrix == null) {
+                            //envoi "exceptionnel"
+                            _NewCommande.Frai.Prix = _Current.Total - _PrixLignes;
+                        }
+                        else
+                        {
+                            //envoi "classique"
+                            _NewCommande.Frai.Prix = _Current.FraiPrix;
+                        }
+                    }
+
+                    if (_Current.EleveId != null)
+                    {
+                        _NewCommande.Eleve = new Eleve();
+                        _NewCommande.Eleve.Id = Int32.Parse(_Current.EleveId.ToString());
+                        _NewCommande.Eleve.Nom = _Current.Nom;
+                        _NewCommande.Eleve.Prenom = _Current.Prenom;
+                    }
+
                     _Commandes.Add(_NewCommande);
                 }
             }
 
             return _Commandes;
+        }
+
+
+
+        public static Int32? AddCommande(Int32? _StatutId = null, Int32? _EleveId = null, Double? _Prix = null, Int32? _FraiId = null, String _ReferenceTransaction = null, String _ReferenceExterne = null, Adresse _Adresse = null, List<Ligne> _Lignes = null)
+        {
+            DBModelsParameters _DB = new WS.Models.DBModelsParameters();
+
+
+            //ajout de l'adresse
+            Int32? _NewAdresseId = _DB.AddAdresse(
+                                    destinataire: _Adresse.Destinataire,
+                                    ligne1: _Adresse.Ligne1,
+                                    ligne2: _Adresse.Ligne2,
+                                    codePostal: _Adresse.CodePostal,
+                                    ville: _Adresse.Ville,
+                                    pays: _Adresse.Pays,
+                                    telephone: _Adresse.Telephone,
+                                    email: _Adresse.Email
+            ).FirstOrDefault().Value;
+
+            //ajout de la commande
+            Int32? _NewCommandeId = _DB.AddCommande(
+                                    statutId: _StatutId,
+                                    eleveId: _EleveId,
+                                    prix: _Prix,
+                                    fraiId: _FraiId,
+                                    referenceTransaction: _ReferenceTransaction,
+                                    referenceExterne: _ReferenceExterne,
+                                    adresseId: _NewAdresseId
+            ).FirstOrDefault().Value;
+
+            //ajout des lignes
+            foreach(Ligne _Current in _Lignes)
+            {
+                Int32? _NewLigneId = _DB.AddLigne(
+                                        produitId: _Current.Produit.Id,
+                                        commandeId: _NewCommandeId,
+                                        quantite: _Current.Quantite,
+                                        statutId: _StatutId,
+                                        prix: _Current.Prix,
+                                        reduction: _Current.Reduction
+                ).FirstOrDefault().Value;
+            }
+
+            return _NewCommandeId;
         }
 
 
@@ -132,6 +186,10 @@ namespace WS.BLL
                                     referenceExterne: (String.IsNullOrEmpty(_ReferenceExterne) ? null : _ReferenceExterne)
                                 );
         }
+
+
+
+
 
 
 

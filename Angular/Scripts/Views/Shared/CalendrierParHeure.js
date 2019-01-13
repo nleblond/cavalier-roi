@@ -10,7 +10,7 @@ _Jours[4] = "Jeudi";
 _Jours[5] = "Vendredi";
 _Jours[6] = "Samedi";
 
-//variables Paypal
+//variables paypal
 var _Total = '';
 var _Description = 'Paiement pour réservation';
 var _Note = "Pour plus d'informations sur ce paiement, n'hésitez pas à contacter l'École du cavalier roi à paypal@cavalier-roi.fr";
@@ -66,10 +66,10 @@ $(window).on('load', function () {
 
 function OpenCalendrierParHeure(_EvenementId, _EvenementLibelle, _EleveId, _Duree, _Jour, _Prix) {
 
-    //variables Paypal
-    _Total = _Prix;
-    _Price = _Prix;
-    _Item = _EvenementLibelle;
+    //variables paypal
+    this._Total = _Prix.toString().replace(',', '.');
+    this._Price = _Prix.toString().replace(',', '.');
+    this._Item = _EvenementLibelle;
 
     ClearCalendrierParHeure();
 
@@ -395,9 +395,9 @@ function ValidateParticipationAndReservationsParHeure() {
     else if ((document.location.href.toLowerCase().indexOf('moncompte') < 0) && ($('#Div_CalendrierParHeure .selections table').find('.selection').length == parseInt(_Duree))) {
 
         //variables paypal
-        _Reservations = '';
+        this._Reservations = '';
         $('#Div_CalendrierParHeure .selections table tr.selection td.creneau').each(function () {
-            _Reservations = _Reservations + (_Reservations != '' ? ' / ' + $(this).html() : $(this).html());
+            this._Reservations = this._Reservations + (this._Reservations != '' ? ' / ' + $(this).html() : $(this).html());
         });
 
         $('#Div_CalendrierParHeure .planning').hide();
@@ -525,6 +525,12 @@ paypal.Button.render({
         production: "Ad8wWcW6tQWVhQTQMSORbuN-p0Zv7NT78-Fqrw3xDb45zVjKl87A4iHDYhUwAd_drfuRmo5WaqbLfyL4"
     },
 
+    style: {
+        label: 'pay',
+        tagline: false,
+        fundingicons: true
+    },
+
     // Show the buyer a 'Pay Now' button in the checkout flow
     commit: true,
 
@@ -566,18 +572,18 @@ paypal.Button.render({
 
     onAuthorize: function (data, actions) {
         return actions.payment.execute().then(function () {
-            CallBackPaypalOK(data.paymentID);
+            CallBackPayPalOK(data.paymentID);
         });
     },
 
     onCancel: function (data, actions) { },
 
-    onError: function (err) { CallBackPaypalKO(); }
+    onError: function (err) { CallBackPayPalKO(err); }
 
 }, '#paypal-button-container');
 
 
-function CallBackPaypalOK(_PaymentId) {
+function CallBackPayPalOK(_PaymentId) {
 
     AddParticipationParHeure(_PaymentId);
     AddReservationsParHeure(_PaymentId);
@@ -590,7 +596,7 @@ function CallBackPaypalOK(_PaymentId) {
 }
 
 
-function CallBackPaypalKO() {
+function CallBackPayPalKO(_Error) {
     $('#Div_CalendrierParHeure .paiement').hide();
     $('#Div_CalendrierParHeure .confirmation').show();
     $('#Div_CalendrierParHeure .confirmation .confirmation5').show();

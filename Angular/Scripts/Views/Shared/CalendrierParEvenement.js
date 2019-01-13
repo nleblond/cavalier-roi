@@ -1,7 +1,7 @@
 ﻿var _WsUrl = '/API/';
 var _APIKey = 'AEZRETRYTUYIUOIP';
 
-//variables Paypal
+//variables paypal
 var _Total = '';
 var _Description = 'Paiement pour réservation';
 var _Note = "Pour plus d'informations sur ce paiement, n'hésitez pas à contacter l'École du cavalier roi à paypal@cavalier-roi.fr";
@@ -37,11 +37,11 @@ $(window).on('load', function () {
 
 function OpenCalendrierParEvenement(_EvenementId, _EvenementLibelle, _EleveId, _Prix, _DtDebut, _DtFin) {
 
-    //variables Paypal
-    _Total = _Prix;
-    _Price = _Prix;
-    _Item = _EvenementLibelle;
-    _Reservations = 'du ' + _DtDebut + ' au ' + _DtFin;
+    //variables paypal
+    this._Total = _Prix.toString().replace(',', '.');
+    this._Price = _Prix.toString().replace(',', '.');
+    this._Item = _EvenementLibelle;
+    this._Reservations = 'du ' + _DtDebut + ' au ' + _DtFin;
 
     ClearCalendrierParEvenement();
 
@@ -200,6 +200,12 @@ paypal.Button.render({
         production: "Ad8wWcW6tQWVhQTQMSORbuN-p0Zv7NT78-Fqrw3xDb45zVjKl87A4iHDYhUwAd_drfuRmo5WaqbLfyL4"
     },
 
+    style: {
+        label: 'pay',
+        tagline: false,
+        fundingicons: true
+    },
+
     // Show the buyer a 'Pay Now' button in the checkout flow
     commit: true,
 
@@ -241,18 +247,18 @@ paypal.Button.render({
 
     onAuthorize: function (data, actions) {
         return actions.payment.execute().then(function () {
-            CallBackPaypalOK(data.paymentID);
+            CallBackPayPalOK(data.paymentID);
         });
     },
 
     onCancel: function (data, actions) { },
 
-    onError: function (err) { CallBackPaypalKO(); }
+    onError: function (err) { CallBackPayPalKO(err); }
 
 }, '#paypal-button-container');
 
 
-function CallBackPaypalOK(_PaymentId) {
+function CallBackPayPalOK(_PaymentId) {
 
     AddParticipationParEvenement();
     AddAllReservationsParEvenement(_PaymentId);
@@ -265,7 +271,7 @@ function CallBackPaypalOK(_PaymentId) {
 }
 
 
-function CallBackPaypalKO() {
+function CallBackPayPalKO(_Error) {
     $('#Div_CalendrierParEvenement .paiement').hide();
     $('#Div_CalendrierParEvenement .confirmation').show();
     $('#Div_CalendrierParEvenement .confirmation .confirmation4').show();

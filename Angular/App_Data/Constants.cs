@@ -57,5 +57,21 @@ public class Constants
         }
     }
 
+
+    public static Double DEPASSEMENT_LIVRAISON
+    {
+        get
+        {
+            try
+            {
+                return Double.Parse(System.Configuration.ConfigurationManager.AppSettings["DEPASSEMENT_LIVRAISON"]);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+    }
+
 }
 

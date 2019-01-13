@@ -15,22 +15,32 @@ namespace WS.BLL
         private static WS.Models.DBModelsParameters DB = new WS.Models.DBModelsParameters();
 
 
-        public static List<Produit> GetProduits(Int32? _Id = null, String _Libelle = null, String _Reference = null, Int32? _StockMin = null, Int32? _StockMax = null, Int32? _CommandeId = null, Int32? _CategorieId = null)
+        public static List<Produit> GetProduits(
+                                                    Int32? _Id = null,
+                                                    String _Libelle = null,
+                                                    String _Reference = null,
+                                                    Int32? _StockMin = null,
+                                                    Int32? _StockMax = null,
+                                                    Int32? _CommandeId = null,
+                                                    Int32? _CategorieId = null,
+                                                    Int32? _Top = null
+                                                )
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
 
-            List<ProduitResult> _ProduitsResults = _DB.GetProduits(
+            List<ProduitResult> _ProduitResults = _DB.GetProduits(
                                     id: (_Id == null ? -1 : _Id),
                                     libelle: (String.IsNullOrEmpty(_Libelle) ? null : _Libelle),
                                     reference: (String.IsNullOrEmpty(_Reference) ? null : _Reference),
                                     stockMin: (_StockMin == null ? -1 : _StockMin),
                                     stockMax: (_StockMax == null ? -1 : _StockMax),
                                     commandeId: (_CommandeId == null ? -1 : _CommandeId),
-                                    categorieId: (_CategorieId == null ? -1 : _CategorieId)
+                                    categorieId: (_CategorieId == null ? -1 : _CategorieId),
+                                    top: (_Top == null ? -1 : _Top)
                                ).ToList();
 
             List<Produit> _Produits = new List<Produit>();
-            foreach (ProduitResult _Current in _ProduitsResults)
+            foreach (ProduitResult _Current in _ProduitResults)
             {
 
                 Produit _NewProduit = new Produit();
@@ -40,10 +50,11 @@ namespace WS.BLL
                 _NewProduit.Descriptif = _Current.Descriptif;
                 _NewProduit.Prix = _Current.Prix;
                 _NewProduit.Stock = _Current.Stock;
-                _NewProduit.Poids = _Current.Poids;
-                _NewProduit.Longueur = _Current.Longueur;
-                _NewProduit.Largeur = _Current.Largeur;
-                _NewProduit.Hauteur = _Current.Hauteur;
+
+                _NewProduit.Poids = (_Current.Poids != null ? _Current.Poids : 0);
+                _NewProduit.Longueur = (_Current.Longueur != null ? _Current.Longueur : 0);
+                _NewProduit.Largeur = (_Current.Poids != null ? _Current.Largeur : 0);
+                _NewProduit.Hauteur = (_Current.Hauteur != null ? _Current.Hauteur : 0);
                 _NewProduit.Depassement = _Current.Depassement;
 
                 _NewProduit.DtDebut = _Current.DtDebut;
@@ -178,6 +189,30 @@ namespace WS.BLL
                 );
         }
 
+
+
+        public static List<Frai> GetFrais(Double? _Poids = null)
+        {
+            DBModelsParameters _DB = new WS.Models.DBModelsParameters();
+
+            List<FraiResult> _FraisResults = _DB.GetFrais(
+                                    poids: _Poids
+                               ).ToList();
+
+            List<Frai> _Frais = new List<Frai>();
+            foreach (FraiResult _Current in _FraisResults)
+            {
+
+                Frai _NewFrai = new Frai();
+                _NewFrai.Id = _Current.Id;
+                _NewFrai.Libelle = _Current.Libelle;
+                _NewFrai.Prix = _Current.Prix;
+
+                _Frais.Add(_NewFrai);
+            }
+
+            return _Frais;
+        }
 
     }
 }

@@ -14,8 +14,20 @@ namespace WS.Models
     
     public partial class Statuts
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Statuts()
+        {
+            this.Commandes = new HashSet<Commandes>();
+            this.Lignes = new HashSet<Lignes>();
+        }
+    
         public int Id { get; set; }
         public string Libelle { get; set; }
         public Nullable<int> Position { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Commandes> Commandes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lignes> Lignes { get; set; }
     }
 }

@@ -29,7 +29,8 @@ namespace WS.Controllers
                                                         _TypologieId: _Parameters.TypologieId,
                                                         _EvenementParentId: _Parameters.EvenementParentId,
                                                         _EleveId: _Parameters.EleveId,
-                                                        _OnlyParentsYN: _Parameters.OnlyParentsYN
+                                                        _OnlyParentsYN: _Parameters.OnlyParentsYN,
+                                                        _Top: _Parameters.Top
                                                     ));
         }
 

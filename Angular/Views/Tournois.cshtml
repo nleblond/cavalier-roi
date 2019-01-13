@@ -37,7 +37,7 @@
                                 <td class="prix">
                                     @if (Model.EvenementsTournois[_Index].Prix != null)
                                     {
-                                        <span>@Model.EvenementsTournois[_Index].Prix€&nbsp; &nbsp;</span>
+                                        <span>&nbsp; &nbsp;@Tools.Euro(Model.EvenementsTournois[_Index].Prix)&nbsp; &nbsp;</span>
                                     }
                                 </td>
                                 <td class="reserver">

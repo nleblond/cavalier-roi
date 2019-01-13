@@ -1,0 +1,20 @@
+﻿<span>&Eacute;tape 2/3</span>
+<div class="br10"></div>
+
+<div class="jaune">Adresse de livraison</div>
+<div class="clear-left"></div>
+
+<div class="adresse">
+    <input type="text" placeholder="Destinataire" class="destinataire" value='@(Model.Adresse != null ? @Model.Adresse.Destinataire : "")' />
+    <input type="text" placeholder="N°/Route" class="route" value='@(Model.Adresse != null ? @Model.Adresse.Ligne1 : "")' />
+    <input type="text" placeholder="Autre information de livraison" class="complement" value='@(Model.Adresse != null ? @Model.Adresse.Ligne2 : "")' />
+    <input type="text" placeholder="Code postal" class="codepostal" value='@(Model.Adresse != null ? @Model.Adresse.CodePostal : "")' />
+    <input type="text" placeholder="Ville" class="ville" value='@(Model.Adresse != null ? @Model.Adresse.Ville : "")' />
+    <input type="text" placeholder="Email" class="mail" value='@(Model.Adresse != null ? @Model.Adresse.Email : "")' />
+    <input type="text" placeholder="Téléphone" class="phone" value='@(Model.Adresse != null ? @Model.Adresse.Telephone : "")' />
+</div>
+
+<input type="button" value="Revenir" class="revenir fleft" title="Revenir" />
+<input type="button" value="Valider" class="valider fright" title="Valider" />
+
+<div class="clear"></div>

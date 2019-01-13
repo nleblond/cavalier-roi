@@ -176,6 +176,10 @@
   <ItemGroup>
     <Content Include="app\Commandes\app.component.html" />
     <Content Include="Views\Shared\CalendrierParEvenement.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\PanierEtape1.cshtml" />
+    <Content Include="Views\Shared\PanierEtape2.cshtml" />
     <TypeScriptCompile Include="app\Commandes\Models\CommandeUpdateParameters.ts" />
     <Content Include="app\Contenus\app.component.html" />
     <Content Include="app\Eleves\app.component.html" />
@@ -192,7 +196,6 @@
     <Content Include="Scripts\Views\Stages.js" />
     <Content Include="Scripts\Views\Tournois.js" />
     <Content Include="Scripts\Views\Boutique.js" />
-    <Content Include="Scripts\Views\Shared\Panier.js" />
     <Content Include="Scripts\Views\MonCompte.js" />
     <Content Include="Scripts\Views\Shared\Connexion.js" />
     <Content Include="Content\CSS\Site.css" />

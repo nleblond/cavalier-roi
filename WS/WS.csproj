@@ -214,10 +214,14 @@
     <Compile Include="Models\Evenements.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FraiResult.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Frais.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IN\EleveUpdateParameters.cs" />
+    <Compile Include="Models\IN\FraisSearchParameters.cs" />
     <Compile Include="Models\IN\ReservationDeleteParameters.cs" />
     <Compile Include="Models\IN\ParticipationDeleteParameters.cs" />
     <Compile Include="Models\IN\ParticipationUpdateParameters.cs" />

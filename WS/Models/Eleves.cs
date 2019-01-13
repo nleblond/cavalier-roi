@@ -17,9 +17,9 @@ namespace WS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Eleves()
         {
-            this.Commandes = new HashSet<Commandes>();
             this.Participations = new HashSet<Participations>();
             this.Reservations = new HashSet<Reservations>();
+            this.Commandes = new HashSet<Commandes>();
         }
     
         public int Id { get; set; }
@@ -41,10 +41,10 @@ namespace WS.Models
         public Nullable<bool> Administration { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Commandes> Commandes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Participations> Participations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservations> Reservations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Commandes> Commandes { get; set; }
     }
 }

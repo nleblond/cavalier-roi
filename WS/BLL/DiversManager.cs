@@ -26,11 +26,23 @@ namespace WS.BLL
 
 
 
-        public static List<WS.Models.Statuts> GetStatuts()
+        public static List<Statut> GetStatuts()
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
 
-            return _DB.GetStatuts().ToList();
+            List<Statuts> _StatutResults = _DB.GetStatuts().ToList();
+
+            List<Statut> _Statuts = new List<Statut>();
+            foreach (Statuts _Current in _StatutResults)
+            {
+                Statut _NewStatut = new Statut();
+                _NewStatut.Id = _Current.Id;
+                _NewStatut.Libelle = _Current.Libelle.Trim();
+
+                _Statuts.Add(_NewStatut);
+            }
+
+            return _Statuts;
         }
 
 

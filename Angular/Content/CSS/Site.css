@@ -31,26 +31,29 @@ select, input, textarea, input { outline: none; border: solid 1pt #000000; font-
 input[type="button"] { background-color: #FECC16; color: #000000; border: solid 1pt #FECC16; cursor: pointer; text-transform: capitalize; /*font-family: "God Of War"; font-size: 10px;*/ }
 .border-bottom { border-bottom: solid 1pt #FECC16; }
 .br5 { display: block; height: 5px; }
-.br10 { display: block; height: 10px; }
+.br10 { display: block; height: 0.5rem; }
 .br20 { display: block; height: 1.0rem; }
 .texte { font-family: "Trebuchet MS"; font-size: 0.75rem; color: #FFFFFF; }
 .titre { font-family: "God Of War"; font-size: 1.4rem; color: #FECC16; text-transform: uppercase; }
 .date { font-family: "Trebuchet MS"; font-size: 0.60rem; color: #FECC16; }
 a.tous { clear: both; float: right; font-family: "Trebuchet MS"; font-size: 0.75rem; color: #FECC16; margin: 0.5rem 0rem 1.0rem 0rem; text-decoration: none; cursor: pointer; }
 a.tous:hover { color: #FECC16; text-decoration: underline; }
+h2 { font-family: "God Of War"; font-size: 1.0rem; color: #FECC16!important; text-transform: uppercase; padding: 1.0rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem; }
+
+
 
 .page_frontoffice { width: 1348px; margin: 1.0rem auto 1.0rem auto; border: solid 1pt #FECC16; padding: 0rem 0rem 0rem 0rem; background: #161616 url("../Images/Background4.jpg") no-repeat top left; background-size: 100% auto; }
 .page_frontoffice .filter_frontoffice { background-color: #000000; min-height: 700px; opacity: 0.75; filter: alpha(opacity=75); }
-.page_frontoffice h1 { font-family: "God Of War"; font-size: 1.4rem; color: #FECC16; text-transform: uppercase; margin: 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
-.page_frontoffice h2 { font-family: "God Of War"; font-size: 1.0rem; color: #FECC16; text-transform: uppercase; padding: 1.0rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem; }
-.page_frontoffice h3 { font-family: "God Of War"; font-size: 0.6rem; color: #FECC16; text-transform: uppercase; margin: 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
+.page_frontoffice h1 { font-family: "God Of War"; font-size: 1.4rem; color: #FECC16!important; text-transform: uppercase; margin: 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
+.page_frontoffice h2 { font-family: "God Of War"; font-size: 1.0rem; color: #FECC16!important; text-transform: uppercase; padding: 1.0rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem; }
+.page_frontoffice h3 { font-family: "God Of War"; font-size: 0.6rem; color: #FECC16!important; text-transform: uppercase; margin: 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
 .page_frontoffice .pagination { color: #FECC16; margin: 0rem auto 0rem auto; border-top: solid 1pt #FECC16; text-align: center; padding: 0.5rem 0rem 0.5rem 0rem; display: inline-block; }
 
 
 .page_backoffice { width: 1880px; margin: 0rem auto 0rem auto; /*border: solid 1pt #FECC16;*/ padding: 0rem 0rem 0rem 0rem; /*background: #161616 url("../Images/Background4.jpg") no-repeat top left;*/ background-size: 100% auto; font-family: "Trebuchet MS"; font-size: 12px; color: #FFFFFF; }
 .page_backoffice .filter_backoffice { min-height: 500px; padding: 10px 10px 10px 10px; /*opacity: 0.75; background-color: #000000; filter: alpha(opacity=75);*/ }
-.page_backoffice h1 { font-family: "God Of War"; font-size: 22px; color: #FECC16; text-transform: uppercase; margin: 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
-.page_backoffice h2 { font-family: "God Of War"; font-size: 18px; color: #FECC16; text-transform: uppercase; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem; }
+.page_backoffice h1 { font-family: "God Of War"; font-size: 22px; color: #FECC16!important; text-transform: uppercase; margin: 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
+.page_backoffice h2 { font-family: "God Of War"; font-size: 18px; color: #FECC16!important; text-transform: uppercase; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem; }
 .page_backoffice a { text-decoration: underline; color: #FECC16; cursor: pointer; }
 .page_backoffice a:hover { text-decoration: #FECC16; color: #FECC16; }
 .page_backoffice input[type="button"] { float: right; margin: 0rem 0rem 0rem 10px; }
@@ -74,12 +77,12 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 .page_backoffice table.first tbody tr:hover { background-color: #161616; }
 .page_backoffice table.first tbody tr.last td { border-bottom: none; } 
 .page_backoffice table.first tbody td { text-align: left; padding: 10px 10px 10px 10px; border-bottom: solid 1pt #FECC16; }
-.page_backoffice table.first tbody td: last-child { text-align: right; white-space: nowrap; }
+.page_backoffice table.first tbody td:last-child { text-align: right; white-space: nowrap; }
 .page_backoffice table.first tbody td img { max-width: 60px; max-height: 60px; }
 
 .page_backoffice table.second { border: solid 1pt #FECC16; padding: 0rem 0rem 10px 0rem; margin: 0rem 0rem 0rem 0rem; }
 .page_backoffice table.second tbody tr td { text-align: left; padding: 10px 10px 0rem 10px; border-bottom: none; }
-.page_backoffice table.second tbody tr td: last-child { text-align: right; }
+.page_backoffice table.second tbody tr td:last-child { text-align: right; }
 
 .page_backoffice .details { float: left; padding: 0rem 0rem 0rem 0rem; margin: 1.0rem 0rem 0rem 10px; width: 510px; }
 .page_backoffice .fermer { display: block; float: right; margin: -1.2rem -1.2rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 1.2rem; height: 1.2rem; cursor: pointer; z-index: 2000; }
@@ -137,7 +140,7 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 .menu .liste ul.first li.last { margin-right: 0rem; }
 .menu .liste ul.first li.select a { color: #FECC16!important; }
 .menu .liste ul.second { float: left; padding: 0rem 0rem 0rem 0rem; margin: 0.3rem 0rem 0rem -1.35rem; list-style: none; display: none; position: absolute; background-color: #161616; border-left: solid 1pt #FECC16; border-right: solid 1pt #FECC16; border-bottom: solid 1pt #FECC16; opacity: 0.8; filter: alpha(opacity=80); }
-.menu .liste ul.second li { float: left; padding: 10px 10px 10px 10px; font-family: "God Of War"; font-size: 13px; cursor: pointer; clear: left; text-align: center; width: 100px; }
+.menu .liste ul.second li { float: left; padding: 0.5rem 0.5rem 0.5rem 0.5rem; cursor: pointer; clear: left; text-align: center; width: 100px; }
 .menu .liste ul.second li:hover { text-decoration: underline; color: #FFFFFF; }
 .menu .liste ul.second li a { text-decoration: none; color: #FFFFFF; display: block; }
 .menu .liste ul.second li a:hover { text-decoration: underline; color: #FFFFFF; }
@@ -160,29 +163,42 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 
 /* panier de la colonne de droite */
 /********************************************************************************************/
-.panier { display: none; float: left; width: 16.6rem; height: auto; padding: 0rem 1.0rem 0rem 1.0rem; margin: 1rem 0rem 0rem 0rem; border: solid 1pt #FECC16; }
+.panier { display: none; float: left; width: 16.6rem; height: auto; padding: 0rem 1.0rem 0rem 1.0rem; margin: 1rem 0rem 0rem 0rem; border: solid 1pt #FECC16; background-color: #161616; }
 .panier .fermer { display: none; }
-.panier .titre { margin: 0rem 0rem 0rem 0rem; padding: 1.0rem 0rem 0rem 0rem; font-size: 1.0rem; width: 100%; }
-.panier table { padding: 0.5rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; border-bottom: solid 1pt #FECC16; }
-.panier table tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; vertical-align: top; }
-.panier table th { padding: 0rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; color: #FECC16; border-bottom: solid 1pt #FECC16; }
-.panier table th:nth-child(1) { text-align: left; }
-.panier table th:nth-child(2) { text-align: center; }
-.panier table th:nth-child(3) { text-align: center; }
-.panier table td { padding: 0.2rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; color: #FFFFFF; }
-.panier table td:nth-child(1) { text-align: left; }
-.panier table td:nth-child(2) { text-align: center; }
-.panier table td:nth-child(3) { text-align: center; }
+.panier .titre { margin: 0rem 0rem 0rem 0rem; padding: 1.0rem 0rem 0.5rem 0rem; font-size: 1.0rem; width: 100%; }
 
-.panier .total { margin: 0.2rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 100%; color: #FECC16; text-align: right; }
-.panier .adresse { margin: 0rem 0rem 1.0rem 0rem; padding: 0.5rem 0rem 1.0rem 0rem; width: 100%; border-bottom: solid 1pt #FECC16; }
-.panier .adresse .route { margin: 0.5rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
-.panier .adresse .complement { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
-.panier .adresse .codepostal { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 70px; }
-.panier .adresse .ville { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
-.panier .adresse .mail { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
-.panier .adresse .phone { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 70px; }
-.panier .paypal { float: left; margin: 0rem 0rem 1.0rem 0rem; padding: 0rem 0rem 0rem 0rem; text-align: left; width: 80px; }
+.panier .etape1 { display:block; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem;}
+.panier .etape1  table.lignes { padding: 0rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
+.panier .etape1  table.lignes tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; vertical-align: top; }
+.panier .etape1  table.lignes th { padding: 0rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; color: #FECC16; border-bottom: solid 1pt #FECC16; }
+.panier .etape1  table.lignes th:nth-child(1) { text-align: left; }
+.panier .etape1  table.lignes th:nth-child(2) { text-align: center; }
+.panier .etape1  table.lignes th:nth-child(3) { text-align: center; }
+.panier .etape1  table.lignes th:nth-child(4) { text-align: right; }
+.panier .etape1  table.lignes td { padding: 0.2rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; color: #FFFFFF; }
+.panier .etape1  table.lignes td:nth-child(1) { text-align: left; }
+.panier .etape1  table.lignes td:nth-child(2) { text-align: center; }
+.panier .etape1  table.lignes td:nth-child(3) { text-align: center; }
+.panier .etape1  table.lignes td:nth-child(4) { text-align: right; }
+.panier .etape1  table.lignes .supprimer { color:#FECC16; cursor:pointer; }
+.panier .etape1  .tarifs { margin: 0.2rem 0rem 0.2rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 100%; color: #FECC16; text-align: right; }
+
+.panier .etape2 { display:none; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem;}
+.panier .etape2 .adresse { margin: 0.5rem 0rem 1.0rem 0rem; padding: 0.5rem 0rem 0.5rem 0rem; width: 100%; border-bottom: solid 1pt #FECC16; border-top: solid 1pt #FECC16; }
+.panier .etape2 .adresse .destinataire { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
+.panier .etape2 .adresse .route { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
+.panier .etape2 .adresse .complement { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
+.panier .etape2 .adresse .codepostal { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 70px; }
+.panier .etape2 .adresse .ville { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
+.panier .etape2 .adresse .mail { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
+.panier .etape2 .adresse .phone { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 70px; }
+
+.panier .etape3 { display:none; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem;}
+.panier .etape3 .valider { display:block; padding: 0.2rem 1.0rem 0.2rem 1.0rem; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; behavior: url(/PIE.htc); }
+
+.panier .etape4 { display:none; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem;}
+
+
 
 /* partenariats */
 /********************************************************************************************/
@@ -268,8 +284,8 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 .contenu div.stages .stage table.formule { width: 100%; margin: 1.0rem 0rem 0rem 0rem; padding: 1.0rem 0rem 0rem 0rem; border-top: solid 1px #FECC16; }
 .contenu div.stages .stage table.formule tr { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 100%; }
 .contenu div.stages .stage table.formule td { margin: 0rem 0rem 0rem 0rem; padding: 5px 0rem 0rem 0rem; }
-.contenu div.stages .stage table.formule td:nth-child(1) { text-align: left; width: 80%; }
-.contenu div.stages .stage table.formule td:nth-child(2) { text-align: right; width: 10%; }
+.contenu div.stages .stage table.formule td:nth-child(1) { text-align: left; width: 65%; }
+.contenu div.stages .stage table.formule td:nth-child(2) { text-align: right; width: 25%; }
 .contenu div.stages .stage table.formule td:nth-child(3) { text-align: right; width: 10%; }
 
 
@@ -331,9 +347,9 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 .contenu div.boutique .last { margin: 0rem 0rem 1.0rem 0rem; }
 .contenu div.boutique .produit .titre { margin: 0rem 0rem 1.0rem 0rem; padding: 0rem 0rem 1.0rem 0rem; font-size: 1.0rem; width: 100%; border-bottom: solid 1pt #FECC16; }
 .contenu div.boutique .produit a.visuel { display:block; }
-.contenu div.boutique .produit a.visuel img { float: right; margin: 0rem 0rem 10px 10px; padding: 0rem 0rem 0rem 0rem; width: 210px; height: auto; }
+.contenu div.boutique .produit a.visuel img { float: right; margin: 0rem 0rem 1.0rem 1.0rem; padding: 0rem 0rem 0rem 0rem; width: 210px; height: auto; }
 .contenu div.boutique .produit a.image { display:none; }
-.contenu div.boutique .produit a.image img { float: right; margin: 0rem 0rem 10px 10px; padding: 0rem 0rem 0rem 0rem; width: 210px; height: auto; }
+.contenu div.boutique .produit a.image img { float: right; margin: 0rem 0rem 1.0rem 1.0rem; padding: 0rem 0rem 0rem 0rem; width: 210px; height: auto; }
 .contenu div.boutique .produit .logo { float: left; margin: 0rem 1.0rem 1.0rem 0rem; padding: 0rem 0rem 0rem 0rem; max-width: 100px; max-height: 100px; }
 .contenu div.boutique .produit .descriptif { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
 
@@ -341,9 +357,9 @@ a.tous:hover { color: #FECC16; text-decoration: underline; }
 .contenu div.boutique .produit .formule div.disponibilite { float: left; margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; color: #FECC16; width: 25%; text-align: left; white-space: nowrap; }
 .contenu div.boutique .produit .formule div.prix { float: left; margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 25%; text-align: left; white-space: nowrap; }
 .contenu div.boutique .produit .formule div.quantite { float: left; margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; white-space: nowrap; width: 25%; text-align: center; white-space: nowrap; }
-.contenu div.boutique .produit .formule div.quantite .moins { float: left; margin: 0rem 0.2rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 1.0rem; height: 1.0rem; text-align: center; }
+.contenu div.boutique .produit .formule div.quantite .moins { float: left; margin: 0rem 0.2rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 1.0rem; height: 1.0rem; text-align: center; cursor:pointer; }
 .contenu div.boutique .produit .formule div.quantite input[type="text"] { float: left; margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 25px; text-align: center; }
-.contenu div.boutique .produit .formule div.quantite .plus { float: left; margin: 0rem 0rem 0rem 0.2rem; padding: 0rem 0rem 0rem 0rem; width: 1.0rem; height: 1.0rem; text-align: center; }
+.contenu div.boutique .produit .formule div.quantite .plus { float: left; margin: 0rem 0rem 0rem 0.2rem; padding: 0rem 0rem 0rem 0rem; width: 1.0rem; height: 1.0rem; text-align: center; cursor:pointer; }
 .contenu div.boutique .produit .formule div.reserver { float: left; margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 25%; text-align: right; white-space: nowrap; }
 
 
@@ -499,10 +515,9 @@ div.modal_calendrier .texte .selections table { float: left; margin: 1.0rem 0rem
 div.modal_calendrier .texte .selections table tr { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem; width: 100%; }
 div.modal_calendrier .texte .selections table td { padding: 0rem 0rem 0.3rem 0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; width: 100%; }
 div.modal_calendrier .texte .selections table td:nth-child(2) { text-align: right; }
-div.modal_calendrier .valider, div.modal_calendrier .revenir { float: right; }
-div.modal_calendrier .paypal { display:inline-block; width: 90px; vertical-align:middle; }
 div.modal_calendrier a { font-family: "Trebuchet MS"; font-size: 0.75rem; color: #FECC16; text-decoration: none; cursor: pointer; }
 div.modal_calendrier a.hover { color: #FECC16; text-decoration: underline; }
+div.modal_calendrier .autre { display:block; padding: 0.2rem 1.0rem 0.2rem 1.0rem; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; behavior: url(/PIE.htc); }
 
 @media (max-width: 640px) {
     * {
@@ -543,10 +558,10 @@ div.modal_calendrier a.hover { color: #FECC16; text-decoration: underline; }
     .menu .menu_mobile .part2 { float: left; text-align: center; font-family: "God Of War"; font-size: 5vw; color: #FECC16; text-transform: uppercase; display: inline-block; margin: 0.15rem 1.0rem 0rem 0rem; padding: 0.15rem 0rem 0rem 0rem; border-top: solid 1px #FECC16; }
     .menu .menu_mobile img.basket { display: none; float: right; background-color: #FECC16; margin: 1.0rem 1.0rem 1.0rem 0rem; padding: 0.5rem 0.5rem 0.5rem 0.5rem; text-align: center; cursor: pointer; width: 10vw; }
     
-    .menu .liste { float: left; width: 40%; background-color: #FECC16; clear: left; margin: 3.2rem 0rem 0rem 1.0rem; position: fixed; display: none; }
-    .menu .liste ul.first { float: left; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; list-style: none; width: 100%; }
+    .menu .liste { display:inline-block; float: left; background-color: #FECC16; clear: left; margin: 3.2rem 0rem 0rem 1.0rem; position: fixed; display: none; }
+    .menu .liste ul.first { float: left; padding: 0rem 0.5rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; list-style: none; width: 100%; }
     .menu .liste ul.first img { display: block; }
-    .menu .liste ul.first li { float: left; padding: 0.5rem 0.5rem 0.5rem 0.5rem; color: #000000!important; font-family: "God Of War"; font-size: 15px; cursor: pointer; clear: left; width: 100%;  white-space: nowrap; }
+    .menu .liste ul.first li { float: left; padding: 0.5rem 0rem 0.5rem 0.5rem; color: #000000!important; font-family: "God Of War"; font-size: 15px; cursor: pointer; clear: left; width: 100%;  white-space: nowrap; }
     .menu .liste ul.first li:hover { text-decoration: none; color: #000000; }
     .menu .liste ul.first li a { text-decoration: none; color: #000000; }
     .menu .liste ul.first li a:hover { text-decoration: underline; color: #000000; }
@@ -554,11 +569,12 @@ div.modal_calendrier a.hover { color: #FECC16; text-decoration: underline; }
     .menu .liste ul.first li.last { margin-right: 0%; }
     .menu .liste ul.first li.select a { color: #000000!important; }
     
-    .menu .liste ul.second { float: right; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; list-style: none; width: 100%; display: none; position: inherit; background-color: transparent; border: none; }
-    .menu .liste ul.second li { float: right; padding: 0.5rem 0.5rem 0.5rem 0.5rem; margin: 0rem 0rem 0rem 0rem; color: #000000!important; font-family: "God Of War"; font-size: 15px; cursor: pointer; clear: right; text-align: right; }
+    .menu .liste ul.second { float: left; padding: 0rem 0rem 0rem 1.0rem; margin: 0rem 0rem 0rem 0rem; list-style: none; display: none; position: inherit; background-color: transparent; border: none; }
+    .menu .liste ul.second li { float: right; padding: 0.5rem 0rem 0.5rem 0.5rem; margin: 0rem 0rem 0rem 0rem; color: #000000!important; font-family: "God Of War"; font-size: 15px; cursor: pointer; clear: right; text-align: right; }
+    .menu .liste ul.second li:first-child { padding:1.0rem 0rem 0.5rem 0.5rem; }
+    .menu .liste ul.second li:last-child { padding:0.5rem 0rem 0rem 0.5rem; }
     .menu .liste ul.second li a { text-decoration: none; color: #000000; }
     .menu .liste ul.second li a:hover { text-decoration: underline; color: #000000; }
-    .menu .liste ul.second li.last { margin-bottom: 0%; }
     .menu .liste hr { display: none; }
     .menu .liste .focus { display: none; }
 
@@ -666,8 +682,9 @@ div.modal_calendrier a.hover { color: #FECC16; text-decoration: underline; }
 
     .contenu div.boutique .produit { float: left; width: 100%; }
     .contenu div.boutique .produit .titre { float: left; width: 100%; }
-    .contenu div.boutique .produit .photo { float: right; width: 50%; }
-    .contenu div.boutique .produit .logo { float: left; width: 30%; }
+    .contenu div.boutique .produit a.visuel img { width: 45%; height: auto; }
+    .contenu div.boutique .produit a.image img { width: 45%; height: auto; }
+    .contenu div.boutique .produit .logo { width: 15%; }
    
 
     /* page mon compte */
@@ -719,16 +736,15 @@ div.modal_calendrier a.hover { color: #FECC16; text-decoration: underline; }
 
       /* panier de la colonne de droite */
     /********************************************************************************************/
-    .panier { display: none; width: 100%; height: auto; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; z-index: 1000; position: fixed; bottom: 0rem; left: 0rem; border: none; }
-    .panier .interieur { border-top: solid 1pt #FECC16; background-color: #161616; margin: 0rem 0rem 0rem 0rem; padding: 1rem 1rem 1rem 1rem; }
-    .panier .fermer { display: none; position: absolute; right: -0.6rem; top: -0.6rem;  margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 1.2rem; height: auto; cursor: pointer; z-index: 2000; }
-    .panier .titre { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; font-size: 1.0rem; width: 100%; }
-    .panier .adresse .route { width: 100%; }
-    .panier .adresse .complement { width: 100%; }
-    .panier .adresse .codepostal { width: 30%; }
-    .panier .adresse .ville { width: 100%; }
-    .panier .adresse .mail { width: 100%; }
-    .panier .adresse .phone { width: 50%; }
+    .panier { display: none; width: 94%; height: auto; z-index: 1000; position: fixed; bottom: 0rem; left: 3%; }
+    .panier .fermer { display: block; position: absolute; right: -0.6rem; top: -0.6rem;  margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 1.2rem; height: auto; cursor: pointer; z-index: 2000; }
+    .panier .etape2 .adresse .destinataire { width: 100%; }
+    .panier .etape2 .adresse .route { width: 100%; }
+    .panier .etape2 .adresse .complement { width: 100%; }
+    .panier .etape2 .adresse .codepostal { width: 30%; }
+    .panier .etape2 .adresse .ville { width: 100%; }
+    .panier .etape2 .adresse .mail { width: 100%; }
+    .panier .etape2 .adresse .phone { width: 40%; }
 
 
 

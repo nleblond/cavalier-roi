@@ -33,6 +33,21 @@ namespace WS.Controllers
         }
 
 
+        public IHttpActionResult AddCommande(Commande _Commande)
+        {
+            return Ok(CommandesManager.AddCommande(
+                                    _StatutId: _Commande.Statut.Id,
+                                    _EleveId: _Commande.Eleve.Id,
+                                    _Prix: _Commande.Prix,
+                                    _FraiId: _Commande.Frai.Id,
+                                    _ReferenceTransaction: _Commande.ReferenceTransaction,
+                                    _ReferenceExterne: _Commande.ReferenceExterne,
+                                    _Adresse: _Commande.Adresse,
+                                    _Lignes: _Commande.Lignes
+                                ));
+        }
+
+
         [HttpPost]
         [HttpGet]
         public IHttpActionResult DelCommande(Int32 _Id, String _Real = "N")

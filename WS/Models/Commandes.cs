@@ -21,23 +21,23 @@ namespace WS.Models
         }
     
         public int Id { get; set; }
-        public System.DateTime DtCreation { get; set; }
+        public Nullable<System.DateTime> DtCreation { get; set; }
         public Nullable<System.DateTime> DtModification { get; set; }
         public Nullable<System.DateTime> DtValidation { get; set; }
-        public int StatutId { get; set; }
-        public int EleveId { get; set; }
+        public Nullable<int> StatutId { get; set; }
+        public Nullable<int> FraiId { get; set; }
+        public Nullable<int> EleveId { get; set; }
+        public Nullable<int> AdresseId { get; set; }
         public Nullable<double> Prix { get; set; }
         public string DeletedYN { get; set; }
         public string ReferenceTransaction { get; set; }
         public string ReferenceExterne { get; set; }
-        public Nullable<int> AdresseId { get; set; }
-        public Nullable<int> FraiId { get; set; }
     
+        public virtual Adresses Adresse { get; set; }
+        public virtual Eleves Eleve { get; set; }
         public virtual Frais Frai { get; set; }
         public virtual Statuts Statut { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lignes> Lignes { get; set; }
-        public virtual Eleves Eleve { get; set; }
-        public virtual Adresses Adresse { get; set; }
     }
 }

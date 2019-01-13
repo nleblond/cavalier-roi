@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WS.Models.OUT
 {
-   public partial class Eleve
+    public partial class Eleve
     {
         public Eleve()
         {
@@ -44,6 +44,7 @@ namespace WS.Models.OUT
         public List<Commande> Commandes { get; set; }
 
 
+        public Commande CommandeEnCours { set; get; }
 
 
         public Int32? NbCommandes { get; set; }

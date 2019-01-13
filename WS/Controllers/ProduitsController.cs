@@ -24,7 +24,8 @@ namespace WS.Controllers
                                                     _StockMin: _Parameters.StockMin,
                                                     _StockMax: _Parameters.StockMax,
                                                     _CommandeId: _Parameters.CommandeId,
-                                                    _CategorieId: _Parameters.CategorieId
+                                                    _CategorieId: _Parameters.CategorieId,
+                                                    _Top: _Parameters.Top
                             ));
 
         }
@@ -103,7 +104,11 @@ namespace WS.Controllers
         }
 
 
-        
+        [HttpPost]
+        public IHttpActionResult GetFrais(FraisSearchParameters _Parameters)
+        {
+            return Ok(ProduitsManager.GetFrais(_Parameters.Poids));
+        }
 
 
     }

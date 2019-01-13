@@ -2,7 +2,7 @@
 var _APIKey = 'AEZRETRYTUYIUOIP';
 
 var _UrlToRedirect = '';
-
+var _CallBackAction = '';
 
 $(window).on('load', function () {
 
@@ -44,11 +44,15 @@ $(window).on('load', function () {
 
 
 
-function OpenConnexion(_UrlToRedirect) {
+function OpenConnexion(_UrlToRedirect, _CallBackAction) {
     $('#Div_Connexion').ModalPopUp('open');
 
-    if ((_UrlToRedirect != '') & (_UrlToRedirect != null)) {
+    if ((_UrlToRedirect != null) && (_UrlToRedirect != '') && (_UrlToRedirect != undefined)) {
         this._UrlToRedirect = _UrlToRedirect;
+    }
+
+    if ((_CallBackAction != null) && (_CallBackAction != null) && (_CallBackAction != undefined)) {
+        this._CallBackAction = _CallBackAction;
     }
 
     $('.connexion .email').focus();
@@ -58,6 +62,7 @@ function OpenConnexion(_UrlToRedirect) {
 function CloseConnexion() {
 
     this._UrlToRedirect = '';
+    this._CallBackAction = '';
 
     $('#Div_Connexion').ModalPopUp('close');
 }
@@ -134,6 +139,9 @@ function ConnectEleve() {
                 if (data) {
                     if (_UrlToRedirect != '') {
                         document.location.href = _UrlToRedirect;
+                    }
+                    else if (_CallBackAction != '') {
+                        eval(_CallBackAction);
                     }
                     else {
                         document.location.href = document.location.href;

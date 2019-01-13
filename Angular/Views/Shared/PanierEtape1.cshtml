@@ -1,0 +1,48 @@
+﻿@model WS.Models.OUT.Commande 
+    
+@if((Model.Lignes != null) && (Model.Lignes.Count > 0))
+{
+    <span>&Eacute;tape 1/3</span>
+    <div class="br10"></div>
+}
+
+<table cellpadding="0" cellspacing="0" border="0" class="lignes">
+    <tr>
+        <th>Produit</th>
+        <th>Qté</th>
+        <th>Prix</th>
+        <th></th>
+    </tr>
+    @if ((Model.Lignes == null) || (Model.Lignes.Count == 0))
+    {
+        <tr>
+            <td colspan="4">Aucun produit</td>
+        </tr>
+    }
+    else
+    {
+        foreach (WS.Models.OUT.Ligne _CurrentL in Model.Lignes)
+        {
+            <tr>
+                <td>@_CurrentL.Produit.Libelle</td>
+                <td>@_CurrentL.Quantite</td>
+                <td><span>@_CurrentL.Produit.Prix</span>€</td>
+                <td>&nbsp;<span class="supprimer" title="Supprimer" data-id="@_CurrentL.Id">✖</span></td>
+            </tr>
+        }
+    }
+</table>
+@if ((Model.Lignes != null) && (Model.Lignes.Count > 0))
+{
+    <div class="tarifs texte">
+        <div title="@Model.Frai.Libelle">Frais de port : <span>@Model.Frai.Prix</span>€</div>
+        <div>Total : <span>@Model.Prix</span>€</div>
+    </div>
+}
+@if ((Model.Lignes != null) && (Model.Lignes.Count > 0))
+{
+    <hr />
+    <div class="br10"></div>
+    <input type="button" value="Valider" class="valider fright" title="Valider" />
+    <div class="clear"></div>
+}

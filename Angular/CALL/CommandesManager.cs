@@ -49,6 +49,33 @@ namespace Angular.CALL
         }
 
 
+        public static async Task<Int32?> AddCommande(Commande _Commande)
+        {
+            var _Client = new HttpClient();
+            _Client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
+
+
+            Commande _Parameters = _Commande;
+            HttpContent _JsonRequestContent = new StringContent(_Parameters.ToSerializedJson(), Encoding.UTF8, "application/json");
+
+
+            HttpRequestMessage _Request = new HttpRequestMessage
+            {
+                RequestUri = new Uri(Constants.WS_URL + "/Commandes/AddCommande"),
+                Method = HttpMethod.Post,
+                Headers = { { "APIKey", Constants.WS_PASSKEY } },
+                Content = _JsonRequestContent
+            };
+
+            HttpResponseMessage _Response = _Client.SendAsync(_Request).Result;
+            String _JsonResponseContent = await _Response.Content.ReadAsStringAsync();
+            Int32? _CommandeId = JsonConvert.DeserializeObject<Int32?>(_JsonResponseContent);
+
+            return _CommandeId;
+
+        }
+
+
 
     }
 }

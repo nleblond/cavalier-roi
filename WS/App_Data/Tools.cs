@@ -1440,7 +1440,7 @@ public static class Tools
             SmtpClient.Send(MailMsg);
             MailMsg.Dispose();
         }
-        catch (Exception Ex)
+        catch (Exception)
         {
             return false;
         }

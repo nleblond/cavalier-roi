@@ -11,7 +11,7 @@ _Jours[5] = "Vendredi";
 _Jours[6] = "Samedi";
 
 
-//variables Paypal
+//variables paypal
 var _Total = '';
 var _Description = 'Paiement pour réservation';
 var _Note = "Pour plus d'informations sur ce paiement, n'hésitez pas à contacter l'École du cavalier roi à paypal@cavalier-roi.fr";
@@ -76,10 +76,10 @@ $(window).on('load', function () {
 
 function OpenCalendrierParDemiJournee(_EvenementId, _EvenementLibelle, _EleveId, _DtDebut, _DtFin, _Prix, _Duree, _EvenementParentId) {
 
-    //variables Paypal
-    _Total = _Prix;
-    _Price = _Prix;
-    _Item = _EvenementLibelle;
+    //variables paypal
+    this._Total = _Prix.toString().replace(',', '.');
+    this._Price = _Prix.toString().replace(',', '.');
+    this._Item = _EvenementLibelle;
 
     ClearCalendrierParDemiJournee();
 
@@ -96,8 +96,8 @@ function OpenCalendrierParDemiJournee(_EvenementId, _EvenementLibelle, _EleveId,
 
     if ((_EvenementParentId.toString() == '') || (_EvenementParentId == null)) { //formule complete (toutes les réservations)
 
-        //variables Paypal
-        _Reservations = 'du ' + _DtDebut + ' au ' + _DtFin;
+        //variables paypal
+        this._Reservations = 'du ' + _DtDebut + ' au ' + _DtFin;
 
         if ((_Prix == '') || (_Prix == null)) { //participation gratuite
             AddParticipationParDemiJournee();
@@ -528,9 +528,9 @@ function ValidateParticipationAndReservationsParDemiJournee() {
     if ((document.location.href.toLowerCase().indexOf('moncompte') < 0) && ($('#Div_CalendrierParDemiJournee .selections table').find('.selection').length == parseInt(_Duree))) {
 
         //variables paypal
-        _Reservations = '';
+        this._Reservations = '';
         $('#Div_CalendrierParDemiJournee .selections table tr.selection td.creneau').each(function () {
-            _Reservations = _Reservations + (_Reservations != '' ? ' / ' + $(this).html() : $(this).html());
+            this._Reservations = this._Reservations + (this._Reservations != '' ? ' / ' + $(this).html() : $(this).html());
         });
 
         $('#Div_CalendrierParDemiJournee .planning').hide();
@@ -984,6 +984,12 @@ paypal.Button.render({
         production: "Ad8wWcW6tQWVhQTQMSORbuN-p0Zv7NT78-Fqrw3xDb45zVjKl87A4iHDYhUwAd_drfuRmo5WaqbLfyL4"
     },
 
+    style: {
+        label: 'pay',
+        tagline: false,
+        fundingicons: true
+    },
+
     // Show the buyer a 'Pay Now' button in the checkout flow
     commit: true,
 
@@ -1025,18 +1031,18 @@ paypal.Button.render({
 
     onAuthorize: function (data, actions) {
         return actions.payment.execute().then(function () {
-            CallBackPaypalOK(data.paymentID);
+            CallBackPayPalOK(data.paymentID);
         });
     },
 
     onCancel: function (data, actions) { },
 
-    onError: function (err) { CallBackPaypalKO(); }
+    onError: function (err) { CallBackPayPalKO(err); }
 
 }, '#paypal-button-container');
 
 
-function CallBackPaypalOK(_PaymentId) {
+function CallBackPayPalOK(_PaymentId) {
 
     AddParticipationParDemiJournee(_PaymentId);
 
@@ -1058,7 +1064,7 @@ function CallBackPaypalOK(_PaymentId) {
 }
 
 
-function CallBackPaypalKO() {
+function CallBackPayPalKO(_Error) {
     $('#Div_CalendrierParDemiJournee .paiement').hide();
     $('#Div_CalendrierParDemiJournee .confirmation').show();
 

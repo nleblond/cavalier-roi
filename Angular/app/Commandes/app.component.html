@@ -48,7 +48,7 @@
                 <td>{{c.Id}}</td>
                 <td>{{c.DtCreation}}</td>
                 <td>
-                    <div><input type="text" [value]="c.ReferenceTransaction" placeholder="Référence de transaction (Paypal)" title="Référence de transaction (Paypal)" (change)="ChangeReferenceTransaction($event, i)" #ReferenceTransaction /></div>
+                    <div><input type="text" [value]="c.ReferenceTransaction" placeholder="Référence de transaction (PAYPAL : PaymentId)" title="Référence de transaction (Paypal)" (change)="ChangeReferenceTransaction($event, i)" #ReferenceTransaction /></div>
                     <div><input type="text" [value]="c.ReferenceExterne" placeholder="Référence externe" title="Référence externe" (change)="ChangeReferenceExterne($event, i)" #ReferenceExterne /></div>
                 </td>
                 <td><a href="/Eleve?_Id={{c.Eleve.Id}}" title="Voir l'élève">[{{c.Eleve.Id}}] {{c.Eleve.Nom}} {{c.Eleve.Prenom}}</a></td>
@@ -58,11 +58,11 @@
                             <tr *ngFor="let l of c.Lignes">
                                 <td><a href="/Produits?_Id={{l.Produit.Id}}" title="Voir le produit">[{{l.Produit.Reference}}] [{{l.Produit.Id}}] {{l.Produit.Libelle}}</a></td>
                                 <td>{{l.Quantite}}</td>
-                                <td>{{l.Prix | number : '1.2-2'}}€</td>
+                                <td>{{l.Prix | number : '1.2-2'}} €</td>
                             </tr>
                         </tbody>
                     </table>
-                <td>{{c.Prix | number : '1.2-2'}}€</td>
+                <td>{{c.Prix | number : '1.2-2'}} €</td>
                 <td>
                     {{c.Adresse.Destinataire}}
                     <br />

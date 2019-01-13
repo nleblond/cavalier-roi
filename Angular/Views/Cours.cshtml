@@ -26,7 +26,7 @@
                         <td class="prix">
                             @if (_Cours[_Index].Prix != null)
                             {
-                                <span>&nbsp; &nbsp;@_Cours[_Index].Prix€&nbsp; &nbsp;</span>
+                                <span>&nbsp; &nbsp;@Tools.Euro(_Cours[_Index].Prix)&nbsp; &nbsp;</span>
                             }
                         </td>
                         <td class="reserver">

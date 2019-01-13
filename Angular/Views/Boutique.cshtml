@@ -37,6 +37,11 @@
 
                 <div class="titre">@Model.Produits[_Index].Libelle</div>
                 <div class="clear"></div>
+
+                <input type="hidden" class="poids" value="@Model.Produits[_Index].Poids" />
+                <input type="hidden" class="hauteur" value="@Model.Produits[_Index].Hauteur" />
+                <input type="hidden" class="largeur" value="@Model.Produits[_Index].Largeur" />
+                <input type="hidden" class="longueur" value="@Model.Produits[_Index].Longueur" />
                 
                 @if (!String.IsNullOrEmpty(Model.Produits[_Index].Visuel))
                 {
@@ -73,13 +78,22 @@
                             }
                         }
                     </div>
-                    <div class="prix">&nbsp;&nbsp;@Model.Produits[_Index].Prix€&nbsp;&nbsp;</div>
+                    <div class="prix">&nbsp;&nbsp;@Tools.Euro(Model.Produits[_Index].Prix)&nbsp;&nbsp;</div>
                     <div class="quantite">
-                        <img src="@Constants.IMG_URL/boutons/Moins.svg" title="Moins" class="moins" />
-                        <input type="text" value="1" class="" />
-                        <img src="@Constants.IMG_URL/boutons/Plus.svg" title="Plus" class="plus" />
+                        <input type="hidden" value="@Model.Produits[_Index].Stock" />
+                        @{
+                            if (Model.Produits[_Index].Stock >= 1)
+                            {
+                                <img src="@Constants.IMG_URL/boutons/Moins.svg" title="Moins" class="moins" />
+                                <input type="text" value="1" />
+                                <img src="@Constants.IMG_URL/boutons/Plus.svg" title="Plus" class="plus" />
+                            }
+                        }
                     </div>
-                    <div class="reserver"><input type="button" title="Ajouter" value="Ajouter" /></div>
+                    @if (Model.Produits[_Index].Stock >= 1)
+                    {
+                        <div class="reserver"><input type="button" title="Ajouter" data-produitid="@Model.Produits[_Index].Id" class="ajouter" value="Ajouter" /></div>
+                    }
                 </div>
             </div>
         }

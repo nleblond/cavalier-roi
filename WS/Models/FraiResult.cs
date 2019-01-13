@@ -10,21 +10,11 @@
 namespace WS.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Lignes
+    public partial class FraiResult
     {
-        public int Id { get; set; }
-        public Nullable<int> ProduitId { get; set; }
-        public Nullable<int> CommandeId { get; set; }
-        public Nullable<int> Quantite { get; set; }
-        public Nullable<int> StatutId { get; set; }
+        public Nullable<int> Id { get; set; }
+        public string Libelle { get; set; }
         public Nullable<double> Prix { get; set; }
-        public Nullable<double> Reduction { get; set; }
-        public string DeletedYN { get; set; }
-    
-        public virtual Commandes Commande { get; set; }
-        public virtual Produits Produit { get; set; }
-        public virtual Statuts Statut { get; set; }
     }
 }

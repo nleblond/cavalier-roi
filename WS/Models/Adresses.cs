@@ -14,6 +14,12 @@ namespace WS.Models
     
     public partial class Adresses
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Adresses()
+        {
+            this.Commande = new HashSet<Commandes>();
+        }
+    
         public int Id { get; set; }
         public string Destinataire { get; set; }
         public string Ligne1 { get; set; }
@@ -23,5 +29,8 @@ namespace WS.Models
         public string Pays { get; set; }
         public string Telephone { get; set; }
         public string Email { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Commandes> Commande { get; set; }
     }
 }

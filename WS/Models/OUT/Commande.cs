@@ -33,23 +33,23 @@ namespace WS.Models.OUT
         
 
 
-        public Nullable<int> FraiId { get; set; }
+        //public Nullable<int> FraiId { get; set; }
         public Frai Frai { get; set; }
 
 
-        public Int32? StatutId { get; set; }
+        //public Int32? StatutId { get; set; }
         public Statut Statut { get; set; }
 
 
         public List<Ligne> Lignes { get; set; }
 
 
-        public Int32? EleveId { get; set; }
+        //public Int32? EleveId { get; set; }
         public Eleve Eleve { get; set; }
 
 
 
-        public Int32? AdresseId { get; set; }
+        //public Int32? AdresseId { get; set; }
 
         public Adresse Adresse { get; set; }
     }

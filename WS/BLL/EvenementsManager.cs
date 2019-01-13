@@ -20,7 +20,8 @@ namespace WS.BLL
                                                         Int32? _TypologieId = null,
                                                         Int32? _EvenementParentId = null,
                                                         Int32? _EleveId = null,
-                                                        String _OnlyParentsYN = "N"
+                                                        String _OnlyParentsYN = "N",
+                                                        Int32? _Top = null
                                             )
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
@@ -33,7 +34,8 @@ namespace WS.BLL
                                     typologieId: (_TypologieId == null ? -1 : _TypologieId),
                                     evenementParentId: (_EvenementParentId == null ? -1 : _EvenementParentId),
                                     eleveId: (_EleveId == null ? -1 : _EleveId),
-                                    onlyParentsYN: _OnlyParentsYN
+                                    onlyParentsYN: _OnlyParentsYN,
+                                    top: (_Top == null ? -1 : _Top)
                                ).ToList();
 
             List<Evenement> _Evenements = new List<Evenement>();

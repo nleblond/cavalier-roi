@@ -25,6 +25,8 @@ namespace WS.Models.IN
 
         public String OnlyParentsYN { set; get; }
 
+
+        public Int32? Top { set; get; }
     }
 
 }
