@@ -14,7 +14,7 @@ $(window).on('load', function () {
     });
 
     //date de naissance
-    $('.inscription .naissance').datepicker({
+    $('#Div_Connexion .inscription .naissance').datepicker({
         changeMonth: true,
         changeYear: true,
         dateFormat: 'dd/mm/yy',
@@ -22,19 +22,19 @@ $(window).on('load', function () {
     });
 
     //connexion
-    $('.connexion .valider').on('click', function () {
+    $('#Div_Connexion .connexion .valider').on('click', function () {
         ConnectEleve();
         return false;
     });
 
     //inscription
-    $('.inscription .valider').on('click', function () {
+    $('#Div_Connexion .inscription .valider').on('click', function () {
         AddEleve();
         return false;
     });
 
     //réinitialisation
-    $('.reinitialisation .valider').on('click', function () {
+    $('#Div_Connexion .reinitialisation .valider').on('click', function () {
         ReinitEleve();
         return false;
     });
@@ -45,7 +45,16 @@ $(window).on('load', function () {
 
 
 function OpenConnexion(_UrlToRedirect, _CallBackAction) {
+
     $('#Div_Connexion').ModalPopUp('open');
+
+    //animations des actions
+    var params = {
+        'load': 0,
+        'open': 1,
+        'close': 0
+    };
+    $('#Div_Connexion .accordeon').Accordeon(params);
 
     if ((_UrlToRedirect != null) && (_UrlToRedirect != '') && (_UrlToRedirect != undefined)) {
         this._UrlToRedirect = _UrlToRedirect;
@@ -55,7 +64,8 @@ function OpenConnexion(_UrlToRedirect, _CallBackAction) {
         this._CallBackAction = _CallBackAction;
     }
 
-    $('.connexion .email').focus();
+    $('#Div_Connexion .connexion .email').focus();
+
 }
 
 
@@ -204,10 +214,11 @@ function ReinitEleve() {
             beforeSend: function (request) { },
             success: function (data) {
                 if (data) {
-                    alert('La demande a été traitée, merci de consulter votre boite mail !');
+                    alert('Votre demande de réinitialisation de mot de passe a bien été prise en compte, merci de consulter votre boite mail !');
+                    $('#Div_Connexion .header').eq(0).click();
                 }
                 else {
-                    alert('La demande n\'a pas pu être traitée, merci de recommencer !');
+                    alert('Votre demande de réinitialisation de mot de passe n\'a pas pu être prise en compte, merci de recommencer !');
                     $('.reinitialisation .email').focus();
                 }
             },
@@ -306,13 +317,11 @@ function AddEleve() {
             beforeSend: function (request) { },
             success: function (data) {
                 if (data) {
-                    if (document.location.href.toLowerCase().indexOf('moncompte') > -1) {
-                        alert('La demande a été traitée, merci de consulter votre boite mail !');
-                        document.location.href = document.location.href;
-                    }
+                    alert('Votre inscription a bien été prise en compte, merci de consulter votre boite mail !');
+                    $('#Div_Connexion .header').eq(0).click();
                 }
                 else {
-                    alert('La demande n\'a pas pu être traitée, merci de recommencer !');
+                    alert('Votre inscription n\'a pas pu être prise en compte, merci de recommencer !');
                     $('.inscription .email').focus();
                 }
             },

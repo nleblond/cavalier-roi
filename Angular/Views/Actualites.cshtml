@@ -21,7 +21,7 @@
                 @{
                     if (!String.IsNullOrEmpty(Model.ContenuActualites[_Index].Full))
                     {
-                        <img class="full" src="@Constants.IMG_URL/Contenus/@Model.ContenuActualites[_Index].Id/@Model.ContenuActualites[_Index].Full" />
+                        <img class="full" src="@Angular.Constants.IMG_URL/Contenus/@Model.ContenuActualites[_Index].Id/@Model.ContenuActualites[_Index].Full" />
                     }
                 }
                 @{
@@ -62,4 +62,4 @@
 
 </div>
 
-<script language="javascript" src="@Constants.ROOT_URL/Scripts/Views/Actualites.js" type="text/javascript"></script>
+<script language="javascript" src="@Angular.Constants.ROOT_URL/Scripts/Views/Actualites.js" type="text/javascript"></script>

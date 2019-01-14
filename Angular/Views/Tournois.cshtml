@@ -22,12 +22,12 @@
 
                     @if (!String.IsNullOrEmpty(Model.EvenementsTournois[_Index].Bandeau))
                     {
-                        <img class="bandeau" src="@Constants.IMG_URL/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Bandeau" />
+                        <img class="bandeau" src="@Angular.Constants.IMG_URL/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Bandeau" />
                     }
                     @if (!String.IsNullOrEmpty(Model.EvenementsTournois[_Index].Photo))
                     {
-                        <a href="@Constants.IMG_URL/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Photo" target="_blank" title="Cliquer pour agrandir">
-                            <img class="photo" src="@Constants.IMG_URL/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Photo" />
+                        <a href="@Angular.Constants.IMG_URL/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Photo" target="_blank" title="Cliquer pour agrandir">
+                            <img class="photo" src="@Angular.Constants.IMG_URL/Evenements/@Model.EvenementsTournois[_Index].Id/@Model.EvenementsTournois[_Index].Photo" />
                         </a>
                     }
                     <div class="please">
@@ -136,8 +136,8 @@
                             @for (Int32 _Index = 0; _Index < Model.EvenementsCompetitions.Count; _Index++)
                             {
                                 <li class="li@_Index">
-                                    <a href="@Constants.IMG_URL/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" target="_blank" title="Cliquer pour agrandir">
-                                        <img class="affiche" src="@Constants.IMG_URL/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" />
+                                    <a href="@Angular.Constants.IMG_URL/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" target="_blank" title="Cliquer pour agrandir">
+                                        <img class="affiche" src="@Angular.Constants.IMG_URL/Evenements/@Model.EvenementsCompetitions[_Index].Id/@Model.EvenementsCompetitions[_Index].Photo" />
                                     </a>
                                     @if (!String.IsNullOrEmpty(Model.EvenementsCompetitions[_Index].Lien))
                                     {
@@ -174,4 +174,4 @@
 </div>
 
 
-<script language="javascript" src="@Constants.ROOT_URL/Scripts/Views/Tournois.js" type="text/javascript"></script>
+<script language="javascript" src="@Angular.Constants.ROOT_URL/Scripts/Views/Tournois.js" type="text/javascript"></script>

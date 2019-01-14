@@ -115,45 +115,45 @@ function UpdEleve() {
     var _AlertMessage;
     var _AlertObject;
     var _Valid = true;
-    if ($('.nom').val() == '') {
+    if ($('.infos .nom').val() == '') {
         _AlertMessage = 'Merci de saisir un nom !';
         _AlertObject = $('.nom');
         _Valid = false;
     }
-    else if ($('.prenom').val() == '') {
+    else if ($('.infos .prenom').val() == '') {
         _AlertMessage = 'Merci de saisir un prénom !';
-        _AlertObject = $('.prenom');
+        _AlertObject = $('.infos .prenom');
         _Valid = false;
     }
-    else if (($('.email').val() == '') || (!isEmail($('.email').val()))) {
+    else if (($('.infos .email').val() == '') || (!isEmail($('.infos .email').val()))) {
         _AlertMessage = 'Merci de saisir un email/identifiant valide !';
-        _AlertObject = $('.email');
+        _AlertObject = $('.infos .email');
         _Valid = false;
     }
-    else if ($('.password').val() == '') {
+    else if ($('.infos .password').val() == '') {
         _AlertMessage = 'Merci de saisir un mot de passe !';
-        _AlertObject = $('.password');
+        _AlertObject = $('.infos .password');
         _Valid = false;
     }
 
     if (_Valid) {
 
         var _Params = {};
-        _Params.Id = $('.id').val();
-        _Params.Nom = $('.nom').val();
-        _Params.Prenom = $('.prenom').val();
-        _Params.Email = $('.email').val();
-        _Params.Password = $('.password').val();
-        _Params.DtNaissance = $('.naissance').val();
-        _Params.Sexe = $('.sexe').val();
-        _Params.Club = $('.club').val();
-        _Params.Photo = $('.photo').val();
-        _Params.Fixe = $('.fixe').val();
-        _Params.Portable = $('.portable').val();
-        _Params.Commentaire = $('.commentaire').val();
-        _Params.License = $('.license').val();
-        _Params.Classement = $('.classement').val();
-        _Params.Suivi = $('.suivi').val();
+        _Params.Id = $('.infos .id').val();
+        _Params.Nom = $('.infos .nom').val();
+        _Params.Prenom = $('.infos .prenom').val();
+        _Params.Email = $('.infos .email').val();
+        _Params.Password = $('.infos .password').val();
+        _Params.DtNaissance = $('.infos .naissance').val();
+        _Params.Sexe = $('.infos .sexe').val();
+        _Params.Club = $('.infos .club').val();
+        _Params.Photo = $('.infos .photo').val();
+        _Params.Fixe = $('.infos .fixe').val();
+        _Params.Portable = $('.infos .portable').val();
+        _Params.Commentaire = $('.infos .commentaire').val();
+        _Params.License = $('.infos .license').val();
+        _Params.Classement = $('.infos .classement').val();
+        _Params.Suivi = $('.infos .suivi').val();
 
         $.ajax({
             type: 'POST',

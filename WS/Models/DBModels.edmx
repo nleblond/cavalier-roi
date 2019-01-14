@@ -467,6 +467,8 @@
           <Parameter Name="PaymentId" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="AddCommande" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DtCreation" Type="datetime" Mode="In" />
+          <Parameter Name="DtValidation" Type="datetime" Mode="In" />
           <Parameter Name="StatutId" Type="int" Mode="In" />
           <Parameter Name="EleveId" Type="int" Mode="In" />
           <Parameter Name="Prix" Type="float" Mode="In" />
@@ -1444,6 +1446,8 @@
             <Parameter Name="Reduction" Mode="In" Type="Double" />
           </FunctionImport>
           <FunctionImport Name="AddCommande" ReturnType="Collection(Int32)">
+            <Parameter Name="DtCreation" Mode="In" Type="DateTime" />
+            <Parameter Name="DtValidation" Mode="In" Type="DateTime" />
             <Parameter Name="StatutId" Mode="In" Type="Int32" />
             <Parameter Name="EleveId" Mode="In" Type="Int32" />
             <Parameter Name="Prix" Mode="In" Type="Double" />

@@ -27,7 +27,7 @@ i { font-style: normal; }
 .fright { float: right!important; }
 .mobile_clear { clear: none; }
 .mobile_clear { clear: none; } 
-select, input, textarea, input { outline: none; border: solid 1pt #000000; font-family: "Trebuchet MS"; font-size: 12px; color: #000000; }
+select, input, textarea, input { outline: none; border: solid 1pt #000000!important; font-family: "Trebuchet MS"; font-size: 12px; color: #000000; }
 input[type="button"] { background-color: #FECC16; color: #000000; border: solid 1pt #FECC16; cursor: pointer; text-transform: capitalize; /*font-family: "God Of War"; font-size: 10px;*/ }
 .border-bottom { border-bottom: solid 1pt #FECC16; }
 .br5 { display: block; height: 5px; }
@@ -163,14 +163,16 @@ h2 { font-family: "God Of War"; font-size: 1.0rem; color: #FECC16!important; tex
 
 /* panier de la colonne de droite */
 /********************************************************************************************/
-.panier { display: none; float: left; width: 16.6rem; height: auto; padding: 0rem 1.0rem 0rem 1.0rem; margin: 1rem 0rem 0rem 0rem; border: solid 1pt #FECC16; background-color: #161616; }
+.panier { display: none; float: left; width: 16.6rem; height: auto; padding: 0rem 1.0rem 0rem 1.0rem; margin: 1.0rem 0rem 0rem 0rem; border: solid 1pt #FECC16; background-color: #161616; }
 .panier .fermer { display: none; }
 .panier .titre { margin: 0rem 0rem 0rem 0rem; padding: 1.0rem 0rem 0.5rem 0rem; font-size: 1.0rem; width: 100%; }
+.panier .cadre { width: 16.6rem; overflow: hidden; }
 
-.panier .etape1 { display:block; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem;}
+.panier .etapes { width: 80rem; }
+.panier .etape1 { display:block; padding: 0rem 1.0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem; width: 16.6rem; float:left; }
 .panier .etape1  table.lignes { padding: 0rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
 .panier .etape1  table.lignes tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; vertical-align: top; }
-.panier .etape1  table.lignes th { padding: 0rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; color: #FECC16; border-bottom: solid 1pt #FECC16; }
+.panier .etape1  table.lignes th { padding: 0rem 0rem 0.5rem 0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; color: #FECC16; border-bottom: solid 1pt #FECC16; }
 .panier .etape1  table.lignes th:nth-child(1) { text-align: left; }
 .panier .etape1  table.lignes th:nth-child(2) { text-align: center; }
 .panier .etape1  table.lignes th:nth-child(3) { text-align: center; }
@@ -183,20 +185,23 @@ h2 { font-family: "God Of War"; font-size: 1.0rem; color: #FECC16!important; tex
 .panier .etape1  table.lignes .supprimer { color:#FECC16; cursor:pointer; }
 .panier .etape1  .tarifs { margin: 0.2rem 0rem 0.2rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 100%; color: #FECC16; text-align: right; }
 
-.panier .etape2 { display:none; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem;}
+.panier .etape2 { display:none; padding: 0rem 1.0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem; width: 16.6rem; float:left; }
 .panier .etape2 .adresse { margin: 0.5rem 0rem 1.0rem 0rem; padding: 0.5rem 0rem 0.5rem 0rem; width: 100%; border-bottom: solid 1pt #FECC16; border-top: solid 1pt #FECC16; }
-.panier .etape2 .adresse .destinataire { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
-.panier .etape2 .adresse .route { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
-.panier .etape2 .adresse .complement { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
-.panier .etape2 .adresse .codepostal { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 70px; }
-.panier .etape2 .adresse .ville { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
-.panier .etape2 .adresse .mail { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 256px; }
-.panier .etape2 .adresse .phone { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 70px; }
+.panier .etape2 .adresse .destinataire { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 100%; }
+.panier .etape2 .adresse .route { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 100%; }
+.panier .etape2 .adresse .complement { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 100%; }
+.panier .etape2 .adresse .codepostal { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 30%; }
+.panier .etape2 .adresse .ville { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 100%; }
+.panier .etape2 .adresse .mail { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 100%; }
+.panier .etape2 .adresse .phone { margin: 0rem 0rem 0rem 0rem; padding: 0.2rem 0.2rem 0.2rem 0.2rem; width: 40%; }
 
-.panier .etape3 { display:none; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem;}
+.panier .etape3 { display:none; padding: 0rem 1.0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem; width: 16.6rem; float:left; }
+.panier .etape3 ul.accordeon { padding: 0rem 0rem 1.0rem 0rem; margin: 0.5rem 0rem 1.0rem 0rem; list-style: none; width: 100%; border-top: solid 1px #FECC16; border-bottom: solid 1px #FECC16; }
+.panier .etape3 ul li div.header { font-family: "Trebuchet MS"; font-size: 1.0rem; color: #FFFFFF; text-transform: uppercase; padding: 1.0rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem; cursor: pointer; }
+.panier .etape3 ul li ul { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; list-style: none; width: 100%; }
 .panier .etape3 .valider { display:block; padding: 0.2rem 1.0rem 0.2rem 1.0rem; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; behavior: url(/PIE.htc); }
 
-.panier .etape4 { display:none; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem;}
+.panier .etape4 { display:none; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1.0rem 0rem; width: 16.6rem; float:left; }
 
 
 
@@ -485,6 +490,9 @@ div.modal_connexion input[type="text"], div.modal_connexion textarea {  padding:
 div.modal_connexion .titre { margin: 0rem 0rem 0rem 0rem; padding:0rem 0rem 0rem 0rem; }
 div.modal_connexion .texte { margin: 0rem 0rem 0rem 0rem; padding:0rem 0rem 0rem 0rem; }
 div.modal_connexion .valider { float: right; }
+div.modal_connexion ul.accordeon { padding: 0rem 0rem 1.0rem 0rem; margin: 0.5rem 0rem 1.0rem 0rem; list-style: none; width: 100%; border-top: solid 1px #FECC16; border-bottom: solid 1px #FECC16; }
+div.modal_connexion ul li div.header { font-family: "Trebuchet MS"; font-size: 1.0rem; color: #FFFFFF; text-transform: uppercase; padding: 1.0rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem; cursor: pointer; }
+div.modal_connexion ul li ul { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; list-style: none; width: 100%; }
 div.modal_connexion table { width: 100%; }
 div.modal_connexion .email { width: 100%; }
 div.modal_connexion .password { width: 100%; }
@@ -518,6 +526,10 @@ div.modal_calendrier .texte .selections table td:nth-child(2) { text-align: righ
 div.modal_calendrier a { font-family: "Trebuchet MS"; font-size: 0.75rem; color: #FECC16; text-decoration: none; cursor: pointer; }
 div.modal_calendrier a.hover { color: #FECC16; text-decoration: underline; }
 div.modal_calendrier .autre { display:block; padding: 0.2rem 1.0rem 0.2rem 1.0rem; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; behavior: url(/PIE.htc); }
+div.modal_calendrier ul.accordeon { padding: 0rem 0rem 1.0rem 0rem; margin: 1.0rem 0rem 1.0rem 0rem; list-style: none; width: 100%; border-top: solid 1px #FECC16; border-bottom: solid 1px #FECC16; }
+div.modal_calendrier ul li div.header { font-family: "Trebuchet MS"; font-size: 1.0rem; color: #FFFFFF; text-transform: uppercase; padding: 1.0rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem; cursor: pointer; }
+div.modal_calendrier ul li ul { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; list-style: none; width: 100%; }
+
 
 @media (max-width: 640px) {
     * {
@@ -738,15 +750,8 @@ div.modal_calendrier .autre { display:block; padding: 0.2rem 1.0rem 0.2rem 1.0re
     /********************************************************************************************/
     .panier { display: none; width: 94%; height: auto; z-index: 1000; position: fixed; bottom: 0rem; left: 3%; }
     .panier .fermer { display: block; position: absolute; right: -0.6rem; top: -0.6rem;  margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; width: 1.2rem; height: auto; cursor: pointer; z-index: 2000; }
-    .panier .etape2 .adresse .destinataire { width: 100%; }
-    .panier .etape2 .adresse .route { width: 100%; }
-    .panier .etape2 .adresse .complement { width: 100%; }
-    .panier .etape2 .adresse .codepostal { width: 30%; }
-    .panier .etape2 .adresse .ville { width: 100%; }
-    .panier .etape2 .adresse .mail { width: 100%; }
-    .panier .etape2 .adresse .phone { width: 40%; }
-
-
+    .panier .cadre { width: 100%; }
+   
 
 	textarea, table, td, th, code, pre, samp { -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; word-wrap: break-word;	}
 	code, pre, samp { white-space: pre-wrap; }

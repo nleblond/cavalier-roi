@@ -60,11 +60,6 @@ namespace Angular.Controllers
             _Model.ContenusModals = _ContenusModals;
 
 
-
-
-            //Tools.SendMail("L'École DU CAVALIER ROI <inscriptions@cavalier-roi.fr>", "leniko@gmail.com", "Test", "Test", true, "authsmtp.securemail.pro", 465, "inscriptions@cavalier-roi.fr", "Hokage2348+");
-
-
             return View("~/Views/Accueil.cshtml", _Model);
         }
 
@@ -765,6 +760,7 @@ namespace Angular.Controllers
                 if ((Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours == null)
                 {
                     (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours = new Commande();
+                    (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.DtCreation = DateTime.Now.ToString();
                     (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Lignes = new List<Ligne>();
 
                     (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.Adresse = new Adresse();
@@ -961,6 +957,7 @@ namespace Angular.Controllers
         {
             if ((Session["www.cavalier-roi.fr"] != null) && ((Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours != null))
             {
+                (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.DtValidation = DateTime.Now.ToString();
 
                 (Session["www.cavalier-roi.fr"] as Eleve).CommandeEnCours.ReferenceTransaction = _PaymentId;
 

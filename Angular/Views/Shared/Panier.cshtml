@@ -4,79 +4,65 @@
 {
     <div class="panier">
         <div class="interieur">
-            <img class="fermer" src="@Constants.IMG_URL/Boutons/Fermer.svg" />
+            <img class="fermer" src="@Angular.Constants.IMG_URL/Boutons/Fermer.svg" />
             <div class="titre">MON PANIER</div>
             <div class="clear"></div>
 
-            <div class="etape1 texte">
-                @Html.Partial("~/Views/Shared/PanierEtape1.cshtml", @Model)
-            </div>
+            <div class="cadre">
+                <div class="etapes">
+                    <div class="etape1 texte">
+                        @Html.Partial("~/Views/Shared/PanierEtape1.cshtml", @Model)
+                    </div>
 
-            <div class="etape2 texte">
-                @Html.Partial("~/Views/Shared/PanierEtape2.cshtml", @Model)
-            </div>
+                    <div class="etape2 texte">
+                        @Html.Partial("~/Views/Shared/PanierEtape2.cshtml", @Model)
+                    </div>
 
-            <div class="etape3 texte">
+                    <div class="etape3 texte">
+                        @Html.Partial("~/Views/Shared/PanierEtape3.cshtml", @Model)
+                    </div>
 
-                <span>&Eacute;tape 3/3</span>
-                <div class="br10"></div>
+                    <div class="etape4 texte">
+                        <div class="confirmation1">
+                            Votre commande a bien été prise en compte !
+                            <br />
+                            <br />
+                            Vous pouvez retrouver toutes vos commandes dans la partie "Mon Compte".
+                            <br />
+                            <br />
+                            Merci de contacter au plus vite l'École du cavalier roi à <a href="mailto:@Angular.Constants.COMMANDES_EMAIL" target="_blank">@Angular.Constants.COMMANDES_EMAIL</a> pour régler le paiement.
+                        </div>
 
-                <hr />
+                        <div class="confirmation2">
+                            Votre commande a bien été prise en compte et votre paiement a bien été effectué !
+                            <br />
+                            <br />
+                            Vous pouvez retrouver toutes vos commandes dans la partie "Mon Compte".
+                            <br />
+                            <br />
+                            Vous recevrez votre facture directement par mail ou en la demandant à <a href="mailto:@Angular.Constants.COMMANDES_EMAIL" target="_blank">@Angular.Constants.COMMANDES_EMAIL</a>.
+                            <br />
+                            <br />
+                            Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href="mailto:@Angular.Constants.COMMANDES_EMAIL" target="_blank">@Angular.Constants.COMMANDES_EMAIL</a>.
+                        </div>
 
-                <div class="titre">JE PAYE EN CB OU AVEC PAYPAL</div>
-                La solution de paiement en ligne, fiable, rapide, sécurisée, qui permet de payer par carte bancaire ou par le biais de votre compte PayPal.
-                <div class="br10"></div>
-                <div id="paypal-button-container" class="fright"></div>
+                        <div class="confirmation3">
+                            Votre commande a bien été prise en compte mais votre paiement a rencontré un problème !
+                            <br />
+                            <br />
+                            Vous pouvez retrouver toutes vos commandes dans la partie "Mon Compte".
+                            <br />
+                            <br />
+                            Merci de contacter au plus vite l'École du cavalier roi à <a href="mailto:@Angular.Constants.COMMANDES_EMAIL" target="_blank">@Angular.Constants.COMMANDES_EMAIL</a> pour régler le paiement.
+                        </div>
+                    </div>
 
-                <div class="clear"></div>
-                <div class="br10"></div>
-
-                <div class="titre">JE PAYE AUTREMENT</div>
-                L'École du cavalier roi vous propose de voir avec elle pour un paiement par chèque, virement, espèces...
-                <div class="br10"></div>
-                <input type="button" value="Payer" class="valider autre fright" title="Payer" />
-
-                <div class="clear"></div>
-                <div class="br20"></div>
-                <hr />
-                <div class="br20"></div>
-
-                <input type="button" value="Revenir" class="revenir fright" title="Revenir" />
-
-                <div class="clear"></div>
-
-            </div>
-
-            <div class="etape4 texte">
-                <div class="confirmation1">
-                    Votre commande a bien été prise en compte !
-                    <br />
-                    <br />
-                    Vous pouvez retrouver toutes vos commandes dans la partie "Mon Compte" du site de l'École du cavalier roi.
-                    <br />
-                    <br />
-                    Merci de contacter au plus vite l'École du cavalier roi à <a href="mailto:commandes@cavalier-roi.fr" target="_blank">commandes@cavalier-roi.fr</a> pour régler le paiement.
-                </div>
-
-                <div class="confirmation2">
-                    Votre commande a bien été prise en compte et votre paiement a bien été effectué !
-                    <br />
-                    <br />
-                    Vous pouvez retrouver toutes vos commandes dans la partie "Mon Compte" du site de l'École du cavalier roi.
-                    <br />
-                    <br />
-                    Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href="mailto:commandes@cavalier-roi.fr" target="_blank">commandes@cavalier-roi.fr</a>.
-                </div>
-
-                <div class="confirmation3">
-                    Votre commande a bien été prise en compte mais votre paiement a rencontré un problème !
-                    <br />
-                    <br />
-                    Merci de contacter au plus vite l'École du cavalier roi à <a href="mailto:commandes@cavalier-roi.fr" target="_blank">commandes@cavalier-roi.fr</a> pour régler le paiement.
                 </div>
             </div>
 
-            </div>
+            <div class="clear"></div>
+
+        </div>
     </div>
 
 }

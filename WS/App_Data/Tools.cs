@@ -25,8 +25,8 @@ using System.Collections.Specialized;
 
 /// <summary>
 /// Bibliothèque Générique
-/// v3.1.7
-/// 24/12/2018 (sans BigInteger)
+/// v3.1.8
+/// 14/01/2019 (sans BigInteger)
 /// C#
 /// </summary>
 public static class Tools
@@ -1382,9 +1382,9 @@ public static class Tools
     /// <param name="SubjectMsg">Objet du mail</param>
     /// <param name="BodyMsgHTML">Corps du mail</param>
     /// <param name="IsBodyHtml">HTML ou simple texte</param>
-    /// <param name="CCdestinataires">Destinatair(s) du mail caché(s) séparé(s) par des ";"</param>
+    /// <param name="CCDestinataires">Destinatair(s) du mail caché(s) séparé(s) par des ";"</param>
     /// <returns>Boolean (OK/KO)</returns>
-    public static Boolean SendMail(String Emetteur, String Destinataires, String SubjectMsg, String BodyMsgHTML, Boolean IsBodyHtml, String MailHost, Int32 MailPort, String Username = null, String Password = null, String CCdestinataires = "", List<String> Attachments = null, Byte[] FileContent = null, String FileName = null)
+    public static Boolean SendMail(String Emetteur, String Destinataires, String SubjectMsg, String BodyMsgHTML, Boolean IsBodyHtml, String MailHost, Int32 MailPort, String Username = null, String Password = null, String CCDestinataires = "", String CCIDestinataires = "", List<String> Attachments = null, Byte[] FileContent = null, String FileName = null)
     {
         try
         {
@@ -1401,13 +1401,22 @@ public static class Tools
                 MailAddress MsgTo1 = new MailAddress(MsgTo[i].ToString().Trim());
                 MailMsg.To.Add(MsgTo1);
             }
-            if (!String.IsNullOrEmpty(CCdestinataires))
+            if (!String.IsNullOrEmpty(CCDestinataires))
             {
-                String[] MsgCC = CCdestinataires.Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
-                for (Int32 i = 0; i < MsgTo.Length; i++)
+                String[] MsgCC = CCDestinataires.Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
+                for (Int32 i = 0; i < MsgCC.Length; i++)
                 {
                     MailAddress msgCC1 = new MailAddress(MsgCC[i].ToString().Trim());
                     MailMsg.CC.Add(msgCC1);
+                }
+            }
+            if (!String.IsNullOrEmpty(CCIDestinataires))
+            {
+                String[] MsgCCI = CCIDestinataires.Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
+                for (Int32 i = 0; i < MsgCCI.Length; i++)
+                {
+                    MailAddress msgCC1 = new MailAddress(MsgCCI[i].ToString().Trim());
+                    MailMsg.Bcc.Add(msgCC1);
                 }
             }
             // Attachments
@@ -1440,7 +1449,7 @@ public static class Tools
             SmtpClient.Send(MailMsg);
             MailMsg.Dispose();
         }
-        catch (Exception)
+        catch (Exception Ex)
         {
             return false;
         }

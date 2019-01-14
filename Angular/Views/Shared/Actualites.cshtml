@@ -8,7 +8,7 @@
             @{
                 if (!String.IsNullOrEmpty(Model[_Index].Full))
                 {
-                    <img class="full" src="@Constants.IMG_URL/Contenus/@Model[_Index].Id/@Model[_Index].Full" />
+                    <img class="full" src="@Angular.Constants.IMG_URL/Contenus/@Model[_Index].Id/@Model[_Index].Full" />
                 }
             }
             @{
@@ -39,7 +39,7 @@
         </div>
     }
 
-    <a href="@Constants.ROOT_URL/Actualites" class="tous">&#9812; Toutes les actualit&eacute;s</a>
+    <a href="@Angular.Constants.ROOT_URL/Actualites" class="tous">&#9812; Toutes les actualit&eacute;s</a>
 
     <div class="clear"></div>
 

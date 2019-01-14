@@ -69,7 +69,6 @@ $(window).on('load', function () {
         return false;
     });
 
-
 });
 
 
@@ -107,6 +106,7 @@ function OpenCalendrierParDemiJournee(_EvenementId, _EvenementLibelle, _EleveId,
         }
         else {
             $('#Div_CalendrierParDemiJournee .paiement').show();
+
             $('#Div_CalendrierParDemiJournee .todelete').hide();
         }
     }
@@ -138,6 +138,16 @@ function OpenCalendrierParDemiJournee(_EvenementId, _EvenementLibelle, _EleveId,
     }
     
     $('#Div_CalendrierParDemiJournee').ModalPopUp('open');
+
+    //accordeon des paiements
+    if ((_EvenementParentId.toString() == '') || (_EvenementParentId == null)) {
+        var params = {
+            'load': 0,
+            'open': 1,
+            'close': 0
+        };
+        $('#Div_CalendrierParDemiJournee .paiement .accordeon').Accordeon(params);
+    }
 
 }
 
@@ -538,6 +548,14 @@ function ValidateParticipationAndReservationsParDemiJournee() {
         $('#Div_CalendrierParDemiJournee .confirmation').hide();
 
         $('#Div_CalendrierParDemiJournee .fermer').hide();
+
+        //accordeon des paiements
+        var params = {
+            'load': 0,
+            'open': 1,
+            'close': 0
+        };
+        $('#Div_CalendrierParDemiJournee .paiement .accordeon').Accordeon(params);
 
     }
     else {

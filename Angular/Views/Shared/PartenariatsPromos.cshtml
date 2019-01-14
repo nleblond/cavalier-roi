@@ -18,11 +18,11 @@
     foreach (WS.Models.OUT.Contenu _Current in _PartenariatsPromos)
     {
         <div class="partenariat_promo">
-            <a href="@_Current.Lien" target="_blank" title="Cliquer pour consulter"><img src="@Constants.IMG_URL/Contenus/@_Current.Id/@(_Current.Exclusif != null &&  _Current.Exclusif == true ? _Current.Verticale : _Current.Carree)" /></a>
+            <a href="@_Current.Lien" target="_blank" title="Cliquer pour consulter"><img src="@Angular.Constants.IMG_URL/Contenus/@_Current.Id/@(_Current.Exclusif != null &&  _Current.Exclusif == true ? _Current.Verticale : _Current.Carree)" /></a>
         </div>
         <div class="clear"></div>
     }
 
-    <a class="tous nomobile" href="@Constants.ROOT_URL/Partenariats" title="Tous les partenariats">&#9812; Tous les partenariats</a>
+    <a class="tous nomobile" href="@Angular.Constants.ROOT_URL/Partenariats" title="Tous les partenariats">&#9812; Tous les partenariats</a>
 }
 

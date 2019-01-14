@@ -60,6 +60,7 @@ $(window).on('load', function () {
         return false;
     });
 
+
 });
 
 
@@ -405,6 +406,14 @@ function ValidateParticipationAndReservationsParHeure() {
         $('#Div_CalendrierParHeure .confirmation').hide();
 
         $('#Div_CalendrierParHeure .fermer').hide();
+
+        //accordeon des paiements
+        var params = {
+            'load': 0,
+            'open': 1,
+            'close': 0
+        };
+        $('#Div_CalendrierParHeure .paiement .accordeon').Accordeon(params);
 
     }
     else {

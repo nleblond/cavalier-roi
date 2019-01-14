@@ -85,8 +85,8 @@ $.fn.Accordeon = function (paramsJson) {
 		                .css({ 'zIndex': 200, 'overflow': 'hidden' });
 
 		            //initialisation des ul "content"
-		            var currentLiContent = currentLi.find('> ul').eq(0);
-		            currentLiContent
+                    var currentLiContent = currentLi.find('> ul').eq(0);
+                    currentLiContent
                         .attr('id', accordeon.attr('id') + '_content' + index)
 		                .addClass(accordeon.data('contentClass'))
                         .css({ 'zIndex': 100, 'overflow': 'hidden', 'marginBottom': -currentLiContent.outerHeight(true) });

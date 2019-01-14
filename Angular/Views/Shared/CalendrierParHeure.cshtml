@@ -1,5 +1,5 @@
 ﻿<div id="Div_CalendrierParHeure" class="modal_calendrier">
-    <img class="fermer" src="@Constants.IMG_URL/Boutons/Fermer.svg" />
+    <img class="fermer" src="@Angular.Constants.IMG_URL/Boutons/Fermer.svg" />
     <div class="titre"></div>
     <div class="clear"></div>
 
@@ -37,27 +37,36 @@
 
     <div class="texte paiement">
 
-        <h2>JE PAYE EN CB OU AVEC PAYPAL</h2>
-        La solution de paiement en ligne, fiable, rapide, sécurisée, qui permet de payer par carte bancaire ou par le biais de votre compte PayPal.
-        <div class="br10"></div>
-        <div title="Payer avec PayPal" id="paypal-button-container" class="fright"></div>
+        <ul id="Ul_Paiements" class="accordeon">
+            <li>
+                <div class="header">JE PAYE EN CB OU AVEC PAYPAL</div>
+                <ul>
+                    <li>
+                        La solution de paiement en ligne, fiable, rapide, sécurisée, qui permet de payer par carte bancaire ou par le biais de votre compte PayPal.
+                        <div class="br10"></div>
+                        <div title="Payer avec PayPal" id="paypal-button-container" class="fright"></div>
+                        <div class="clear"></div>
+                    </li>
+                </ul>
+            </li>
 
-        <div class="clear"></div>
+            <li>
+                <div class="header">JE PAYE AUTREMENT</div>
+                <ul>
+                    <li>
+                        L'École du cavalier roi vous propose de voir avec elle pour un paiement par chèque, virement, espèces...
+                        <div class="br10"></div>
+                        <input type="button" value="Payer" class="valider autre fright" title="Payer" />
+                        <div class="clear"></div>
+                    </li>
+                </ul>
+            </li>
 
-        <h2>JE PAYE AUTREMENT</h2>
-        L'École du cavalier roi vous propose de voir avec elle pour un paiement par chèque, virement, espèces...
-        <div class="br10"></div>
-        <input type="button" value="Payer" class="valider autre fright" title="Payer" />
-
-        <div class="clear"></div>
-        <div class="br10"></div>
-        <hr />
-        <div class="br10"></div>
+        </ul>
 
         <input type="button" value="Revenir" class="revenir fright" title="Revenir" />
 
     </div>
-
 
     <div class="texte confirmation">
 
@@ -65,38 +74,41 @@
             Votre inscription à cette formule de cours a bien été prise en compte et vos réservations ont bien été enregistrées !
             <br />
             <br />
-            Vous pouvez retrouver toutes vos réservations dans la partie "Mon Compte" du site de l'École du cavalier roi.
+            Vous pouvez retrouver toutes vos inscriptions/réservations dans la partie "Mon Compte".
             <br />
             <br />
-            Merci de contacter au plus vite l'École du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a> pour régler le paiement.
+            Merci de contacter au plus vite l'École du cavalier roi à <a href="mailto:@Angular.Constants.INSCRIPTIONS_EMAIL" target="_blank">@Angular.Constants.INSCRIPTIONS_EMAIL</a> pour régler le paiement.
         </div>
 
         <div class="confirmation2">
             Votre inscription à cette formule de cours a bien été prise en compte, vos réservations ont bien été enregistrées et votre paiement a bien été effectué !
             <br />
             <br />
-            Vous pouvez retrouver toutes vos réservations dans la partie "Mon Compte" du site de l'École du cavalier roi.
+            Vous pouvez retrouver toutes vos inscriptions/réservations dans la partie "Mon Compte".
             <br />
             <br />
-            Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a>.
+            Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href="mailto:@Angular.Constants.INSCRIPTIONS_EMAIL" target="_blank">@Angular.Constants.INSCRIPTIONS_EMAIL</a>.
         </div>
 
         <div class="confirmation3">
-            Pour concrétiser cette formule au plus près de vos attentes, merci de contacter l'École du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a>.
+            Pour concrétiser cette formule au plus près de vos attentes, merci de contacter l'École du cavalier roi à <a href="mailto:@Angular.Constants.INSCRIPTIONS_EMAIL" target="_blank">@Angular.Constants.INSCRIPTIONS_EMAIL</a>.
         </div>
 
         <div class="confirmation4">
             Vos réservations ont bien été enregistrées !
             <br />
             <br />
-            Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a>.
+            Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href="mailto:@Angular.Constants.INSCRIPTIONS_EMAIL" target="_blank">@Angular.Constants.INSCRIPTIONS_EMAIL</a>.
         </div>
 
         <div class="confirmation5">
             Votre inscription à cette formule de cours a bien été prise en compte, vos réservations ont bien été enregistrées mais votre paiement a rencontré un problème !
             <br />
             <br />
-            Merci de contacter au plus vite l'École du cavalier roi à <a href="mailto:inscriptions@cavalier-roi.fr" target="_blank">inscriptions@cavalier-roi.fr</a> pour régler le paiement.
+            Vous pouvez retrouver toutes vos inscriptions/réservations dans la partie "Mon Compte".
+            <br />
+            <br />
+            Merci de contacter au plus vite l'École du cavalier roi à <a href="mailto:@Angular.Constants.INSCRIPTIONS_EMAIL" target="_blank">@Angular.Constants.INSCRIPTIONS_EMAIL</a> pour régler le paiement.
         </div>
 
     </div>
@@ -106,4 +118,4 @@
 
 </div>
 
-<script language="javascript" src="@Constants.ROOT_URL/Scripts/Views/Shared/CalendrierParHeure.js" type="text/javascript"></script>
+<script language="javascript" src="@Angular.Constants.ROOT_URL/Scripts/Views/Shared/CalendrierParHeure.js" type="text/javascript"></script>

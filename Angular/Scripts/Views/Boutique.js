@@ -43,7 +43,7 @@ $(window).on('load', function () {
     //panier
     //-----------------------------------------------------------------------------------------------------------
     $('.menu .basket').show();
-    $('.menu .basket').on('click', function () {
+    $('.menu .basket').off('click').on('click', function () {
         $('.panier').toggle();
     });
     Initialisation_NavigationPanier();
@@ -69,12 +69,12 @@ $(window).on('load', function () {
         }
 
         //plus/moins
-        _Produit.find('.moins').on('click', function () {
+        _Produit.find('.moins').off('click').on('click', function () {
             if (parseInt(_Produit.find('.quantite input[type="text"]').val()) > 1) {
                 _Produit.find('.quantite input[type="text"]').val(parseInt(_Produit.find('.quantite input[type="text"]').val()) - 1);
             }
         });
-        _Produit.find('.plus').on('click', function () {
+        _Produit.find('.plus').off('click').on('click', function () {
             if (parseInt(_Produit.find('.quantite input[type="text"]').val()) < parseInt(_Produit.find('.quantite input[type="hidden"]').val())) {
                 _Produit.find('.quantite input[type="text"]').val(parseInt(_Produit.find('.quantite input[type="text"]').val()) + 1);
             }
@@ -83,7 +83,7 @@ $(window).on('load', function () {
             }
         });
 
-        _Produit.find('.ajouter').on('click', function () {
+        _Produit.find('.ajouter').off('click').on('click', function () {
             var _Connected = CheckConnectedEleve();
 
             if (_Connected == true) {
@@ -110,71 +110,50 @@ function Initialisation_NavigationPanier() {
 
     $('.panier').show();
 
-    $('.panier .fermer').on('click', function () {
+    $('.panier .fermer').off('click').on('click', function () {
         $('.panier').hide();
     });
 
+    $('.panier .etape1').width($('.panier .cadre').outerWidth(true));
+    $('.panier .etape2').width($('.panier .cadre').outerWidth(true));
+    $('.panier .etape3').width($('.panier .cadre').outerWidth(true));
+    $('.panier .etape4').width($('.panier .cadre').outerWidth(true));
+
+
     $('.panier .supprimer').each(function () {
-        $(this).on('click', function () {
-            if (confirm('Voulez-vraiment supprimer ce produit du panier ?')) {
-                DelLigneFromCommandeEnCours($(this).data('id'));
-            }
+        $(this).off('click').on('click', function () {
+            DelLigneFromCommandeEnCours($(this).data('id'));
+            return false;
         });
     });
 
     //passage à l'étape 2
-    $('.panier .etape1 input[type="button"].valider').on('click', function () {
+    $('.panier .etape1 input[type="button"].valider').off('click').on('click', function () {
         ValiderEtape1();
         return false;
     });
 
     //retour à l'étape 1 à partir de l'étape 2
-    $('.panier .etape2 input[type="button"].revenir').on('click', function () {
-        $('.panier .etape1').show();
-        $('.panier .etape2').hide();
-        $('.panier .etape3').hide();
-        $('.panier .etape4').hide();
-        $('.panier .etape4 .confirmation1').hide();
-        $('.panier .etape4 .confirmation2').hide();
-        $('.panier .etape4 .confirmation3').hide();
+    $('.panier .etape2 input[type="button"].revenir').off('click').on('click', function () {
+        RevenirEtape1();
         return false;
     });
 
     //passage à l'étape 3
-    $('.panier .etape2 input[type="button"].valider').on('click', function () {
+    $('.panier .etape2 input[type="button"].valider').off('click').on('click', function () {
         ValiderEtape2();
         return false;
     });
 
     //retour à l'étape 2 à partir de l'étape 3
-    $('.panier .etape3 input[type="button"].revenir').on('click', function () {
-        $('.panier .etape1').hide();
-        $('.panier .etape2').show();
-        $('.panier .etape3').hide();
-        $('.panier .etape4').hide();
-        $('.panier .etape4 .confirmation1').hide();
-        $('.panier .etape4 .confirmation2').hide();
-        $('.panier .etape4 .confirmation3').hide();
+    $('.panier .etape3 input[type="button"].revenir').off('click').on('click', function () {
+        RevenirEtape2();
         return false;
     });
 
     //validation de l'étape 3 par autre paiement
-    $('.panier .etape3 input[type="button"].autre').on('click', function () {
-
-        //désactivation des boutons de commande de la page (pour forcer un raffraichissement de la page pour en faire une autre)
-        $('.produit input[type="button"].ajouter').hide();
-        $('.produit .quantite').hide();
-
-        AddCommmande(2, '');
-
-        $('.panier .etape1').hide();
-        $('.panier .etape2').hide();
-        $('.panier .etape3').hide();
-        $('.panier .etape4').show();
-        $('.panier .etape4 .confirmation1').show();
-        $('.panier .etape4 .confirmation2').hide();
-        $('.panier .etape4 .confirmation3').hide();
-
+    $('.panier .etape3 input[type="button"].autre').off('click').on('click', function () {
+        ValiderEtape3();
         return false;
     });
 
@@ -183,15 +162,37 @@ function Initialisation_NavigationPanier() {
 
 
 function ValiderEtape1() {
-    $('.panier .etape1').hide();
+
+    $('.panier .etape1').show();
     $('.panier .etape2').show();
     $('.panier .etape3').hide();
     $('.panier .etape4').hide();
     $('.panier .etape4 .confirmation1').hide();
     $('.panier .etape4 .confirmation2').hide();
     $('.panier .etape4 .confirmation3').hide();
+
+    //animation du panier
+    $('.panier .etape1').animate({ 'marginLeft': - $('.panier .etape1').outerWidth(true) }, function () {
+        $('.panier .etape1').hide();
+    });
 }
 
+
+function RevenirEtape1() {
+    $('.panier .etape1').show();
+    $('.panier .etape2').show();
+    $('.panier .etape3').hide();
+    $('.panier .etape4').hide();
+    $('.panier .etape4 .confirmation1').hide();
+    $('.panier .etape4 .confirmation2').hide();
+    $('.panier .etape4 .confirmation3').hide();
+
+    //animation du panier
+    $('.panier .etape1').animate({ 'marginLeft': 0 }, function () {
+        $('.panier .etape2').hide();
+    });
+
+}
 
 
 function ValiderEtape2() { //adresse
@@ -287,13 +288,29 @@ function ValiderEtape2() { //adresse
             beforeSend: function (request) { },
             success: function (data) {
                 if (data == true) {
+
                     $('.panier .etape1').hide();
-                    $('.panier .etape2').hide();
+                    $('.panier .etape2').show();
                     $('.panier .etape3').show();
                     $('.panier .etape4').hide();
                     $('.panier .etape4 .confirmation1').hide();
                     $('.panier .etape4 .confirmation2').hide();
                     $('.panier .etape4 .confirmation3').hide();
+
+                    //accordeon des paiements
+                    var params = {
+                        'load': 0,
+                        'open': 1,
+                        'close': 0
+                    };
+                    $('.panier .etape3 .accordeon').Accordeon(params);
+
+                    //animation du panier
+                    $('.panier .etape1').css({ 'marginLeft': - ($('.panier .etape1').outerWidth(true) + $('.panier .etape2').outerWidth(true)) });
+                    $('.panier .etape2').animate({ 'marginLeft': - $('.panier .etape2').outerWidth(true) }, function () {
+                        $('.panier .etape2').hide();
+                    });
+
                 }
                 else {
                     alert('Une erreur est survenue !');
@@ -321,7 +338,51 @@ function ValiderEtape2() { //adresse
 }
 
 
+function RevenirEtape2() {
+    $('.panier .etape1').hide();
+    $('.panier .etape2').show();
+    $('.panier .etape3').show();
+    $('.panier .etape4').hide();
+    $('.panier .etape4 .confirmation1').hide();
+    $('.panier .etape4 .confirmation2').hide();
+    $('.panier .etape4 .confirmation3').hide();
 
+    //animation du panier
+    $('.panier .etape1').css({ 'marginLeft': - $('.panier .etape1').outerWidth(true) });
+    $('.panier .etape2').animate({ 'marginLeft': 0 }, function () {
+        $('.panier .etape3').hide();
+    });
+}
+
+
+function ValiderEtape3() {
+
+    if (confirm('Voulez-vous vraiment valider et régler cette commande avec un autre paiement ?')) {
+
+        //désactivation des boutons de commande de la page (pour forcer un raffraichissement de la page pour en faire une autre)
+        $('.produit input[type="button"].ajouter').hide();
+        $('.produit .quantite').hide();
+
+        AddCommmande(2, '');
+
+        $('.panier .etape1').hide();
+        $('.panier .etape2').hide();
+        $('.panier .etape3').show();
+        $('.panier .etape4').show();
+        $('.panier .etape4 .confirmation1').show();
+        $('.panier .etape4 .confirmation2').hide();
+        $('.panier .etape4 .confirmation3').hide();
+
+        //animation du panier
+        $('.panier .etape1').css({ 'marginLeft': - ($('.panier .etape1').outerWidth(true) + $('.panier .etape2').outerWidth(true) + $('.panier .etape3').outerWidth(true)) });
+        $('.panier .etape2').css({ 'marginLeft': - ($('.panier .etape1').outerWidth(true) + $('.panier .etape2').outerWidth(true)) });
+        $('.panier .etape3').animate({ 'marginLeft': - $('.panier .etape3').outerWidth(true) }, function () {
+            $('.panier .etape3').hide();
+        });
+
+    }
+
+}
 
 
 function AddLigneToCommandeEnCours(_ProduitId, _Quantite) {
@@ -366,39 +427,41 @@ function AddLigneToCommandeEnCours(_ProduitId, _Quantite) {
 
 function DelLigneFromCommandeEnCours(_LigneId) {
 
-    var _Params = {};
-    _Params._LigneId = _LigneId;
+    if (confirm('Voulez-vraiment supprimer ce produit du panier ?')) {
+        var _Params = {};
+        _Params._LigneId = _LigneId;
 
-    $.ajax({
-        type: 'POST',
-        url: '/DelLigneFromCommandeEnCours',
-        //headers: { 'Content-Type': 'application/json' },
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'html',
-        data: JSON.stringify(_Params),
-        async: false,
-        timeout: 100000000,
-        tryCount: 0,
-        retryLimit: 0,
-        beforeSend: function (request) { },
-        success: function (data) {
-            $('.panier .etape1').html(data);
-            Initialisation_NavigationPanier();
-            alert('Le panier a bien été mis à jour !');
-        },
-        error: function (xhr, textStatus) {
-            if (textStatus == 'timeout') {
-                this.tryCount++;
-                if (this.tryCount <= this.retryLimit) {
-                    $.ajax(this);
+        $.ajax({
+            type: 'POST',
+            url: '/DelLigneFromCommandeEnCours',
+            //headers: { 'Content-Type': 'application/json' },
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'html',
+            data: JSON.stringify(_Params),
+            async: false,
+            timeout: 100000000,
+            tryCount: 0,
+            retryLimit: 0,
+            beforeSend: function (request) { },
+            success: function (data) {
+                $('.panier .etape1').html(data);
+                Initialisation_NavigationPanier();
+                alert('Le panier a bien été mis à jour !');
+            },
+            error: function (xhr, textStatus) {
+                if (textStatus == 'timeout') {
+                    this.tryCount++;
+                    if (this.tryCount <= this.retryLimit) {
+                        $.ajax(this);
+                    }
                 }
-            }
-            else if (textStatus == 'error') {
-                alert('Une erreur est survenue : ' + data.textStatus);
-            }
-        },
-        complete: function () { }
-    });
+                else if (textStatus == 'error') {
+                    alert('Une erreur est survenue : ' + data.textStatus);
+                }
+            },
+            complete: function () { }
+        });
+    }
 
 }
 
@@ -439,6 +502,8 @@ function AddCommmande(_StatutId, _PaymentId) {
         complete: function () { }
     });
 }
+
+
 
 
 
@@ -530,11 +595,18 @@ function CallBackPayPalOK(_PaymentId) {
 
     $('.panier .etape1').hide();
     $('.panier .etape2').hide();
-    $('.panier .etape3').hide();
+    $('.panier .etape3').show();
     $('.panier .etape4').show();
     $('.panier .etape4 .confirmation1').hide();
     $('.panier .etape4 .confirmation2').show();
     $('.panier .etape4 .confirmation3').hide();
+
+    //animation du panier
+    $('.panier .etape1').css({ 'marginLeft': - ($('.panier .etape1').outerWidth(true) + $('.panier .etape2').outerWidth(true) + $('.panier .etape3').outerWidth(true)) });
+    $('.panier .etape2').css({ 'marginLeft': - ($('.panier .etape1').outerWidth(true) + $('.panier .etape2').outerWidth(true)) });
+    $('.panier .etape3').animate({ 'marginLeft': - $('.panier .etape3').outerWidth(true) }, function () {
+        $('.panier .etape3').hide();
+    });
 
 }
 
@@ -549,10 +621,17 @@ function CallBackPayPalKO(_Error) {
 
     $('.panier .etape1').hide();
     $('.panier .etape2').hide();
-    $('.panier .etape3').hide();
+    $('.panier .etape3').show();
     $('.panier .etape4').show();
     $('.panier .etape4 .confirmation1').hide();
     $('.panier .etape4 .confirmation2').hide();
     $('.panier .etape4 .confirmation3').show();
+
+    //animation du panier
+    $('.panier .etape1').css({ 'marginLeft': - ($('.panier .etape1').outerWidth(true) + $('.panier .etape2').outerWidth(true) + $('.panier .etape3').outerWidth(true)) });
+    $('.panier .etape2').css({ 'marginLeft': - ($('.panier .etape1').outerWidth(true) + $('.panier .etape2').outerWidth(true)) });
+    $('.panier .etape3').animate({ 'marginLeft': - $('.panier .etape3').outerWidth(true) }, function () {
+        $('.panier .etape3').hide();
+    });
 
 }

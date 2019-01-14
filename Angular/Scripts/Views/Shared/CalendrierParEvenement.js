@@ -62,12 +62,18 @@ function OpenCalendrierParEvenement(_EvenementId, _EvenementLibelle, _EleveId, _
 
     }
     else { //participation payante + toutes les réservations
-
         $('#Div_CalendrierParEvenement .paiement').show();
-
     }
-   
+
     $('#Div_CalendrierParEvenement').ModalPopUp('open');
+
+    //accordeon des paiements
+    var params = {
+        'load': 0,
+        'open': 1,
+        'close': 0
+    };
+    $('#Div_CalendrierParEvenement .paiement .accordeon').Accordeon(params);
 
 }
 

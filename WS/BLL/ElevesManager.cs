@@ -162,6 +162,28 @@ namespace WS.BLL
 
             if (String.IsNullOrEmpty(_Password)) { _Password = Tools.RandomString(8, true); }
 
+            //envoi du mail de reinitialisation
+            String _EmailReinitialisation = String.Empty;
+            _EmailReinitialisation += "<html>";
+            _EmailReinitialisation += "<body>";
+            _EmailReinitialisation += "<img src=\"http://www.cavalier-roi.fr/Content/Images/LogoMail.jpg\" />";
+            _EmailReinitialisation += "<br /><hr /><br />";
+            _EmailReinitialisation += "Votre mot de passe a bien été réinitialisé !";
+            _EmailReinitialisation += "<br /><br />";
+            _EmailReinitialisation += "<u>Email/Identifiant</u> : " + _Email;
+            _EmailReinitialisation += "<br />";
+            _EmailReinitialisation += "<u>Nouveau mot de passe</u> : " + _Password;
+            _EmailReinitialisation += "<br /><br />";
+            _EmailReinitialisation += "Pensez à bien le changer à votre prochaine connexion dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+            _EmailReinitialisation += "<br /><br />";
+            _EmailReinitialisation += "Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.INSCRIPTIONS_EMAIL + "\" target=\"_blank\">" + WS.Constants.INSCRIPTIONS_EMAIL + "</a>.";
+            _EmailReinitialisation += "<br /><br />";
+            _EmailReinitialisation += "L'École du cavalier roi";
+            _EmailReinitialisation += "<br /><br />";
+            _EmailReinitialisation += "</body>";
+            _EmailReinitialisation += "</html>";
+            Tools.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, _Email, "Réinitilisation de mot de passe", _EmailReinitialisation, true, WS.Constants.MAILSERVER_URL, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI);
+
             return _DB.ReinitEleve(
                                     email: _Email.Trim(),
                                     password: _Password.Trim().ToEncryptedTripleDES(Constants.PASSPHRASE).ToEncodedURL()
@@ -273,12 +295,15 @@ namespace WS.BLL
                                     classement: (!String.IsNullOrEmpty(_Classement) ? _Classement.Trim() : null),
                                     suivi: (!String.IsNullOrEmpty(_Suivi) ? _Suivi.Trim() : null)
                               );
+            Int32? _Id = _IdResult.FirstOrDefault().Value;
 
+            /*
             //je n'arrive pas à récupérer l'id de l'élève créé, je vais donc utiliser la procédure pour connecter l'élève
             _IdResult = _DB.ConnectEleve(
                                     email: _Email.Trim(),
                                     password: _Password.Trim().ToEncryptedTripleDES(Constants.PASSPHRASE).ToEncodedURL()
                                );
+            
             Int32? _Id = null;
             try
             {
@@ -288,6 +313,48 @@ namespace WS.BLL
             {
                 //identifiants ko
             }
+            */
+
+            //envoi du mail de reinitialisation
+            String _EmailRecapitulation = String.Empty;
+            _EmailRecapitulation += "<html>";
+            _EmailRecapitulation += "<body>";
+            _EmailRecapitulation += "<img src=\"http://www.cavalier-roi.fr/Content/Images/LogoMail.jpg\" />";
+            _EmailRecapitulation += "<br /><hr /><br />";
+            _EmailRecapitulation += "Votre inscription a bien été prise en compte !";
+            _EmailRecapitulation += "<br /><br />";
+            _EmailRecapitulation += "<u>Email/Identifiant</u> : " + _Email;
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "<u>Mot de passe</u> : *************";
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "<u>Nom</u> : " + (!String.IsNullOrEmpty(_Nom) ? _Nom.Trim() : "-");
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "<u>Prénom</u> : " + (!String.IsNullOrEmpty(_Prenom) ? _Prenom.Trim() : "-");
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "<u>Date de naissance</u> : " + (!String.IsNullOrEmpty(_DtNaissance) ? _DtNaissance.Trim() : "-");
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "<u>Sexe</u> : " + (!String.IsNullOrEmpty(_Sexe) ? _Sexe.Trim() : "-");
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "<u>Fixe</u> : " + (!String.IsNullOrEmpty(_Fixe) ? _Fixe.Trim() : "-");
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "<u>Portable</u> : " + (!String.IsNullOrEmpty(_Portable) ? _Portable.Trim() : "-");
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "<u>License</u> : " + (!String.IsNullOrEmpty(_License) ? _License.Trim() : "-");
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "<u>Classement</u> : " + (!String.IsNullOrEmpty(_Classement) ? _Classement.Trim() : "-");
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "<u>Club</u> : " + (!String.IsNullOrEmpty(_Club) ? _Club.Trim() : "-");
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "<u>Commentaire</u> : " + (!String.IsNullOrEmpty(_Commentaire) ? _Commentaire.Trim() : "-");
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "<br />";
+            _EmailRecapitulation += "Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.INSCRIPTIONS_EMAIL + "\" target=\"_blank\">" + WS.Constants.INSCRIPTIONS_EMAIL + "</a>.";
+            _EmailRecapitulation += "<br /><br />";
+            _EmailRecapitulation += "L'École du cavalier roi";
+            _EmailRecapitulation += "<br /><br />";
+            _EmailRecapitulation += "</body>";
+            _EmailRecapitulation += "</html>";
+            Tools.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, _Email, "Confirmation d'inscription", _EmailRecapitulation, true, WS.Constants.MAILSERVER_URL, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI);
 
             return _Id;
 

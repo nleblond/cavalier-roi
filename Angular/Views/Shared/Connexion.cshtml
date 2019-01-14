@@ -1,151 +1,164 @@
 ﻿<div id="Div_Connexion" class="modal_connexion">
-    <img class="fermer" src="@Constants.IMG_URL/Boutons/Fermer.svg" />
+    <img class="fermer" src="@Angular.Constants.IMG_URL/Boutons/Fermer.svg" />
     <div class="titre">CONNEXION</div>
     
     
     <div class="texte">
 
-        <h2>JE SUIS DEJA INSCRIT</h2>
-        <div class="connexion">
-            <table cellpadding="2" cellspacing="0" border="0">
-            <tr>
-                <td>
-                    Email/Identifiant : <span class="jaune">*</span>
-                    <div class="br5"></div>
-                    <input type="text" class="email" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Mot de passe : <span class="jaune">*</span>
-                    <div class="br5"></div>
-                    <input type="password" class="password" />
-                </td>
-            </tr>
-            <tr>
-                <td><input type="button" class="valider" title="Connecter" value="Connecter" /></td>
-            </tr>
-            </table>
-        </div>
+        <ul id="Ul_Actions" class="accordeon">
+            <li>
+                <div class="header">JE SUIS DEJA INSCRIT</div>
+                <ul>
+                    <li>
+                        <div class="connexion">
+                            <table cellpadding="2" cellspacing="0" border="0">
+                                <tr>
+                                    <td>
+                                        Email/Identifiant : <span class="jaune">*</span>
+                                        <div class="br5"></div>
+                                        <input type="text" class="email" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Mot de passe : <span class="jaune">*</span>
+                                        <div class="br5"></div>
+                                        <input type="password" class="password" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="button" class="valider" title="Connecter" value="Connecter" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <div class="header">JE M'INSCRIS</div>
+                <ul>
+                    <li>
+                        <div class="inscription">
+                            <table cellpadding="2" cellspacing="0" border="0">
+                                <tr>
+                                    <td>
+                                        Email/Identifiant : <span class="jaune">*</span>
+                                        <div class="br5"></div>
+                                        <input type="text" class="email" maxlength="255" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Mot de passe : <span class="jaune">*</span>
+                                        <div class="br5"></div>
+                                        <input type="password" class="password" maxlength="20" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Nom : <span class="jaune">*</span>
+                                        <div class="br5"></div>
+                                        <input type="text" class="nom" maxlength="50" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Prénom : <span class="jaune">*</span>
+                                        <div class="br5"></div>
+                                        <input type="text" class="prenom" maxlength="50" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="fleft">
+                                            Date de naissance : <span class="jaune">*</span>
+                                            <div class="br5"></div>
+                                            <input type="text" class="naissance" maxlength="10" readonly="readonly" />
+                                        </div>
+                                        <div class="fright right">
+                                            Sexe : <span class="jaune">*</span>
+                                            <div class="br5"></div>
+                                            <select class="sexe">
+                                                <option value=""></option>
+                                                <option value="F">F</option>
+                                                <option value="M">M</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="fleft">
+                                            Téléphone fixe : <span class="jaune">**</span>
+                                            <div class="br5"></div>
+                                            <input type="text" class="fixe" maxlength="10" />
+                                        </div>
+                                        <div class="fright right">
+                                            License :
+                                            <div class="br5"></div>
+                                            <input type="text" class="license" maxlength="20" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="fleft">
+                                            Téléphone portable : <span class="jaune">**</span>
+                                            <div class="br5"></div>
+                                            <input type="text" class="portable" maxlength="10" />
+                                        </div>
+                                        <div class="fright right">
+                                            Classement :
+                                            <div class="br5"></div>
+                                            <input type="text" class="classement" maxlength="6" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Club :
+                                        <div class="br5"></div>
+                                        <input type="text" class="club" maxlength="255" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Commentaire :
+                                        <div class="br5"></div>
+                                        <textarea rows="8" class="commentaire"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="button" class="valider" title="Enregistrer" value="Enregistrer" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <div class="header">JE SUIS INSCRIS MAIS J'AI OUBLIÉ MON MOT DE PASSE</div>
+                <ul>
+                    <li>
+                        <div class="reinitialisation">
+                            <div>Email/Identifiant : <span class="jaune">*</span></div>
+                            <input type="text" class="email" />
+                            <div class="br5"></div>
+                            <input type="button" class="valider" title="Réinitialiser" value="Réinitialiser" />
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
 
         <div class="clear"></div>
-        <div class="br10"></div>
-        <hr />
-
-        <h2>JE M'INSCRIS</h2>
-        <div class="inscription">
-            <table cellpadding="2" cellspacing="0" border="0">
-            <tr>
-                <td>
-                    Email/Identifiant : <span class="jaune">*</span>
-                    <div class="br5"></div>
-                    <input type="text" class="email" maxlength="255" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Mot de passe : <span class="jaune">*</span>
-                    <div class="br5"></div>
-                    <input type="password" class="password" maxlength="20" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Nom : <span class="jaune">*</span>
-                    <div class="br5"></div>
-                    <input type="text" class="nom" maxlength="50" />
-                </td>
-            </tr>         
-            <tr>
-                <td>
-                    Prénom : <span class="jaune">*</span>
-                    <div class="br5"></div>
-                    <input type="text" class="prenom" maxlength="50" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="fleft">
-                        Date de naissance : <span class="jaune">*</span>
-                        <div class="br5"></div>
-                        <input type="text" class="naissance" maxlength="10" readonly="readonly" />
-                    </div>
-                    <div class="fright right">
-                        Sexe : <span class="jaune">*</span>
-                        <div class="br5"></div>
-                        <select class="sexe">
-                            <option value=""></option>
-                            <option value="F">F</option>
-                            <option value="M">M</option>
-                        </select>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="fleft">
-                        Téléphone fixe : <span class="jaune">**</span>
-                        <div class="br5"></div>
-                        <input type="text" class="fixe" maxlength="10" />
-                    </div>
-                    <div class="fright right">
-                        License :
-                        <div class="br5"></div>
-                        <input type="text" class="license" maxlength="20" />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="fleft">
-                        Téléphone portable : <span class="jaune">**</span>
-                        <div class="br5"></div>
-                        <input type="text" class="portable" maxlength="10" />
-                    </div>
-                    <div class="fright right">
-                        Classement :
-                        <div class="br5"></div>
-                        <input type="text" class="classement" maxlength="6" />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Club :
-                    <div class="br5"></div>
-                    <input type="text" class="club" maxlength="255" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Commentaire :
-                    <div class="br5"></div>
-                    <textarea rows="8" class="commentaire"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="button" class="valider" title="Enregistrer" value="Enregistrer" /></td>
-            </tr>
-            </table>
-        </div>
-
-        <div class="clear"></div>
-        <div class="br10"></div>
-        <hr />
-
-        <h2>J'AI OUBLIE MON MOT DE PASSE</h2>
-        <div class="reinitialisation">
-            <div>Email/Identifiant : <span class="jaune">*</span></div>
-            <input type="text" class="email" />
-            <div class="br5"></div>
-            <input type="button" class="valider" title="Réinitialiser" value="Réinitialiser" />
-        </div>
-
-        <div class="clear"></div>
-        <div class="br10"></div>
-        <hr />
-        <div class="br10"></div>
-
+        
         <div><span class="jaune">* : champ obligatoire</span></div>
         <div><span class="jaune">** : au moins un champ obligatoire</span></div>
 
@@ -155,4 +168,4 @@
 
 </div>
 
-<script language="javascript" src="@Constants.ROOT_URL/Scripts/Views/Shared/Connexion.js" type="text/javascript"></script>
+<script language="javascript" src="@Angular.Constants.ROOT_URL/Scripts/Views/Shared/Connexion.js" type="text/javascript"></script>

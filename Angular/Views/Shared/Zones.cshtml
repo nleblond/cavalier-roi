@@ -9,7 +9,7 @@
         <div class="zone">
             @if (!String.IsNullOrEmpty(_Current.Full))
             {
-                <a href="@Constants.IMG_URL/Contenus/@_Current.Id/@_Current.Full" target="_blank" title="Cliquer pour agrandir"><img class="photo" src="@Constants.IMG_URL/Contenus/@_Current.Id/@_Current.Full" /></a>
+                <a href="@Angular.Constants.IMG_URL/Contenus/@_Current.Id/@_Current.Full" target="_blank" title="Cliquer pour agrandir"><img class="photo" src="@Angular.Constants.IMG_URL/Contenus/@_Current.Id/@_Current.Full" /></a>
             }
             @if (!String.IsNullOrEmpty(_Current.Titre))
             {

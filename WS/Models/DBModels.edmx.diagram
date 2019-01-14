@@ -7,12 +7,12 @@
       <Diagram DiagramId="544f70babb56457886573a6069900496" Name="Diagram1" ZoomLevel="62">
         <EntityTypeShape EntityType="DBModelsContext.Categories" Width="1.5" PointX="19.75" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DBModelsContext.Contenus" Width="1.5" PointX="5.375" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBModelsContext.Eleves" Width="1.5" PointX="8.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModelsContext.Eleves" Width="1.5" PointX="8.75" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DBModelsContext.Emplacements" Width="1.5" PointX="0.625" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBModelsContext.Frais" Width="1.5" PointX="28.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModelsContext.Frais" Width="1.5" PointX="25" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="DBModelsContext.Produits" Width="1.5" PointX="21.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBModelsContext.Publications" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBModelsContext.Statuts" Width="1.5" PointX="11.875" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModelsContext.Statuts" Width="1.5" PointX="21.875" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DBModelsContext.Typologies" Width="1.5" PointX="0.5" PointY="7.25" IsExpanded="true" />
         <AssociationConnector Association="DBModelsContext.FK_Produits_Categories" ManuallyRouted="false" />
         <AssociationConnector Association="DBModelsContext.FK_Publications_Emplacements1" ManuallyRouted="false" />
@@ -20,18 +20,18 @@
         <AssociationConnector Association="DBModelsContext.FK_Contenus_Modes" />
         <AssociationConnector Association="DBModelsContext.FK_Emplacements_Modes" />
         <AssociationConnector Association="DBModelsContext.FK_Publications_Contenus1" />
-        <EntityTypeShape EntityType="DBModelsContext.Plannings" Width="1.5" PointX="10.5" PointY="0.625" />
+        <EntityTypeShape EntityType="DBModelsContext.Plannings" Width="1.5" PointX="12.875" PointY="0.5" />
         <EntityTypeShape EntityType="DBModelsContext.Evenements" Width="1.5" PointX="1.25" PointY="0.5" />
         <AssociationConnector Association="DBModelsContext.FK_Contenus_Evenements" />
         <AssociationConnector Association="DBModelsContext.FK_Evenements_Typologies" />
         <EntityTypeShape EntityType="DBModelsContext.Participations" Width="1.5" PointX="6.5" PointY="4.25" />
-        <EntityTypeShape EntityType="DBModelsContext.Reservations" Width="1.5" PointX="7.75" PointY="0.5" />
+        <EntityTypeShape EntityType="DBModelsContext.Reservations" Width="1.5" PointX="9.375" PointY="0.625" />
         <AssociationConnector Association="DBModelsContext.FK_Participations_Eleves" />
         <AssociationConnector Association="DBModelsContext.FK_Reservations_Eleves" />
         <AssociationConnector Association="DBModelsContext.FK_Participations_Evenements" />
         <AssociationConnector Association="DBModelsContext.FK_Reservations_Evenements" />
-        <EntityTypeShape EntityType="DBModelsContext.Adresses" Width="1.5" PointX="28.5" PointY="6.5" />
-        <EntityTypeShape EntityType="DBModelsContext.Commandes" Width="1.5" PointX="25" PointY="9.25" />
+        <EntityTypeShape EntityType="DBModelsContext.Adresses" Width="1.5" PointX="13" PointY="10" />
+        <EntityTypeShape EntityType="DBModelsContext.Commandes" Width="1.5" PointX="17.75" PointY="10" />
         <AssociationConnector Association="DBModelsContext.FK_Commandes_Adresses" />
         <AssociationConnector Association="DBModelsContext.FK_Commandes_Eleves" />
         <AssociationConnector Association="DBModelsContext.FK_Commandes_Frais" />

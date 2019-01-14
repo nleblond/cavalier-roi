@@ -1300,8 +1300,16 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AddLigne", produitIdParameter, commandeIdParameter, quantiteParameter, statutIdParameter, prixParameter, reductionParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> AddCommande(Nullable<int> statutId, Nullable<int> eleveId, Nullable<double> prix, Nullable<int> fraiId, string referenceTransaction, string referenceExterne, Nullable<int> adresseId)
+        public virtual ObjectResult<Nullable<int>> AddCommande(Nullable<System.DateTime> dtCreation, Nullable<System.DateTime> dtValidation, Nullable<int> statutId, Nullable<int> eleveId, Nullable<double> prix, Nullable<int> fraiId, string referenceTransaction, string referenceExterne, Nullable<int> adresseId)
         {
+            var dtCreationParameter = dtCreation.HasValue ?
+                new ObjectParameter("DtCreation", dtCreation) :
+                new ObjectParameter("DtCreation", typeof(System.DateTime));
+    
+            var dtValidationParameter = dtValidation.HasValue ?
+                new ObjectParameter("DtValidation", dtValidation) :
+                new ObjectParameter("DtValidation", typeof(System.DateTime));
+    
             var statutIdParameter = statutId.HasValue ?
                 new ObjectParameter("StatutId", statutId) :
                 new ObjectParameter("StatutId", typeof(int));
@@ -1330,7 +1338,7 @@ namespace WS.Models
                 new ObjectParameter("AdresseId", adresseId) :
                 new ObjectParameter("AdresseId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AddCommande", statutIdParameter, eleveIdParameter, prixParameter, fraiIdParameter, referenceTransactionParameter, referenceExterneParameter, adresseIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AddCommande", dtCreationParameter, dtValidationParameter, statutIdParameter, eleveIdParameter, prixParameter, fraiIdParameter, referenceTransactionParameter, referenceExterneParameter, adresseIdParameter);
         }
     }
 }

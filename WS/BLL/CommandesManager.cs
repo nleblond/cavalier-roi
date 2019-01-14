@@ -123,32 +123,34 @@ namespace WS.BLL
 
 
 
-        public static Int32? AddCommande(Int32? _StatutId = null, Int32? _EleveId = null, Double? _Prix = null, Int32? _FraiId = null, String _ReferenceTransaction = null, String _ReferenceExterne = null, Adresse _Adresse = null, List<Ligne> _Lignes = null)
+        public static Int32? AddCommande(DateTime? _DtCreation = null, DateTime? _DtValidation = null, Int32? _StatutId = null, Int32? _EleveId = null, Double? _Prix = null, Int32? _FraiId = null, String _ReferenceTransaction = null, String _ReferenceExterne = null, Adresse _Adresse = null, List<Ligne> _Lignes = null)
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
 
 
             //ajout de l'adresse
             Int32? _NewAdresseId = _DB.AddAdresse(
-                                    destinataire: _Adresse.Destinataire,
-                                    ligne1: _Adresse.Ligne1,
-                                    ligne2: _Adresse.Ligne2,
-                                    codePostal: _Adresse.CodePostal,
-                                    ville: _Adresse.Ville,
-                                    pays: _Adresse.Pays,
-                                    telephone: _Adresse.Telephone,
-                                    email: _Adresse.Email
+                                    destinataire: _Adresse.Destinataire.Trim(),
+                                    ligne1: _Adresse.Ligne1.Trim(),
+                                    ligne2: (String.IsNullOrEmpty(_Adresse.Ligne2) ? null : _Adresse.Ligne2.Trim()),
+                                    codePostal: _Adresse.CodePostal.Trim(),
+                                    ville: _Adresse.Ville.Trim(),
+                                    pays: _Adresse.Pays.Trim(),
+                                    telephone: _Adresse.Telephone.Trim(),
+                                    email: _Adresse.Email.Trim()
             ).FirstOrDefault().Value;
 
             //ajout de la commande
             Int32? _NewCommandeId = _DB.AddCommande(
-                                    statutId: _StatutId,
-                                    eleveId: _EleveId,
-                                    prix: _Prix,
-                                    fraiId: _FraiId,
-                                    referenceTransaction: _ReferenceTransaction,
-                                    referenceExterne: _ReferenceExterne,
-                                    adresseId: _NewAdresseId
+                                    dtCreation: _DtCreation,
+                                    dtValidation: _DtValidation,
+                                    statutId: (_StatutId == null ? -1 : _StatutId),
+                                    eleveId: (_EleveId == null ? -1 : _EleveId),
+                                    prix: (_Prix == null ? -1 : _Prix),
+                                    fraiId: (_FraiId == null ? -1 : _EleveId),
+                                    referenceTransaction: (String.IsNullOrEmpty(_ReferenceTransaction) ? null : _ReferenceTransaction.Trim()),
+                                    referenceExterne: (String.IsNullOrEmpty(_ReferenceExterne) ? null : _ReferenceExterne.Trim()),
+                                    adresseId: (_NewAdresseId == null ? -1 : _NewAdresseId)
             ).FirstOrDefault().Value;
 
             //ajout des lignes
@@ -163,6 +165,56 @@ namespace WS.BLL
                                         reduction: _Current.Reduction
                 ).FirstOrDefault().Value;
             }
+
+            //envoi du mail de confirmation
+            String _EmailConfirmation = String.Empty;
+            _EmailConfirmation += "<html>";
+            _EmailConfirmation += "<body>";
+            _EmailConfirmation += "<img src=\"http://www.cavalier-roi.fr/Content/Images/LogoMail.jpg\" />";
+            _EmailConfirmation += "<br /><hr /><br />";
+            if (_StatutId == 3)
+            {
+                _EmailConfirmation += "Votre commande #" + _NewCommandeId.ToString() + " a bien été prise en compte et votre paiement " + _ReferenceTransaction + " a bien été effectué !";
+            }
+            else if (_StatutId == 2)
+            {
+                _EmailConfirmation += "Votre commande #" + _NewCommandeId.ToString() + " a bien été prise en compte !";
+            }
+            _EmailConfirmation += "<br /><br />";
+            _EmailConfirmation += "<table cellpadding=\"2\" cellspacing=\"2\" border=\"1\">";
+            _EmailConfirmation += "<tr>";
+            _EmailConfirmation += "     <th>Numéro de produit</th>";
+            _EmailConfirmation += "     <th>Libellé de produit</th>";
+            _EmailConfirmation += "     <th>Quantité</th>";
+            foreach (Ligne _Current in _Lignes)
+            {
+                _EmailConfirmation += "<tr>";
+                _EmailConfirmation += "     <td>" + (!String.IsNullOrEmpty(_Current.Produit.Reference) ? _Current.Produit.Reference : _Current.Produit.Id.ToString()) + "</td>";
+                _EmailConfirmation += "     <td>" + _Current.Produit.Libelle + "</td>";
+                _EmailConfirmation += "     <td>" + _Current.Quantite + "</td>";
+                _EmailConfirmation += "</tr>";
+            }
+            _EmailConfirmation += "</table>";
+            _EmailConfirmation += "<br /><br />";
+            _EmailConfirmation += "Vous pouvez retrouver toutes vos commandes dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+            _EmailConfirmation += "<br /><br />";
+            if (_StatutId == 3)
+            {
+                _EmailConfirmation += "Merci de contacter au plus vite l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a> pour régler le paiement.";
+            }
+            else if (_StatutId == 2)
+            {
+                _EmailConfirmation += "Vous recevrez votre facture directement par mail ou en la demandant à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a>";
+                _EmailConfirmation += "<br /><br />";
+                _EmailConfirmation += "Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a>.";
+            }
+            _EmailConfirmation += "<br /><br />";
+            _EmailConfirmation += "L'École du cavalier roi";
+            _EmailConfirmation += "<br /><br />";
+            _EmailConfirmation += "</body>";
+            _EmailConfirmation += "</html>";
+            Eleve _Eleve = ElevesManager.GetEleves(_Id: _EleveId)[0];
+            Tools.SendMail(WS.Constants.COMMANDES_EMAIL, _Eleve.Email, "Confirmation de commande", _EmailConfirmation, true, WS.Constants.MAILSERVER_URL, WS.Constants.MAILSERVER_PORT, WS.Constants.COMMANDES_USERNAME, WS.Constants.COMMANDES_PASSWORD, WS.Constants.COMMANDES_CC, WS.Constants.COMMANDES_CCI);
 
             return _NewCommandeId;
         }

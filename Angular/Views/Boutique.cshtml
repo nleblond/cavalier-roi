@@ -45,19 +45,19 @@
                 
                 @if (!String.IsNullOrEmpty(Model.Produits[_Index].Visuel))
                 {
-                    <a class="visuel" href="@Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Visuel" target="_blank" title="Cliquer pour agrandir">
-                        <img src="@Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Visuel" />
+                    <a class="visuel" href="@Angular.Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Visuel" target="_blank" title="Cliquer pour agrandir">
+                        <img src="@Angular.Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Visuel" />
                     </a>
                 }
                 @if (!String.IsNullOrEmpty(Model.Produits[_Index].Image))
                 {
-                    <a class="image" href="@Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Image" target="_blank" title="Cliquer pour agrandir">
-                        <img src="@Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Image" />
+                    <a class="image" href="@Angular.Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Image" target="_blank" title="Cliquer pour agrandir">
+                        <img src="@Angular.Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Image" />
                     </a>
                 }
                 @if (!String.IsNullOrEmpty(Model.Produits[_Index].Logo))
                 {
-                    <img class="logo" src="@Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Logo" />
+                    <img class="logo" src="@Angular.Constants.IMG_URL/Produits/@Model.Produits[_Index].Id/@Model.Produits[_Index].Logo" />
                 }
 
                 @if (Model.Produits[_Index].Descriptif != null)
@@ -84,9 +84,9 @@
                         @{
                             if (Model.Produits[_Index].Stock >= 1)
                             {
-                                <img src="@Constants.IMG_URL/boutons/Moins.svg" title="Moins" class="moins" />
+                                <img src="@Angular.Constants.IMG_URL/boutons/Moins.svg" title="Moins" class="moins" />
                                 <input type="text" value="1" />
-                                <img src="@Constants.IMG_URL/boutons/Plus.svg" title="Plus" class="plus" />
+                                <img src="@Angular.Constants.IMG_URL/boutons/Plus.svg" title="Plus" class="plus" />
                             }
                         }
                     </div>
@@ -107,4 +107,4 @@
 
 </div>
 
-<script language="javascript" src="@Constants.ROOT_URL/Scripts/Views/Boutique.js" type="text/javascript"></script>
+<script language="javascript" src="@Angular.Constants.ROOT_URL/Scripts/Views/Boutique.js" type="text/javascript"></script>

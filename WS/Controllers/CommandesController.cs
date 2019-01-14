@@ -35,7 +35,15 @@ namespace WS.Controllers
 
         public IHttpActionResult AddCommande(Commande _Commande)
         {
+
+            DateTime? _DtCreation = null;
+            DateTime? _DtValidation = null;
+            if (!String.IsNullOrEmpty(_Commande.DtCreation)) { _DtCreation = DateTime.Parse(_Commande.DtCreation); }
+            if (!String.IsNullOrEmpty(_Commande.DtValidation)) { _DtValidation = DateTime.Parse(_Commande.DtValidation); }
+
             return Ok(CommandesManager.AddCommande(
+                                    _DtCreation: _DtCreation,
+                                    _DtValidation: _DtValidation,
                                     _StatutId: _Commande.Statut.Id,
                                     _EleveId: _Commande.Eleve.Id,
                                     _Prix: _Commande.Prix,
