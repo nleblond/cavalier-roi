@@ -4,6 +4,7 @@ var CommandeUpdateParameters = /** @class */ (function () {
     function CommandeUpdateParameters() {
         this.Id = null;
         this.StatutId = null;
+        this.StatutLibelle = null;
         this.ReferenceTransaction = null;
         this.ReferenceExterne = null;
     }

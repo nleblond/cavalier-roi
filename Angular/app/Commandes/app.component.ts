@@ -63,6 +63,7 @@ export class AppComponent implements OnInit {
     public ChangeStatut(_Event: any, _Index: number) {
         if ((_Index != null) && (_Index != undefined)) {
             this._Commandes[_Index].Statut.Id = _Event.target.value;
+            this._Commandes[_Index].Statut.Libelle = _Event.target[_Event.target.selectedIndex].text;
         }
         else {
             this._StatutId = _Event.target.value;
@@ -124,8 +125,10 @@ export class AppComponent implements OnInit {
             this._CommandeUpdateParameters = new CommandeUpdateParameters();
             this._CommandeUpdateParameters.Id = this._Commandes[_Index].Id;
             this._CommandeUpdateParameters.StatutId = this._Commandes[_Index].Statut.Id;
+            this._CommandeUpdateParameters.StatutLibelle = this._Commandes[_Index].Statut.Libelle;
             this._CommandeUpdateParameters.ReferenceTransaction = this._Commandes[_Index].ReferenceTransaction;
             this._CommandeUpdateParameters.ReferenceExterne = this._Commandes[_Index].ReferenceExterne;
+            this._CommandeUpdateParameters.EleveId = this._Commandes[_Index].Eleve.Id;
 
             var _Body = JSON.stringify(this._CommandeUpdateParameters);
             var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });

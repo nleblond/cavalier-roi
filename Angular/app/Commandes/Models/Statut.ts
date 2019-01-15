@@ -9,8 +9,8 @@
         
     }
 
-    public Id: number | number;
-    public Libelle: string | number;
-    public Position: number | number;
+    public Id: number | null;
+    public Libelle: string | null;
+    public Position: number | null;
 
 }

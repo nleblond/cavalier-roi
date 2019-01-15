@@ -1340,5 +1340,14 @@ namespace WS.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AddCommande", dtCreationParameter, dtValidationParameter, statutIdParameter, eleveIdParameter, prixParameter, fraiIdParameter, referenceTransactionParameter, referenceExterneParameter, adresseIdParameter);
         }
+    
+        public virtual ObjectResult<PlanningOnlyResult> GetPlanningsOnly(Nullable<int> evenementId)
+        {
+            var evenementIdParameter = evenementId.HasValue ?
+                new ObjectParameter("EvenementId", evenementId) :
+                new ObjectParameter("EvenementId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PlanningOnlyResult>("GetPlanningsOnly", evenementIdParameter);
+        }
     }
 }

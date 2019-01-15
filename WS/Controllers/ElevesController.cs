@@ -85,7 +85,8 @@ namespace WS.Controllers
                 _Commentaire: _Eleve.Commentaire,
                 _License: _Eleve.License,
                 _Classement: _Eleve.Classement,
-                _Suivi: _Eleve.Suivi
+                _Suivi: _Eleve.Suivi,
+                _SendMail: _Eleve.SendMail
             ));
         }
 

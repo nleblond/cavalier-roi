@@ -380,7 +380,7 @@ function ValidateParticipationAndReservationsParHeure() {
     if ((document.location.href.toLowerCase().indexOf('moncompte') > -1) && ($('#Div_CalendrierParHeure .selections table').find('.selection').length > 0)) {
 
         if (confirm('Voulez-vous vraiment valider ces réservations ?')) { //confirmation car pas d'étape de paiement
-            AddReservationsParHeure();
+            AddReservationsParHeure('MON COMPTE');
             $('#Div_CalendrierParHeure .planning').hide();
             $('#Div_CalendrierParHeure .paiement').hide();
             $('#Div_CalendrierParHeure .confirmation').show();
@@ -438,7 +438,7 @@ function AddParticipationParHeure(_PaymentId) {
     _Participation.Evenement.Id = $('#Div_CalendrierParHeure #Hidden_EvenementId').val();
     _Participation.Eleve = {};
     _Participation.Eleve.Id = $('#Div_CalendrierParHeure #Hidden_EleveId').val();
-    _Participation.PaymentId = _PaymentId;
+    _Participation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
 
     $.ajax({
         type: 'POST',
@@ -479,7 +479,7 @@ function AddReservationsParHeure(_PaymentId) {
         _Reservation.Eleve.Id = $('#Div_CalendrierParHeure #Hidden_EleveId').val();
         _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
         _Reservation.Creneau = $(this).find('input[type=hidden].creneau').val();
-        _Reservation.PaymentId = _PaymentId;
+        _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
 
         _Reservations.push(_Reservation);
     });
@@ -597,6 +597,7 @@ function CallBackPayPalOK(_PaymentId) {
     AddParticipationParHeure(_PaymentId);
     AddReservationsParHeure(_PaymentId);
 
+    $('#Div_CalendrierParHeure .planning').hide();
     $('#Div_CalendrierParHeure .paiement').hide();
     $('#Div_CalendrierParHeure .confirmation').show();
     $('#Div_CalendrierParHeure .confirmation .confirmation2').show();
@@ -606,6 +607,11 @@ function CallBackPayPalOK(_PaymentId) {
 
 
 function CallBackPayPalKO(_Error) {
+
+    AddParticipationParHeure('KO');
+    AddReservationsParHeure('KO');
+
+    $('#Div_CalendrierParHeure .planning').hide();
     $('#Div_CalendrierParHeure .paiement').hide();
     $('#Div_CalendrierParHeure .confirmation').show();
     $('#Div_CalendrierParHeure .confirmation .confirmation5').show();

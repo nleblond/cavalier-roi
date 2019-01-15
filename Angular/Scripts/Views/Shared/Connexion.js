@@ -63,9 +63,7 @@ function OpenConnexion(_UrlToRedirect, _CallBackAction) {
     if ((_CallBackAction != null) && (_CallBackAction != null) && (_CallBackAction != undefined)) {
         this._CallBackAction = _CallBackAction;
     }
-
-    $('#Div_Connexion .connexion .email').focus();
-
+    
 }
 
 

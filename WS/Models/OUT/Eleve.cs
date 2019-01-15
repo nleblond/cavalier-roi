@@ -54,6 +54,7 @@ namespace WS.Models.OUT
 
 
         public Boolean? Administration { set; get; }
+        public Boolean? SendMail { set; get; }
 
     }
 }

@@ -1,6 +1,6 @@
 ﻿//extensions jquery : accordeon
-//v2.0.2
-//23/05/2014
+//v2.0.3
+//14/01/2019
 //NL
 //Created by LEBLOND Nicolas
 //Modified by BARANGER Cyrille
@@ -65,7 +65,7 @@ $.fn.Accordeon = function (paramsJson) {
 		        accordeon.css({ 'visibility': 'hidden' });
 
 		        //commandes d'initialisation
-		        accordeon.addClass(accordeon.data('accordeonClass')).css({ 'overflow': 'hidden', 'zIndex': 400 });
+                accordeon.removeClass(accordeon.data('accordeonClass')).addClass(accordeon.data('accordeonClass')).css({ 'overflow': 'hidden', 'zIndex': 400 });
 
 		        accordeon.find('> li').each(function (index) {
 
@@ -74,23 +74,24 @@ $.fn.Accordeon = function (paramsJson) {
 		            //initialisation des li "panel"
 		            currentLi
                         .attr('id', accordeon.attr('id') + '_panel' + index)
-		                .addClass(accordeon.data('offClass'))
+                        .removeClass(accordeon.data('offClass')).addClass(accordeon.data('offClass'))
 		                .css({ 'zIndex': 300, 'overflow': 'hidden' });
 
 		            //initialisation des div "header"
 		            var currentLiHeader = currentLi.find('> div').eq(0);
 		            currentLiHeader
                         .attr('id', accordeon.attr('id') + '_header' + index)
-		                .addClass(accordeon.data('headerClass'))
+                        .removeClass(accordeon.data('headerClass')).addClass(accordeon.data('headerClass'))
 		                .css({ 'zIndex': 200, 'overflow': 'hidden' });
 
 		            //initialisation des ul "content"
                     var currentLiContent = currentLi.find('> ul').eq(0);
                     currentLiContent
                         .attr('id', accordeon.attr('id') + '_content' + index)
-		                .addClass(accordeon.data('contentClass'))
-                        .css({ 'zIndex': 100, 'overflow': 'hidden', 'marginBottom': -currentLiContent.outerHeight(true) });
+                        .removeClass(accordeon.data('contentClass')).addClass(accordeon.data('contentClass'))
+                        .css({ 'zIndex': 100, 'overflow': 'hidden', 'marginBottom': -currentLiContent.height() }); //utilisation de "Height" à la place de "outerHeight" qui pose des problèmes
 
+                    //alert(currentLiContent.height());
 		        });
 
 		        accordeon.find('.' + accordeon.data('headerClass')).click(function () {
@@ -100,8 +101,8 @@ $.fn.Accordeon = function (paramsJson) {
 		                var content = panel.find('.' + accordeon.data('contentClass'));
 		                var contentHeight = content.outerHeight(true);
 
-		                //RLAN : ajout item désactivé
-		                if (panel.hasClass('ui-state-disabled')) {
+		                //désactivation grace à jQueryUI ou la propriété "enabled/disabled"
+                        if ((panel.hasClass('ui-state-disabled')) || (panel.is(':disabled') == true)) {
 		                    return false;
 		                }
 
@@ -135,16 +136,6 @@ $.fn.Accordeon = function (paramsJson) {
 		                                        currentLiContent.css({ 'visibility': 'hidden' });
 		                                    }
 		                                }
-		                                ////on referme chaque "content" ouvert (slideup)
-		                                //currentLiContent
-		                                //    .addClass('progress') //on marque chaque "content" comme en cours de fermeture
-		                                //    .slideUp(accordeon.data('vitesse'), function () {
-		                                //        currentLiContent
-		                                //            .removeClass('progress')
-		                                //            .removeClass('opened');  //on démarque chaque "content" initialement ouvert
-		                                //    });
-		                                //}
-		                                //else {
 		                                //on referme le "content" ouvert (margin)
 		                                currentLiContent
                                                 .addClass('progressAccordeon') //on marque chaque "content" ouvert comme en cours de fermeture
@@ -176,16 +167,6 @@ $.fn.Accordeon = function (paramsJson) {
 		                            currentLiContent.css({ 'visibility': 'visible' });
 		                        }
 		                    }
-		                    ////on ouvre le "content" (slideup)
-		                    //content
-		                    //    .addClass('progress') //on marque le "content" courant comme en cours d'ouverture
-		                    //    .slideDown(accordeon.data('vitesse'), function () {
-		                    //        content
-		                    //            .removeClass('progress')
-		                    //            .addClass('opened');  //on marque le "content" courant à ouvert
-		                    //    });
-		                    //}
-		                    //else {
 		                    //on ouvre le "content" (margin)
 		                    content
                                     .addClass('progressAccordeon') //on marque le "content" courant comme en cours d'ouverture
@@ -227,16 +208,6 @@ $.fn.Accordeon = function (paramsJson) {
 		                                content.css({ 'visibility': 'hidden' });
 		                            }
 		                        }
-		                        ////on ferme le "content" (slideup)
-		                        //content
-		                        //    .addClass('progress') //on marque le "content" courant comme en cours de fermeture
-		                        //    .slideUp(accordeon.data('vitesse'), function () {
-		                        //            content
-		                        //                .removeClass('progress')
-		                        //                .removeClass('opened');  //on démarque le "content" initialement ouvert
-		                        //    });
-		                        //}
-		                        //else {
 		                        //on ferme le "content" (margin)
 		                        content
                                         .addClass('progressAccordeon') //on marque le "content" courant comme en cours de fermeture

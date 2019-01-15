@@ -42,24 +42,23 @@
                                 </td>
                                 <td class="reserver">
                                     @if (
-                                            //(
-                                            //    (String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtDebut) == true)
-                                            //    ||
-                                            //    (String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtDebut) == false) && (DateTime.Parse(Model.EvenementsTournois[_Index].DtDebut) >= DateTime.Now)
-                                            //)
-                                            //&&
-                                            //(
-                                            //    (String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtLimiteInscription) == true)
-                                            //    ||
-                                            //    (String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtLimiteInscription) == false) && (DateTime.Parse(Model.EvenementsTournois[_Index].DtLimiteInscription) >= DateTime.Now)
-                                            //)
-                                            //&&
-                                            //(
-                                            //    (Model.EvenementsTournois[_Index].Maximum == null)
-                                            //    ||
-                                            //    (Model.EvenementsTournois[_Index].Maximum != null) && (Model.EvenementsTournois[_Index].Maximum > Model.EvenementsTournois[_Index].Compte)
-                                            //)
-                                            1 == 1
+                                            (
+                                                (String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtDebut) == true)
+                                                ||
+                                                (String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtDebut) == false) && (DateTime.Parse(Model.EvenementsTournois[_Index].DtDebut) >= DateTime.Now)
+                                            )
+                                            &&
+                                            (
+                                                (String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtLimiteInscription) == true)
+                                                ||
+                                                (String.IsNullOrEmpty(Model.EvenementsTournois[_Index].DtLimiteInscription) == false) && (DateTime.Parse(Model.EvenementsTournois[_Index].DtLimiteInscription) >= DateTime.Now)
+                                            )
+                                            &&
+                                            (
+                                                (Model.EvenementsTournois[_Index].Maximum == null)
+                                                ||
+                                                (Model.EvenementsTournois[_Index].Maximum != null) && (Model.EvenementsTournois[_Index].Maximum > Model.EvenementsTournois[_Index].Compte)
+                                            )
                                     )
                                     {
                                         <input type="button" class="reserver" title="Participer" value="Participer"

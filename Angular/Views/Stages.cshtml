@@ -78,24 +78,23 @@
                         <td class="prix">&nbsp;&nbsp;@Tools.Euro(_Stages[_Index].Prix)&nbsp;&nbsp;</td>
                         <td class="reserver">
                             @if (
-                                    //(
-                                    //    (String.IsNullOrEmpty(_Stages[_Index].DtDebut) == true)
-                                    //    ||
-                                    //    (String.IsNullOrEmpty(_Stages[_Index].DtDebut) == false) && (DateTime.Parse(_Stages[_Index].DtDebut) >= DateTime.Now)
-                                    //)
-                                    //&&
-                                    //(
-                                    //    (String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription) == true)
-                                    //    ||
-                                    //    (String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription) == false) && (DateTime.Parse(_Stages[_Index].DtLimiteInscription) >= DateTime.Now)
-                                    //)
-                                    //&&
-                                    //(
-                                    //    (_Stages[_Index].Maximum == null)
-                                    //    ||
-                                    //    (_Stages[_Index].Maximum != null) && (_Stages[_Index].Maximum > _Stages[_Index].Compte)
-                                    //)
-                                    1 == 1
+                                    (
+                                        (String.IsNullOrEmpty(_Stages[_Index].DtDebut) == true)
+                                        ||
+                                        (String.IsNullOrEmpty(_Stages[_Index].DtDebut) == false) && (DateTime.Parse(_Stages[_Index].DtDebut) >= DateTime.Now)
+                                    )
+                                    &&
+                                    (
+                                        (String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription) == true)
+                                        ||
+                                        (String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription) == false) && (DateTime.Parse(_Stages[_Index].DtLimiteInscription) >= DateTime.Now)
+                                    )
+                                    &&
+                                    (
+                                        (_Stages[_Index].Maximum == null)
+                                        ||
+                                        (_Stages[_Index].Maximum != null) && (_Stages[_Index].Maximum > _Stages[_Index].Compte)
+                                    )
                             )
                             {
                                 <input type="button" class="reserver" title="Réserver" value="Réserver"
@@ -127,24 +126,23 @@
                                 <td class="prix">&nbsp;&nbsp;@Tools.Euro(_FormulesStages[_Index2].Prix)&nbsp;&nbsp;</td>
                                 <td class="reserver">
                                     @if (
-                                            //(
-                                            //    (String.IsNullOrEmpty(_Stages[_Index].DtDebut) == true)
-                                            //    ||
-                                            //    (String.IsNullOrEmpty(_Stages[_Index].DtDebut) == false) && (DateTime.Parse(_Stages[_Index].DtDebut) >= DateTime.Now)
-                                            //)
-                                            //&&
-                                            //(
-                                            //    (String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription) == true)
-                                            //    ||
-                                            //    (String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription) == false) && (DateTime.Parse(_Stages[_Index].DtLimiteInscription) >= DateTime.Now)
-                                            //)
-                                            //&&
-                                            //(
-                                            //    (_FormulesStages[_Index].Maximum == null)
-                                            //    ||
-                                            //    (_FormulesStages[_Index].Maximum != null) && (_FormulesStages[_Index].Maximum > _FormulesStages[_Index].Compte)
-                                            //)
-                                            1 == 1
+                                            (
+                                                (String.IsNullOrEmpty(_Stages[_Index].DtDebut) == true)
+                                                ||
+                                                (String.IsNullOrEmpty(_Stages[_Index].DtDebut) == false) && (DateTime.Parse(_Stages[_Index].DtDebut) >= DateTime.Now)
+                                            )
+                                            &&
+                                            (
+                                                (String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription) == true)
+                                                ||
+                                                (String.IsNullOrEmpty(_Stages[_Index].DtLimiteInscription) == false) && (DateTime.Parse(_Stages[_Index].DtLimiteInscription) >= DateTime.Now)
+                                            )
+                                            &&
+                                            (
+                                                (_FormulesStages[_Index].Maximum == null)
+                                                ||
+                                                (_FormulesStages[_Index].Maximum != null) && (_FormulesStages[_Index].Maximum > _FormulesStages[_Index].Compte)
+                                            )
                                     )
                                     {
                                         <input type="button" class="reserver" title="Réserver" value="Réserver"

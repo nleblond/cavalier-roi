@@ -138,24 +138,27 @@ function UpdEleve() {
 
     if (_Valid) {
 
-        var _Params = {};
-        _Params.Id = $('.infos .id').val();
-        _Params.Nom = $('.infos .nom').val();
-        _Params.Prenom = $('.infos .prenom').val();
-        _Params.Email = $('.infos .email').val();
-        _Params.Password = $('.infos .password').val();
-        _Params.DtNaissance = $('.infos .naissance').val();
-        _Params.Sexe = $('.infos .sexe').val();
-        _Params.Club = $('.infos .club').val();
-        _Params.Photo = $('.infos .photo').val();
-        _Params.Fixe = $('.infos .fixe').val();
-        _Params.Portable = $('.infos .portable').val();
-        _Params.Commentaire = $('.infos .commentaire').val();
-        _Params.License = $('.infos .license').val();
-        _Params.Classement = $('.infos .classement').val();
-        _Params.Suivi = $('.infos .suivi').val();
+        if (confirm('Voulez-vous vraiement modifier vos informations personnelles ?')) {
 
-        $.ajax({
+            var _Params = {};
+            _Params.Id = $('.infos .id').val();
+            _Params.Nom = $('.infos .nom').val();
+            _Params.Prenom = $('.infos .prenom').val();
+            _Params.Email = $('.infos .email').val();
+            _Params.Password = $('.infos .password').val();
+            _Params.DtNaissance = $('.infos .naissance').val();
+            _Params.Sexe = $('.infos .sexe').val();
+            _Params.Club = $('.infos .club').val();
+            _Params.Photo = $('.infos .photo').val();
+            _Params.Fixe = $('.infos .fixe').val();
+            _Params.Portable = $('.infos .portable').val();
+            _Params.Commentaire = $('.infos .commentaire').val();
+            _Params.License = $('.infos .license').val();
+            _Params.Classement = $('.infos .classement').val();
+            _Params.Suivi = $('.infos .suivi').val();
+            _Params.SendMail = (document.location.href.toLowerCase().indexOf("_Id=") > -1 ? false : true);
+
+            $.ajax({
             type: 'POST',
             url: _WsUrl + 'Eleves/UpdEleve',
             headers: { 'APIKey': _APIKey, 'Content-Type': 'application/json' },
@@ -166,7 +169,7 @@ function UpdEleve() {
             retryLimit: 0,
             beforeSend: function (request) { },
             success: function (data) {
-                alert('Les modifications ont bien été effectuées !')
+                alert('La modification de vos informations personnelles a bien été prise en compte !')
             },
             error: function (xhr, textStatus) {
                 if (textStatus == 'timeout') {
@@ -180,7 +183,9 @@ function UpdEleve() {
                 }
             },
             complete: function () { }
-        });
+            });
+        }
+
     }
     else {
         alert(_AlertMessage);

@@ -163,6 +163,7 @@ namespace WS.BLL
             if (String.IsNullOrEmpty(_Password)) { _Password = Tools.RandomString(8, true); }
 
             //envoi du mail de reinitialisation
+            #region "Mail"
             String _EmailReinitialisation = String.Empty;
             _EmailReinitialisation += "<html>";
             _EmailReinitialisation += "<body>";
@@ -182,7 +183,8 @@ namespace WS.BLL
             _EmailReinitialisation += "<br /><br />";
             _EmailReinitialisation += "</body>";
             _EmailReinitialisation += "</html>";
-            Tools.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, _Email, "Réinitilisation de mot de passe", _EmailReinitialisation, true, WS.Constants.MAILSERVER_URL, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI);
+            ICSManager.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, WS.Constants.INSCRIPTIONS_SENDER, _Email, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI, "Réinitialisation de mot de passe", _EmailReinitialisation, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD);
+            #endregion
 
             return _DB.ReinitEleve(
                                     email: _Email.Trim(),
@@ -219,7 +221,8 @@ namespace WS.BLL
                                         String _Commentaire = null,
                                         String _License = null,
                                         String _Classement = null,
-                                        String _Suivi = null
+                                        String _Suivi = null,
+                                        Boolean? _SendMail = false
                                 )
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
@@ -247,6 +250,50 @@ namespace WS.BLL
                                     classement: (!String.IsNullOrEmpty(_Classement) ? _Classement.Trim() : null),
                                     suivi: (!String.IsNullOrEmpty(_Suivi) ? _Suivi.Trim() : null)
                              );
+
+            //envoi du mail de récapitulation
+            #region "Mail"
+            if (_SendMail == true)
+            {
+                String _EmailModification = String.Empty;
+                _EmailModification += "<html>";
+                _EmailModification += "<body>";
+                _EmailModification += "<img src=\"http://www.cavalier-roi.fr/Content/Images/LogoMail.jpg\" />";
+                _EmailModification += "<br /><hr /><br />";
+                _EmailModification += "La modification de vos informations personnelles a bien été prise en compte !";
+                _EmailModification += "<br /><br />";
+                _EmailModification += "<u>Email/Identifiant</u> : " + _Email;
+                _EmailModification += "<br />";
+                _EmailModification += "<u>Mot de passe</u> : *************";
+                _EmailModification += "<br />";
+                _EmailModification += "<u>Nom</u> : " + (!String.IsNullOrEmpty(_Nom) ? _Nom.Trim() : "-");
+                _EmailModification += "<br />";
+                _EmailModification += "<u>Prénom</u> : " + (!String.IsNullOrEmpty(_Prenom) ? _Prenom.Trim() : "-");
+                _EmailModification += "<br />";
+                _EmailModification += "<u>Date de naissance</u> : " + (!String.IsNullOrEmpty(_DtNaissance) ? _DtNaissance.Trim() : "-");
+                _EmailModification += "<br />";
+                _EmailModification += "<u>Sexe</u> : " + (!String.IsNullOrEmpty(_Sexe) ? _Sexe.Trim() : "-");
+                _EmailModification += "<br />";
+                _EmailModification += "<u>Fixe</u> : " + (!String.IsNullOrEmpty(_Fixe) ? _Fixe.Trim() : "-");
+                _EmailModification += "<br />";
+                _EmailModification += "<u>Portable</u> : " + (!String.IsNullOrEmpty(_Portable) ? _Portable.Trim() : "-");
+                _EmailModification += "<br />";
+                _EmailModification += "<u>License</u> : " + (!String.IsNullOrEmpty(_License) ? _License.Trim() : "-");
+                _EmailModification += "<br />";
+                _EmailModification += "<u>Classement</u> : " + (!String.IsNullOrEmpty(_Classement) ? _Classement.Trim() : "-");
+                _EmailModification += "<br />";
+                _EmailModification += "<u>Club</u> : " + (!String.IsNullOrEmpty(_Club) ? _Club.Trim() : "-");
+                _EmailModification += "<br />";
+                _EmailModification += "<br />";
+                _EmailModification += "Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.INSCRIPTIONS_EMAIL + "\" target=\"_blank\">" + WS.Constants.INSCRIPTIONS_EMAIL + "</a>.";
+                _EmailModification += "<br /><br />";
+                _EmailModification += "L'École du cavalier roi";
+                _EmailModification += "<br /><br />";
+                _EmailModification += "</body>";
+                _EmailModification += "</html>";
+                ICSManager.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, WS.Constants.INSCRIPTIONS_SENDER, _Email, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI, "Modification des informations personnelles", _EmailModification, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD);
+            }
+            #endregion
 
             return _Test;
 
@@ -297,25 +344,8 @@ namespace WS.BLL
                               );
             Int32? _Id = _IdResult.FirstOrDefault().Value;
 
-            /*
-            //je n'arrive pas à récupérer l'id de l'élève créé, je vais donc utiliser la procédure pour connecter l'élève
-            _IdResult = _DB.ConnectEleve(
-                                    email: _Email.Trim(),
-                                    password: _Password.Trim().ToEncryptedTripleDES(Constants.PASSPHRASE).ToEncodedURL()
-                               );
-            
-            Int32? _Id = null;
-            try
-            {
-                _Id = _IdResult.FirstOrDefault().Value; //identifiants ok
-            }
-            catch (Exception)
-            {
-                //identifiants ko
-            }
-            */
-
-            //envoi du mail de reinitialisation
+            //envoi du mail de récapitulation
+            #region "Mail"
             String _EmailRecapitulation = String.Empty;
             _EmailRecapitulation += "<html>";
             _EmailRecapitulation += "<body>";
@@ -354,7 +384,8 @@ namespace WS.BLL
             _EmailRecapitulation += "<br /><br />";
             _EmailRecapitulation += "</body>";
             _EmailRecapitulation += "</html>";
-            Tools.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, _Email, "Confirmation d'inscription", _EmailRecapitulation, true, WS.Constants.MAILSERVER_URL, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI);
+            ICSManager.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, WS.Constants.INSCRIPTIONS_SENDER, _Email, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI, "Confirmation d'inscription", _EmailRecapitulation, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD);
+            #endregion
 
             return _Id;
 
@@ -399,11 +430,33 @@ namespace WS.BLL
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
 
-            return _DB.AddAllReservations(
-                                            eleveId: _EleveId,
-                                            evenementId:_EvenementId,
-                                            paymentId: _PaymentId
-                                         );
+            //récupération de l'évènement
+            Evenement _Evenement = EvenementsManager.GetEvenements(_Id: _EvenementId)[0];
+
+            //récupération du planning pour créer toutes les réservations
+            List<PlanningOnly> _Plannings = EvenementsManager.GetPlanningsOnly(_EvenementId: _EvenementId);
+
+            List<Reservation> _AllReservations = new List<Reservation>();
+            foreach (PlanningOnly _Current in _Plannings)
+            {
+                Reservation _NewReservation = new Reservation();
+                _NewReservation.Eleve = new Eleve();
+                _NewReservation.Eleve.Id = _EleveId;
+                _NewReservation.Evenement = new Evenement();
+                _NewReservation.Evenement.Id = _EvenementId;
+                _NewReservation.PaymentId = _PaymentId;
+                _NewReservation.Jour = _Current.Jour;
+                _NewReservation.Creneau = _Current.Creneau;
+                _AllReservations.Add(_NewReservation);
+            }
+
+            return AddReservations(_AllReservations);
+
+            //return _DB.AddAllReservations(
+            //                                eleveId: _EleveId,
+            //                                evenementId:_EvenementId,
+            //                                paymentId: (String.IsNullOrEmpty(_PaymentId) ? null : _PaymentId)
+            //                             );
         }
 
         public static Int32? AddReservations(List<Reservation> _Reservations)
@@ -411,18 +464,297 @@ namespace WS.BLL
             Int32? _ReturnValue = null;
             if ((_Reservations != null) && (_Reservations.Count > 0))
             {
+
+                //récupération de l'évènement
+                Evenement _Evenement = EvenementsManager.GetEvenements(_Id: _Reservations[0].Evenement.Id)[0];
+
+                //récupération de l'élève
+                Eleve _Eleve = ElevesManager.GetEleves(_Id: _Reservations[0].Eleve.Id)[0];
+
+                //insertion des réservations en base
+                List<ICalendar> _Invitations = new List<ICalendar>();
                 foreach (Reservation _Current in _Reservations)
                 {
-                    _ReturnValue = AddReservation(
+                    _ReturnValue = ElevesManager.AddReservation(
                                                     _EleveId: _Current.Eleve.Id,
                                                     _EvenementId: _Current.Evenement.Id,
                                                     _Jour: _Current.Jour,
                                                     _Creneau: _Current.Creneau,
-                                                    _PaymentId: _Current.PaymentId
+                                                    _PaymentId: (String.IsNullOrEmpty(_Current.PaymentId) ? null : _Current.PaymentId)
                                                 );
                 }
+
+                //envoi du mail de confirmation
+                #region "Mail"
+                String _EmailReservation = String.Empty;
+                _EmailReservation += "<html>";
+                _EmailReservation += "<body>";
+                _EmailReservation += "<img src=\"http://www.cavalier-roi.fr/Content/Images/LogoMail.jpg\" />";
+                _EmailReservation += "<br /><hr /><br />";
+
+                if (_Evenement.Typologie.Id == 3) //cours
+                {
+                    if (String.IsNullOrEmpty(_Reservations[0].PaymentId))
+                    {
+                        _EmailReservation += "Votre inscription à cette formule de cours a bien été prise en compte et vos réservations ont bien été enregistrées !";
+                    }
+                    else if (_Reservations[0].PaymentId == "KO")
+                    {
+                        _EmailReservation += "Votre inscription à cette formule de cours a bien été prise en compte, vos réservations ont bien été enregistrées mais votre paiement a rencontré un problème !";
+                    }
+                    else if (_Reservations[0].PaymentId == "MON COMPTE")
+                    {
+                        _EmailReservation += "Vos réservations ont bien été enregistrées !";
+                    }
+                    else
+                    {
+                        _EmailReservation += "Votre inscription à cette formule de cours a bien été prise en compte, vos réservations ont bien été enregistrées et votre paiement a bien été effectué !";
+                    }
+                }
+                else if (_Evenement.Typologie.Id == 1) //tournois
+                {
+                    if (String.IsNullOrEmpty(_Reservations[0].PaymentId))
+                    {
+                        _EmailReservation += "Votre participation à cet évènement a bien été prise en compte !";
+                    }
+                    else if (_Reservations[0].PaymentId == "KO")
+                    {
+                        _EmailReservation += "Votre participation à cet évènement a bien été prise en compte mais votre paiement a rencontré un problème !";
+                    }
+                    else
+                    {
+                        _EmailReservation += "Votre participation à cet évènement a bien été prise en compte et votre paiement a bien été effectué !";
+                    }
+                }
+                else if (_Evenement.Typologie.Id == 0) //stages
+                {
+                    if ((_Evenement.Prix == null) || ((_Evenement.Prix != null) && (_Evenement.Prix == 0))) //stage gratuit : formule complete
+                    {
+                        if (_Evenement.EvenementParent == null) //stage "parent" : formule complete
+                        {
+                            _EmailReservation += "Votre inscription à cette formule de stage gratuite a bien été prise en compte !";
+                        }
+                        else //stage "enfant" : formule partielle (avec choix de réservations)
+                        {
+                            _EmailReservation += "Votre inscription à cette formule de stage gratuite a bien été prise en compte et vos réservations ont bien été enregistrées !";
+                        }
+                    }
+                    else
+                    {
+                        if (_Evenement.EvenementParent == null) //stage "parent" : formule complete
+                        {
+                            if (String.IsNullOrEmpty(_Reservations[0].PaymentId))
+                            {
+                                _EmailReservation += "Votre inscription à cette formule de stage a bien été prise en compte !";
+                            }
+                            else if (_Reservations[0].PaymentId == "KO")
+                            {
+                                _EmailReservation += "Votre inscription à cette formule de stage a bien été prise en compte mais votre paiement a rencontré un problème !";
+                            }
+                            else
+                            {
+                                _EmailReservation += "Votre inscription à cette formule de stage a bien été prise en compte et votre paiement a bien été effectué !";
+                            }
+                        }
+                        else //stage "enfant" : formule partielle (avec choix de réservations)
+                        {
+                            if (String.IsNullOrEmpty(_Reservations[0].PaymentId))
+                            {
+                                _EmailReservation += "Votre inscription à cette formule de stage a bien été prise en compte et vos réservations ont bien été enregistrées !";
+                            }
+                            else if (_Reservations[0].PaymentId == "KO")
+                            {
+                                _EmailReservation += "Votre inscription à cette formule de stage a bien été prise en compte, vos réservations ont bien été enregistrées mais votre paiement a rencontré un problème !";
+                            }
+                            else
+                            {
+                                _EmailReservation += "Votre inscription à cette formule de stage a bien été prise en compte, vos réservations ont bien été enregistrées et votre paiement a bien été effectué !";
+                            }
+                        }
+                    }
+                }
+                _EmailReservation += "<br /><br />";
+                _EmailReservation += _Evenement.Libelle;
+                _EmailReservation += "<br />";
+                _EmailReservation += "<table cellpadding=\"2\" cellspacing=\"2\" border=\"1\">";
+                _EmailReservation += "<tr>";
+                _EmailReservation += "     <th>Jour</th>";
+                _EmailReservation += "     <th>Heure de début</th>";
+                _EmailReservation += "     <th>Heure de fin</th>";
+
+                if (_Evenement.Typologie.Id == 3) //cours
+                {
+                    foreach (Reservation _Current in _Reservations)
+                    {
+                        String _HeureDebut = _Current.Creneau.Replace("Creneau", "").Left(2) + ":00:00";
+                        String _HeureFin = _Current.Creneau.Replace("Creneau", "").Right(2) + ":00:00";
+
+                        //création du ICS à envoyer
+                        ICalendar _NewICalendar = new ICalendar
+                        {
+                            EventStartDateTime = Convert.ToDateTime(_Current.Jour + " " + _HeureDebut),
+                            EventEndDateTime = Convert.ToDateTime(_Current.Jour + " " + _HeureFin),
+                            UID = Guid.NewGuid().ToString(),
+                            EventOrganizer = WS.Constants.COMMANDES_SENDER,
+                            EventPriority = "0",
+                            EventSummary = _Evenement.Libelle,
+                            EventDescription = _Evenement.Descriptif
+                        };
+                        _Invitations.Add(_NewICalendar);
+
+                        //création de la ligne du tableau
+                        _EmailReservation += "<tr>";
+                        _EmailReservation += "     <td>" + _Current.Jour + "</td>";
+                        _EmailReservation += "     <td>" + _HeureDebut + "</td>";
+                        _EmailReservation += "     <td>" + _HeureFin + "</td>";
+                        _EmailReservation += "</tr>";
+                    }
+                }
+                else if (_Evenement.Typologie.Id == 1) //tournois
+                {
+                    String _Jour = String.Empty;
+                    foreach (Reservation _Current in _Reservations)
+                    {
+                        if (_Jour != _Current.Jour)
+                        {
+                            _Jour = _Current.Jour;
+                            String _HeureDebut = (_Reservations.FindAll(p => p.Jour == _Jour).OrderBy(p => p.Creneau).FirstOrDefault().Creneau.Replace("Creneau", "").Left(2) + ":00:00");
+                            String _HeureFin = (_Reservations.FindAll(p => p.Jour == _Jour).OrderByDescending(p => p.Creneau).FirstOrDefault().Creneau.Replace("Creneau", "").Right(2) + ":00:00");
+
+                            //création du ICS à envoyer
+                            ICalendar _NewICalendar = new ICalendar
+                            {
+                                EventStartDateTime = Convert.ToDateTime(_Current.Jour + " " + _HeureDebut),
+                                EventEndDateTime = Convert.ToDateTime(_Current.Jour + " " + _HeureFin),
+                                UID = Guid.NewGuid().ToString(),
+                                EventOrganizer = WS.Constants.COMMANDES_SENDER,
+                                EventPriority = "0",
+                                EventSummary = _Evenement.Libelle,
+                                EventDescription = _Evenement.Descriptif
+                            };
+                            _Invitations.Add(_NewICalendar);
+
+                            //création de la ligne du tableau
+                            _EmailReservation += "<tr>";
+                            _EmailReservation += "     <td>" + _Jour + "</td>";
+                            _EmailReservation += "     <td>" + _HeureDebut + "</td>";
+                            _EmailReservation += "     <td>" + _HeureFin + "</td>";
+                            _EmailReservation += "</tr>";
+
+                        }
+                    }
+                }
+                else if (_Evenement.Typologie.Id == 0) //stages
+                {
+                    String _Jour = String.Empty;
+                    foreach (Reservation _Current in _Reservations)
+                    {
+                        if (_Jour != _Current.Jour)
+                        {
+                            _Jour = _Current.Jour;
+                            String _HeureDebut = (_Reservations.FindAll(p => p.Jour == _Jour).OrderBy(p => p.Creneau).FirstOrDefault().Creneau.Replace("Creneau", "").Left(2) + ":00:00");
+                            String _HeureFin = (_Reservations.FindAll(p => p.Jour == _Jour).OrderByDescending(p => p.Creneau).FirstOrDefault().Creneau.Replace("Creneau", "").Right(2) + ":00:00");
+
+                            //création du ICS à envoyer
+                            ICalendar _NewICalendar = new ICalendar
+                            {
+                                EventStartDateTime = Convert.ToDateTime(_Current.Jour + " " + _HeureDebut),
+                                EventEndDateTime = Convert.ToDateTime(_Current.Jour + " " + _HeureFin),
+                                UID = Guid.NewGuid().ToString(),
+                                EventOrganizer = WS.Constants.COMMANDES_SENDER,
+                                EventPriority = "0",
+                                EventSummary = _Evenement.Libelle,
+                                EventDescription = _Evenement.Descriptif
+                            };
+                            _Invitations.Add(_NewICalendar);
+
+                            //création de la ligne du tableau
+                            _EmailReservation += "<tr>";
+                            _EmailReservation += "     <td>" + _Jour + "</td>";
+                            _EmailReservation += "     <td>" + _HeureDebut + "</td>";
+                            _EmailReservation += "     <td>" + _HeureFin + "</td>";
+                            _EmailReservation += "</tr>";
+
+                        }
+                    }
+                }
+                _EmailReservation += "</table>";
+                _EmailReservation += "<br /><br />";
+                _EmailReservation += "Les invitations pour ces dates sont disponibles en pièces jointes (fichiers ICS).";
+                _EmailReservation += "<br /><br />";
+
+                if (_Evenement.Typologie.Id == 3) //cours
+                {
+                    _EmailReservation += "Vous pouvez retrouver toutes vos inscriptions/réservations dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+                }
+                else if (_Evenement.Typologie.Id == 1) //tournois
+                {
+                    _EmailReservation += "Vous pouvez retrouver toutes vos participations dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+                }
+                else if (_Evenement.Typologie.Id == 0) //stages
+                {
+                    //stage "parent" : formule complete
+                    if (_Evenement.EvenementParent == null)
+                    {
+                        _EmailReservation += "Vous pouvez retrouver toutes vos inscriptions dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+                    }
+                    //stage "enfant" : formule partielle (avec choix de réservations)
+                    else
+                    {
+                        _EmailReservation += "Vous pouvez retrouver toutes vos inscriptions/réservations dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+                    }
+                }
+
+                _EmailReservation += "<br /><br />";
+                if ((!String.IsNullOrEmpty(_Reservations[0].PaymentId)) && (_Reservations[0].PaymentId != "KO")) //"PAYPAL PAYMENTID" OU "MON COMPTE"
+                {
+                    _EmailReservation += "Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a>.";
+                }
+                else
+                {
+                    _EmailReservation += "Merci de contacter au plus vite l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a> pour régler le paiement.";
+                }
+                _EmailReservation += "<br /><br />";
+                _EmailReservation += "L'École du cavalier roi";
+                _EmailReservation += "<br /><br />";
+                _EmailReservation += "</body>";
+                _EmailReservation += "</html>";
+
+                String _EmailSubject = String.Empty;
+                if (_Evenement.Typologie.Id == 3) //cours
+                {
+                    if (_Reservations[0].PaymentId == "MON COMPTE")
+                    {
+                        _EmailSubject += "Confirmation de réservations";
+                    }
+                    else
+                    {
+                        _EmailSubject += "Confirmation d'inscription/réservations";
+                    }
+                }
+                else if (_Evenement.Typologie.Id == 1) //tournois
+                {
+                    _EmailSubject = "Confirmation de participation";
+                }
+                else if (_Evenement.Typologie.Id == 0) //stages
+                {
+                    //stage "parent" : formule complete
+                    if (_Evenement.EvenementParent == null)
+                    {
+                        _EmailSubject = "Confirmation d'inscription";
+                    }
+                    //stage "enfant" : formule partielle (avec choix de réservations)
+                    else
+                    {
+                        _EmailSubject = "Confirmation d'inscription/réservations";
+                    }
+                }
+                ICSManager.SendMail(WS.Constants.COMMANDES_EMAIL, WS.Constants.COMMANDES_SENDER, _Eleve.Email, WS.Constants.COMMANDES_CC, WS.Constants.COMMANDES_CCI, _EmailSubject, _EmailReservation, true, _Invitations, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.COMMANDES_USERNAME, WS.Constants.COMMANDES_PASSWORD);
+                #endregion
             }
+
             return _ReturnValue;
+
         }
 
         public static Int32? AddReservation(Int32? _EleveId = null, Int32? _EvenementId = null, String _Jour = null, String _Creneau = null, String _PaymentId = null)
@@ -437,8 +769,9 @@ namespace WS.BLL
                                         evenementId: _EvenementId,
                                         jour: _JourF,
                                         creneau: _Creneau,
-                                        paymentId: _PaymentId
+                                        paymentId: (String.IsNullOrEmpty(_PaymentId) ? null : _PaymentId)
                                     );
+
         }
 
         public static Int32? DelReservation(Int32? _Id = null, String _Real = "N")

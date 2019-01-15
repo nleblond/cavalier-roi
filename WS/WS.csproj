@@ -246,11 +246,13 @@
     <Compile Include="Models\OUT\Emplacement.cs" />
     <Compile Include="Models\OUT\Evenement.cs" />
     <Compile Include="Models\OUT\Frai.cs" />
+    <Compile Include="BLL\ICSManager.cs" />
     <Compile Include="Models\OUT\Ligne.cs" />
     <Compile Include="Models\OUT\Planning.cs" />
     <Compile Include="Models\OUT\Produit.cs" />
     <Compile Include="Models\OUT\Mode.cs" />
     <Compile Include="Models\OUT\Publication.cs" />
+    <Compile Include="Models\OUT\PlanningOnly.cs" />
     <Compile Include="Models\OUT\Reservation.cs" />
     <Compile Include="Models\OUT\Participation.cs" />
     <Compile Include="Models\OUT\Statut.cs" />
@@ -278,6 +280,9 @@
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Participations.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlanningOnlyResult.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PlanningResult.cs">
@@ -354,9 +359,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Divers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />

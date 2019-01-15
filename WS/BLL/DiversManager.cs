@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
+using System.IO;
 using System.Linq;
-
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using WS.Models;
 using WS.Models.IN;
 using WS.Models.OUT;

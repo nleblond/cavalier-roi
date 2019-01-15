@@ -326,7 +326,7 @@
     <Content Include="Views\Shared\Connexion.cshtml" />
     <Content Include="Areas\Eleves\Views\web.config" />
     <Content Include="Scripts\jquery-nl\functions-2.6.2.js" />
-    <Content Include="Scripts\jquery-nl\jquery-nl-accordeon-2.0.2.js" />
+    <Content Include="Scripts\jquery-nl\jquery-nl-accordeon-2.0.3.js" />
     <Content Include="Scripts\jquery-nl\jquery-nl-collapsible-2.3.4.js" />
     <Content Include="Scripts\jquery-nl\jquery-nl-cookies-1.0.1.js" />
     <Content Include="Scripts\jquery-nl\jquery-nl-dropdownlist-0.9.5.js" />

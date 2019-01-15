@@ -117,10 +117,10 @@ export class AppComponent implements OnInit {
             }
         }
 
-        //initialisation des datetimepickers des détails
-        setTimeout(function () {
-            jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
-        }, 1000);
+        ////initialisation des datetimepickers des détails
+        //setTimeout(function () {
+        //    jQuery('.details input[type="datetime"]').datetimepicker({ 'showSecond': true, 'timeFormat': 'HH:mm:ss' }).on('dblclick', function () { jQuery(this).val(''); });
+        //}, 1000);
     }
 
 
@@ -232,7 +232,7 @@ export class AppComponent implements OnInit {
     public GetColor(_IndexPlanning: number, _IndexProperty: number) {
 
         if (_IndexProperty == 0 && this._Evenement.Plannings[_IndexPlanning].Creneau0809 == this._Evenement.Id.toString()) {
-            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau0809' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            if ((this._Evenement.Reservations != null) && (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau0809' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0)) { return '#FF0000'; }
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 0 && this._Evenement.Plannings[_IndexPlanning].Creneau0809 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau0809 != null) {
@@ -240,7 +240,7 @@ export class AppComponent implements OnInit {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         else if (_IndexProperty == 1 && this._Evenement.Plannings[_IndexPlanning].Creneau0910 == this._Evenement.Id.toString()) {
-            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau0910' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            if ((this._Evenement.Reservations != null) && (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau0910' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0)) { return '#FF0000'; }
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 1 && this._Evenement.Plannings[_IndexPlanning].Creneau0910 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau0910 != null) {
@@ -248,7 +248,7 @@ export class AppComponent implements OnInit {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         else if (_IndexProperty == 2 && this._Evenement.Plannings[_IndexPlanning].Creneau1011 == this._Evenement.Id.toString()) {
-            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1011' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            if ((this._Evenement.Reservations != null) && (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1011' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0)) { return '#FF0000'; }
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 2 && this._Evenement.Plannings[_IndexPlanning].Creneau1011 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1011 != null) {
@@ -256,7 +256,7 @@ export class AppComponent implements OnInit {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         else if (_IndexProperty == 3 && this._Evenement.Plannings[_IndexPlanning].Creneau1112 == this._Evenement.Id.toString()) {
-            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1112' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            if ((this._Evenement.Reservations != null) && (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1112' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0)) { return '#FF0000'; }
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 3 && this._Evenement.Plannings[_IndexPlanning].Creneau1112 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1112 != null) {
@@ -264,7 +264,7 @@ export class AppComponent implements OnInit {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         else if (_IndexProperty == 4 && this._Evenement.Plannings[_IndexPlanning].Creneau1213 == this._Evenement.Id.toString()) {
-            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1213' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            if ((this._Evenement.Reservations != null) && (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1213' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0)) { return '#FF0000'; }
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 4 && this._Evenement.Plannings[_IndexPlanning].Creneau1213 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1213 != null) {
@@ -272,7 +272,7 @@ export class AppComponent implements OnInit {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         else if (_IndexProperty == 5 && this._Evenement.Plannings[_IndexPlanning].Creneau1314 == this._Evenement.Id.toString()) {
-            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1314' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            if ((this._Evenement.Reservations != null) && (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1314' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0)) { return '#FF0000'; }
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 5 && this._Evenement.Plannings[_IndexPlanning].Creneau1314 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1314 != null) {
@@ -280,7 +280,7 @@ export class AppComponent implements OnInit {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         else if (_IndexProperty == 6 && this._Evenement.Plannings[_IndexPlanning].Creneau1415 == this._Evenement.Id.toString()) {
-            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1415' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            if ((this._Evenement.Reservations != null) && (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1415' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0)) { return '#FF0000'; }
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 6 && this._Evenement.Plannings[_IndexPlanning].Creneau1415 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1415 != null) {
@@ -288,7 +288,7 @@ export class AppComponent implements OnInit {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         else if (_IndexProperty == 7 && this._Evenement.Plannings[_IndexPlanning].Creneau1516 == this._Evenement.Id.toString()) {
-            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1516' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            if ((this._Evenement.Reservations != null) && (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1516' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0)) { return '#FF0000'; }
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 7 && this._Evenement.Plannings[_IndexPlanning].Creneau1516 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1516 != null) {
@@ -296,7 +296,7 @@ export class AppComponent implements OnInit {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         else if (_IndexProperty == 8 && this._Evenement.Plannings[_IndexPlanning].Creneau1617 == this._Evenement.Id.toString()) {
-            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1617' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            if ((this._Evenement.Reservations != null) && (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1617' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0)) { return '#FF0000'; }
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 8 && this._Evenement.Plannings[_IndexPlanning].Creneau1617 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1617 != null) {
@@ -304,7 +304,7 @@ export class AppComponent implements OnInit {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         else if (_IndexProperty == 9 && this._Evenement.Plannings[_IndexPlanning].Creneau1718 == this._Evenement.Id.toString()) {
-            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1718' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            if ((this._Evenement.Reservations != null) && (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1718' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0)) { return '#FF0000'; }
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 9 && this._Evenement.Plannings[_IndexPlanning].Creneau1718 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1718 != null) {
@@ -312,7 +312,7 @@ export class AppComponent implements OnInit {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         else if (_IndexProperty == 10 && this._Evenement.Plannings[_IndexPlanning].Creneau1819 == this._Evenement.Id.toString()) {
-            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1819' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            if ((this._Evenement.Reservations != null) && (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1819' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0)) { return '#FF0000'; }
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 10 && this._Evenement.Plannings[_IndexPlanning].Creneau1819 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1819 != null) {
@@ -320,7 +320,7 @@ export class AppComponent implements OnInit {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         else if (_IndexProperty == 11 && this._Evenement.Plannings[_IndexPlanning].Creneau1920 == this._Evenement.Id.toString()) {
-            if (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1920' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0) { return 'red'; }
+            if ((this._Evenement.Reservations != null) && (this._Evenement.Reservations.filter(r => r.Creneau == 'Creneau1920' && this._Evenement.Plannings[_IndexPlanning].Jour == r.Jour).length > 0)) { return '#FF0000'; }
             else { return '#FECC16'; }
         }
         else if (_IndexProperty == 11 && this._Evenement.Plannings[_IndexPlanning].Creneau1920 != this._Evenement.Id.toString() && this._Evenement.Plannings[_IndexPlanning].Creneau1920 != null) {

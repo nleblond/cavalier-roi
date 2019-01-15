@@ -31,11 +31,11 @@ namespace WS
             }
         }
 
-        public static String MAILSERVER_URL
+        public static String MAILSERVER_HOST
         {
             get
             {
-                return System.Configuration.ConfigurationManager.AppSettings["MAILSERVER_URL"];
+                return System.Configuration.ConfigurationManager.AppSettings["MAILSERVER_HOST"];
             }
         }
         public static Int32 MAILSERVER_PORT

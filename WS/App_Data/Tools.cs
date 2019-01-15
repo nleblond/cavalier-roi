@@ -24,9 +24,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Specialized;
 
 /// <summary>
-/// Bibliothèque Générique
+/// Bibliothèque Générique (Version NLEB)
 /// v3.1.8
-/// 14/01/2019 (sans BigInteger)
+/// 14/01/2019
+/// (sans BigInteger)
+/// (sans SendMail)
 /// C#
 /// </summary>
 public static class Tools
@@ -1360,7 +1362,7 @@ public static class Tools
     /// <param name="dateTimeString">The date time string.</param>
     /// <param name="result">The result.</param>
     /// <returns></returns>
-    public static bool TryParseToDateNullable(this String dateTimeString, out DateTime? result)
+    public static Boolean TryParseToDateNullable(this String dateTimeString, out DateTime? result)
     {
         DateTime tempDate;
         if (!DateTime.TryParse(dateTimeString, out tempDate))
@@ -1376,85 +1378,6 @@ public static class Tools
 
 
 
-    /// <summary>Envoyer un mail</summary>
-    /// <param name="Emetteur">Emetteur du mail</param>
-    /// <param name="Destinataires">Destinataire(s) du mail séparé(s) par des ";"</param>
-    /// <param name="SubjectMsg">Objet du mail</param>
-    /// <param name="BodyMsgHTML">Corps du mail</param>
-    /// <param name="IsBodyHtml">HTML ou simple texte</param>
-    /// <param name="CCDestinataires">Destinatair(s) du mail caché(s) séparé(s) par des ";"</param>
-    /// <returns>Boolean (OK/KO)</returns>
-    public static Boolean SendMail(String Emetteur, String Destinataires, String SubjectMsg, String BodyMsgHTML, Boolean IsBodyHtml, String MailHost, Int32 MailPort, String Username = null, String Password = null, String CCDestinataires = "", String CCIDestinataires = "", List<String> Attachments = null, Byte[] FileContent = null, String FileName = null)
-    {
-        try
-        {
-            SmtpClient SmtpClient = new SmtpClient();
-            MailAddress MsgFrom = new MailAddress(Emetteur, "", System.Text.Encoding.UTF8);
-            MailMessage MailMsg = new MailMessage();
-            //From
-            MailMsg.From = MsgFrom;
-            //To
-            Char[] Delimiters = new Char[] { ';' };
-            String[] MsgTo = Destinataires.Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
-            for (Int32 i = 0; i < MsgTo.Length; i++)
-            {
-                MailAddress MsgTo1 = new MailAddress(MsgTo[i].ToString().Trim());
-                MailMsg.To.Add(MsgTo1);
-            }
-            if (!String.IsNullOrEmpty(CCDestinataires))
-            {
-                String[] MsgCC = CCDestinataires.Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
-                for (Int32 i = 0; i < MsgCC.Length; i++)
-                {
-                    MailAddress msgCC1 = new MailAddress(MsgCC[i].ToString().Trim());
-                    MailMsg.CC.Add(msgCC1);
-                }
-            }
-            if (!String.IsNullOrEmpty(CCIDestinataires))
-            {
-                String[] MsgCCI = CCIDestinataires.Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
-                for (Int32 i = 0; i < MsgCCI.Length; i++)
-                {
-                    MailAddress msgCC1 = new MailAddress(MsgCCI[i].ToString().Trim());
-                    MailMsg.Bcc.Add(msgCC1);
-                }
-            }
-            // Attachments
-            if (Attachments != null && Attachments.Count > 0)
-                foreach (String CheminDuFichierAAttacher in Attachments)
-                {
-                    Attachment attachment = new Attachment(CheminDuFichierAAttacher.ToString().Trim());
-                    MailMsg.Attachments.Add(attachment);
-                }
-
-            if (FileContent != null)
-            {
-                String Name = FileName != null ? FileName : "Fichier";
-                Stream stream = new MemoryStream(FileContent);
-                Attachment attachment = new Attachment(stream, Name);
-                MailMsg.Attachments.Add(attachment);
-            }
-
-            MailMsg.IsBodyHtml = IsBodyHtml;
-            MailMsg.Body = MailMsg.Body + BodyMsgHTML;
-            MailMsg.BodyEncoding = System.Text.Encoding.UTF8;
-            MailMsg.Subject = SubjectMsg;
-            MailMsg.SubjectEncoding = System.Text.Encoding.UTF8;
-            MailMsg.Priority = MailPriority.Normal;
-            SmtpClient.Host = MailHost;
-            SmtpClient.Port = MailPort;
-            SmtpClient.EnableSsl = true;
-            SmtpClient.UseDefaultCredentials = true;
-            if ((Username != null) && (Password != null)) { SmtpClient.Credentials = new NetworkCredential(Username, Password); }
-            SmtpClient.Send(MailMsg);
-            MailMsg.Dispose();
-        }
-        catch (Exception Ex)
-        {
-            return false;
-        }
-        return true;
-    }
 
     /// <summary>Récupérer une chaine de caractères aléatoires</summary>
     /// <param name="Size">Taille de la chaine de caractères aléatoires</param>

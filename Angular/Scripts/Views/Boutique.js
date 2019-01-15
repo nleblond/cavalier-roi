@@ -473,8 +473,8 @@ function DelLigneFromCommandeEnCours(_LigneId) {
 function AddCommmande(_StatutId, _PaymentId) {
 
     var _Params = {};
-    _Params._PaymentId = _PaymentId;
     _Params._StatutId = _StatutId;
+    _Params._PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
 
     $.ajax({
         type: 'POST',
@@ -617,7 +617,7 @@ function CallBackPayPalKO(_Error) {
     $('.produit input[type="button"].ajouter').hide();
     $('.produit .quantite').hide();
 
-    AddCommmande(2, '');
+    AddCommmande(2, 'KO');
 
     $('.panier .etape1').hide();
     $('.panier .etape2').hide();

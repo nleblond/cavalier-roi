@@ -73,9 +73,10 @@ namespace WS.Controllers
             return Ok(CommandesManager.UpdCommande(
                                                     _Id: _Parameters.Id,
                                                     _StatutId: _Parameters.StatutId,
+                                                    _StatutLibelle: _Parameters.StatutLibelle,
                                                     _ReferenceTransaction: _Parameters.ReferenceTransaction,
-                                                    _ReferenceExterne: _Parameters.ReferenceExterne
-                
+                                                    _ReferenceExterne: _Parameters.ReferenceExterne,
+                                                    _EleveId: _Parameters.EleveId
                                                 ));
         }
 

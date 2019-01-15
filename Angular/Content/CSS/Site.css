@@ -16,7 +16,7 @@ hr { border: 0; color: #FECC16; background-color: #FECC16; height: 1pt; }
 .clear-right { clear: right; }
 i { font-style: normal; }
 .jaune { color: #FECC16!important; }
-.rouge  { color: red; }
+.rouge  { color: #FF0000; }
 .gris { background-color: #161616; }
 
 .left { text-align: left!important; }

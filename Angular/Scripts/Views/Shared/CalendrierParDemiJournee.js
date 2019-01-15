@@ -101,11 +101,15 @@ function OpenCalendrierParDemiJournee(_EvenementId, _EvenementLibelle, _EleveId,
         if ((_Prix == '') || (_Prix == null)) { //participation gratuite
             AddParticipationParDemiJournee();
             AddAllReservationsParDemiJournee();
+            $('#Div_CalendrierParDemiJournee .planning').hide();
+            $('#Div_CalendrierParDemiJournee .paiement').hide();
             $('#Div_CalendrierParDemiJournee .confirmation').show();
             $('#Div_CalendrierParDemiJournee .confirmation .confirmation4').show();
         }
         else {
+            $('#Div_CalendrierParDemiJournee .planning').hide();
             $('#Div_CalendrierParDemiJournee .paiement').show();
+            $('#Div_CalendrierParDemiJournee .confirmation').hide();
 
             $('#Div_CalendrierParDemiJournee .todelete').hide();
         }
@@ -571,7 +575,7 @@ function AddParticipationParDemiJournee(_PaymentId) {
     _Participation.Evenement.Id = $('#Div_CalendrierParDemiJournee #Hidden_EvenementId').val();
     _Participation.Eleve = {};
     _Participation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
-    _Participation.PaymentId = _PaymentId;
+    _Participation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
 
     $.ajax({
         type: 'POST',
@@ -608,7 +612,7 @@ function AddAllReservationsParDemiJournee(_PaymentId) {
     _Participation.Evenement.Id = $('#Div_CalendrierParDemiJournee #Hidden_EvenementId').val();
     _Participation.Eleve = {};
     _Participation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
-    _Participation.PaymentId = _PaymentId;
+    _Participation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
 
     $.ajax({
         type: 'POST',
@@ -653,7 +657,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau0809';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -663,7 +667,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau0910';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -673,7 +677,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1011';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
         }
         else if (_Creneau == 'Creneau1011') {
@@ -684,7 +688,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau0910';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -694,7 +698,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1011';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -704,7 +708,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1112';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
         }
         else if (_Creneau == 'Creneau1112') {
@@ -715,7 +719,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1011';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -725,7 +729,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1112';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -735,7 +739,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1213';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
         }
         else if (_Creneau == 'Creneau1213') {
@@ -746,7 +750,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1112';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -756,7 +760,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1213';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -766,7 +770,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1314';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
         }
         else if (_Creneau == 'Creneau1314') {
@@ -777,7 +781,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1213';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -787,7 +791,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1314';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -797,7 +801,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1415';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
         }
         else if (_Creneau == 'Creneau1415') {
@@ -808,7 +812,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1314';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -818,7 +822,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1415';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -828,7 +832,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1516';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
         }
         else if (_Creneau == 'Creneau1516') {
@@ -839,7 +843,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1415';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -849,7 +853,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1516';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -859,7 +863,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1617';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
         }
         else if (_Creneau == 'Creneau1617') {
@@ -870,7 +874,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1516';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -880,7 +884,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1617';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -890,7 +894,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1718';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
         }
         else if (_Creneau == 'Creneau1718') {
@@ -901,7 +905,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1617';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -911,7 +915,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1718';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -921,7 +925,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1819';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
         }
         else if (_Creneau == 'Creneau1819') {
@@ -932,7 +936,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1718';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -942,7 +946,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1819';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
 
             var _Reservation = {};
@@ -952,7 +956,7 @@ function AddReservationsParDemiJournee(_PaymentId) {
             _Reservation.Eleve.Id = $('#Div_CalendrierParDemiJournee #Hidden_EleveId').val();
             _Reservation.Jour = $(this).find('input[type=hidden].jour').val();
             _Reservation.Creneau = 'Creneau1920';
-            _Reservation.PaymentId = _PaymentId;
+            _Reservation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
             _Reservations.push(_Reservation);
         }
     });
@@ -1083,18 +1087,22 @@ function CallBackPayPalOK(_PaymentId) {
 
 
 function CallBackPayPalKO(_Error) {
-    $('#Div_CalendrierParDemiJournee .paiement').hide();
-    $('#Div_CalendrierParDemiJournee .confirmation').show();
+
+    AddParticipationParDemiJournee('KO');
 
     if (($('#Div_CalendrierParDemiJournee #Hidden_EvenementParentId').val() != null) && ($('#Div_CalendrierParDemiJournee #Hidden_EvenementParentId').val() != '')) {
-        AddReservationsParDemiJournee();
+        AddReservationsParDemiJournee('KO');
         $('#Div_CalendrierParDemiJournee .confirmation .confirmation3').show();
     }
     else {
-        AddAllReservationsParDemiJournee(_PaymentId);
+        AddAllReservationsParDemiJournee('KO');
         $('#Div_CalendrierParDemiJournee .confirmation .confirmation7').show();
     }
     
+    $('#Div_CalendrierParDemiJournee .planning').hide();
+    $('#Div_CalendrierParDemiJournee .paiement').hide();
+    $('#Div_CalendrierParDemiJournee .confirmation').show();
+
     $('#Div_CalendrierParDemiJournee .fermer').show();
 }
 

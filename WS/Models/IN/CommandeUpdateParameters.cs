@@ -10,9 +10,16 @@ namespace WS.Models.IN
     {
 
         public Int32? Id { set; get; }
+
         public String ReferenceTransaction { set; get; }
+
         public String ReferenceExterne { set; get; }
+
         public Int32? StatutId { set; get; }
+
+        public String StatutLibelle { set; get; }
+
+        public Int32? EleveId { set; get; }
 
     }
 

@@ -672,6 +672,9 @@
           <Parameter Name="EvenementId" Type="int" Mode="In" />
           <Parameter Name="Jour" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="GetPlanningsOnly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EvenementId" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetProduits" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
           <Parameter Name="Libelle" Type="varchar" Mode="In" />
@@ -1487,6 +1490,9 @@
             <End Role="Statuts" EntitySet="Statuts" />
             <End Role="Lignes" EntitySet="Lignes" />
           </AssociationSet>
+          <FunctionImport Name="GetPlanningsOnly" ReturnType="Collection(DBModelsContext.PlanningOnlyResult)">
+          <Parameter Name="EvenementId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="TypologieEvenementResult">
           <Property Type="Int32" Name="Id" Nullable="true" />
@@ -1998,6 +2004,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="PlanningOnlyResult">
+          <Property Type="Int32" Name="EvenementId" Nullable="true" />
+          <Property Type="String" Name="Jour" Nullable="true" />
+          <Property Type="String" Name="Creneau" Nullable="true" MaxLength="20" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2483,6 +2494,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPlanningsOnly" FunctionName="DBModelsContext.Store.GetPlanningsOnly">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBModelsContext.PlanningOnlyResult">
+                <ScalarProperty Name="Jour" ColumnName="Jour" />
+                <ScalarProperty Name="Creneau" ColumnName="Creneau" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

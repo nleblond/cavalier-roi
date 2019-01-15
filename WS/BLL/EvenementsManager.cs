@@ -345,6 +345,27 @@ namespace WS.BLL
 
 
 
+        public static List<PlanningOnly> GetPlanningsOnly(Int32? _EvenementId = null)
+        {
+            DBModelsParameters _DB = new WS.Models.DBModelsParameters();
+
+            List<PlanningOnlyResult> _PlanningOnlyResults = _DB.GetPlanningsOnly(_EvenementId).ToList();
+
+            List<PlanningOnly> _Plannings = new List<PlanningOnly>();
+            foreach (PlanningOnlyResult _CurrentP in _PlanningOnlyResults)
+            {
+                PlanningOnly _NewPlanningOnly = new PlanningOnly();
+                _NewPlanningOnly.EvenementId = _CurrentP.EvenementId;
+                _NewPlanningOnly.Jour = _CurrentP.Jour;
+                _NewPlanningOnly.Creneau = _CurrentP.Creneau;
+
+                _Plannings.Add(_NewPlanningOnly);
+            }
+
+            return _Plannings;
+        }
+
+
 
 
         public static Int32? UpdPlannings(List<Planning> _Plannings)

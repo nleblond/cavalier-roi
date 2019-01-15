@@ -64,6 +64,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.ChangeStatut = function (_Event, _Index) {
         if ((_Index != null) && (_Index != undefined)) {
             this._Commandes[_Index].Statut.Id = _Event.target.value;
+            this._Commandes[_Index].Statut.Libelle = _Event.target[_Event.target.selectedIndex].text;
         }
         else {
             this._StatutId = _Event.target.value;
@@ -113,8 +114,10 @@ var AppComponent = /** @class */ (function () {
             this._CommandeUpdateParameters = new CommandeUpdateParameters_1.CommandeUpdateParameters();
             this._CommandeUpdateParameters.Id = this._Commandes[_Index].Id;
             this._CommandeUpdateParameters.StatutId = this._Commandes[_Index].Statut.Id;
+            this._CommandeUpdateParameters.StatutLibelle = this._Commandes[_Index].Statut.Libelle;
             this._CommandeUpdateParameters.ReferenceTransaction = this._Commandes[_Index].ReferenceTransaction;
             this._CommandeUpdateParameters.ReferenceExterne = this._Commandes[_Index].ReferenceExterne;
+            this._CommandeUpdateParameters.EleveId = this._Commandes[_Index].Eleve.Id;
             var _Body = JSON.stringify(this._CommandeUpdateParameters);
             var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });

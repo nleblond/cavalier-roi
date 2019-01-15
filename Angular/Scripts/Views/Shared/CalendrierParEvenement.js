@@ -57,12 +57,14 @@ function OpenCalendrierParEvenement(_EvenementId, _EvenementLibelle, _EleveId, _
         AddParticipationParEvenement();
         AddAllReservationsParEvenement();
 
+        $('#Div_CalendrierParEvenement .paiement').hide();
         $('#Div_CalendrierParEvenement .confirmation').show();
         $('#Div_CalendrierParEvenement .confirmation .confirmation3').show();
 
     }
     else { //participation payante + toutes les réservations
         $('#Div_CalendrierParEvenement .paiement').show();
+        $('#Div_CalendrierParEvenement .confirmation').hide();
     }
 
     $('#Div_CalendrierParEvenement').ModalPopUp('open');
@@ -117,7 +119,7 @@ function AddParticipationParEvenement(_PaymentId) {
     _Participation.Evenement.Id = $('#Div_CalendrierParEvenement #Hidden_EvenementId').val();
     _Participation.Eleve = {};
     _Participation.Eleve.Id = $('#Div_CalendrierParEvenement #Hidden_EleveId').val();
-    _Participation.PaymentId = _PaymentId;
+    _Participation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
 
     $.ajax({
         type: 'POST',
@@ -154,7 +156,7 @@ function AddAllReservationsParEvenement(_PaymentId) {
     _Participation.Evenement.Id = $('#Div_CalendrierParEvenement #Hidden_EvenementId').val();
     _Participation.Eleve = {};
     _Participation.Eleve.Id = $('#Div_CalendrierParEvenement #Hidden_EleveId').val();
-    _Participation.PaymentId = _PaymentId;
+    _Participation.PaymentId = (_PaymentId == undefined || _PaymentId == null ? '' : _PaymentId);
 
     $.ajax({
         type: 'POST',
@@ -266,7 +268,7 @@ paypal.Button.render({
 
 function CallBackPayPalOK(_PaymentId) {
 
-    AddParticipationParEvenement();
+    AddParticipationParEvenement(_PaymentId);
     AddAllReservationsParEvenement(_PaymentId);
 
     $('#Div_CalendrierParEvenement .paiement').hide();
@@ -278,6 +280,10 @@ function CallBackPayPalOK(_PaymentId) {
 
 
 function CallBackPayPalKO(_Error) {
+
+    AddParticipationParEvenement('KO');
+    AddAllReservationsParEvenement('KO');
+
     $('#Div_CalendrierParEvenement .paiement').hide();
     $('#Div_CalendrierParEvenement .confirmation').show();
     $('#Div_CalendrierParEvenement .confirmation .confirmation4').show();

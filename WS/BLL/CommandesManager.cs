@@ -127,6 +127,8 @@ namespace WS.BLL
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
 
+            //récupération de l'élève
+            Eleve _Eleve = ElevesManager.GetEleves(_Id: _EleveId)[0];
 
             //ajout de l'adresse
             Int32? _NewAdresseId = _DB.AddAdresse(
@@ -148,7 +150,7 @@ namespace WS.BLL
                                     eleveId: (_EleveId == null ? -1 : _EleveId),
                                     prix: (_Prix == null ? -1 : _Prix),
                                     fraiId: (_FraiId == null ? -1 : _EleveId),
-                                    referenceTransaction: (String.IsNullOrEmpty(_ReferenceTransaction) ? null : _ReferenceTransaction.Trim()),
+                                    referenceTransaction: (String.IsNullOrEmpty(_ReferenceTransaction) ? null : _ReferenceTransaction),
                                     referenceExterne: (String.IsNullOrEmpty(_ReferenceExterne) ? null : _ReferenceExterne.Trim()),
                                     adresseId: (_NewAdresseId == null ? -1 : _NewAdresseId)
             ).FirstOrDefault().Value;
@@ -167,6 +169,7 @@ namespace WS.BLL
             }
 
             //envoi du mail de confirmation
+            #region "Mail"
             String _EmailConfirmation = String.Empty;
             _EmailConfirmation += "<html>";
             _EmailConfirmation += "<body>";
@@ -213,8 +216,8 @@ namespace WS.BLL
             _EmailConfirmation += "<br /><br />";
             _EmailConfirmation += "</body>";
             _EmailConfirmation += "</html>";
-            Eleve _Eleve = ElevesManager.GetEleves(_Id: _EleveId)[0];
-            Tools.SendMail(WS.Constants.COMMANDES_EMAIL, _Eleve.Email, "Confirmation de commande", _EmailConfirmation, true, WS.Constants.MAILSERVER_URL, WS.Constants.MAILSERVER_PORT, WS.Constants.COMMANDES_USERNAME, WS.Constants.COMMANDES_PASSWORD, WS.Constants.COMMANDES_CC, WS.Constants.COMMANDES_CCI);
+            ICSManager.SendMail(WS.Constants.COMMANDES_EMAIL, WS.Constants.COMMANDES_SENDER, _Eleve.Email, WS.Constants.COMMANDES_CC, WS.Constants.COMMANDES_CCI, "Confirmation de commande", _EmailConfirmation, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.COMMANDES_USERNAME, WS.Constants.COMMANDES_PASSWORD);
+            #endregion
 
             return _NewCommandeId;
         }
@@ -227,9 +230,32 @@ namespace WS.BLL
             return _DB.DelCommande(_Id, _Real);
         }
 
-        public static Int32 UpdCommande(Int32? _Id = null, Int32? _StatutId = null, String _ReferenceTransaction = null, String _ReferenceExterne = null)
+        public static Int32 UpdCommande(Int32? _Id = null, Int32? _StatutId = null, String _StatutLibelle = null, String _ReferenceTransaction = null, String _ReferenceExterne = null, Int32? _EleveId = null)
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
+
+            //récupération de l'élève
+            Eleve _Eleve = ElevesManager.GetEleves(_Id: _EleveId)[0];
+
+            //envoi du mail de confirmation
+            #region "Mail"
+            String _EmailModification = String.Empty;
+            _EmailModification += "<html>";
+            _EmailModification += "<body>";
+            _EmailModification += "<img src=\"http://www.cavalier-roi.fr/Content/Images/LogoMail.jpg\" />";
+            _EmailModification += "<br /><hr /><br />";
+            _EmailModification += "Votre commande #" + _Id.ToString() + " vient de passer au statut suivant : " + _StatutLibelle;
+            _EmailModification += "<br /><br />";
+            _EmailModification += "Vous pouvez retrouver toutes vos commandes dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+            _EmailModification += "<br /><br />";
+            _EmailModification += "Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a>.";
+            _EmailModification += "<br /><br />";
+            _EmailModification += "L'École du cavalier roi";
+            _EmailModification += "<br /><br />";
+            _EmailModification += "</body>";
+            _EmailModification += "</html>";
+            ICSManager.SendMail(WS.Constants.COMMANDES_EMAIL, WS.Constants.COMMANDES_SENDER, _Eleve.Email, WS.Constants.COMMANDES_CC, WS.Constants.COMMANDES_CCI, "Modification de statut de commande", _EmailModification, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.COMMANDES_USERNAME, WS.Constants.COMMANDES_PASSWORD);
+            #endregion
 
             return _DB.UpdCommande(
                                     id: (_Id == null ? -1 : _Id),
@@ -238,12 +264,6 @@ namespace WS.BLL
                                     referenceExterne: (String.IsNullOrEmpty(_ReferenceExterne) ? null : _ReferenceExterne)
                                 );
         }
-
-
-
-
-
-
 
     }
 }
