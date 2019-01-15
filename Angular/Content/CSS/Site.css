@@ -161,6 +161,13 @@ h2 { font-family: "God Of War"; font-size: 1.0rem; color: #FECC16!important; tex
 /********************************************************************************************/
 .logo_site { float: right; width: 298px; height: auto; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; border: solid 1pt #FECC16; }
 
+/* liens backoffice de la colonne de droite */
+/********************************************************************************************/
+.liens { float: left; width: 16.6rem; height: auto; padding: 1.0rem 1.0rem 1.0rem 1.0rem; margin: 1.0rem 0rem 0rem 0rem; border: solid 1pt #FECC16; }
+.liens .titre { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0.5rem 0rem; font-size: 1.0rem; width: 100%; }
+.liens a { font-family: "Trebuchet MS"; font-size: 0.75rem; color: #FFFFFF; margin: 0.5rem 0rem 1.0rem 0rem; text-decoration: none; cursor: pointer; }
+.liens a:hover { color: #FFFFFF; text-decoration: underline; }
+
 /* panier de la colonne de droite */
 /********************************************************************************************/
 .panier { display: none; float: left; width: 16.6rem; height: auto; padding: 0rem 1.0rem 0rem 1.0rem; margin: 1.0rem 0rem 0rem 0rem; border: solid 1pt #FECC16; background-color: #161616; }

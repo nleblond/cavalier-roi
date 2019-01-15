@@ -97,6 +97,11 @@
 
                 <img class="logo_site" src="@Angular.Constants.IMG_URL/Logo Noir 425.png" />
 
+                @if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().IndexOf("moncompte") > -1)
+                {
+                    @Html.Partial("~/Views/Shared/Liens.cshtml", @Model.Eleve as WS.Models.OUT.Eleve)
+                }
+
                 @if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().IndexOf("boutique") > -1)
                 {
                     @Html.Partial("~/Views/Shared/Panier.cshtml", @Model.Commande as WS.Models.OUT.Commande)

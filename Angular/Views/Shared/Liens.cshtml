@@ -1,0 +1,23 @@
+﻿@model WS.Models.OUT.Eleve
+
+@if ((Model != null) && (Model.Administration == true))
+{
+    <div class="liens">
+        <div class="titre">LIENS BACKOFFICE</div>
+        <div class="clear"></div>
+    
+        <div>
+            <a href="@Angular.Constants.ROOT_URL/Contenus" target="_blank">Gestion des contenus</a>
+            <br class="br10" />
+            <a href="@Angular.Constants.ROOT_URL/Evenements" target="_blank">Gestion des évènements</a>
+            <br class="br10" />
+            <a href="@Angular.Constants.ROOT_URL/Eleves" target="_blank">Gestion des élèves</a>
+            <br class="br10" />
+            <a href="@Angular.Constants.ROOT_URL/Commandes" target="_blank">Gestion des commandes</a>
+            <br class="br10" />
+            <a href="@Angular.Constants.ROOT_URL/Produits" target="_blank">Gestion des produits</a>
+            <br class="br10" />
+        </div>
+
+    </div>
+}
