@@ -175,15 +175,15 @@ namespace WS.BLL
             _EmailReinitialisation += "<br />";
             _EmailReinitialisation += "<u>Nouveau mot de passe</u> : " + _Password;
             _EmailReinitialisation += "<br /><br />";
-            _EmailReinitialisation += "Pensez à bien le changer à votre prochaine connexion dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+            _EmailReinitialisation += "Pensez à bien le changer à votre prochaine connexion dans la partie \"Mon Compte\" du site de l'École du Cavalier Roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
             _EmailReinitialisation += "<br /><br />";
-            _EmailReinitialisation += "Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.INSCRIPTIONS_EMAIL + "\" target=\"_blank\">" + WS.Constants.INSCRIPTIONS_EMAIL + "</a>.";
+            _EmailReinitialisation += "Pour plus d'informations, n'hésitez pas à contacter l'École du Cavalier Roi à <a href=\"mailto:" + WS.Constants.INSCRIPTIONS_EMAIL + "\" target=\"_blank\">" + WS.Constants.INSCRIPTIONS_EMAIL + "</a>.";
             _EmailReinitialisation += "<br /><br />";
-            _EmailReinitialisation += "L'École du cavalier roi";
+            _EmailReinitialisation += "L'École du Cavalier Roi";
             _EmailReinitialisation += "<br /><br />";
             _EmailReinitialisation += "</body>";
             _EmailReinitialisation += "</html>";
-            ICSManager.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, WS.Constants.INSCRIPTIONS_SENDER, _Email, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI, "Réinitialisation de mot de passe", _EmailReinitialisation, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD);
+            ICSManager.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, WS.Constants.INSCRIPTIONS_SENDER, _Email, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI, "Réinitialisation de mot de passe", _EmailReinitialisation, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD, 100000, false);
             #endregion
 
             return _DB.ReinitEleve(
@@ -285,13 +285,13 @@ namespace WS.BLL
                 _EmailModification += "<u>Club</u> : " + (!String.IsNullOrEmpty(_Club) ? _Club.Trim() : "-");
                 _EmailModification += "<br />";
                 _EmailModification += "<br />";
-                _EmailModification += "Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.INSCRIPTIONS_EMAIL + "\" target=\"_blank\">" + WS.Constants.INSCRIPTIONS_EMAIL + "</a>.";
+                _EmailModification += "Pour plus d'informations, n'hésitez pas à contacter l'École du Cavalier Roi à <a href=\"mailto:" + WS.Constants.INSCRIPTIONS_EMAIL + "\" target=\"_blank\">" + WS.Constants.INSCRIPTIONS_EMAIL + "</a>.";
                 _EmailModification += "<br /><br />";
-                _EmailModification += "L'École du cavalier roi";
+                _EmailModification += "L'École du Cavalier Roi";
                 _EmailModification += "<br /><br />";
                 _EmailModification += "</body>";
                 _EmailModification += "</html>";
-                ICSManager.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, WS.Constants.INSCRIPTIONS_SENDER, _Email, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI, "Modification des informations personnelles", _EmailModification, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD);
+                ICSManager.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, WS.Constants.INSCRIPTIONS_SENDER, _Email, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI, "Modification des informations personnelles", _EmailModification, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD, 100000, false);
             }
             #endregion
 
@@ -378,13 +378,13 @@ namespace WS.BLL
             _EmailRecapitulation += "<u>Commentaire</u> : " + (!String.IsNullOrEmpty(_Commentaire) ? _Commentaire.Trim() : "-");
             _EmailRecapitulation += "<br />";
             _EmailRecapitulation += "<br />";
-            _EmailRecapitulation += "Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.INSCRIPTIONS_EMAIL + "\" target=\"_blank\">" + WS.Constants.INSCRIPTIONS_EMAIL + "</a>.";
+            _EmailRecapitulation += "Pour plus d'informations, n'hésitez pas à contacter l'École du Cavalier Roi à <a href=\"mailto:" + WS.Constants.INSCRIPTIONS_EMAIL + "\" target=\"_blank\">" + WS.Constants.INSCRIPTIONS_EMAIL + "</a>.";
             _EmailRecapitulation += "<br /><br />";
-            _EmailRecapitulation += "L'École du cavalier roi";
+            _EmailRecapitulation += "L'École du Cavalier Roi";
             _EmailRecapitulation += "<br /><br />";
             _EmailRecapitulation += "</body>";
             _EmailRecapitulation += "</html>";
-            ICSManager.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, WS.Constants.INSCRIPTIONS_SENDER, _Email, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI, "Confirmation d'inscription", _EmailRecapitulation, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD);
+            ICSManager.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, WS.Constants.INSCRIPTIONS_SENDER, _Email, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI, "Confirmation d'inscription", _EmailRecapitulation, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD, 100000, false);
             #endregion
 
             return _Id;
@@ -685,37 +685,37 @@ namespace WS.BLL
 
                 if (_Evenement.Typologie.Id == 3) //cours
                 {
-                    _EmailReservation += "Vous pouvez retrouver toutes vos inscriptions/réservations dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+                    _EmailReservation += "Vous pouvez retrouver toutes vos inscriptions/réservations dans la partie \"Mon Compte\" du site de l'École du Cavalier Roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
                 }
                 else if (_Evenement.Typologie.Id == 1) //tournois
                 {
-                    _EmailReservation += "Vous pouvez retrouver toutes vos participations dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+                    _EmailReservation += "Vous pouvez retrouver toutes vos participations dans la partie \"Mon Compte\" du site de l'École du Cavalier Roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
                 }
                 else if (_Evenement.Typologie.Id == 0) //stages
                 {
                     //stage "parent" : formule complete
                     if (_Evenement.EvenementParent == null)
                     {
-                        _EmailReservation += "Vous pouvez retrouver toutes vos inscriptions dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+                        _EmailReservation += "Vous pouvez retrouver toutes vos inscriptions dans la partie \"Mon Compte\" du site de l'École du Cavalier Roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
                     }
                     //stage "enfant" : formule partielle (avec choix de réservations)
                     else
                     {
-                        _EmailReservation += "Vous pouvez retrouver toutes vos inscriptions/réservations dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+                        _EmailReservation += "Vous pouvez retrouver toutes vos inscriptions/réservations dans la partie \"Mon Compte\" du site de l'École du Cavalier Roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
                     }
                 }
 
                 _EmailReservation += "<br /><br />";
                 if ((!String.IsNullOrEmpty(_Reservations[0].PaymentId)) && (_Reservations[0].PaymentId != "KO")) //"PAYPAL PAYMENTID" OU "MON COMPTE"
                 {
-                    _EmailReservation += "Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a>.";
+                    _EmailReservation += "Pour plus d'informations, n'hésitez pas à contacter l'École du Cavalier Roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a>.";
                 }
                 else
                 {
-                    _EmailReservation += "Merci de contacter au plus vite l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a> pour régler le paiement.";
+                    _EmailReservation += "Merci de contacter au plus vite l'École du Cavalier Roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a> pour régler le paiement.";
                 }
                 _EmailReservation += "<br /><br />";
-                _EmailReservation += "L'École du cavalier roi";
+                _EmailReservation += "L'École du Cavalier Roi";
                 _EmailReservation += "<br /><br />";
                 _EmailReservation += "</body>";
                 _EmailReservation += "</html>";
@@ -749,7 +749,7 @@ namespace WS.BLL
                         _EmailSubject = "Confirmation d'inscription/réservations";
                     }
                 }
-                ICSManager.SendMail(WS.Constants.COMMANDES_EMAIL, WS.Constants.COMMANDES_SENDER, _Eleve.Email, WS.Constants.COMMANDES_CC, WS.Constants.COMMANDES_CCI, _EmailSubject, _EmailReservation, true, _Invitations, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.COMMANDES_USERNAME, WS.Constants.COMMANDES_PASSWORD);
+                ICSManager.SendMail(WS.Constants.COMMANDES_EMAIL, WS.Constants.COMMANDES_SENDER, _Eleve.Email, WS.Constants.COMMANDES_CC, WS.Constants.COMMANDES_CCI, _EmailSubject, _EmailReservation, true, _Invitations, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.COMMANDES_USERNAME, WS.Constants.COMMANDES_PASSWORD, 100000, false);
                 #endregion
             }
 

@@ -1,6 +1,6 @@
 ﻿//extensions jquery : accordeon
 //v2.0.3
-//14/01/2019
+//16/01/2019
 //NL
 //Created by LEBLOND Nicolas
 //Modified by BARANGER Cyrille
@@ -94,7 +94,7 @@ $.fn.Accordeon = function (paramsJson) {
                     //alert(currentLiContent.height());
 		        });
 
-		        accordeon.find('.' + accordeon.data('headerClass')).click(function () {
+		        accordeon.find('.' + accordeon.data('headerClass')).off('click').on('click', function () {
 		            if (accordeon.find('.progressAccordeon').length < 1) { //si plus de 2 contents en cours d'animation => ca va bugguer, on annule l'action
 		                var header = $(this);
 		                var panel = header.parent();

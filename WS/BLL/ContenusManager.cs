@@ -146,9 +146,9 @@ namespace WS.BLL
                 evenementId: _EvenementId
             );
 
+            _ReturnValue = _DB.DelPublication(contenuId: _Id, id: null);
             if ((_Publications != null) && (_Publications.Count > 0))
             {
-                _ReturnValue = _DB.DelPublication(contenuId: _Id, id: null);
                 foreach (Publication _Current in _Publications)
                 {
                     _ReturnValue = _DB.AddPublication(contenuId: _Id, emplacementId: _Current.Emplacement.Id);

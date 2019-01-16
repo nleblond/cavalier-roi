@@ -79,5 +79,11 @@ namespace WS.Controllers
 
 
 
+        [HttpPost]
+        [HttpGet]
+        public IHttpActionResult TestMail(String _ReceiptEmail = "")
+        {
+            return Ok(DiversManager.TestMail(_ReceiptEmail));
+        }
     }
 }

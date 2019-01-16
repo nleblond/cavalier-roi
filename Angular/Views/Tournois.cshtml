@@ -37,7 +37,7 @@
                                 <td class="prix">
                                     @if (Model.EvenementsTournois[_Index].Prix != null)
                                     {
-                                        <span>&nbsp; &nbsp;@Tools.Euro(Model.EvenementsTournois[_Index].Prix)&nbsp; &nbsp;</span>
+                                        <span>@Tools.Euro(Model.EvenementsTournois[_Index].Prix)&nbsp; &nbsp;</span>
                                     }
                                 </td>
                                 <td class="reserver">
@@ -71,11 +71,11 @@
                                     }
                                     else if ((Model.EvenementsTournois[_Index].Maximum != null) && (Model.EvenementsTournois[_Index].Maximum <= Model.EvenementsTournois[_Index].Compte))
                                     {
-                                        <span class="jaune">COMPLET</span>
+                                        <div class="complet">Complet</div>
                                     }
                                     else
                                     {
-                                        <span class="jaune">TERMIN&Eacute;</span>
+                                        <div class="termine">Termin&eacute;</div>
                                     }
                                 </td>
                             </tr>

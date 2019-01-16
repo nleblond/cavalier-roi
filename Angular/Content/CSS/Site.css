@@ -9,6 +9,8 @@
     font-style: normal;
 }
 
+* { -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-tap-highlight-color: transparent; }
+
 body { margin: 0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; background-color: #000000; }
 hr { border: 0; color: #FECC16; background-color: #FECC16; height: 1pt; }
 .clear { clear: both; }
@@ -39,6 +41,8 @@ input[type="button"] { background-color: #FECC16; color: #000000; border: solid 
 a.tous { clear: both; float: right; font-family: "Trebuchet MS"; font-size: 0.75rem; color: #FECC16; margin: 0.5rem 0rem 1.0rem 0rem; text-decoration: none; cursor: pointer; }
 a.tous:hover { color: #FECC16; text-decoration: underline; }
 h2 { font-family: "God Of War"; font-size: 1.0rem; color: #FECC16!important; text-transform: uppercase; padding: 1.0rem 0rem 0.2rem 0rem; margin: 0rem 0rem 0rem; }
+.complet { padding:0.1rem 0.4rem 0.1rem 0.4rem; color:#FECC16; white-space:nowrap; }
+.termine { padding:0.1rem 0.4rem 0.1rem 0.4rem; color:#FECC16; white-space:nowrap; }
 
 
 

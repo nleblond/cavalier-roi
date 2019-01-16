@@ -4,7 +4,7 @@ var _APIKey = 'AEZRETRYTUYIUOIP';
 //variables paypal
 var _Total = '';
 var _Description = 'Paiement pour réservation';
-var _Note = "Pour plus d'informations sur ce paiement, n'hésitez pas à contacter l'École du cavalier roi à paypal@cavalier-roi.fr";
+var _Note = "Pour plus d'informations sur ce paiement, n'hésitez pas à contacter l'École du Cavalier Roi à paypal@cavalier-roi.fr";
 var _Item = '';
 var _Price = '';
 var _Reservations = '';

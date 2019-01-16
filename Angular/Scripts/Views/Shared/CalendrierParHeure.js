@@ -13,7 +13,7 @@ _Jours[6] = "Samedi";
 //variables paypal
 var _Total = '';
 var _Description = 'Paiement pour réservation';
-var _Note = "Pour plus d'informations sur ce paiement, n'hésitez pas à contacter l'École du cavalier roi à paypal@cavalier-roi.fr";
+var _Note = "Pour plus d'informations sur ce paiement, n'hésitez pas à contacter l'École du Cavalier Roi à paypal@cavalier-roi.fr";
 var _Item = '';
 var _Price = '';
 var _Reservations = '';
@@ -214,7 +214,7 @@ function CreateTableHeuresParHeure(_Jour, _Object) {
         _Row += '<tr> \
                     <td>08H - 09H</td> \
                     <td>';
-        if (_Object[0].Creneau0809 == 'F') { _Row += 'COMPLET'; }
+        if (_Object[0].Creneau0809 == 'F') { _Row += '<div class="complet">Complet</div>'; }
         else if ((_Object[0].Creneau0809 == '') || (_Object[0].Creneau0809 == null)) { _Row += 'X'; }
         else { _Row += '<input type="button" class="selectionner" title="Sélectionner" value="Sélectionner" onclick="AddTableSelectionParHeure(\'' + _Jour + '\', \'Creneau0809\');" />'; }
         _Row += '   </td> \
@@ -223,7 +223,7 @@ function CreateTableHeuresParHeure(_Jour, _Object) {
         _Row += '<tr> \
                     <td>09H - 10H</td> \
                     <td>';
-        if (_Object[0].Creneau0910 == 'F') { _Row += 'COMPLET'; }
+        if (_Object[0].Creneau0910 == 'F') { _Row += '<div class="complet">Complet</div>'; }
         else if ((_Object[0].Creneau0910 == '') || (_Object[0].Creneau0910 == null)) { _Row += 'X'; }
         else { _Row += '<input type="button" class="selectionner" title="Sélectionner" value="Sélectionner" onclick="AddTableSelectionParHeure(\'' + _Jour + '\', \'Creneau0910\');" />'; }
         _Row += '   </td> \
@@ -232,7 +232,7 @@ function CreateTableHeuresParHeure(_Jour, _Object) {
         _Row += '<tr> \
                     <td>10H - 11H</td> \
                     <td>';
-        if (_Object[0].Creneau1011 == 'F') { _Row += 'COMPLET'; }
+        if (_Object[0].Creneau1011 == 'F') { _Row += '<div class="complet">Complet</div>'; }
         else if ((_Object[0].Creneau1011 == '') || (_Object[0].Creneau1011 == null)) { _Row += 'X'; }
         else { _Row += '<input type="button" class="selectionner" title="Sélectionner" value="Sélectionner" onclick="AddTableSelectionParHeure(\'' + _Jour + '\', \'Creneau1011\');" />'; }
         _Row += '   </td> \
@@ -241,7 +241,7 @@ function CreateTableHeuresParHeure(_Jour, _Object) {
         _Row += '<tr> \
                     <td>11H - 12H</td> \
                     <td>';
-        if (_Object[0].Creneau1112 == 'F') { _Row += 'COMPLET'; }
+        if (_Object[0].Creneau1112 == 'F') { _Row += '<div class="complet">Complet</div>'; }
         else if ((_Object[0].Creneau1112 == '') || (_Object[0].Creneau1112 == null)) { _Row += 'X'; }
         else { _Row += '<input type="button" class="selectionner" title="Sélectionner" value="Sélectionner" onclick="AddTableSelectionParHeure(\'' + _Jour + '\', \'Creneau1112\');" />'; }
         _Row += '   </td> \
@@ -250,7 +250,7 @@ function CreateTableHeuresParHeure(_Jour, _Object) {
         _Row += '<tr> \
                     <td>12H - 13H</td> \
                     <td>';
-        if (_Object[0].Creneau1213 == 'F') { _Row += 'COMPLET'; }
+        if (_Object[0].Creneau1213 == 'F') { _Row += '<div class="complet">Complet</div>'; }
         else if ((_Object[0].Creneau1213 == '') || (_Object[0].Creneau1213 == null)) { _Row += 'X'; }
         else { _Row += '<input type="button" class="selectionner" title="Sélectionner" value="Sélectionner" onclick="AddTableSelectionParHeure(\'' + _Jour + '\', \'Creneau1213\');" />'; }
         _Row += '   </td> \
@@ -259,7 +259,7 @@ function CreateTableHeuresParHeure(_Jour, _Object) {
         _Row += '<tr> \
                     <td>13H - 14H</td> \
                     <td>';
-        if (_Object[0].Creneau1314 == 'F') { _Row += 'COMPLET'; }
+        if (_Object[0].Creneau1314 == 'F') { _Row += '<div class="complet">Complet</div>'; }
         else if ((_Object[0].Creneau1314 == '') || (_Object[0].Creneau1314 == null)) { _Row += 'X'; }
         else { _Row += '<input type="button" class="selectionner" title="Sélectionner" value="Sélectionner" onclick="AddTableSelectionParHeure(\'' + _Jour + '\', \'Creneau1314\');" />'; }
         _Row += '   </td> \
@@ -268,7 +268,7 @@ function CreateTableHeuresParHeure(_Jour, _Object) {
         _Row += '<tr> \
                     <td>14H - 15H</td> \
                     <td>';
-        if (_Object[0].Creneau1415 == 'F') { _Row += 'COMPLET'; }
+        if (_Object[0].Creneau1415 == 'F') { _Row += '<div class="complet">Complet</div>'; }
         else if ((_Object[0].Creneau1415 == '') || (_Object[0].Creneau1415 == null)) { _Row += 'X'; }
         else { _Row += '<input type="button" class="selectionner" title="Sélectionner" value="Sélectionner" onclick="AddTableSelectionParHeure(\'' + _Jour + '\', \'Creneau1415\');" />'; }
         _Row += '   </td> \
@@ -277,7 +277,7 @@ function CreateTableHeuresParHeure(_Jour, _Object) {
         _Row += '<tr> \
                     <td>15H - 16H</td> \
                     <td>';
-        if (_Object[0].Creneau1516 == 'F') { _Row += 'COMPLET'; }
+        if (_Object[0].Creneau1516 == 'F') { _Row += '<div class="complet">Complet</div>'; }
         else if ((_Object[0].Creneau1516 == '') || (_Object[0].Creneau1516 == null)) { _Row += 'X'; }
         else { _Row += '<input type="button" class="selectionner" title="Sélectionner" value="Sélectionner" onclick="AddTableSelectionParHeure(\'' + _Jour + '\', \'Creneau1516\');" />'; }
         _Row += '   </td> \
@@ -286,7 +286,7 @@ function CreateTableHeuresParHeure(_Jour, _Object) {
         _Row += '<tr> \
                     <td>16H - 17H</td> \
                     <td>';
-        if (_Object[0].Creneau1617 == 'F') { _Row += 'COMPLET'; }
+        if (_Object[0].Creneau1617 == 'F') { _Row += '<div class="complet">Complet</div>'; }
         else if ((_Object[0].Creneau1617 == '') || (_Object[0].Creneau1617 == null)) { _Row += 'X'; }
         else { _Row += '<input type="button" class="selectionner" title="Sélectionner" value="Sélectionner" onclick="AddTableSelectionParHeure(\'' + _Jour + '\', \'Creneau1617\');" />'; }
         _Row += '   </td> \
@@ -295,7 +295,7 @@ function CreateTableHeuresParHeure(_Jour, _Object) {
         _Row += '<tr> \
                     <td>17H - 18H</td> \
                     <td>';
-        if (_Object[0].Creneau1718 == 'F') { _Row += 'COMPLET'; }
+        if (_Object[0].Creneau1718 == 'F') { _Row += '<div class="complet">Complet</div>'; }
         else if ((_Object[0].Creneau1718 == '') || (_Object[0].Creneau1718 == null)) { _Row += 'X'; }
         else { _Row += '<input type="button" class="selectionner" title="Sélectionner" value="Sélectionner" onclick="AddTableSelectionParHeure(\'' + _Jour + '\', \'Creneau1718\');" />'; }
         _Row += '   </td> \
@@ -304,7 +304,7 @@ function CreateTableHeuresParHeure(_Jour, _Object) {
         _Row += '<tr> \
                     <td>18H - 19H</td> \
                     <td>';
-        if (_Object[0].Creneau1819 == 'F') { _Row += 'COMPLET'; }
+        if (_Object[0].Creneau1819 == 'F') { _Row += '<div class="complet">Complet</div>'; }
         else if ((_Object[0].Creneau1819 == '') || (_Object[0].Creneau1819 == null)) { _Row += 'X'; }
         else { _Row += '<input type="button" class="selectionner" title="Sélectionner" value="Sélectionner" onclick="AddTableSelectionParHeure(\'' + _Jour + '\', \'Creneau1819\');" />'; }
         _Row += '   </td> \
@@ -313,7 +313,7 @@ function CreateTableHeuresParHeure(_Jour, _Object) {
         _Row += '<tr> \
                     <td>19H - 20H</td> \
                     <td>';
-        if (_Object[0].Creneau1920 == 'F') { _Row += 'COMPLET'; }
+        if (_Object[0].Creneau1920 == 'F') { _Row += '<div class="complet">Complet</div>'; }
         else if ((_Object[0].Creneau1920 == '') || (_Object[0].Creneau1920 == null)) { _Row += 'X'; }
         else { _Row += '<input type="button" class="selectionner" title="Sélectionner" value="Sélectionner" onclick="AddTableSelectionParHeure(\'' + _Jour + '\', \'Creneau1920\');" />'; }
         _Row += '   </td> \

@@ -199,24 +199,24 @@ namespace WS.BLL
             }
             _EmailConfirmation += "</table>";
             _EmailConfirmation += "<br /><br />";
-            _EmailConfirmation += "Vous pouvez retrouver toutes vos commandes dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+            _EmailConfirmation += "Vous pouvez retrouver toutes vos commandes dans la partie \"Mon Compte\" du site de l'École du Cavalier Roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
             _EmailConfirmation += "<br /><br />";
             if (_StatutId == 3)
             {
-                _EmailConfirmation += "Merci de contacter au plus vite l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a> pour régler le paiement.";
+                _EmailConfirmation += "Merci de contacter au plus vite l'École du Cavalier Roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a> pour régler le paiement.";
             }
             else if (_StatutId == 2)
             {
                 _EmailConfirmation += "Vous recevrez votre facture directement par mail ou en la demandant à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a>";
                 _EmailConfirmation += "<br /><br />";
-                _EmailConfirmation += "Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a>.";
+                _EmailConfirmation += "Pour plus d'informations, n'hésitez pas à contacter l'École du Cavalier Roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a>.";
             }
             _EmailConfirmation += "<br /><br />";
-            _EmailConfirmation += "L'École du cavalier roi";
+            _EmailConfirmation += "L'École du Cavalier Roi";
             _EmailConfirmation += "<br /><br />";
             _EmailConfirmation += "</body>";
             _EmailConfirmation += "</html>";
-            ICSManager.SendMail(WS.Constants.COMMANDES_EMAIL, WS.Constants.COMMANDES_SENDER, _Eleve.Email, WS.Constants.COMMANDES_CC, WS.Constants.COMMANDES_CCI, "Confirmation de commande", _EmailConfirmation, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.COMMANDES_USERNAME, WS.Constants.COMMANDES_PASSWORD);
+            ICSManager.SendMail(WS.Constants.COMMANDES_EMAIL, WS.Constants.COMMANDES_SENDER, _Eleve.Email, WS.Constants.COMMANDES_CC, WS.Constants.COMMANDES_CCI, "Confirmation de commande", _EmailConfirmation, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.COMMANDES_USERNAME, WS.Constants.COMMANDES_PASSWORD, 100000, false);
             #endregion
 
             return _NewCommandeId;
@@ -246,15 +246,15 @@ namespace WS.BLL
             _EmailModification += "<br /><hr /><br />";
             _EmailModification += "Votre commande #" + _Id.ToString() + " vient de passer au statut suivant : " + _StatutLibelle;
             _EmailModification += "<br /><br />";
-            _EmailModification += "Vous pouvez retrouver toutes vos commandes dans la partie \"Mon Compte\" du site de l'École du cavalier roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
+            _EmailModification += "Vous pouvez retrouver toutes vos commandes dans la partie \"Mon Compte\" du site de l'École du Cavalier Roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
             _EmailModification += "<br /><br />";
-            _EmailModification += "Pour plus d'informations, n'hésitez pas à contacter l'École du cavalier roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a>.";
+            _EmailModification += "Pour plus d'informations, n'hésitez pas à contacter l'École du Cavalier Roi à <a href=\"mailto:" + WS.Constants.COMMANDES_EMAIL + "\" target=\"_blank\">" + WS.Constants.COMMANDES_EMAIL + "</a>.";
             _EmailModification += "<br /><br />";
-            _EmailModification += "L'École du cavalier roi";
+            _EmailModification += "L'École du Cavalier Roi";
             _EmailModification += "<br /><br />";
             _EmailModification += "</body>";
             _EmailModification += "</html>";
-            ICSManager.SendMail(WS.Constants.COMMANDES_EMAIL, WS.Constants.COMMANDES_SENDER, _Eleve.Email, WS.Constants.COMMANDES_CC, WS.Constants.COMMANDES_CCI, "Modification de statut de commande", _EmailModification, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.COMMANDES_USERNAME, WS.Constants.COMMANDES_PASSWORD);
+            ICSManager.SendMail(WS.Constants.COMMANDES_EMAIL, WS.Constants.COMMANDES_SENDER, _Eleve.Email, WS.Constants.COMMANDES_CC, WS.Constants.COMMANDES_CCI, "Modification de statut de commande", _EmailModification, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.COMMANDES_USERNAME, WS.Constants.COMMANDES_PASSWORD, 100000, false);
             #endregion
 
             return _DB.UpdCommande(

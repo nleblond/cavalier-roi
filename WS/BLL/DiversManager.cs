@@ -130,5 +130,19 @@ namespace WS.BLL
             return _Evenements;
         }
 
+
+        public static Boolean TestMail(String _ReceiptEmail = null)
+        {
+
+            String _EmailTest = String.Empty;
+            _EmailTest += "<html>";
+            _EmailTest += "<body>";
+            _EmailTest += "Coucou connard !";
+            _EmailTest += "</body>";
+            _EmailTest += "</html>";
+            return ICSManager.SendMail(WS.Constants.INSCRIPTIONS_EMAIL, WS.Constants.INSCRIPTIONS_SENDER, _ReceiptEmail, WS.Constants.INSCRIPTIONS_CC, WS.Constants.INSCRIPTIONS_CCI, "Test", _EmailTest, true, null, null, WS.Constants.MAILSERVER_HOST, WS.Constants.MAILSERVER_PORT, WS.Constants.INSCRIPTIONS_USERNAME, WS.Constants.INSCRIPTIONS_PASSWORD, 100000, false);
+
+        }
+
     }
 }
