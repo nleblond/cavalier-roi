@@ -8,6 +8,7 @@ var Commande = /** @class */ (function () {
         this.DtValidation = null;
         this.ReferenceTransaction = null;
         this.ReferenceExterne = null;
+        this.TrackingNumber = null;
         this.Prix = null;
         this.Statut = null;
         this.Eleve = null;

@@ -15,7 +15,7 @@ namespace WS.BLL
         
 
 
-        public static List<Commande> GetCommmandes(Int32? _Id = null, String _DtMin = null, String _DtMax = null, Int32? _ProduitId = null, String _ProduitReference = null, Int32? _EleveId = null, String _ReferenceTransaction = null, String _ReferenceExterne = null, Int32? _StatutId = null)
+        public static List<Commande> GetCommmandes(Int32? _Id = null, String _DtMin = null, String _DtMax = null, Int32? _ProduitId = null, String _ProduitReference = null, Int32? _EleveId = null, String _ReferenceTransaction = null, String _ReferenceExterne = null, Int32? _StatutId = null, String _TrackingNumber = null)
         {
 
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
@@ -25,11 +25,12 @@ namespace WS.BLL
                                    dtMin: (String.IsNullOrEmpty(_DtMin) ? null : _DtMin.Replace("/", "-")),
                                    dtMax: (String.IsNullOrEmpty(_DtMax) ? null : _DtMax.Replace("/", "-")),
                                    produitId: (_ProduitId == null ? -1 : _ProduitId),
-                                   produitReference: (String.IsNullOrEmpty(_ProduitReference) ? null : _ProduitReference),
+                                   produitReference: (String.IsNullOrEmpty(_ProduitReference) ? null : _ProduitReference.Trim()),
                                    eleveId: (_EleveId == null ? -1 : _EleveId),
-                                   referenceTransaction: (String.IsNullOrEmpty(_ReferenceTransaction) ? null : _ReferenceTransaction),
-                                   referenceExterne: (String.IsNullOrEmpty(_ReferenceExterne) ? null : _ReferenceExterne),
-                                   statutId: (_StatutId == null ? -1 : _StatutId)
+                                   referenceTransaction: (String.IsNullOrEmpty(_ReferenceTransaction) ? null : _ReferenceTransaction.Trim()),
+                                   referenceExterne: (String.IsNullOrEmpty(_ReferenceExterne) ? null : _ReferenceExterne.Trim()),
+                                   statutId: (_StatutId == null ? -1 : _StatutId),
+                                   trackingNumber: (String.IsNullOrEmpty(_TrackingNumber) ? null : _TrackingNumber.Trim())
                               ).ToList();
 
             List<Commande> _Commandes = new List<Commande>();
@@ -45,8 +46,9 @@ namespace WS.BLL
                     _NewCommande.DtValidation = _Current.DtValidation;
 
                     _NewCommande.Prix = _Current.Total;
-                    _NewCommande.ReferenceTransaction = _Current.ReferenceTransaction.Trim();
-                    _NewCommande.ReferenceExterne = _Current.ReferenceExterne.Trim();
+                    _NewCommande.ReferenceTransaction = (String.IsNullOrEmpty(_Current.ReferenceTransaction) ? null : _Current.ReferenceTransaction.Trim());
+                    _NewCommande.ReferenceExterne = (String.IsNullOrEmpty(_Current.ReferenceExterne) ? null : _Current.ReferenceExterne.Trim());
+                    _NewCommande.TrackingNumber = (String.IsNullOrEmpty(_Current.TrackingNumber) ? null : _Current.TrackingNumber.Trim());
 
                     if (_Current.StatutId != null)
                     {
@@ -230,7 +232,7 @@ namespace WS.BLL
             return _DB.DelCommande(_Id, _Real);
         }
 
-        public static Int32 UpdCommande(Int32? _Id = null, Int32? _StatutId = null, String _StatutLibelle = null, String _ReferenceTransaction = null, String _ReferenceExterne = null, Int32? _EleveId = null)
+        public static Int32 UpdCommande(Int32? _Id = null, Int32? _StatutId = null, String _StatutLibelle = null, String _ReferenceTransaction = null, String _ReferenceExterne = null, Int32? _EleveId = null, String _TrackingNumber = null)
         {
             DBModelsParameters _DB = new WS.Models.DBModelsParameters();
 
@@ -244,7 +246,11 @@ namespace WS.BLL
             _EmailModification += "<body>";
             _EmailModification += "<img src=\"http://www.cavalier-roi.fr/Content/Images/LogoMail.jpg\" />";
             _EmailModification += "<br /><hr /><br />";
-            _EmailModification += "Votre commande #" + _Id.ToString() + " vient de passer au statut suivant : " + _StatutLibelle;
+            _EmailModification += "Votre commande #" + _Id.ToString() + " vient de passer au statut : " + _StatutLibelle;
+            if ((_StatutId == 6) && (!String.IsNullOrEmpty(_TrackingNumber))) {
+                _EmailModification += "<br /><br />";
+                _EmailModification += "Le numéro de suivi du colis est : " + _TrackingNumber;
+            }
             _EmailModification += "<br /><br />";
             _EmailModification += "Vous pouvez retrouver toutes vos commandes dans la partie \"Mon Compte\" du site de l'École du Cavalier Roi : <a href=\"" + WS.Constants.SITE_URL + "/MonCompte\" target=\"_blank\">" + WS.Constants.SITE_URL + "/MonCompte</a>.";
             _EmailModification += "<br /><br />";
@@ -260,8 +266,9 @@ namespace WS.BLL
             return _DB.UpdCommande(
                                     id: (_Id == null ? -1 : _Id),
                                     statutId: (_StatutId == null ? -1 : _StatutId),
-                                    referenceTransaction: (String.IsNullOrEmpty(_ReferenceTransaction) ? null : _ReferenceTransaction),
-                                    referenceExterne: (String.IsNullOrEmpty(_ReferenceExterne) ? null : _ReferenceExterne)
+                                    referenceTransaction: (String.IsNullOrEmpty(_ReferenceTransaction) ? null : _ReferenceTransaction.Trim()),
+                                    referenceExterne: (String.IsNullOrEmpty(_ReferenceExterne) ? null : _ReferenceExterne.Trim()),
+                                    trackingNumber: (String.IsNullOrEmpty(_TrackingNumber) ? null : _TrackingNumber.Trim())
                                 );
         }
 

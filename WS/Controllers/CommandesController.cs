@@ -27,7 +27,8 @@ namespace WS.Controllers
                                                         _EleveId: _Parameters.EleveId,
                                                         _ReferenceTransaction: _Parameters.ReferenceTransaction,
                                                         _ReferenceExterne: _Parameters.ReferenceExterne,
-                                                        _StatutId: _Parameters.StatutId
+                                                        _StatutId: _Parameters.StatutId,
+                                                        _TrackingNumber: _Parameters.TrackingNumber
                                             ));
 
         }
@@ -76,7 +77,8 @@ namespace WS.Controllers
                                                     _StatutLibelle: _Parameters.StatutLibelle,
                                                     _ReferenceTransaction: _Parameters.ReferenceTransaction,
                                                     _ReferenceExterne: _Parameters.ReferenceExterne,
-                                                    _EleveId: _Parameters.EleveId
+                                                    _EleveId: _Parameters.EleveId,
+                                                    _TrackingNumber: _Parameters.TrackingNumber
                                                 ));
         }
 

@@ -7,6 +7,7 @@ var CommandeUpdateParameters = /** @class */ (function () {
         this.StatutLibelle = null;
         this.ReferenceTransaction = null;
         this.ReferenceExterne = null;
+        this.TrackingNumber = null;
     }
     return CommandeUpdateParameters;
 }());

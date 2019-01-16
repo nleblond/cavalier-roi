@@ -105,7 +105,7 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Statuts>("GetStatuts", mergeOption);
         }
     
-        public virtual ObjectResult<CommandeResult> GetCommandes(Nullable<int> id, string dtMin, string dtMax, Nullable<int> produitId, string produitReference, Nullable<int> eleveId, string referenceTransaction, string referenceExterne, Nullable<int> statutId)
+        public virtual ObjectResult<CommandeResult> GetCommandes(Nullable<int> id, string dtMin, string dtMax, Nullable<int> produitId, string produitReference, Nullable<int> eleveId, string referenceTransaction, string referenceExterne, Nullable<int> statutId, string trackingNumber)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
@@ -143,7 +143,11 @@ namespace WS.Models
                 new ObjectParameter("StatutId", statutId) :
                 new ObjectParameter("StatutId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CommandeResult>("GetCommandes", idParameter, dtMinParameter, dtMaxParameter, produitIdParameter, produitReferenceParameter, eleveIdParameter, referenceTransactionParameter, referenceExterneParameter, statutIdParameter);
+            var trackingNumberParameter = trackingNumber != null ?
+                new ObjectParameter("TrackingNumber", trackingNumber) :
+                new ObjectParameter("TrackingNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CommandeResult>("GetCommandes", idParameter, dtMinParameter, dtMaxParameter, produitIdParameter, produitReferenceParameter, eleveIdParameter, referenceTransactionParameter, referenceExterneParameter, statutIdParameter, trackingNumberParameter);
         }
     
         public virtual int DelCommande(Nullable<int> id, string real)
@@ -159,7 +163,7 @@ namespace WS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelCommande", idParameter, realParameter);
         }
     
-        public virtual int UpdCommande(Nullable<int> id, Nullable<int> statutId, string referenceTransaction, string referenceExterne)
+        public virtual int UpdCommande(Nullable<int> id, Nullable<int> statutId, string referenceTransaction, string referenceExterne, string trackingNumber)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
@@ -177,7 +181,11 @@ namespace WS.Models
                 new ObjectParameter("ReferenceExterne", referenceExterne) :
                 new ObjectParameter("ReferenceExterne", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdCommande", idParameter, statutIdParameter, referenceTransactionParameter, referenceExterneParameter);
+            var trackingNumberParameter = trackingNumber != null ?
+                new ObjectParameter("TrackingNumber", trackingNumber) :
+                new ObjectParameter("TrackingNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdCommande", idParameter, statutIdParameter, referenceTransactionParameter, referenceExterneParameter, trackingNumberParameter);
         }
     
         public virtual ObjectResult<Categories> GetCategories()

@@ -42,6 +42,7 @@
           <Property Name="DeletedYN" Type="char" MaxLength="1" />
           <Property Name="ReferenceTransaction" Type="nvarchar" MaxLength="50" />
           <Property Name="ReferenceExterne" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrackingNumber" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Contenus">
           <Key>
@@ -616,6 +617,7 @@
           <Parameter Name="ReferenceTransaction" Type="varchar" Mode="In" />
           <Parameter Name="ReferenceExterne" Type="varchar" Mode="In" />
           <Parameter Name="StatutId" Type="int" Mode="In" />
+          <Parameter Name="TrackingNumber" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetContenus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
@@ -704,8 +706,9 @@
         <Function Name="UpdCommande" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
           <Parameter Name="StatutId" Type="int" Mode="In" />
-          <Parameter Name="ReferenceTransaction" Type="varchar" Mode="In" />
-          <Parameter Name="ReferenceExterne" Type="varchar" Mode="In" />
+          <Parameter Name="ReferenceTransaction" Type="nvarchar" Mode="In" />
+          <Parameter Name="ReferenceExterne" Type="nvarchar" Mode="In" />
+          <Parameter Name="TrackingNumber" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="UpdContenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
@@ -1092,6 +1095,7 @@
             <Parameter Name="ReferenceTransaction" Mode="In" Type="String" />
             <Parameter Name="ReferenceExterne" Mode="In" Type="String" />
             <Parameter Name="StatutId" Mode="In" Type="Int32" />
+            <Parameter Name="TrackingNumber" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DelCommande">
             <Parameter Name="Id" Mode="In" Type="Int32" />
@@ -1102,6 +1106,7 @@
             <Parameter Name="StatutId" Mode="In" Type="Int32" />
             <Parameter Name="ReferenceTransaction" Mode="In" Type="String" />
             <Parameter Name="ReferenceExterne" Mode="In" Type="String" />
+            <Parameter Name="TrackingNumber" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetCategories" EntitySet="Categories" ReturnType="Collection(DBModelsContext.Categories)" />
           <FunctionImport Name="GetProduits" ReturnType="Collection(DBModelsContext.ProduitResult)">
@@ -1554,6 +1559,7 @@
           <Property Type="String" Name="Destinataire" Nullable="true" />
           <Property Type="String" Name="DtModification" Nullable="true" />
           <Property Type="String" Name="DtValidation" Nullable="true" />
+          <Property Type="String" Name="TrackingNumber" Nullable="false" />
         </ComplexType>
         <ComplexType Name="ProduitResult" >
           <Property Type="Int32" Name="Id" Nullable="true" />
@@ -1903,6 +1909,7 @@
           <NavigationProperty Name="Frai" Relationship="DBModelsContext.FK_Commandes_Frais" FromRole="Commandes" ToRole="Frais" />
           <NavigationProperty Name="Statut" Relationship="DBModelsContext.FK_Commandes_Statuts" FromRole="Commandes" ToRole="Statuts" />
           <NavigationProperty Name="Lignes" Relationship="DBModelsContext.FK_Lignes_Commandes" FromRole="Commandes" ToRole="Lignes" />
+          <Property Name="TrackingNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Commandes_Adresses">
           <End Type="DBModelsContext.Adresses" Role="Adresses" Multiplicity="0..1" />
@@ -2465,6 +2472,7 @@
           <EntitySetMapping Name="Commandes">
             <EntityTypeMapping TypeName="DBModelsContext.Commandes">
               <MappingFragment StoreEntitySet="Commandes">
+                <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
                 <ScalarProperty Name="ReferenceExterne" ColumnName="ReferenceExterne" />
                 <ScalarProperty Name="ReferenceTransaction" ColumnName="ReferenceTransaction" />
                 <ScalarProperty Name="DeletedYN" ColumnName="DeletedYN" />

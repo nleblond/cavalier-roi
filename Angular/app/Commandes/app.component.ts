@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
             if (_UrlParams[i].indexOf('_EleveId=') > -1) { this._EleveId = parseInt(_UrlParams[i].replace('_EleveId=', '')); }
             if (_UrlParams[i].indexOf('_StatutId=') > -1) { this._StatutId = parseInt(_UrlParams[i].replace('_StatutId=', '')); }
         }
-        if ((this._Id != null) || (this._ProduitId != null) || (this._EleveId != null)) { this.GetCommandes(this._Id, null, null, this._ProduitId, this._EleveId, null, null, this._StatutId); }
+        if ((this._Id != null) || (this._ProduitId != null) || (this._EleveId != null)) { this.GetCommandes(this._Id, null, null, this._ProduitId, this._EleveId, null, null, this._StatutId, null); }
 
         //récupération des statuts
         var _HeaderOptions = new Headers({ 'APIKey': this._APIKey });
@@ -80,13 +80,17 @@ export class AppComponent implements OnInit {
     public ChangeReferenceExterne(_Event: any, _Index: number) {
         this._Commandes[_Index].ReferenceExterne = _Event.target.value;
     }
+
+    public ChangeTrackingNumber(_Event: any, _Index: number) {
+        this._Commandes[_Index].TrackingNumber = _Event.target.value;
+    }
     //----------------------------------------------
 
 
     public _NoResult: boolean;
     public _CommandesSearchParameters: CommandesSearchParameters;
     public _Commandes: Commande[];
-    public GetCommandes(_Id: number, _DtMin: string, _DtMax: string, _ProduitId: number, _EleveId: number, _ReferenceTransaction: string, _ReferenceExterne: string, _StatutId: number) {
+    public GetCommandes(_Id: number, _DtMin: string, _DtMax: string, _ProduitId: number, _EleveId: number, _ReferenceTransaction: string, _ReferenceExterne: string, _StatutId: number, _TrackingNumber: string) {
 
         this._CommandesSearchParameters = new CommandesSearchParameters();
         this._CommandesSearchParameters.Id = _Id;
@@ -97,6 +101,7 @@ export class AppComponent implements OnInit {
         this._CommandesSearchParameters.ReferenceTransaction = _ReferenceTransaction;
         this._CommandesSearchParameters.ReferenceExterne = _ReferenceExterne;
         this._CommandesSearchParameters.StatutId = _StatutId;
+        this._CommandesSearchParameters.TrackingNumber = _TrackingNumber;
 
         var _Body = JSON.stringify(this._CommandesSearchParameters);
         var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
@@ -129,6 +134,7 @@ export class AppComponent implements OnInit {
             this._CommandeUpdateParameters.ReferenceTransaction = this._Commandes[_Index].ReferenceTransaction;
             this._CommandeUpdateParameters.ReferenceExterne = this._Commandes[_Index].ReferenceExterne;
             this._CommandeUpdateParameters.EleveId = this._Commandes[_Index].Eleve.Id;
+            this._CommandeUpdateParameters.TrackingNumber = this._Commandes[_Index].TrackingNumber;
 
             var _Body = JSON.stringify(this._CommandeUpdateParameters);
             var _HeaderOptions = new Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });

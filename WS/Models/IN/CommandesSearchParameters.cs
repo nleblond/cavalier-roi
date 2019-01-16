@@ -17,6 +17,7 @@ namespace WS.Models.IN
         public String ReferenceTransaction { set; get; }
         public String ReferenceExterne { set; get; }
         public Int32? StatutId { set; get; }
+        public String TrackingNumber { set; get; }
 
     }
 

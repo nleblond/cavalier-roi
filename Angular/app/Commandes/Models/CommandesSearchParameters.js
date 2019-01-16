@@ -11,6 +11,7 @@ var CommandesSearchParameters = /** @class */ (function () {
         this.ReferenceTransaction = null;
         this.ReferenceExterne = null;
         this.StatutId = null;
+        this.TrackingNumber = null;
     }
     return CommandesSearchParameters;
 }());

@@ -21,6 +21,8 @@ namespace WS.Models.IN
 
         public Int32? EleveId { set; get; }
 
+        public String TrackingNumber { set; get; }
+
     }
 
 }

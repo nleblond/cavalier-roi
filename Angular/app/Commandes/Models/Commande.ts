@@ -16,6 +16,7 @@ export class Commande {
 
         this.ReferenceTransaction = null;
         this.ReferenceExterne = null;
+        this.TrackingNumber = null;
 
         this.Prix = null;
 
@@ -45,5 +46,7 @@ export class Commande {
     public Frai: Frai | null;
     
     public Lignes: Ligne[] | null;
+
+    public TrackingNumber: string | null;
 
 }

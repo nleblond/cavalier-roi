@@ -22,7 +22,9 @@
         </select>
         <input type="hidden" [value]="_StatutId" #StatutId />
         <div class="br10"></div>
-        <input type="button" title="Rechercher" value="Rechercher" class="rechercher" (click)="GetCommandes(Id.value, DtMin.value, DtMax.value, ProduitId.value, EleveId.value, ReferenceTransaction.value, ReferenceExterne.value, StatutId.value)" />
+        <input type="text" placeholder="Numéro de suivi" title="Numéro de suivi" maxlength="255" #TrackingNumber />
+        <div class="br10"></div>
+        <input type="button" title="Rechercher" value="Rechercher" class="rechercher" (click)="GetCommandes(Id.value, DtMin.value, DtMax.value, ProduitId.value, EleveId.value, ReferenceTransaction.value, ReferenceExterne.value, StatutId.value, TrackingNumber.value)" />
     </div>
 </div>
 
@@ -48,8 +50,11 @@
                 <td>{{c.Id}}</td>
                 <td>{{c.DtCreation}}</td>
                 <td>
-                    <div><input type="text" [value]="c.ReferenceTransaction" placeholder="Référence de transaction (PAYPAL : PaymentId)" title="Référence de transaction (Paypal)" (change)="ChangeReferenceTransaction($event, i)" #ReferenceTransaction /></div>
-                    <div><input type="text" [value]="c.ReferenceExterne" placeholder="Référence externe" title="Référence externe" (change)="ChangeReferenceExterne($event, i)" #ReferenceExterne /></div>
+                    <div><input type="text" [value]="c.ReferenceTransaction" maxlength="50" placeholder="Référence de transaction (PAYPAL : PaymentId)" title="Référence de transaction (PAYPAL : PaymentId)" (change)="ChangeReferenceTransaction($event, i)" /></div>
+                    <div><input type="text" [value]="c.ReferenceExterne" maxlength="50" placeholder="Référence externe" title="Référence externe" (change)="ChangeReferenceExterne($event, i)" /></div>
+                    <div *ngIf="c.Statut != null && c.Statut.Id != null && c.Statut.Id == 6">
+                        <input type="text" [value]="c.TrackingNumber" maxlength="255" placeholder="Numéro de suivi" title="Numéro de suivi" (change)="ChangeTrackingNumber($event, i)" />
+                    </div>
                 </td>
                 <td><a href="/Eleve?_Id={{c.Eleve.Id}}" title="Voir l'élève">[{{c.Eleve.Id}}] {{c.Eleve.Nom}} {{c.Eleve.Prenom}}</a></td>
                 <td>

@@ -18,6 +18,7 @@
 
         this.StatutId = null;
 
+        this.TrackingNumber = null;
     }
 
     public Id: number | null;
@@ -35,5 +36,6 @@
 
     public StatutId: number | null;
 
+    public TrackingNumber: string | null;
 
 }

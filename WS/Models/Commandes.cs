@@ -32,6 +32,7 @@ namespace WS.Models
         public string DeletedYN { get; set; }
         public string ReferenceTransaction { get; set; }
         public string ReferenceExterne { get; set; }
+        public string TrackingNumber { get; set; }
     
         public virtual Adresses Adresse { get; set; }
         public virtual Eleves Eleve { get; set; }

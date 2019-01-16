@@ -11,6 +11,8 @@
         this.ReferenceTransaction = null;
         this.ReferenceExterne = null;
 
+        this.TrackingNumber = null;
+
     }
 
 
@@ -23,5 +25,8 @@
     public ReferenceExterne: string | null;
 
     public EleveId: number | null;
+
+    public TrackingNumber: string | null;
+
 
 }

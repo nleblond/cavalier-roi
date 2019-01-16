@@ -43,5 +43,6 @@ namespace WS.Models
         public string Destinataire { get; set; }
         public string DtModification { get; set; }
         public string DtValidation { get; set; }
+        public string TrackingNumber { get; set; }
     }
 }

@@ -46,7 +46,7 @@ var AppComponent = /** @class */ (function () {
             }
         }
         if ((this._Id != null) || (this._ProduitId != null) || (this._EleveId != null)) {
-            this.GetCommandes(this._Id, null, null, this._ProduitId, this._EleveId, null, null, this._StatutId);
+            this.GetCommandes(this._Id, null, null, this._ProduitId, this._EleveId, null, null, this._StatutId, null);
         }
         //r�cup�ration des statuts
         var _HeaderOptions = new http_1.Headers({ 'APIKey': this._APIKey });
@@ -78,7 +78,10 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.ChangeReferenceExterne = function (_Event, _Index) {
         this._Commandes[_Index].ReferenceExterne = _Event.target.value;
     };
-    AppComponent.prototype.GetCommandes = function (_Id, _DtMin, _DtMax, _ProduitId, _EleveId, _ReferenceTransaction, _ReferenceExterne, _StatutId) {
+    AppComponent.prototype.ChangeTrackingNumber = function (_Event, _Index) {
+        this._Commandes[_Index].TrackingNumber = _Event.target.value;
+    };
+    AppComponent.prototype.GetCommandes = function (_Id, _DtMin, _DtMax, _ProduitId, _EleveId, _ReferenceTransaction, _ReferenceExterne, _StatutId, _TrackingNumber) {
         var _this = this;
         this._CommandesSearchParameters = new CommandesSearchParameters_1.CommandesSearchParameters();
         this._CommandesSearchParameters.Id = _Id;
@@ -89,6 +92,7 @@ var AppComponent = /** @class */ (function () {
         this._CommandesSearchParameters.ReferenceTransaction = _ReferenceTransaction;
         this._CommandesSearchParameters.ReferenceExterne = _ReferenceExterne;
         this._CommandesSearchParameters.StatutId = _StatutId;
+        this._CommandesSearchParameters.TrackingNumber = _TrackingNumber;
         var _Body = JSON.stringify(this._CommandesSearchParameters);
         var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
         var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
@@ -118,6 +122,7 @@ var AppComponent = /** @class */ (function () {
             this._CommandeUpdateParameters.ReferenceTransaction = this._Commandes[_Index].ReferenceTransaction;
             this._CommandeUpdateParameters.ReferenceExterne = this._Commandes[_Index].ReferenceExterne;
             this._CommandeUpdateParameters.EleveId = this._Commandes[_Index].Eleve.Id;
+            this._CommandeUpdateParameters.TrackingNumber = this._Commandes[_Index].TrackingNumber;
             var _Body = JSON.stringify(this._CommandeUpdateParameters);
             var _HeaderOptions = new http_1.Headers({ 'Content-Type': 'application/json', 'APIKey': this._APIKey });
             var _RequestOptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post, headers: _HeaderOptions });
