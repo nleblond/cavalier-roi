@@ -383,9 +383,9 @@ h2 { font-family: "God Of War"; font-size: 1.0rem; color: #FECC16!important; tex
 /* page mon compte */
 /********************************************************************************************/
 .contenu div.moncompte { width: 1000px; margin: 0rem 1.0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
-.contenu div.moncompte .rouge select { border: dashed 1pt red; color: red; }
-.contenu div.moncompte .rouge textarea { border: dashed 1pt red; color: red; }
-.contenu div.moncompte .rouge input { border: dashed 1pt red; color: red; }
+.contenu div.moncompte .rouge select { border: dashed 1pt #FF0000; color: #FF0000; }
+.contenu div.moncompte .rouge textarea { border: dashed 1pt #FF0000; color: #FF0000; }
+.contenu div.moncompte .rouge input { border: dashed 1pt #FF0000; color: #FF0000; }
 
 .contenu div.moncompte .infos { float:left; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1rem 0rem; border-top: solid 1px #FECC16; width: 100%; }
 .contenu div.moncompte .infos .photo { float: right; width: 100px; height: auto; margin: 1.0rem 0rem 0rem 0rem; padding: 0rem 0rem 0rem 0rem; }
@@ -398,14 +398,16 @@ h2 { font-family: "God Of War"; font-size: 1.0rem; color: #FECC16!important; tex
 
 .contenu div.moncompte .commandes { float:left; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1rem 0rem; width: 100%; }
 .contenu div.moncompte .commandes table { padding: 0rem 0rem 0rem 0rem; margin: 0.5rem 0rem 0rem 0rem; width: 100%; }
-.contenu div.moncompte .commandes table tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; vertical-align: top; }
+.contenu div.moncompte .commandes table tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; vertical-align: middle; }
 .contenu div.moncompte .commandes table th { padding: 0rem 0rem 0.2rem 1.0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; color: #FECC16; border-bottom: solid 1pt #FECC16; }
-.contenu div.moncompte .commandes table th.first { padding: 0rem 0rem 0.2rem 0rem; }
-.contenu div.moncompte .commandes table td { padding: 0.2rem 0rem 0rem 1.0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; }
-.contenu div.moncompte .commandes table td.first { padding: 0.2rem 0rem 0rem 0rem; }
+.contenu div.moncompte .commandes table th:nth-child(1) { padding: 0rem 0rem 0.2rem 0rem; }
+.contenu div.moncompte .commandes table td { padding: 0.2rem 0rem 0.2rem 1.0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; border-bottom:solid 1px #FECC16; }
+.contenu div.moncompte .commandes table td:nth-child(1) { padding: 0.2rem 0rem 0rem 0rem; }
+.contenu div.moncompte .commandes table td:nth-child(3) { white-space:nowrap; }
+.contenu div.moncompte .commandes table td:nth-child(4) { cursor:help; }
 
 .contenu div.moncompte .cours { float: left; padding: 0rem 0rem 0rem 0rem; margin: 0rem 2% 1rem 0rem; width: 49%; }
-.contenu div.moncompte .cours .crediter, .contenu div.moncompte .cours .reserver, .contenu div.moncompte .cours .supprimer { cursor:pointer; }
+.contenu div.moncompte .cours .valider, .contenu div.moncompte .cours .reserver, .contenu div.moncompte .cours .supprimer { cursor:pointer; }
 .contenu div.moncompte .cours table.formules { padding: 0rem 0rem 0rem 0rem; margin: 0.5rem 0rem 0rem 0rem; width: 100%; }
 .contenu div.moncompte .cours table.formules tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
 .contenu div.moncompte .cours table.formules th { padding: 0.2rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; color: #FECC16; text-align: left; vertical-align: middle; border-bottom: solid 1pt #FECC16; }
@@ -416,14 +418,14 @@ h2 { font-family: "God Of War"; font-size: 1.0rem; color: #FECC16!important; tex
 .contenu div.moncompte .cours table.formules td .quantite { width :30px; }
 
 .contenu div.moncompte .cours table.formules td table.dates { padding: 1.0rem 0rem 0.8rem 0rem; margin: 0.2rem 1.0rem 1.0rem 3rem; border: solid 1pt #FECC16;  }
-.contenu div.moncompte .cours table.formules td table.dates tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; white-space: nowrap; }
+.contenu div.moncompte .cours table.formules td table.dates tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; cursor:help; }
 .contenu div.moncompte .cours table.formules td table.dates th { padding: 0rem 0rem 0.5rem 1.0rem; margin: 0rem 0rem 0rem 0rem; color: #FECC16; text-align: left; vertical-align: middle; border-bottom: inherit; }
 .contenu div.moncompte .cours table.formules td table.dates th.last { padding: 1.0rem 1.0rem 0.5rem 1.0rem; }
 .contenu div.moncompte .cours table.formules td table.dates td { padding: 0rem 0rem 0.2rem 1.0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; vertical-align: middle; }
 .contenu div.moncompte .cours table.formules td table.dates td.last { padding: 0rem 1.0rem 0rem 1.0rem; }
 
 .contenu div.moncompte .stages { float: left; padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 1rem 0rem; width: 49%; }
-.contenu div.moncompte .stages .crediter, .contenu div.moncompte .stages .supprimer { cursor:pointer; }
+.contenu div.moncompte .stages .supprimer { cursor:pointer; }
 .contenu div.moncompte .stages table.formules { padding: 0rem 0rem 0rem 0rem; margin: 0.5rem 0rem 0rem 0rem; width: 100%; }
 .contenu div.moncompte .stages table.formules tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
 .contenu div.moncompte .stages table.formules th { padding: 0.2rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; color: #FECC16; text-align: left; vertical-align: middle; border-bottom: solid 1pt #FECC16; }
@@ -433,7 +435,7 @@ h2 { font-family: "God Of War"; font-size: 1.0rem; color: #FECC16!important; tex
 .contenu div.moncompte .stages table.formules td.actions { width: 130px; text-align: right; }
 .contenu div.moncompte .stages table.formules td.actions input[type="text"] { width: 30px; }
 .contenu div.moncompte .stages table.formules td table.dates { padding: 1.0rem 0rem 0.8rem 0rem; margin: 0.2rem 1.0rem 1.0rem 3rem; border: solid 1pt #FECC16; }
-.contenu div.moncompte .stages table.formules td table.dates tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; }
+.contenu div.moncompte .stages table.formules td table.dates tr { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 0rem 0rem; width: 100%; cursor:help; }
 .contenu div.moncompte .stages table.formules td table.dates th { padding: 0rem 0rem 0.5rem 1.0rem; margin: 0rem 0rem 0rem 0rem; color: #FECC16; text-align: left; vertical-align: middle; border-bottom: inherit; white-space: nowrap; }
 .contenu div.moncompte .stages table.formules td table.dates th.last { padding: 1.0rem 1.0rem 0.5rem 1.0rem; }
 .contenu div.moncompte .stages table.formules td table.dates td { padding: 0rem 0rem 0.2rem 1.0rem; margin: 0rem 0rem 0rem 0rem; text-align: left; vertical-align: middle; }
@@ -615,20 +617,7 @@ div.modal_calendrier ul li ul { padding: 0rem 0rem 0rem 0rem; margin: 0rem 0rem 
     
     /* colonne de droite du layout */
     /********************************************************************************************/
-    .colonne { float: right; z-index: 500; margin: -140px 0rem 0rem 0rem; padding: 0rem 1.0rem 0rem 0rem; }
-    .colonne a { text-decoration: none; color: #FECC16; cursor: pointer; }
-    .colonne a:hover { text-decoration: underline; color: #FECC16; }
-
-
-    /* logo de la colonne de droite */
-    /********************************************************************************************/
-    .logo_site { display: none; }
-
-    /* partenariats */
-    /********************************************************************************************/
-    .partenariat_promo, .partenariat_promo img { display: none; }
-    .partenariat_encart, .partenariat_encart img { display: none; }
-    .partenariat_bandeau, .partenariat_bandeau img { display: none; }
+    .colonne { display:none; }
 
 
     .contenu { width: 100%; padding: 0rem 1.0rem 0rem 1.0rem; margin: 0rem 0rem 0rem 0rem; }

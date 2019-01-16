@@ -386,6 +386,8 @@ function ValidateParticipationAndReservationsParHeure() {
             $('#Div_CalendrierParHeure .confirmation').show();
             $('#Div_CalendrierParHeure .confirmation .confirmation4').show();
 
+            $('#Div_CalendrierParHeure .fermer').hide();
+
             setTimeout(function () {
                 document.location.href = document.location.href;
             }, 2000);

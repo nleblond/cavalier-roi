@@ -27,16 +27,16 @@ $(window).on('load', function () {
 
         var _Formule = $(this);
 
-        //créditer
-        _Formule.find('.actions span.crediter').on('click', function () {
+        //valider la quantité disponible (mise à jour d'une inscription/participation)
+        _Formule.find('.actions span.valider').on('click', function () {
             var _ParticipationId = _Formule.find('.actions input[type="hidden"]').val();
-            var _ParticipationQuantiteObject = _Formule.find('.quantite');
+            var _ParticipationQuantiteObjectToUpdate = _Formule.find('.quantite');
             var _ParticipationReserverObject = _Formule.find('input[type="button"].reserver');
-            UpdParticipation(_ParticipationId, _ParticipationQuantiteObject, _ParticipationReserverObject);
+            UpdParticipation(_ParticipationId, _ParticipationQuantiteObjectToUpdate, _ParticipationReserverObject);
             return false;
         });
 
-        //supprimer
+        //supprimer une inscription/participation
         _Formule.find('.actions span.supprimer').on('click', function () {
             var _ParticipationId = $(this).parent().find('input[type=hidden]').val();
             var _ParticipationObjectToDelete = _Formule;
@@ -70,7 +70,8 @@ $(window).on('load', function () {
             var _ReservationId = $(this).parent().find('input[type=hidden]').val();
             var _ReservationObjectToDelete = $(this).parents('.reservation');
             var _ParticipationQuantiteObjectToUpdate = $(this).parents('.formule').find('.quantite');
-            DelReservation(_ReservationId, _ReservationObjectToDelete, _ParticipationQuantiteObjectToUpdate);
+            var _ParticipationReserverObject = $(this).parents('.formule').find('input[type="button"].reserver');
+            DelReservation(_ReservationId, _ReservationObjectToDelete, _ParticipationQuantiteObjectToUpdate, _ParticipationReserverObject);
             return false;
         });
 
@@ -198,56 +199,57 @@ function UpdEleve() {
 
 
 
-function UpdParticipation(_Id, _QuantiteObject, _ReserverObject) {
+function UpdParticipation(_Id, _ParticipationQuantiteObjectToUpdate, _ParticipationReserverObject) {
 
     var _AlertMessage;
     var _Valid = true;
-    var _Quantite = _QuantiteObject.val();
 
-    if ((_Quantite == '') || (!isInteger(_Quantite))) {
+    if ((_ParticipationQuantiteObjectToUpdate.val() == '') || (!isInteger(_ParticipationQuantiteObjectToUpdate.val()))) {
         _AlertMessage = 'Merci de saisir une quantité disponible valide !';
         _Valid = false;
     }
     if (_Valid) {
 
-        var _Params = {};
-        _Params.Id = _Id;
-        _Params.Quantite = _Quantite;
+        if (confirm('Voulez-vous vraiment modifier la quantité disponible ?')) {
+            var _Params = {};
+            _Params.Id = _Id;
+            _Params.Quantite = _ParticipationQuantiteObjectToUpdate.val();
 
-        $.ajax({
-            type: 'POST',
-            url: _WsUrl + 'Eleves/UpdParticipation',
-            headers: { 'APIKey': _APIKey, 'Content-Type': 'application/json' },
-            dataType: 'json',
-            data: JSON.stringify(_Params),
-            timeout: 100000000,
-            tryCount: 0,
-            retryLimit: 0,
-            beforeSend: function (request) { },
-            success: function (data) {
-                alert('La quantité disponible a bien été modifiée !');
-                _ReserverObject.data('quantite', _Quantite);
-                if (parseInt(_Quantite) > 0) {
-                    _ReserverObject.show();
-                }
-                else {
-                    _ReserverObject.hide();
-                }
-
-            },
-            error: function (xhr, textStatus) {
-                if (textStatus == 'timeout') {
-                    this.tryCount++;
-                    if (this.tryCount <= this.retryLimit) {
-                        $.ajax(this);
+            $.ajax({
+                type: 'POST',
+                url: _WsUrl + 'Eleves/UpdParticipation',
+                headers: { 'APIKey': _APIKey, 'Content-Type': 'application/json' },
+                dataType: 'json',
+                data: JSON.stringify(_Params),
+                timeout: 100000000,
+                tryCount: 0,
+                retryLimit: 0,
+                beforeSend: function (request) { },
+                success: function (data) {
+                    alert('La quantité disponible a bien été modifiée !');
+                    _ParticipationReserverObject.data('quantite', _ParticipationQuantiteObjectToUpdate.val());
+                    if (parseInt(_ParticipationQuantiteObjectToUpdate.val()) > 0) {
+                        _ParticipationReserverObject.show();
                     }
-                }
-                else if (textStatus == 'error') {
-                    alert('Une erreur est survenue : ' + data.textStatus);
-                }
-            },
-            complete: function () { }
-        });
+                    else {
+                        _ParticipationReserverObject.hide();
+                    }
+
+                },
+                error: function (xhr, textStatus) {
+                    if (textStatus == 'timeout') {
+                        this.tryCount++;
+                        if (this.tryCount <= this.retryLimit) {
+                            $.ajax(this);
+                        }
+                    }
+                    else if (textStatus == 'error') {
+                        alert('Une erreur est survenue : ' + data.textStatus);
+                    }
+                },
+                complete: function () { }
+            });
+        }
     }
     else {
         alert(_AlertMessage);
@@ -261,9 +263,9 @@ function UpdParticipation(_Id, _QuantiteObject, _ReserverObject) {
 
 
 
-function DelParticipation(_Id, _ParticipationObject, _ParticipationQuantiteObject) {
+function DelParticipation(_Id, _ReservationObjectToDelete) {
 
-    if (confirm('Voulez-vous vraiment supprimer cette participation ?')) {
+    if (confirm('Voulez-vous vraiment supprimer cette inscription/participation ?')) {
 
         var _Params = {};
         _Params.Id = _Id;
@@ -279,8 +281,8 @@ function DelParticipation(_Id, _ParticipationObject, _ParticipationQuantiteObjec
             retryLimit: 0,
             beforeSend: function (request) { },
             success: function (data) {
-                _ParticipationObject.remove();
-                alert('La participation a bien été supprimée !')
+                _ReservationObjectToDelete.remove();
+                alert('L\'inscription/participation a bien été supprimée !')
             },
             error: function (xhr, textStatus) {
                 if (textStatus == 'timeout') {
@@ -306,7 +308,7 @@ function DelParticipation(_Id, _ParticipationObject, _ParticipationQuantiteObjec
 
 
 
-function DelReservation(_Id, _ReservationObject, _ParticipationQuantiteObject) {
+function DelReservation(_Id, _ReservationObjectToDelete, _ParticipationQuantiteObjectToUpdate, _ParticipationReserverObject) {
 
     if (confirm('Voulez-vous vraiment supprimer cette reservation ?')) {
 
@@ -324,9 +326,19 @@ function DelReservation(_Id, _ReservationObject, _ParticipationQuantiteObject) {
             retryLimit: 0,
             beforeSend: function (request) { },
             success: function (data) {
-                _ReservationObject.remove();
-                _ParticipationQuantiteObject.val(parseInt(_ParticipationQuantiteObject.val()) + 1);
-                alert('La réservation a bien été supprimée !')
+                _ReservationObjectToDelete.remove();
+                if ($('.cours .formule .dates tbody .reservation').length == 0) {
+                    $('.cours .formule .dates tbody').append("<tr class=\"reservation\"><td colspan=\"4\">Aucune réservation</td></tr>");
+                }
+                _ParticipationQuantiteObjectToUpdate.val(parseInt(_ParticipationQuantiteObjectToUpdate.val()) + 1);
+                _ParticipationReserverObject.data('quantite', _ParticipationQuantiteObjectToUpdate.val());
+                if (parseInt(_ParticipationQuantiteObjectToUpdate.val()) > 0) {
+                    _ParticipationReserverObject.show();
+                }
+                else {
+                    _ParticipationReserverObject.hide();
+                }
+                alert('La réservation a bien été supprimée !');
             },
             error: function (xhr, textStatus) {
                 if (textStatus == 'timeout') {

@@ -106,19 +106,20 @@
             <table cellpadding="0" cellspacing="0" border="0" class="texte">
                 <thead>
                     <tr>
-                        <th class="first">N°</th>
-                        <th>Date</th>
-                        <th>Produit</th>
-                        <th style="white-space:nowrap;">Prix</th>
-                        <th class="last">Statut</th>
+                        <th>N°/Date</th>
+                        <th>Produits</th>
+                        <th>Prix</th>
+                        <th>Statut</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (WS.Models.OUT.Commande _CurrentC in Model.Eleve.Commandes)
                     {
                         <tr>
-                            <td class="first">@_CurrentC.Id</td>
-                            <td>@_CurrentC.DtCreation</td>
+                            <td>
+                                <div>#@_CurrentC.Id</div>
+                                <div>@_CurrentC.DtCreation.Replace(":", "H").Left(16)</div>
+                            </td>
                             <td>
                                 @foreach (WS.Models.OUT.Ligne _CurrentL in _CurrentC.Lignes)
                                 {
@@ -130,7 +131,13 @@
                                 }
                             </td>
                             <td title="@_CurrentC.ReferenceTransaction">@Tools.Euro(_CurrentC.Prix)</td>
-                            <td class="last">@_CurrentC.Statut.Libelle</td>
+                            <td>
+                                <div title="@(!String.IsNullOrEmpty(_CurrentC.DtModification) ? _CurrentC.DtModification.Replace(":", "H").Left(16) : _CurrentC.DtValidation.Replace(":", "H").Left(16))">@_CurrentC.Statut.Libelle</div>
+                                @if ((_CurrentC.Statut != null) && (_CurrentC.Statut.Id == 6))
+                                {
+                                    <div title="Numéro de suivi">(@_CurrentC.TrackingNumber)</div>
+                                }
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -161,27 +168,36 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (WS.Models.OUT.Reservation _CurrentR in (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id))
+                                        @if ((Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id).Count > 0)
                                         {
-                                            <tr class="reservation" title="@_CurrentR.PaymentId">
-                                                <td class="first">@_CurrentR.Jour</td>
-                                                <td>@(_CurrentR.Creneau.Replace("Creneau", "").Left(2))H</td>
-                                                <td>@(_CurrentR.Creneau.Replace("Creneau", "").Right(2))H</td>
-                                                <td class="last">
-                                                    @if (Model.Eleve.Administration == true)
-                                                    {
-                                                        <div>
-                                                            <input type="hidden" class="id" value="@_CurrentR.Id" />
-                                                            <span class="rouge supprimer" title="Supprimer">✖</span>
-                                                        </div>
-                                                    }
-                                                </td>
+                                            foreach (WS.Models.OUT.Reservation _CurrentR in (Model.Eleve.Reservations as List<WS.Models.OUT.Reservation>).FindAll(p => p.Evenement.Id == _CurrentP.Evenement.Id))
+                                            {
+                                                <tr class="reservation" title="@_CurrentR.PaymentId">
+                                                    <td class="first">@_CurrentR.Jour</td>
+                                                    <td>@(_CurrentR.Creneau.Replace("Creneau", "").Left(2))H</td>
+                                                    <td>@(_CurrentR.Creneau.Replace("Creneau", "").Right(2))H</td>
+                                                    <td class="last">
+                                                        @if (Model.Eleve.Administration == true)
+                                                        {
+                                                            <div>
+                                                                <input type="hidden" class="id" value="@_CurrentR.Id" />
+                                                                <span class="rouge supprimer" title="Supprimer">✖</span>
+                                                            </div>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr class="reservation">
+                                                <td colspan="4">Aucune réservation</td>
                                             </tr>
                                         }
-                                    </tbody>
+                                </tbody>
                                 </table>
                             </td>
-                            <td class="last actions left">
+                            <td class="last actions">
                                 <div>
                                     @if (Model.Eleve.Administration == true)
                                     {
@@ -192,33 +208,23 @@
                                         <span>@(_CurrentP.Quantite)</span>
                                     }
                                     H
-                                    @*
-                                        @if (_CurrentP.Evenement.Duree != null)
-                                        {
-                                            <span>sur @(_CurrentP.Evenement.Duree)H</span>
-                                        }
-                                    *@
                                     @if (Model.Eleve.Administration == true)
                                     {
                                         <input type="hidden" class="id" value="@_CurrentP.Id" />
-                                        <span class="rouge crediter" title="Créditer">✔</span>
+                                        <span class="rouge valider" title="Valider">✔</span>
+                                        <span class="rouge supprimer" title="Supprimer">✖</span>
                                     }
                                 </div>
                                 <div class="br5"></div>
-                                <input type="button" class="reserver" title="Réserver" value="Réserver" style="display:@(_CurrentP.Quantite != 0 ? "block" : "none");"
-                                       data-evenementid="@_CurrentP.Evenement.Id"
-                                       data-evenementlibelle="@_CurrentP.Evenement.Libelle"
-                                       data-eleveid="@Model.Eleve.Id"
-                                       data-quantite="@_CurrentP.Quantite"
-                                       data-jour="@DateTime.Now.ToString("dd/MM/yyyy")"
-                                       data-prix="" />
-                                @if (Model.Eleve.Administration == true)
-                                {
-                                    <div>
-                                        <input type="hidden" class="id" value="@_CurrentP.Id" />
-                                        <span class="rouge supprimer" title="Supprimer">✖</span>
-                                    </div>
-                                }
+                                <div>
+                                    <input type="button" class="reserver fright" title="Réserver" value="Réserver" style="display:@(_CurrentP.Quantite != 0 ? "block" : "none");"
+                                           data-evenementid="@_CurrentP.Evenement.Id"
+                                           data-evenementlibelle="@_CurrentP.Evenement.Libelle"
+                                           data-eleveid="@Model.Eleve.Id"
+                                           data-quantite="@_CurrentP.Quantite"
+                                           data-jour="@DateTime.Now.ToString("dd/MM/yyyy")"
+                                           data-prix="" />
+                                </div>
                             </td>
                         </tr>
                     }
@@ -331,8 +337,8 @@
 
                         <tr class="formule" title="@_PaymentId">
                             <td class="first">@_CurrentP.Evenement.Libelle</td>
-                            <td>@_CurrentP.Evenement.DtDebut</td>
-                            <td>@_CurrentP.Evenement.DtFin</td>
+                            <td>@_CurrentP.Evenement.DtDebut.Replace(":00:00", "H")</td>
+                            <td>@_CurrentP.Evenement.DtFin.Replace(":00:00", "H")</td>
                             <td class="last actions">
                                 @if (Model.Eleve.Administration == true)
                                 {
